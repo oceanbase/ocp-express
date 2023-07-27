@@ -1,0 +1,15 @@
+node_modules
+.umi
+.umi-production
+locale
+# 通过 OneAPI 自动生成的 service 代码不需要通过 prettier 进行格式化
+src/service/ocp-express
+mock
+.node
+.cloudide
+_package
+dist
+dist-awr
+dist-ash
+public
+.secignore

@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+@import '~@oceanbase/design/es/theme/index.less';
+
+.container {
+  height: 100%;
+
+  .bubble {
+    position: absolute;
+    // 需要设置 z-index，否则 graph 展示 tooltip 时画布容器的 position 会置为 relative，bubble 将会被画布容器覆盖，无法点击
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-top: 24px;
+    margin-left: 24px;
+    font-size: 20px;
+    background: #fff;
+    border-radius: 48px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+
+    .icon {
+      cursor: pointer;
+    }
+  }
+
+  .titleBar {
+    position: absolute;
+    // 需要设置 z-index，否则 graph 展示 tooltip 时画布容器的 position 会置为 relative，bubble 将会被画布容器覆盖，无法点击
+    z-index: 9;
+    height: 54px;
+    margin-top: 17px;
+    margin-left: 24px;
+    padding: 16px 24px;
+    background: #fff;
+    border-radius: 48px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+
+    .title {
+      color: @colorText;
+      font-family: PingFangSC-Medium;
+    }
+    .description {
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
+
+  .toolbar {
+    position: absolute;
+    // top: 72px;
+    // right: 24px;
+    // 需要设置 z-index，否则 graph 展示 tooltip 时画布容器的 position 会置为 relative，tooltip 将会被画布容器覆盖，无法点击
+    z-index: 9;
+  }
+
+  :global {
+    .tech-fullscreen-box-fullscreen {
+      // 全屏时的背景色与 PageContainer 保持一致
+      background-color: #f0f2f5;
+
+      .tech-fullscreen-box-header-icon {
+        color: rgba(0, 0, 0, 0.85);
+        font-size: 16px;
+      }
+    }
+  }
+}

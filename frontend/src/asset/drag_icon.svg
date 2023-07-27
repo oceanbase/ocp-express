@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="5px" height="10px" viewBox="0 0 5 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="列设置/list" transform="translate(-4.000000, -11.000000)" fill="#D8D8D8">
+            <g id="Group-20" transform="translate(4.000000, 11.000000)">
+                <circle id="Oval-Copy-8" cx="1" cy="9" r="1"></circle>
+                <circle id="Oval-Copy-10" cx="1" cy="5" r="1"></circle>
+                <circle id="Oval-Copy-12" cx="1" cy="1" r="1"></circle>
+                <circle id="Oval-Copy-9" cx="4" cy="9" r="1"></circle>
+                <circle id="Oval-Copy-11" cx="4" cy="5" r="1"></circle>
+                <circle id="Oval-Copy-13" cx="4" cy="1" r="1"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

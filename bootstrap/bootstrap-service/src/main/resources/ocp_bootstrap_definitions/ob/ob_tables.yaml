@@ -1,0 +1,51 @@
+data_source: dataSource
+table_definitions:
+  ob_tenant:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      create_time: { type: datetime, nullable: false, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      creator: { type: varchar(64), nullable: true, comment: creator name }
+      name: { type: varchar(128), nullable: false, comment: tenant name }
+      ob_tenant_id: { type: bigint(20), nullable: false, comment: OB tenant id }
+      mode: { type: varchar(64), nullable: true, default_value: MYSQL, comment: tenant mode, like MYSQL, ORACLE }
+      status: { type: varchar(32), nullable: false, comment: Status of tenant, CREATING/NORMAL/MODIFYING/DELETING }
+      is_locked: { type: tinyint(1), nullable: true, default_value: '0', comment: 'Lock state, 0: unlocked, 1: locked' }
+      is_read_only: { type: tinyint(1), nullable: true, default_value: '0', comment: Whether read-only tenant }
+      primary_zone: { type: varchar(128), nullable: true, comment: zone priority }
+      zone_list: { type: varchar(8192), nullable: false, comment: zone list }
+      locality: { type: varchar(4096), nullable: false, comment: replica locality }
+      description: { type: varchar(1024), nullable: true, comment: tenant description }
+    indexes:
+      uk_ob_tenant_id:
+        fields: [ ob_tenant_id ]
+        unique: true
+        local: false
+      uk_name:
+        fields: [ name ]
+        unique: true
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: OB tenant table
+    default_charset: utf8mb4
+
+  ob_tenant_compaction:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      create_time: { type: datetime, nullable: false, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP', on_update: !const 'CURRENT_TIMESTAMP' }
+      ob_tenant_id: { type: bigint(20), nullable: false, comment: 'OB tenant id' }
+      status: { type: varchar(16), nullable: true, comment: Compaction status， IDLE/ERROR/CHECKSUM }
+      start_time: { type: datetime, nullable: false, comment: Compaction start time }
+      last_finish_time: { type: datetime, nullable: true, comment: Compaction start time, null indicated the compaction is in progress }
+      frozen_scn: { type: bigint(20), nullable: false, comment: Compaction frozen version number }
+    indexes:
+      idx_ob_tenant_compaction_ob_tenant_id_version:
+        fields: [ ob_tenant_id, frozen_scn ]
+        unique: true
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: OB Tenant compaction info
+    default_charset: utf8mb4

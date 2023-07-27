@@ -1,0 +1,40 @@
+{
+  "extends": [
+    "prettier"
+  ],
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "react/jsx-boolean-value": 0,
+    "no-nested-ternary": [
+      0
+    ],
+    "react/no-unused-state": [
+      1
+    ],
+    "react/jsx-no-target-blank": 0,
+    "no-return-assign": "off",
+    "no-param-reassign": "warn",
+    "no-new": "off",
+    "no-template-curly-in-string": "off",
+    "no-use-before-define": "off",
+    "no-unused-expressions": "off",
+    "no-debugger": "error",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-loop-func": [
+      1
+    ],
+    "@typescript-eslint/no-this-alias": [
+      1
+    ],
+    // 检查 Hook 的规则
+    "react-hooks/rules-of-hooks": "error",
+    // 不检查 effect 的依赖，否则 name.join(',') 这样的 dep 会 lint 不通过
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-invalid-this": "off"
+  },
+  "globals": {
+    "__": true
+  }
+}

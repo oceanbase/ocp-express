@@ -1,0 +1,27 @@
+data_source: dataSource
+table_definitions:
+
+  ob_agent:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      ip: { type: varchar(256), nullable: false, comment: Ip address installed OB Agent }
+      ob_server_svr_port: { type: int, nullable: true, comment: The service port of the observer managed by the OB Agent }
+      mgr_port: { type: int, nullable: false, comment: Port of the OB Agent management process}
+      mon_port: { type: int, nullable: false, comment: Port of the OB Agent monitor process}
+      last_available_time: { type: datetime, nullable: true, comment: OB Agent's last available time }
+      create_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP', on_update: !const 'CURRENT_TIMESTAMP' }
+      operation: { type: varchar(16), nullable: false, default_value: EXECUTE, comment: Operation of OB Agent： EXECUTE, RESTARTING }
+    indexes:
+      uk_ob_agent_ip_mgr_port:
+        fields: [ ip, mgr_port]
+        unique: true
+        local: false
+      uk_ob_agent_ip_mon_port:
+        fields: [ ip, mon_port]
+        unique: true
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: Table of OB Agent
+    default_charset: utf8mb4

@@ -1,0 +1,393 @@
+options{
+  STATIC = false;
+  JDK_VERSION = "1.8";
+}
+
+PARSER_BEGIN(OcpPrometheusQlParser)
+
+package com.oceanbase.ocp.monitor.calculate.parser;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.oceanbase.ocp.monitor.calculate.OcpPrometheusAstFunctionEnum;
+import com.oceanbase.ocp.monitor.calculate.OcpPrometheusAstNode;
+import com.oceanbase.ocp.monitor.calculate.OcpPrometheusAstNodeTypeEnum;
+import com.oceanbase.ocp.monitor.param.OcpPrometheusLabel;
+import com.oceanbase.ocp.monitor.calculate.model.OcpPrometheusQueryMeta;
+
+public class OcpPrometheusQlParser{}
+PARSER_END(OcpPrometheusQlParser)
+
+SKIP:  /* skip white space */
+{
+  " "
+  | "\t"
+  | "\n"
+  | "\r"
+}
+
+TOKEN:  /* binary operations */
+{
+    <ADD: "+">
+  | <SUB: "-">
+  | <MUL: "*">
+  | <DIV: "/">
+  // Special plus，used to support monitor expression changed.
+  // fill with zero if some expression having no value.
+  | <ADD_L_FILL_0_IF_ABSENT: "L_FILL_0_ADD">
+  | <ADD_R_FILL_0_IF_ABSENT: "R_FILL_0_ADD">
+  | <ADD_FILL_0_IF_ABSENT: "FILL_0_ADD">
+}
+
+TOKEN:  /* helper symbols */
+{
+    <OP: "(">
+  | <CP: ")">
+  | <OB: "[">
+  | <CB: "]">
+  | <OCB: "{">
+  | <CCB: "}">
+  | <QUOT: "\"">
+  | <SQUOT: "'">
+  | <COMMA: ",">
+  | <BY: "by">
+  | <LABEL_MATCH: (<EQ>|<NEQ>|<EQ_REGEX>|<NEQ_REGEX>)>
+  | <#EQ: "=">
+  | <#NEQ: "!=">
+  | <#EQ_REGEX: "=~">
+  | <#NEQ_REGEX: "!~">
+}
+
+TOKEN:  /* compare symbols */
+{
+    < CMP: (<CMPGT>|<CMPLT>|<CMPNE>|<CMPEQ>|<CMPGE>|<CMPLE>) >
+  | < #CMPGT: ">">
+  | < #CMPLT: "<">
+  | < #CMPNE: "<>">
+  | < #CMPEQ: "==">
+  | < #CMPGE: ">=">
+  | < #CMPLE: "<=">
+}
+TOKEN:  /* buildin functions */
+{
+    < FUNC: (<ABS>|<SUM>|<AVG>|<MIN>|<MAX>|<COUNT>|<RATE>|<DELTA>|<ROUND>) >
+  | < #ABS: "abs">
+  | < #SUM: "sum">
+  | < #AVG: "avg">
+  | < #MIN: "min">
+  | < #MAX: "max">
+  | < #COUNT: "count">
+  | < #RATE: "rate">
+  | < #DELTA: "delta">
+  | < #ROUND: "round">
+}
+
+TOKEN :  /* identifiers and number */
+{
+    < QUOTSTR: (<QUOT><ANYSTR><QUOT>|<SQUOT><ANYSTR><SQUOT>) >
+  | < IDENTIFIER: <LETTER> (<LETTER>|<DIGIT>|<UNDERSCORE>)* >
+  | < NUMBER: <DIGIT> (<POINT><DIGIT>)? >
+  | < #ANYSTR: (~["\"", "\'"])+ >
+  | < #LETTER: [ "a"-"z", "A"-"Z" ] >
+  | < #DIGIT: ([ "0"-"9"])+ >
+  | < #UNDERSCORE: ("_") >
+  | < #POINT: (".") >
+}
+
+
+OcpPrometheusAstNode parse(): {
+  OcpPrometheusAstNode result;
+}
+{
+  result = expr()<EOF>{
+    return result;
+  }
+}
+
+OcpPrometheusAstNode expr(): {
+  Token t;
+  OcpPrometheusAstNode l;
+  OcpPrometheusAstNode r;
+  OcpPrometheusAstNode result;
+}
+{
+  l = l1expr() {
+    result = l;
+  }
+  ( t=<CMP> r = l1expr(){
+  OcpPrometheusAstNode lResult = result;
+  result = new OcpPrometheusAstNode();
+  result.setLeftNode(lResult);
+  result.setRightNode(r);
+  result.setNodeType(OcpPrometheusAstNodeTypeEnum.COMPARE);
+  switch (t.image) {
+      case "<": {
+          result.setNodeFunction(OcpPrometheusAstFunctionEnum.LT);
+          break;
+      }
+      case ">": {
+          result.setNodeFunction(OcpPrometheusAstFunctionEnum.GT);
+          break;
+      }
+      case "<=": {
+          result.setNodeFunction(OcpPrometheusAstFunctionEnum.LE);
+          break;
+      }
+      case ">=": {
+          result.setNodeFunction(OcpPrometheusAstFunctionEnum.GE);
+          break;
+      }
+      case "==": {
+          result.setNodeFunction(OcpPrometheusAstFunctionEnum.EQ);
+          break;
+      }
+      case "<>": {
+          result.setNodeFunction(OcpPrometheusAstFunctionEnum.NE);
+          break;
+      }
+      default: {
+          break;
+      }
+  }
+}
+  )*
+  {
+    return result;
+  }
+}
+
+OcpPrometheusAstNode l1expr(): {
+  OcpPrometheusAstNode l;
+  OcpPrometheusAstNode r;
+  OcpPrometheusAstNode result;
+}
+{
+  l = l2expr() {
+    result = l;
+  }
+  (<ADD> r = l2expr(){
+        OcpPrometheusAstNode addLResult = result;
+        result = new OcpPrometheusAstNode();
+        result.setLeftNode(addLResult);
+        result.setRightNode(r);
+        result.setNodeType(OcpPrometheusAstNodeTypeEnum.MATHOP);
+        result.setNodeFunction(OcpPrometheusAstFunctionEnum.ADD);
+  }
+  | <ADD_L_FILL_0_IF_ABSENT> r = l2expr(){
+        OcpPrometheusAstNode lFillResult = result;
+        result = new OcpPrometheusAstNode();
+        result.setLeftNode(lFillResult);
+        result.setRightNode(r);
+        result.setNodeType(OcpPrometheusAstNodeTypeEnum.MATHOP);
+        result.setNodeFunction(OcpPrometheusAstFunctionEnum.ADD_L_FILL_0_IF_ABSENT);
+  }
+  | <ADD_R_FILL_0_IF_ABSENT> r = l2expr(){
+        OcpPrometheusAstNode rFillResult = result;
+        result = new OcpPrometheusAstNode();
+        result.setLeftNode(rFillResult);
+        result.setRightNode(r);
+        result.setNodeType(OcpPrometheusAstNodeTypeEnum.MATHOP);
+        result.setNodeFunction(OcpPrometheusAstFunctionEnum.ADD_R_FILL_0_IF_ABSENT);
+  }
+  | <ADD_FILL_0_IF_ABSENT> r = l2expr(){
+        OcpPrometheusAstNode fillResult = result;
+        result = new OcpPrometheusAstNode();
+        result.setLeftNode(fillResult);
+        result.setRightNode(r);
+        result.setNodeType(OcpPrometheusAstNodeTypeEnum.MATHOP);
+        result.setNodeFunction(OcpPrometheusAstFunctionEnum.ADD_FILL_0_IF_ABSENT);
+  }
+  | <SUB> r = l2expr(){
+        OcpPrometheusAstNode subLResult = result;
+        result = new OcpPrometheusAstNode();
+        result.setLeftNode(subLResult);
+        result.setRightNode(r);
+        result.setNodeType(OcpPrometheusAstNodeTypeEnum.MATHOP);
+        result.setNodeFunction(OcpPrometheusAstFunctionEnum.SUB);
+  }
+  )*{
+    return result;
+  }
+}
+
+OcpPrometheusAstNode l2expr(): {
+  OcpPrometheusAstNode l;
+  OcpPrometheusAstNode r;
+  OcpPrometheusAstNode result;
+}
+{
+  l = factor() {
+    result = l;
+  }
+  (<MUL> r = factor(){
+    OcpPrometheusAstNode mulLResult = result;
+    result = new OcpPrometheusAstNode();
+    result.setLeftNode(mulLResult);
+    result.setRightNode(r);
+    result.setNodeType(OcpPrometheusAstNodeTypeEnum.MATHOP);
+    result.setNodeFunction(OcpPrometheusAstFunctionEnum.MUL);
+  }
+  | <DIV> r = factor(){
+    OcpPrometheusAstNode divLResult = result;
+    result = new OcpPrometheusAstNode();
+    result.setLeftNode(divLResult);
+    result.setRightNode(r);
+    result.setNodeType(OcpPrometheusAstNodeTypeEnum.MATHOP);
+    result.setNodeFunction(OcpPrometheusAstFunctionEnum.DIV);
+  }
+  )*{
+    return result;
+  }
+}
+
+OcpPrometheusAstNode factor(): {
+  Token t;
+  OcpPrometheusAstNode result;
+}
+{
+  t = <NUMBER>{
+    double value = Double.parseDouble(t.image);
+    result = new OcpPrometheusAstNode();
+    result.setValue(value);
+    result.setNodeType(OcpPrometheusAstNodeTypeEnum.SCALAR);
+    return result;
+  }
+  |
+  result = item() {
+      return result;
+  }
+  | result=funcall(){
+      return result;
+  }
+  | <OP> result=expr() <CP> {
+      return result;
+  }
+}
+
+OcpPrometheusAstNode item(): {
+  Token t;
+  Token d;
+  int interval;
+  List<OcpPrometheusLabel> lvs;
+  OcpPrometheusAstNode result = new OcpPrometheusAstNode();
+  OcpPrometheusQueryMeta tm = new OcpPrometheusQueryMeta();
+}
+{
+  t=<IDENTIFIER>{
+    tm.setMetric(t.image);
+  }(
+    <OCB> lvs=labelvaluelist() <CCB> {
+      tm.setLabels(lvs);
+    }
+   )*(
+       <OB> d = <NUMBER> <CB> {
+         interval = Integer.parseInt(d.image);
+         tm.setInterval(interval);
+       }
+     )*{
+    result.setNodeType(OcpPrometheusAstNodeTypeEnum.ITEM);
+    result.setQueryMeta(tm);
+    return result;
+   }
+}
+
+OcpPrometheusAstNode funcall(): {
+ Token f;
+ OcpPrometheusAstNode l;
+ List<String> list;
+ OcpPrometheusAstNode result = new OcpPrometheusAstNode();
+}
+{
+    f=<FUNC> <OP> l = expr() <CP>{
+        result.setLeftNode(l);
+        result.setNodeType(OcpPrometheusAstNodeTypeEnum.FUNCTION);
+        switch (f.image) {
+            case "abs": {
+                result.setNodeFunction(OcpPrometheusAstFunctionEnum.ABS);
+                break;
+            }
+            case "rate": {
+                result.setNodeFunction(OcpPrometheusAstFunctionEnum.RATE);
+                break;
+            }
+            case "delta": {
+                result.setNodeFunction(OcpPrometheusAstFunctionEnum.DELTA);
+                break;
+            }
+            case "max": {
+                result.setNodeFunction(OcpPrometheusAstFunctionEnum.MAX);
+                break;
+            }
+            case "min": {
+                result.setNodeFunction(OcpPrometheusAstFunctionEnum.MIN);
+                break;
+            }
+            case "sum": {
+                result.setNodeFunction(OcpPrometheusAstFunctionEnum.SUM);
+                break;
+            }
+            case "count": {
+                result.setNodeFunction(OcpPrometheusAstFunctionEnum.COUNT);
+                break;
+            }
+            case "avg": {
+                result.setNodeFunction(OcpPrometheusAstFunctionEnum.AVG);
+                break;
+            }
+            case "round": {
+                result.setNodeFunction(OcpPrometheusAstFunctionEnum.ROUND);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+    (
+    <BY> <OP> list=labellist() <CP> {
+        result.setGbLabels(list);
+        result.setNodeType(OcpPrometheusAstNodeTypeEnum.AGG_FUNCTION);
+    }
+    )*
+    {
+        return result;
+    }
+}
+
+List<String> labellist(): {
+    Token i;
+    List<String> l = new ArrayList<String>();
+}
+{
+    i=<IDENTIFIER> {
+      l.add(i.image);
+    }(
+        <COMMA> i=<IDENTIFIER> {
+          l.add(i.image);
+        }
+    )*
+    {
+      return l;
+    }
+}
+
+List<OcpPrometheusLabel> labelvaluelist(): {
+  Token n;
+  Token k;
+  Token v;
+  List<OcpPrometheusLabel> lvs = new ArrayList<OcpPrometheusLabel>();
+}
+{
+    (
+        n=<IDENTIFIER> k=<LABEL_MATCH> v=<QUOTSTR>{
+          lvs.add(new OcpPrometheusLabel(n.image, k.image, v.image.substring(1, v.image.length() - 1)));
+        }(
+            <COMMA> n=<IDENTIFIER> k=<LABEL_MATCH> v=<QUOTSTR> {
+              lvs.add(new OcpPrometheusLabel(n.image, k.image, v.image.substring(1, v.image.length() - 1)));
+            }
+         )*
+     )*{
+     return lvs;
+    }
+}

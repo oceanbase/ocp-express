@@ -1,0 +1,39 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+package com.oceanbase.ocp.bootstrap.config.env;
+
+import org.yaml.snakeyaml.TypeDescription;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.nodes.Node;
+import org.yaml.snakeyaml.nodes.ScalarNode;
+import org.yaml.snakeyaml.nodes.Tag;
+
+import com.oceanbase.ocp.bootstrap.util.ResourceUtils;
+
+public class ResourceYaml extends TypeDescription {
+
+    private final Yaml yaml = new Yaml();
+
+    public ResourceYaml() {
+        super(ResourceYaml.class, new Tag("!resourceYaml"));
+    }
+
+    @Override
+    public Object newInstance(Node node) {
+        if (node instanceof ScalarNode) {
+            String path = ((ScalarNode) node).getValue();
+            return yaml.load(ResourceUtils.resourceReader(path));
+        }
+        throw new IllegalArgumentException("ResourceFile must be a resource path");
+    }
+}

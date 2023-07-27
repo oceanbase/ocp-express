@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="L1-系统管理&amp;个人设置" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.1.1-任务详情-标注" transform="translate(-681.000000, -385.000000)" fill="#ff4b4b">
+            <g id="Zone-2-Copy" transform="translate(671.000000, 375.000000)">
+                <g id="Group" transform="translate(10.000000, 10.000000)">
+                    <g id="Oval-2" opacity="0.15">
+                        <circle id="Oval" cx="21" cy="21" r="21"></circle>
+                    </g>
+                    <path d="M28.03125,14.4891963 C28.03125,14.3103727 27.8852725,14.1640625 27.7068555,14.1640625 L25.0306012,14.176255 L21,18.992299 L16.9734537,14.1803192 L14.2931445,14.1681267 C14.1147275,14.1681267 13.96875,14.3103727 13.96875,14.4932604 C13.96875,14.5704797 13.9971345,14.6436348 14.0457937,14.7045974 L19.3212587,21.0040642 L14.0457937,27.2994668 C13.9971345,27.3604294 13.96875,27.4335845 13.96875,27.5108037 C13.96875,27.6896273 14.1147275,27.8359375 14.2931445,27.8359375 L16.9734537,27.823745 L21,23.007701 L25.0265463,27.8196808 L27.7028006,27.8318733 C27.8812176,27.8318733 28.0271951,27.6896273 28.0271951,27.5067396 C28.0271951,27.4295203 27.9988106,27.3563652 27.9501514,27.2954026 L22.6827963,21 L27.9582612,14.7005332 C28.0069204,14.6436348 28.03125,14.5664155 28.03125,14.4891963 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

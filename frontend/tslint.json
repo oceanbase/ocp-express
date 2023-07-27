@@ -1,0 +1,25 @@
+{
+  "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+  "rules": {
+    "no-empty": false,
+    "no-unused-variable": true,
+    "no-var-requires": false,
+    "no-submodule-imports": false,
+    "object-literal-sort-keys": false,
+    "jsx-no-lambda": false,
+    "no-implicit-dependencies": false,
+    "ordered-imports": false,
+    "no-empty-interface": false,
+    "interface-name": false
+  },
+  "jsRules": {
+    "no-empty": false,
+    "object-literal-sort-keys": false
+  },
+  "linterOptions": {
+    "exclude": ["src/locale"]
+  },
+  "globals": {
+    "__": true
+  }
+}

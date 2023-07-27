@@ -1,0 +1,119 @@
+{
+  "name": "ocp-express",
+  "version": "1.0.0",
+  "private": true,
+  "repository": "git@gitlab.alipay-inc.com:oceanbase/ocp-express.git",
+  "scripts": {
+    "analyze": "ANALYZE=1 umi dev",
+    "build": "NODE_OPTIONS=--max_old_space_size=4096 umi build",
+    "cov": "umi test --coverage",
+    "dev": "NODE_OPTIONS=--max_old_space_size=8192 UMI_UI=none umi dev",
+    "devs": "NODE_OPTIONS=--max_old_space_size=8192 UMI_UI=none MOCK=none umi dev",
+    "help": "umi help",
+    "lint": "NODE_OPTIONS=--max_old_space_size=4096 umi lint --style --eslint.ext='.ts,.tsx,.jsx,.js'",
+    "lint:fix": "NODE_OPTIONS=--max_old_space_size=4096 umi lint --style --eslint.ext='.ts,.tsx,.jsx,.js' --fix",
+    "locale:unuseful": "babel-node --presets es2015 ./script/unuseful-locale-key.js",
+    "must": "NODE_OPTIONS=--max_old_space_size=4096 umi ob-must --exclude=constant/must-ignore.ts,src/global.ts",
+    "openapi": "tnpm run openapi:service && tnpm run openapi:mock",
+    "openapi:mock": "umi api generate mock",
+    "openapi:service": "umi api generate service",
+    "pack": "umi pack",
+    "prettier": "prettier --write './src/**/*.{js,jsx,ts,tsx}'",
+    "test": "umi test",
+    "version": "umi -v"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "resolutions": {
+    "@antv/g-lite": "^1.0.70",
+    "nodejieba": "2.5.2",
+    "react-color": "2.18.1",
+    "@ant-design/cssinjs": "1.10.1"
+  },
+  "dependencies": {
+    "@ahooksjs/use-url-state": "^3.5.0",
+    "@ant-design/charts": "^1.0.8",
+    "@ant-design/compatible": "^1.0.5",
+    "@ant-design/icons": "^4.2.2",
+    "@ant-design/pro-components": "^2.3.57",
+    "@ant-design/pro-form": "^2.13.10",
+    "@ant-design/pro-table": "^3.7.10",
+    "@antv/dom-util": "^2.0.2",
+    "@antv/g": "latest",
+    "@antv/g-canvas": "latest",
+    "@antv/g-lite": "^1.0.70",
+    "@antv/g-svg": "latest",
+    "@antv/g6": "3.4.10",
+    "@oceanbase/charts": "^0.1.0",
+    "@oceanbase/design": "^0.1.2",
+    "@oceanbase/util": "^0.1.0",
+    "@sentry/react": "^7.14.2",
+    "@sentry/tracing": "^7.14.2",
+    "@umijs/plugin-openapi": "^1.3.3",
+    "@umijs/preset-react": "1.x",
+    "ahooks": "^3.5.2",
+    "antd": "5.2.2",
+    "bignumber.js": "^9.1.0",
+    "classnames": "^2.3.2",
+    "file-saver": "^2.0.5",
+    "js-cookie": "^2.2.1",
+    "jsencrypt": "3.2.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "prism": "^4.1.2",
+    "prism-react-renderer": "^1.2.1",
+    "query-string": "^6.13.5",
+    "react-beautiful-dnd": "^12.1.0",
+    "react-intl": "3.12.1",
+    "react-scripts": "^5.0.1",
+    "react-split-pane": "^0.1.89",
+    "react-sticky-mouse-tooltip": "0.0.1",
+    "scroll-into-view": "^1.15.0",
+    "sql-formatter": "^2.3.3",
+    "umi": "^3.4.22",
+    "umi-request": "^1.4.0",
+    "use-deep-compare-effect": "^1.6.1",
+    "validator": "^13.9.0",
+    "xlsx": "^0.17.0"
+  },
+  "devDependencies": {
+    "@ant-design/moment-webpack-plugin": "^0.0.3",
+    "@types/lodash": "^4.14.195",
+    "@types/react": "17.0.52",
+    "@types/react-dom": "17.0.2",
+    "@types/scroll-into-view": "^1.6.7",
+    "@types/sql-formatter": "^2.3.0",
+    "@types/validator": "^12.0.1",
+    "@umijs/test": "^3.4.22",
+    "axios": "^0.21.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "fs-extra": "^10.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "lint-staged": "^10.0.7",
+    "mini-css-extract-plugin": "^1.0.0",
+    "mockjs": "^1.1.0",
+    "prettier": "^2.2.0",
+    "runscript": "^1.5.1",
+    "script-ext-html-webpack-plugin": "^2.1.5",
+    "style-ext-html-webpack-plugin": "^4.1.3",
+    "typescript": "^4.1.2",
+    "yorkie": "^2.0.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "engines": {
+    "install-node": "v14.19.2"
+  },
+  "ci": {
+    "type": "aci"
+  }
+}

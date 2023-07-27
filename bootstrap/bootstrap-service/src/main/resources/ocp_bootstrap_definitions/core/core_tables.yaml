@@ -1,0 +1,27 @@
+data_source: dataSource
+table_definitions:
+  config_properties:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      key: { type: varchar(256), nullable: false, comment: Key of OCP configuration }
+      default_value: { type: varchar(1024), nullable: true, comment: Default value of OCP configuration, use this column when value not specified }
+      value: { type: varchar(1024), nullable: true, comment: Value of OCP configuration }
+      need_restart: { type: boolean, nullable: false, default_value: false, comment: Whether the conf need to be restarted to take effect }
+      application: { type: varchar(128), nullable: false, default_value: ocp, comment: spring.application.name }
+      profile: { type: varchar(128), nullable: false, default_value: default, comment: spring.cloud.config.profile }
+      label: { type: varchar(128), nullable: false, default_value: master, comment: spring.cloud.config.label }
+      fatal: { type: tinyint(1), nullable: false, default_value: '0', comment: Whether the conf is `fatal`, only `non-fatal` parameters support runtime modification }
+      visible_level: { type: varchar(64), nullable: false, default_value: PUBLIC, comment: Visible level, PRIVATE only visible in terminal }
+      description: { type: varchar(1024), nullable: true }
+      create_time: { type: datetime, nullable: false, default_value: !const CURRENT_TIMESTAMP }
+      update_time: { type: datetime, nullable: true, default_value: !const CURRENT_TIMESTAMP, on_update: !const CURRENT_TIMESTAMP }
+      description_en: { type: varchar(1024), nullable: true }
+    indexes:
+      uk_config_properties_key_application_profile_label:
+        fields: [ key, application, profile, label ]
+        unique: true
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: OCP Express global configuration table
+    default_charset: utf8mb4

@@ -1,0 +1,6 @@
+org.springframework.cloud.bootstrap.BootstrapConfiguration=\
+  org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+  org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration
+
+org.springframework.boot.diagnostics.FailureAnalyzer=\
+  com.oceanbase.ocp.analyzer.OcpFailureAnalyzer

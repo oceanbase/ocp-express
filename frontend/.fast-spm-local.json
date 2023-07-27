@@ -1,0 +1,79 @@
+{
+  "src/component/AobException": [
+    {
+      "name": "异常页-返回首页",
+      "spm": "ca48180.da30493"
+    },
+    {
+      "name": "异常页-返回首页",
+      "spm": "ca48180.da30493"
+    }
+  ],
+  "src/component/BatchOperationBar": [],
+  "src/component/Chart": [],
+  "src/component/CheckboxPopover": [],
+  "src/component/ContentWithInfo": [],
+  "src/component/ContentWithIcon": [],
+  "src/component/ComparisonMetricChart": [],
+  "src/component/ContentWithQuestion": [],
+  "src/component/DatabasePrivilegeTransfer": [],
+  "src/component/FilterDropdown": [],
+  "src/component/Empty": [],
+  "src/component/FormEditTable": [],
+  "src/component/FormTable": [],
+  "src/component/FormEditZoneReplicaTable": [],
+  "src/component/FormPrimaryZone": [],
+  "src/component/FormZoneReplicaTable": [],
+  "src/component/GlobalLoading": [],
+  "src/component/FullScreen": [],
+  "src/component/GraphToolbar": [],
+  "src/component/Icon": [],
+  "src/component/HighlightWithLineNumbers": [],
+  "src/component/MetricResourceChart": [],
+  "src/component/MetricChart": [
+    {
+      "name": "监控卡片-下钻",
+      "spm": "ca48181.da30494"
+    },
+    {
+      "name": "监控卡片-下钻",
+      "spm": "ca48181.da30494"
+    }
+  ],
+  "src/component/MetricCard": [],
+  "src/component/MetricTopChart": [],
+  "src/component/ModifyClusterParameterDrawer": [],
+  "src/component/MonitorSearch": [],
+  "src/component/MyCard": [],
+  "src/component/MyDrawer": [],
+  "src/component/MyProgress": [],
+  "src/component/NoAuth": [],
+  "src/component/OCPRangePicker": [],
+  "src/component/ObClusterDeployMode": [],
+  "src/component/PageLoading": [],
+  "src/component/PageCard": [],
+  "src/component/RangeInput": [],
+  "src/component/ParameterTemplate": [],
+  "src/component/RangeTimeDropdown": [],
+  "src/component/Result": [],
+  "src/component/ResourcePoolSelect": [],
+  "src/component/ScheduleModeAndDayList": [],
+  "src/component/TaskBubble": [],
+  "src/component/UnitSpec": [],
+  "src/component/TenantMonitorTop5": [],
+  "src/component/UnitSpecSelect": [],
+  "src/component/WaterLevel": [],
+  "src/component/WhitelistInput": [],
+  "src/component/common": [],
+  "src/page/Diagnosis": [],
+  "src/page/Cluster": [],
+  "src/page/Error": [],
+  "src/page/Layout": [],
+  "src/page/Login": [],
+  "src/page/Monitor": [],
+  "src/page/Log": [],
+  "src/page/Result": [],
+  "src/page/Property": [],
+  "src/page/Tenant": [],
+  "src/page/Task": []
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M15.7606346,2.62566502 C16.1910852,2.80415659 16.3953383,3.29780172 16.2168467,3.72825228 C16.0383551,4.15870283 15.54471,4.36295594 15.1142594,4.18446436 C14.1168744,3.7708865 13.0435327,3.55528234 11.9386791,3.55528234 C7.35644157,3.55528234 3.64180411,7.26991981 3.64180411,11.8521573 C3.64180411,16.4343949 7.35644157,20.1490323 11.9386791,20.1490323 C14.1698554,20.1490323 16.2589843,19.2654053 17.8054557,17.7189339 C18.5758936,16.948496 19.1891098,16.0340081 19.6063721,15.0277377 C20.0199499,14.0303527 20.2355541,12.9570109 20.2355541,11.8521573 C20.2355541,11.3861671 20.6133138,11.0084073 21.0793041,11.0084073 C21.5452944,11.0084073 21.9230541,11.3861671 21.9230541,11.8521573 C21.9230541,13.1798129 21.6633472,14.4727115 21.1651714,15.6741128 C20.6627882,16.8856609 19.9250974,17.9857776 18.9986984,18.9121766 C17.1388965,20.7719784 14.6220084,21.8365323 11.9386791,21.8365323 C6.42446106,21.8365323 1.95430411,17.3663754 1.95430411,11.8521573 C1.95430411,6.33793929 6.42446106,1.86778234 11.9386791,1.86778234 C13.2663347,1.86778234 14.5592332,2.12748929 15.7606346,2.62566502 Z" id="path-1"></path>
+    </defs>
+    <g id="L1-系统管理&amp;个人设置" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.1.1-任务详情-标注" transform="translate(-381.000000, -385.000000)">
+            <g id="Zone-2-Copy-2" transform="translate(371.000000, 375.000000)">
+                <g id="Group" transform="translate(10.000000, 10.000000)">
+                    <g id="Oval-2" opacity="0.15" fill="#006AFF">
+                        <circle id="Oval" cx="21" cy="21" r="21"></circle>
+                    </g>
+                    <g id="Icon/01-Line/loading" transform="translate(9.000000, 9.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Shape" fill="#006AFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

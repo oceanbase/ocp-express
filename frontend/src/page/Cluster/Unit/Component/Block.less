@@ -1,0 +1,129 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+@import '~@oceanbase/design/es/theme/index.less';
+
+.container {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 12px !important;
+  background: @colorBgLayout;
+  border: 0.5px solid rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+
+  img {
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+  }
+
+  :global {
+    .ant-badge-status-text {
+      font-size: 12px !important;
+    }
+    .ant-typography {
+      font-size: 12px !important;
+    }
+    .ant-progress-inner {
+      background-color: rgba(65, 97, 128, 0.15);
+    }
+    .ant-progress-bg {
+      height: 4px !important;
+    }
+    .ant-progress-bg,
+    .ant-progress-success-bg {
+      background-color: rgba(62, 78, 132, 0.23);
+    }
+  }
+
+  .metricWrapper {
+    width: 100%;
+    // 由于 progress 外围有额外高度，为了整体垂直居中，需要向下移动 7px
+    margin-top: 7px;
+    .metricHeader {
+      display: flex;
+      justify-content: space-between;
+      .metricPercent {
+        color: rgba(0, 0, 0, 0.45);
+      }
+    }
+  }
+}
+
+.region,
+.zone,
+.server,
+.unit,
+.replica {
+  width: 100%;
+  height: 40px;
+}
+
+.regionWithTarget,
+.zoneWithTarget {
+  width: 100%;
+  min-width: 176px;
+  height: 40px;
+}
+
+.serverWithTarget,
+.unitWithTarget,
+.replicaWithTarget {
+  width: 176px;
+  height: 40px;
+}
+
+.memory,
+.cpu,
+.disk {
+  width: 100%;
+  height: 56px;
+}
+
+.memoryWithTarget,
+.cpuWithTarget,
+.diskWithTarget {
+  width: 176px;
+  height: 56px;
+}
+
+.tenant {
+  width: 100%;
+  height: 100%;
+  min-height: 28px;
+}
+
+.tenantWithTarget {
+  width: 100%;
+  height: 28px;
+  cursor: pointer;
+  &:hover {
+    :global {
+      .ant-typography {
+        color: @colorPrimary;
+      }
+    }
+  }
+}
+
+// 对于无权限访问的租户，hover 时需要重置鼠标样式和字体颜色
+.tenantWithTargetForNoAuth {
+  cursor: default;
+  &:hover {
+    :global {
+      .ant-typography {
+        color: rgba(0, 0, 0, 0.85);
+      }
+    }
+  }
+}

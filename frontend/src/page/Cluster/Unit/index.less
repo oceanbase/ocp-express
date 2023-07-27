@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+.container {
+  :global {
+    .ant-card-extra {
+      width: 100%;
+    }
+    .ant-card-body {
+      padding: 0;
+      padding-right: 24px;
+    }
+  }
+  .tag {
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+  }
+  .zoneCol {
+    flex-shrink: 0;
+    margin: 16px 0 24px 0;
+    padding: 0 12px;
+    border-left: 1px dashed rgba(0, 0, 0, 0.15);
+  }
+}
+
+.fullscreen {
+  :global {
+    // 全屏模式下，需要设置卡片内容的高度和 overflow 样式，否则内容超出无法滚动
+    .ant-card-body {
+      height: calc(100vh - 64px);
+      overflow: auto;
+    }
+  }
+}

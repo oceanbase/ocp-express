@@ -1,0 +1,13 @@
+data_source: dataSource
+data_definitions:
+  task_template:
+    table_name: task_template
+    on_duplicate_update: [ type, action ]
+    rows:
+      - { id: 1, name: CollectTenantCompactionSchedule, creator_id: 200, type: SCHEDULE, action: com.oceanbase.ocp.obops.internal.tenant.task.CollectTenantCompactionSchedule }
+
+  task_definition:
+    table_name: task_definition
+    on_duplicate_update: [ name, schedule_type, schedule_rule, template_name, enabled ]
+    rows:
+      - { id: 1, name: Collect all tenants major compactions, creator_id: 200, schedule_type: SCHEDULE, schedule_rule: '0 0/2 * * * ?', schedule_start_time: null, schedule_end_time: null, schedule_duration_unit: null, template_name: CollectTenantCompactionSchedule, comments: '', enabled: 1, arguments: null }

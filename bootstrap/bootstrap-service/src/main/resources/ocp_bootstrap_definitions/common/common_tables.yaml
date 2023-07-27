@@ -1,0 +1,189 @@
+data_source: dataSource
+table_definitions:
+
+  task_definition:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      name: { type: varchar(64), nullable: false, comment: name of task }
+      creator_id: { type: bigint(20), nullable: true, default_value: '-1', comment: User id of creator, fk to iam_user }
+      schedule_type: { type: varchar(32), nullable: true, comment: Schedule type，SYS_SCHEDULED, SCHEDULED、MANUAL }
+      schedule_rule: { type: varchar(128), nullable: true, comment: Schedule crontab expression }
+      schedule_start_time: { type: varchar(32), nullable: true, comment: 'Schedule start time [included]' }
+      schedule_end_time: { type: varchar(32), nullable: true, comment: 'Schedule end time [excluded], execute continuously if null' }
+      schedule_duration_unit: { type: varchar(32), nullable: true, comment: Unit for schedule time, default is Days }
+      last_run_time: { type: datetime, nullable: true, comment: Task last run time }
+      next_run_time: { type: datetime, nullable: true, comment: Task next run time }
+      template_name: { type: varchar(64), nullable: false, comment: Name of task template }
+      comments: { type: varchar(256), nullable: true, comment: Comments of task }
+      enabled: { type: tinyint(4), nullable: true, default_value: '1', comment: Switch for task}
+      arguments: { type: varbinary(262144), nullable: true, comment: Arguments for task }
+      create_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+    indexes: { }
+    primary_key:
+      fields: [ id ]
+    comment: Task definition table, contains all task.
+    default_charset: utf8mb4
+
+  task_template:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      name: { type: varchar(64), nullable: false, comment: Name of task template }
+      creator_id: { type: bigint(20), nullable: true, default_value: '-1', comment: Creator id，fk to user }
+      type: { type: varchar(64), nullable: true, default_value: SCHEDULE, comment: Template type，SCHEDULE }
+      action: { type: varchar(1024), nullable: false, comment: Full class name }
+      create_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+    indexes:
+      uk_task_template_name:
+        fields: [ name ]
+        unique: true
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: Stored all task templates
+    default_charset: utf8mb4
+
+  subtask_instance:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      task_id: { type: bigint(20), nullable: true, default_value: '-1', comment: task id, fk to task_instance.id }
+      series_id: { type: bigint(20), nullable: true, comment: Series id of subtask }
+      name: { type: varchar(128), nullable: false, default_value: '', comment: Subtask name }
+      class_name: { type: varchar(256), nullable: true, comment: Class name of subtask }
+      operation: { type: varchar(64), nullable: true, comment: Operation of subtask, EXECUTE, RETRY, ROLLBACK, SKIP }
+      parallel_idx: { type: bigint(20), nullable: true, comment: Index of parallel subtask }
+      run_time: { type: bigint(20), nullable: true, comment: Run time of subtask, +1 when retry subtask }
+      timeout: { type: bigint(20), nullable: true, comment: Subtask timeout seconds }
+      state: { type: varchar(16), nullable: true, comment: State of subtask, like PENDING, RUNNING, FAILED, SUCCESSFUL }
+      executor: { type: varchar(64), nullable: true, comment: Instance info which executed subtask }
+      context: { type: varbinary(262144), nullable: true, comment: Context for subtask }
+      start_time: { type: datetime(3), nullable: true }
+      end_time: { type: datetime(3), nullable: true }
+      create_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      version: { type: int(11), nullable: true, default_value: '0', comment: Version data for optimistic lock }
+      node_type: { type: varchar(64), nullable: false, default_value: JAVA_TASK, comment: Subtask type. Currently, only JAVA_TASK supported }
+    indexes:
+      uk_subtask_instance_dag_id_series_id:
+        drop: true
+      uk_subtask_instance_task_id_series_id:
+        fields: [ task_id, series_id ]
+        unique: true
+        local: false
+      subtask_instance_task_id:
+        fields: [ task_id ]
+        unique: false
+        local: false
+      subtask_instance_state:
+        fields: [ state ]
+        unique: false
+        local: false
+      subtask_instance_start_time:
+        fields: [ start_time ]
+        unique: false
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: Subtask instances
+    default_charset: utf8mb4
+
+  subtask_log:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      subtask_id: { type: bigint(20), nullable: true, default_value: '-1', renamed_from: task_id, comment: fk(subtask_instance(id)) }
+      log_content: { type: varbinary(262144), nullable: true }
+      create_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      run_time: { type: bigint(20), nullable: true }
+    indexes:
+      task_log_task_id:
+        fields: [ subtask_id ]
+        unique: false
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: Log of subtask execution
+    default_charset: utf8mb4
+
+  subtask_dependencies:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      parent_id: { type: bigint(20), nullable: true }
+      child_id: { type: bigint(20), nullable: true }
+      create_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+    indexes:
+      task_dependencies_parent_id:
+        fields: [ parent_id ]
+        unique: false
+        local: false
+      task_dependencies_child_id:
+        fields: [ child_id ]
+        unique: false
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: Dependencies of subtasks in a task
+    default_charset: utf8mb4
+
+  task_instance:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      task_definition_id: { type: bigint(20), nullable: true, default_value: '-1', comment: fk to task_definition }
+      name: { type: varchar(128), nullable: true, comment: name of task }
+      ob_tenant_id: { type: bigint(20), nullable: true, comment: OB tenant id }
+      creator: { type: varchar(64), nullable: true, comment: Username of creator, fk to user.id }
+      operation: { type: varchar(64), nullable: true, comment: Operation of task, EXECUTE, RETRY, ROLLBACK, SKIP }
+      type: { type: varchar(16), nullable: true, comment: Schedule type of task，MANUAL, SCHEDULED }
+      context: { type: varbinary(262144), nullable: true, comment: Context of task }
+      state: { type: varchar(16), nullable: true, comment: State of task, like PENDING, RUNNING, FAILED, SUCCESSFUL }
+      executor: { type: varchar(64), nullable: true, comment: Instance info which executed subtask }
+      trace_id: { type: varchar(64), nullable: true, comment: TraceId of task log }
+      start_time: { type: datetime(3), nullable: true }
+      end_time: { type: datetime(3), nullable: true }
+      create_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+    indexes:
+      idx_task_instance_state:
+        fields: [ state ]
+        unique: false
+        local: false
+      idx_task_instance_type:
+        fields: [ type ]
+        unique: false
+        local: false
+      idx_task_instance_tenant_id:
+        fields: [ ob_tenant_id ]
+        unique: false
+        local: false
+      idx_task_instance_start_time:
+        fields: [ start_time ]
+        unique: false
+        local: false
+      idx_task_instance_name:
+        fields: [ name ]
+        unique: false
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: Task instances
+    default_charset: utf8mb4
+
+  ocp_instance:
+    fields:
+      id: {type: bigint(20), nullable: false, auto_increment: true}
+      ip: { type: varchar(256), nullable: false, comment: 'OCP Server ip' }
+      port: { type: varchar(256), nullable: false, comment: 'OCP Server port' }
+      heartbeat_time: { type: datetime, nullable: false, default_value: !const 'CURRENT_TIMESTAMP', comment: Instance heartbeat time }
+      create_time: { type: datetime, nullable: false, default_value: !const 'CURRENT_TIMESTAMP', comment: Instance create time }
+      update_time: { type: datetime, nullable: false, default_value: !const 'CURRENT_TIMESTAMP', comment: Instance update time }
+    indexes:
+      uk_ocp_instance_ip_port:
+        fields: [ ip, port ]
+        unique: true
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: Instance of OCP Express
+    default_charset: utf8mb4

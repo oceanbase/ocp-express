@@ -1,0 +1,98 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+@import '~@oceanbase/design/es/theme/index.less';
+
+.container {
+  .fullscreenIcon {
+    padding: 2px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .subtaskName {
+    margin-bottom: 0;
+    color: @colorText;
+    font-size: 14px;
+    font-family: SFProText-Medium;
+  }
+  .subtaskId {
+    color: @colorTextSecondary;
+    font-size: 12px;
+    :global {
+      .ant-typography-copy {
+        color: @colorTextSecondary;
+      }
+    }
+  }
+  .logNodeWrapper {
+    position: absolute;
+    padding-top: 8px;
+    .logNode {
+      display: inline-block;
+      height: 22px;
+      padding: 1px 8px;
+      color: #fff;
+      font-size: 12px;
+      line-height: 20px;
+      background: #7c8ca3;
+      border-radius: 20px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+      &.active {
+        background: @colorInfo;
+      }
+    }
+  }
+
+  .log {
+    // pre {
+    //   font-size: 12px;
+    //   font-family: SFProText;
+    //   line-height: 20px;
+    // }
+    :global {
+      .tech-highlight-light {
+        padding: 0;
+        white-space: pre-wrap;
+        word-break: break-all;
+        background-color: #fff;
+      }
+    }
+  }
+
+  :global {
+    .ant-card-head {
+      padding: 12px 16px;
+      box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12);
+      .ant-card-head-wrapper {
+        padding-bottom: 34px;
+        .ant-card-head-title {
+          padding: 0;
+          color: @colorTextSecondary;
+          font-weight: normal;
+        }
+        .ant-card-extra {
+          padding: 0;
+          color: @colorTextTertiary;
+          font-size: 12px;
+        }
+      }
+    }
+    .ant-card-body {
+      padding: 0;
+    }
+  }
+}

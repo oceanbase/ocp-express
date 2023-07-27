@@ -1,0 +1,1243 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+@import '~@oceanbase/design/es/theme/index.less';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+  }
+}
+
+// 不像 button 标签，a 标签本身并没有 disabled 属性。antd 从 4.15.2 版本开始，全局样式仅设置 a[disabled]
+// 的字体颜色和鼠标样式，要实现置灰效果，业务上还需要禁用事件。导致的副作用就是 a 标签上同时设置 cursor: not-allowed
+// 和 pointer-events: none，cursor 样式会不生效。不过 OCP 中所有的 a 标签都会位于 Access 组件下，而 Access 内部
+// 会对 a 标签再包一层 span，以实现 cursor: not-allowed 的效果，因此可以采用直接禁用事件的修复方案，只不过不适用于其他项目。
+// TODO: 最好是提 PR 修改 antd 的实现，通过包一层来解决 Button link 模式下的 cursor 样式问题，这样 antd 就能加回 pointer-events: none 的全局样式，业务上也不需要定制了
+a[disabled] {
+  pointer-events: none;
+}
+
+/* 覆盖 antd 的全局样式 */
+
+// TODO: 后续待 Access 组件替换完成后，需要移除以下两个 .ant-btn-link 的全局样式覆盖
+.ant-btn-link {
+  /* 链接按钮的 padding 设为 0，作为普通链接使用，不附带额外的样式 */
+  padding: 0;
+}
+
+.ant-table-filter-dropdown {
+  .ant-table-filter-dropdown-btns {
+    .ant-btn-link {
+      padding: 0 7px;
+    }
+  }
+}
+
+// antd3 更新到 antd4 之后, form 使用 .ant-form-item-has-error 属性进行处理, 此次对 Antd3Form 下 Select 组件做特殊处理
+.has-error .ant-select-selector {
+  border-color: @colorError !important;
+}
+
+.ant-layout {
+  /* 覆盖 antd 默认的 min-height: 0 的样式，否则会引起很多问题，比如子元素无法撑满父元素 */
+  min-height: auto;
+}
+
+.ant-input-number {
+  .ant-input-number-handler-wrap {
+    border-left: none;
+    // InputNumber 总是展示 step
+    opacity: 1;
+  }
+}
+
+.ant-tooltip {
+  max-width: 300px;
+
+  .ant-tooltip-inner {
+    max-height: 300px;
+    overflow: auto;
+    font-size: 14px;
+    white-space: normal;
+  }
+}
+
+.ant-dropdown {
+  // OB 设计规范
+  min-width: 120px !important;
+}
+
+/* 卡片中的 Table 分页器的 margin-bottom 为 0，避免下边的间距过大 */
+.ant-card {
+  .ant-card-head {
+
+    /* 卡片头部中表单的字体不加粗 */
+    .ant-legacy-form-item {
+      font-weight: normal;
+    }
+
+    /* 卡片头部中表单的字体不加粗 */
+    .ant-form-item {
+      font-weight: normal;
+    }
+  }
+
+  .ant-card-body {
+    .ant-table-pagination.ant-pagination {
+      margin-bottom: 0;
+    }
+
+    .ant-descriptions {
+      .ant-descriptions-view {
+        tbody {
+          .ant-descriptions-row:last-child {
+
+            &>th,
+            td {
+              // 设置卡片内容区的 Descriptions 的最后一行的单元格 padding-bottom: 0，避免叠加卡片的 padding-bottom 导致下间距过大
+              padding-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 行内表单的间距设为 24px */
+.ant-form-inline .ant-form-item {
+  margin-right: 24px;
+
+  .ant-form-item-label {
+    line-height: 32px;
+
+    label {
+      height: 32px;
+    }
+  }
+
+  .ant-form-item-control {
+    line-height: 32px;
+  }
+}
+
+.ant-legacy-form-inline .ant-legacy-form-item {
+  margin-right: 24px;
+
+  .ant-legacy-form-item-label {
+    padding-bottom: 0;
+    line-height: 32px;
+
+    label {
+      height: 32px;
+    }
+  }
+
+  .ant-legacy-form-item-control {
+    line-height: 32px;
+  }
+}
+
+.ant-form-horizontal {
+  .ant-form-item-label {
+    line-height: 32px;
+
+    label {
+      height: 32px;
+    }
+  }
+}
+
+.ant-legacy-form-vertical .ant-legacy-form-item {
+  padding-bottom: 0 !important;
+}
+
+.ant-legacy-form-horizontal {
+
+  // Form 的直接子表单项，最后一个的底部 margin 为 0
+  // 说明: 必须是直接子元素，因为可能表单项会被 Grid 布局包裹，那个时候就每个表单项都是 last-child，样式会出现问题
+  >.ant-legacy-form-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .ant-legacy-form-item-label {
+    line-height: 32px;
+
+    label {
+      height: 32px;
+    }
+  }
+
+  .ant-legacy-form-item-control {
+    line-height: 32px;
+  }
+
+  // antd3 的水平表单 extra 和校验信息都会加上 margin-top: -2px，不合理，这里 OCP 做下修正
+  .ant-legacy-form-explain,
+  .ant-legacy-form-extra {
+    margin-top: 0;
+  }
+}
+
+.ant-form-vertical .ant-form-item {
+  padding-bottom: 0;
+}
+
+.ant-calendar-picker-container {
+  .ant-calendar-range .ant-calendar-footer-extra {
+    .ant-tag {
+      cursor: pointer;
+    }
+  }
+}
+
+// 自定义 Steps 的连线条样式，否则和背景色无法区分
+.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {
+  background-color: #e8e8e8;
+}
+
+// 自定义 Steps 的连线条样式，否则和背景色无法区分
+.ant-steps-item-wait>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {
+  background-color: #e8e8e8;
+}
+
+// 由于 RangePicker 无法根据格式自适应宽度，对于中文的日期时间会展示不全，因此需要手动设置宽度
+// 对于其他格式的场景，可以通过差异化 style 来设置不同的宽度
+.ant-picker.ant-picker-range {
+  width: 400px !important;
+}
+
+.ant-col {
+  .ant-picker.ant-picker-range {
+    width: 100% !important;
+  }
+}
+
+// 设置锚点导航的全局样式
+.ant-anchor {
+
+  // 设置锚点间距
+  .ant-anchor-link {
+    padding: 8px 0 8px 16px;
+
+    .ant-anchor-link {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    // 设置锚点字体颜色
+    .ant-anchor-link-title {
+      color: rgba(0, 0, 0, 0.65);
+
+      &:hover {
+        color: #40a9ff;
+      }
+    }
+  }
+
+  .ant-anchor-ink {
+    &::before {
+      background-color: #e8e8e8;
+    }
+
+    // 设置选中锚点的样式 (圆点 => inkbar)
+    .ant-anchor-ink-ball {
+      width: 0;
+      height: 30px;
+      margin-top: -10px;
+      border-width: 1px;
+    }
+  }
+}
+
+/* 覆盖 tech-ui 的全局样式 */
+
+/* 由于 TechUI  FullScreen 组件的默认 z-index 为 9999，大于绝大多数 antd 组件的 z-index，导致 tooltip、dropdown 等在全屏模式下无法正常展示，因此将其 z-index 降低至合理值 */
+.tech-fullscreen-box-fullscreen {
+  z-index: 99;
+
+  .tech-fullscreen-box-header-extra {
+    padding: 20px 24px;
+    line-height: normal;
+  }
+}
+
+/* 覆盖 OBUI 的全局样式 */
+
+// Ranger 组件样式是采用 scoped styles 实现，但目前是通过 css modules 引入，导致打包后样式不生效，这里先手动覆盖
+// TODO: 后续需要将 ob-ui 彻底改造为 scoped styles 实现
+.ob-ranger {
+  .ob-ranger-quick-picker.ob-ranger-quick-picker-select {
+    margin-right: -1px;
+  }
+}
+
+/* 全局样式 */
+
+/* 品牌渐变色 */
+.brand-gradient-color {
+  background-image: linear-gradient(to right, #1aabff, #0b79ff);
+  border: none;
+}
+
+/* 自定义 icon 交互 灰色 -> 蓝 */
+.icon-custom-color {
+  color: rgba(0, 0, 0, 0.45) !important;
+
+  &:hover {
+    color: @colorPrimary !important;
+  }
+}
+
+// Card + Tabs + 无 padding + Card.Grid 的场景 (如监控)，为了保证 ink bar 露出完整，需要将提升 Tabs 的 z-index 值
+.ant-card-contain-tabs.card-without-padding.card-with-grid-card {
+  .ant-card-head {
+    .ant-tabs {
+      z-index: 1;
+    }
+  }
+}
+
+.card-without-padding {
+  .ant-card-body {
+    padding: 1px 0 0 0 !important;
+
+    /* 位于没有 padding 的 Card 中时，Table 的第一列文字要和 title 左对齐 */
+
+    /* 带checkbox的Table，CheckBox 会被第二列的元素遮挡到，添加 z-index，提高第一列显示层级 */
+    // card-without-padding 下的表格，为了保证第一列 title 与卡片 title 左对齐，写死了 padding-left 的宽度为 24px，导致会出现 checkbox 遮挡的问题
+    // 为了避免 checkbox 被遮挡，需要定制表格第一列的 z-index
+    .ant-table-thead>tr>th:first-child,
+    .ant-table-tbody>tr>td:first-child {
+      z-index: 1;
+      padding-left: 24px !important;
+
+      // 带排序 icon 的，需要设置左 padding 为 0
+      .ant-table-column-sorters {
+        padding-left: 0;
+      }
+    }
+
+    /* 最后一列要与 extra 右对齐 */
+    .ant-table-thead>tr>th:last-child,
+    .ant-table-tbody>tr>td:last-child {
+      padding-right: 24px !important;
+    }
+
+    .ant-table-pagination.ant-pagination {
+      margin-right: 24px;
+
+      /* 无内边距的卡片中，设置 Table 分页器的外间距，避免分页器紧贴卡片 */
+      margin-bottom: 16px;
+    }
+  }
+}
+
+.panel-without-padding {
+  .ant-collapse-content-box {
+    padding: 0 !important;
+  }
+}
+
+.collapse-white-background-heade {
+  .ant-collapse-header {
+    background-color: #fff;
+  }
+}
+
+/* 带有分组的 Descriptions */
+.descriptions-with-group {
+  &:not(:last-child) {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .ant-descriptions-header {
+    margin-bottom: 20px;
+
+    .ant-descriptions-title {
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 16px;
+      font-family: PingFangSC-Medium;
+    }
+  }
+}
+
+.form-with-small-margin {
+  .ant-legacy-form-item {
+    margin-bottom: 16px;
+  }
+
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+}
+
+.form-with-min-margin {
+  .ant-legacy-form-item {
+    margin-bottom: 8px;
+  }
+
+  .ant-form-item {
+    margin-bottom: 8px;
+  }
+}
+
+.form-item-group-title {
+  margin-bottom: 16px;
+  color: @colorText;
+  font-size: 16px;
+  font-family: 'PingFangSC-Semibold';
+  line-height: 20px;
+}
+
+.form-item-group-title-small {
+  color: @colorText;
+  font-family: 'PingFangSC-Semibold';
+  line-height: 20px;
+}
+
+/* 块状区域间隔 24px */
+.block-group {
+  &>span {
+    &:not(:last-child) {
+      margin-right: 24px;
+    }
+  }
+
+  // Access 组件容器
+  &>span:not(:first-child) {
+    margin-left: 8px;
+  }
+
+  // Icon 组件容器
+  &>i:not(:first-child) {
+    margin-left: 8px;
+  }
+}
+
+/* 使用 divider 分隔 row */
+.row-with-divider-in-card {
+  .ant-col:not(:last-child) {
+    border-right: 1px solid #e8e8e8;
+  }
+
+  .ant-col {
+    padding: 24px;
+  }
+
+  .ant-descriptions-title {
+    margin-bottom: 8px;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-family: PingFangSC-Medium;
+  }
+
+  .ant-descriptions-row>th,
+  .ant-descriptions-row>td {
+    padding-bottom: 8px;
+  }
+}
+
+/* 搜索输入框长度 */
+.search-input {
+  width: 328px !important;
+}
+
+.search-input-large {
+  width: 440px !important;
+}
+
+.search-input-small {
+  width: 216px !important;
+}
+
+.input-number-readonly {
+  // 只读模式的 InputNumber，需要去掉边框和阴影
+  border: none;
+  box-shadow: none;
+}
+
+.editable-text-wrapper {
+  .ant-typography {
+    margin-bottom: 0;
+
+    /* 编辑图标右对齐 */
+    .ant-typography-edit {
+      float: right;
+    }
+  }
+}
+
+.multiple-tag-wrapper {
+  .ant-tag {
+    margin-bottom: 8px;
+  }
+}
+
+/* 设置 Select 的自定义 tag 的全局样式 */
+
+/* TODO: 后续还需要进行完善，以与默认的 antd select tag 样式保持一致 */
+.select-tag-render-item {
+  height: 24px;
+  // margin-top: 2px;
+  margin-right: 4px;
+  line-height: 24px;
+}
+
+.select-tag {
+  height: 24px;
+  margin-top: 2px;
+  margin-right: 4px;
+  margin-bottom: 2px;
+  line-height: 22px;
+  background: #f5f5f5;
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+}
+
+.weak {
+  color: @colorTextTertiary;
+  font-size: 12px;
+}
+
+.ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ocp-link-hover:hover {
+  color: @colorPrimary !important;
+  cursor: pointer;
+}
+
+/* descriptions item 组件溢出隐藏 */
+.descriptions-item-with-ellipsis {
+  .ant-descriptions-item-content {
+    display: inline-block;
+    padding-right: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+/* 表格去掉行 hover 样式效果 */
+.table-without-hover-style {
+  .ant-table-tbody>tr:hover {
+    &:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td {
+      background-color: transparent;
+    }
+  }
+}
+
+/* 隐藏表格展开图标的 Table Row 类名，用于集群列表中每一行有条件地渲染展开图标 */
+.table-row-hide-expand-icon {
+  .ant-table-row-expand-icon {
+    display: none;
+  }
+}
+
+/* 执行计划算子表的全局样式 */
+.table-for-plan-operation {
+  .ant-table-thead>tr>th {
+    height: 24px;
+    padding: 2px 8px;
+    font-size: 14px;
+    background-color: #f0f2f5 !important;
+    border-bottom: none;
+
+    // 去掉列之间的竖形分隔线
+    &::before {
+      display: none;
+    }
+  }
+
+  .ant-table-tbody>tr>td {
+    height: 24px;
+    padding: 0 8px;
+    white-space: nowrap;
+    border-bottom: none;
+
+    // 去掉列之间的竖形分隔线
+    &::before {
+      display: none;
+    }
+  }
+
+  .ant-table-row-indent+.ant-table-row-expand-icon {
+    margin-top: 0;
+  }
+
+  .ant-table-cell {
+    font-size: 12px;
+  }
+
+  .ant-table-container {
+    tr:nth-child(2n + 1) {
+      td {
+        background-color: #fff !important;
+      }
+    }
+
+    tr:nth-child(2n) {
+      td {
+        background-color: #f0f2f5 !important;
+      }
+    }
+
+    tr:hover {
+      td {
+        background-color: #e6f7ff !important;
+      }
+    }
+  }
+}
+
+/* // 自定义 disabled 状态下 Checkbox 的样式 */
+
+/* .my-disabled-checkbox-wrapper { */
+
+/*   :global { */
+
+/*     .ant-tree-checkbox-disabled .ant-tree-checkbox-inner { */
+
+/*       background-color: rgba(0, 0, 0, 0.25); */
+
+/*     } */
+
+/*     .ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner { */
+
+/*       border-color: #fff !important; */
+
+/*     } */
+
+/*     .ant-tree-checkbox-disabled.ant-tree-checkbox-checked */
+
+/*       .ant-tree-checkbox-inner::after { */
+
+/*       border-color: #fff; */
+
+/*     } */
+
+/*     li.ant-tree-treenode-disabled > span:not(.ant-tree-switcher), */
+
+/*     li.ant-tree-treenode-disabled > .ant-tree-node-content-wrapper, */
+
+/*     li.ant-tree-treenode-disabled > .ant-tree-node-content-wrapper span { */
+
+/*       cursor: default; */
+
+/*       color: rgba(0, 0, 0, 0.65); */
+
+/*     } */
+
+/*   } */
+
+/* } */
+
+.pointable {
+  cursor: pointer;
+}
+
+.disabled {
+  color: rgba(0, 0, 0, 0.25) !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+.prism-code {
+  // font-family: PingFangSC-Medium;
+  margin: 0 !important;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 12px;
+
+  .date,
+  .time {
+    color: #868789 !important;
+  }
+
+  .level {
+    color: #00c200 !important;
+  }
+
+  .separator {
+    color: #868789 !important;
+  }
+
+  .thread-description {
+    color: #868789 !important;
+  }
+
+  .id {
+    color: #ea0081 !important;
+  }
+
+  .classes {
+    color: #00a0a6 !important;
+  }
+}
+
+.opacity {
+  opacity: 0.45;
+}
+
+/* 设置带 description 的选择框下拉选项的样式 */
+.select-dropdown-with-description {
+
+  // 对于 HostSelect，空状态图标无法水平居中对齐，这里需要修正样式
+  .ant-empty {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .ant-select-item {
+    .ant-select-item-option-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      >span {
+        &:nth-child(2) {
+          margin-left: 16px;
+          color: @colorText;
+        }
+      }
+    }
+  }
+}
+
+/* 设置带 description 的选择框下拉选项的样式，hover 才出现 */
+.select-dropdown-with-hover-description {
+
+  // 对于 HostSelect，空状态图标无法水平居中对齐，这里需要修正样式
+  .ant-empty {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .ant-select-item {
+    .ant-select-item-option-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      >span {
+        &:nth-child(2) {
+          margin-left: 16px;
+          color: @colorTextTertiary;
+          // 应该使用 visibility 而不是 display，因为前者会占用空间，hover 时不会出现空间抖动的情况
+          visibility: hidden;
+        }
+      }
+    }
+  }
+
+  .ant-select-item:hover {
+    .ant-select-item-option-content {
+      >span {
+        &:nth-child(2) {
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
+
+// 设置 Descriptions 组件在可展开的表格下的样式
+.descriptions-in-expandable-table {
+  margin-left: 50px;
+
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  .ant-descriptions-header {
+    margin-bottom: 12px;
+
+    .ant-descriptions-title {
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+
+  .ant-descriptions-view {
+    table {
+      width: 100% !important;
+    }
+  }
+}
+
+// 设置 Descriptions 组件在可展开 + 可选中的表格下的样式
+.descriptions-in-expandable-and-checkable-table {
+  margin-left: 80px;
+
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  .ant-descriptions-header {
+    margin-bottom: 12px;
+
+    .ant-descriptions-title {
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+}
+
+.col-with-divider {
+  &::after {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 1px;
+    height: 100%;
+    background-color: @colorBorderSecondary;
+    content: '';
+  }
+}
+
+/* 设置 Mentions 组件下拉选项的全局样式 */
+.mentions-option-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    &:nth-child(2) {
+      margin-left: 16px;
+      color: #000;
+      opacity: 0.25;
+    }
+  }
+}
+
+// 设置 tooltip 的最大宽度，通常应用于 Modal 内，避免 tooltip 超出 Modal
+.tooltip-small {
+  max-width: 300px;
+}
+
+/* 2.3 旧版全局样式 */
+
+/* .ant-divider { */
+
+/*   margin: 16px 8px; */
+
+/* } */
+
+.instance-class-select {
+  .ant-select-selection-selected-value {
+    width: 100%;
+  }
+}
+
+.chart-wrapper {
+  position: relative;
+
+  i {
+    position: absolute;
+    right: 0;
+    z-index: 1001;
+    display: none;
+  }
+}
+
+.chart-wrapper:hover {
+  i {
+    display: block;
+  }
+}
+
+/* OCP 的远程标记，仅在多集群模式下才会出现 */
+.ocp-remote-tag {
+  margin-right: 0 !important;
+  // tag 缩放后，左侧会留出 2px 的空间，需要往左移动 2px 来弥补
+  margin-left: -2px !important;
+  padding: 0 2px !important;
+  border: none !important;
+  transform: scale(0.8) !important;
+}
+
+.ocp-sub-card {
+  border: none !important;
+
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  .ant-card-head {
+    min-height: 40px;
+    padding-left: 0;
+    border-bottom: none;
+
+    .ant-card-head-title {
+      padding: 0;
+    }
+  }
+
+  .ant-card-body {
+    padding-bottom: 0;
+    background-color: #fafafa;
+  }
+}
+
+.ocp-sub-detail-card {
+  padding: 16px 24px;
+  background-color: #fafafa;
+}
+
+/* 自定义 react-split-pane 的组件样式 */
+
+.Resizer {
+  z-index: 1;
+  box-sizing: border-box;
+  background: #000;
+  background-clip: padding-box;
+  opacity: 0.5;
+}
+
+.Resizer.horizontal {
+  width: 100%;
+  height: 1px;
+  padding-top: 1px;
+  background: #f7f8fc;
+  cursor: row-resize;
+}
+
+.Resizer.horizontal:hover {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12);
+}
+
+.Resizer.vertical {
+  width: 11px;
+  margin: 0 -5px;
+  border-right: 5px solid rgba(255, 255, 255, 0);
+  border-left: 5px solid rgba(255, 255, 255, 0);
+  cursor: col-resize;
+}
+
+.Resizer.vertical:hover {
+  border-right: 5px solid rgba(0, 0, 0, 0.5);
+  border-left: 5px solid rgba(0, 0, 0, 0.5);
+}
+
+/* 自定义 g6 的全部样式 */
+
+.g6-tooltip {
+  padding: 8px 16px;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 12px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+
+  ul {
+    li:not(:last-child) {
+      margin-bottom: 4px;
+    }
+  }
+}
+
+/* 动画 */
+
+// antd 的 Progress 的 active 动画，从左到右
+@keyframes left2Right {
+  0% {
+    width: 0;
+    opacity: 0.1;
+  }
+
+  20% {
+    width: 0;
+    opacity: 0.5;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
+}
+
+// antd 的 Progress 的 active 动画，从右到左
+@keyframes right2Left {
+  0% {
+    width: 100%;
+    opacity: 0.1;
+  }
+
+  20% {
+    width: 100%;
+    opacity: 0.5;
+  }
+
+  100% {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+/* 报告类样式: 将报告相关的全局样式置于 ocp-report-layout 全局类名下，避免影响主应用样式 */
+
+/* 目前仅 AWR 和 ASH 报告需要用到该全局样式，SQL Trace 报告无需使用 */
+.ocp-report-layout {
+
+  // 用于超长宽的表格 横向滚动时设置表格的隔行换色，
+  // 滚动表格 跟 正常的表格 正好奇偶性相反
+  .scroll-table-zebra-color {
+    .ant-table-content {
+      tr:nth-child(2n + 1) {
+        td {
+          background-color: #f5f7fa !important;
+        }
+      }
+
+      tr:nth-child(2n) {
+        td {
+          background-color: #fff !important;
+        }
+      }
+    }
+  }
+
+  // 类似节点数据分区信息跨行列的表格，需要重置颜色
+  .span-col-row-table-zebra-color {
+    .ant-table-content {
+      tr:nth-child(2n) {
+        background-color: #fff !important;
+      }
+    }
+  }
+
+  // Title合并的表格，开始结束字段和不合并 Title 的统计表格，CSS是一样的
+  // 但是设计要求不一致，基础表格 Title 部分需要 550 加粗
+  .basic-table-header {
+    .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>thead>tr>th {
+      font-weight: 550;
+      // 所有的表头都不换行，以保证展示效果。如果表格宽度不够，则 Table 那边会按需设置 scroll.x = true
+      white-space: nowrap;
+    }
+  }
+
+  // 保证导出后 showMenu 不被编码，通过样式切换
+  .showMenu {
+    width: 0 !important;
+    min-width: 0 !important;
+
+    .nav_left_directory {
+      width: 0 !important;
+      min-width: 0 !important;
+      opacity: 0;
+    }
+  }
+
+  .showDrag {
+    left: 0 !important;
+  }
+
+  // 保证导出后 showContent 不被编码，通过样式切换
+  .showContent {
+    left: 0 !important;
+    margin-left: 16px !important;
+  }
+
+  .ant-btn:focus {
+    color: #d9d9d9;
+    border-color: #d9d9d9;
+  }
+
+  .ant-btn:hover {
+    color: #40a9ff !important;
+    border-color: #40a9ff !important;
+  }
+
+  // 锚点 active 态下为蓝色
+  .ant-anchor-link-active>.ant-anchor-link-title {
+    color: @colorPrimary !important;
+  }
+
+  .ant-anchor-link-title {
+    color: rgba(0, 0, 0, 0.85) !important;
+    font-size: 14px;
+    opacity: 0.95;
+  }
+
+  // 链接文字不折行
+  .ant-tree.ant-tree-block-node .ant-tree-list-holder-inner .ant-tree-node-content-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .ant-anchor-wrapper {
+    overflow-x: hidden;
+  }
+
+  .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+    background-color: #fff;
+  }
+
+  // 锚点 hover 后的背景颜色
+  .ant-tree.ant-tree-directory .ant-tree-treenode:hover::before {
+    background-color: #f3f9ff;
+  }
+
+  // 链接间距
+  .ant-anchor-link {
+    padding: 0;
+    line-height: 1.7;
+  }
+
+  // 如果要定制表格 border，需要设置 4 处样式: .ant-table-container、table、th、td
+  .ant-table-container {
+    border-color: #dadada !important;
+
+    table {
+      border-color: #dadada !important;
+    }
+  }
+
+  // 表格 header
+  .ant-table-thead tr th {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    background-color: #ebeef2 !important;
+    border-color: #dadada !important;
+  }
+
+  .ant-table-tbody tr td {
+    font-size: 12px;
+    line-height: 16px;
+    border-color: #dadada !important;
+  }
+
+  // 表格隔行换色
+  .ant-table-content {
+    .ant-table-tbody>tr.ant-table-row:hover>td {
+      background: #e6f7ff !important;
+    }
+
+    tr:nth-child(2n) {
+      background-color: #f7f9fb;
+    }
+  }
+
+  .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>thead>tr:not(:last-child)>th {
+    font-weight: 550;
+    // 所有的表头都不换行，以保证展示效果。如果表格宽度不够，则 Table 那边会按需设置 scroll.x = true
+    white-space: nowrap;
+  }
+
+  .anchor_link_title {
+    position: relative;
+    height: 16px;
+    padding-left: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: -0.2px;
+    text-align: center;
+    opacity: 0.9;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      display: block;
+      width: 3px;
+      height: 16px;
+      background-color: rgb(24, 144, 255);
+      transform: translateY(-50%);
+      content: '';
+    }
+  }
+
+  /* SQL 文本超三行之后，折叠展示的 Icon 样式交互 灰色 -> 蓝 */
+  .down-square-active {
+    color: rgba(0, 0, 0, 0.45) !important;
+
+    &:hover {
+      color: @colorPrimary !important;
+    }
+  }
+
+  // descriptions 上下间距为 16
+  .ant-descriptions-row>th,
+  .ant-descriptions-row>td {
+    padding-bottom: 8px;
+  }
+
+  .ant-descriptions-item-label,
+  .ant-descriptions-item-content {
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .ant-table-empty .ant-table-tbody>tr.ant-table-placeholder {
+    .ant-empty-normal .ant-empty-image {
+      height: 32px;
+    }
+
+    .ant-empty-description {
+      font-size: 12px;
+    }
+  }
+}
+
+// IP 复制主机地址，样式控制 icon 显示
+.typography-copyable-hover {
+  display: inline-block;
+
+  .ant-typography-copy {
+    visibility: hidden;
+  }
+
+  &:hover .ant-typography-copy {
+    visibility: visible;
+  }
+}
+
+// Collapse 组件的 header 采用 flex 布局，添加样式兼容 [诊断详情] 的展示
+.site-collapse-custom-collapse {
+  .ant-collapse-header-text {
+    width: 100%;
+  }
+}
+
+.tech-highlight-light {
+  background-color: @colorBgLayout;
+  border-radius: 8px;
+}

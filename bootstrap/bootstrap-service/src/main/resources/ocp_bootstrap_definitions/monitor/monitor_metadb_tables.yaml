@@ -1,0 +1,120 @@
+data_source: dataSource
+table_definitions:
+  metric_class:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      key: { type: varchar(64), nullable: true, comment: 'Key of metric class', renamed_from: class }
+      name: { type: varchar(64), nullable: true, comment: Chinese name of metric class }
+      description: { type: varchar(1024), nullable: true, comment: Chinese description of metric class }
+      scope: { type: varchar(32), nullable: true, comment: Metric class scope, TENANT，CLUSTER }
+      type: { type: varchar(16), nullable: true, comment: Type of metric class，like NORMAL, TOP }
+      name_en: { type: varchar(64), nullable: true, comment: English name of metric class }
+      description_en: { type: varchar(1024), nullable: true, comment: English description of metric class }
+    indexes:
+      uk_metric_class_key:
+        fields: [ key ]
+        unique: true
+        local: false
+      uk_metric_class_scope_name:
+        fields: [ scope, type, class ]
+        unique: true
+        local: false
+        drop: true
+      uk_metric_class_name:
+        fields: [ class ]
+        unique: true
+        local: false
+        drop: true
+    primary_key:
+      fields: [ id ]
+    auto_increment: 6000014
+    default_charset: utf8mb4
+
+  metric_group:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      key: { type: varchar(64), nullable: true, comment: 'Key of metric group', renamed_from: group }
+      class_key : { type: varchar(64), nullable: false, comment: 'Class the group belongs to, fk to metric_class.key', renamed_from: class_name }
+      name: { type: varchar(64), nullable: true, comment: Chinese name of metric group }
+      description: { type: varchar(1024), nullable: true, comment: Chinese description of metric group }
+      name_en: { type: varchar(64), nullable: true, comment: English name of metric group }
+      description_en: { type: varchar(1024), nullable: true, comment: English description of metric group }
+      with_label: { type: tinyint(1), nullable: true, default_value: '0', comment: Whether it is dynamic label data，false=Fixed label，true=Dynamic label }
+    indexes:
+      uk_metric_class_key_key:
+        fields: [ class_key, key ]
+        unique: true
+        local: false
+      uk_metric_group_name_class_name:
+        fields: [ group, class_name ]
+        unique: true
+        local: false
+        drop: true
+    primary_key:
+      fields: [ id ]
+    auto_increment: 6000010
+    default_charset: utf8mb4
+
+  metric_meta:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      class_key: { type: varchar(64), nullable: false, comment: 'Class key of metric', renamed_from: class_name}
+      group_key: { type: varchar(64), nullable: false, comment: 'Group key of metric', renamed_from: group_name }
+      key: { type: varchar(64), nullable: true, comment: Metric key, fk to metric_expr_config.metric }
+      name: { type: varchar(64), nullable: true, comment: Chinese name of meta }
+      description: { type: varchar(1024), nullable: true, comment: Chinese description of meta }
+      unit: { type: varchar(16), nullable: true, comment: Metric unit }
+      name_en: { type: varchar(64), nullable: true, comment: English name of meta }
+      description_en: { type: varchar(1024), nullable: true, comment: English description of meta }
+      display_by_default: { type: tinyint(1), nullable: true, default_value: '1' }
+      is_built_in: { type: tinyint(1), nullable: false, default_value: '1', comment: Is built-in meta }
+      min_ob_version: { type: varchar(16), nullable: true, comment: Minimum OB version of the metric, null means unlimited }
+      max_ob_version: { type: varchar(16), nullable: true, comment: Maximum OB version of the metric, null means unlimited }
+    indexes:
+      uk_metric_meta_class_group_metric:
+        fields: [ class_key, group_key, key ]
+        unique: true
+        local: false
+      uk_metric_meta_group_name_class_name_metric:
+        fields: [ group_name, class_name, key ]
+        unique: true
+        local: false
+        drop: true
+      uk_metric_meta_class_name_group_name_metric:
+        fields: [ class_name, group_name, name ]
+        unique: true
+        local: false
+        drop: true
+    primary_key:
+      fields: [ id ]
+    auto_increment: 9000060
+    default_charset: utf8mb4
+
+  metric_expr_config:
+    fields:
+      metric: { type: varchar(64), nullable: false }
+      expr: { type: varchar(4096), nullable: true }
+      gmt_create: { type: timestamp, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      gmt_modified: { type: timestamp, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+    indexes: { }
+    primary_key:
+      fields: [ metric ]
+    default_charset: utf8mb4
+    renamed_from: ocp_metric_expr_config
+
+  metric_exporter_address:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      exporter_url: { type: varchar(1024), nullable: false, comment: Exporter URL }
+      status: { type: varchar(256), nullable: false, comment: Exporter status, like ACTIVE, INACTIVE }
+      create_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP', on_update: !const 'CURRENT_TIMESTAMP' }
+    indexes:
+      uk_host_agent_exporter_url:
+        fields: [ exporter_url ]
+        unique: true
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: Monitor exporter info
+    default_charset: utf8mb4

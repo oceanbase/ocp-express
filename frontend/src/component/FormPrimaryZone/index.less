@@ -1,0 +1,107 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+@import '~@oceanbase/design/es/theme/index.less';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  :global {
+    .ant-card-body {
+      min-height: 300px;
+    }
+    .ant-typography-ellipsis {
+      // 覆盖 typography 的 display，否则 ellipsis 的文案不显示
+      display: inline;
+    }
+  }
+
+  .zone {
+    display: inline-block;
+    width: calc((100% - 96px) / 2);
+  }
+
+  .transferWrapper {
+    display: inline-block;
+    margin-top: 150px;
+    padding: 0 24px;
+    // TODO: 以下两行代码可以保证大部分情况下穿梭按钮保持垂直居中，先这样临时处理，后续要寻找更完善的优化方案
+    vertical-align: top;
+
+    .transfer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background-color: #f5f8fe;
+      border: 1px solid #cdd5e4;
+      border-radius: 4px;
+    }
+
+    .active {
+      color: @colorPrimary;
+      background-color: @colorPrimary;
+      border-color: @colorPrimary;
+      cursor: pointer;
+      .icon {
+        color: #fff;
+      }
+    }
+
+    .disabled {
+      color: rgba(0, 0, 0, 0.25);
+      background-color: #f5f5f5;
+      border-color: #d9d9d9;
+      cursor: not-allowed;
+    }
+  }
+
+  .description {
+    margin-left: 8px;
+    color: @colorTextTertiary;
+    font-weight: normal;
+    font-size: 12px;
+    font-family: PingFangSC-Regular;
+    line-height: 22px;
+  }
+
+  .priorityList {
+    display: inline-block;
+    width: calc((100% - 96px) / 2);
+
+    // 解决无法顶部对齐的问题
+    vertical-align: top;
+
+    :global {
+      .ant-card-body {
+        padding: 0;
+      }
+    }
+
+    .dragList {
+      height: 100%;
+
+      .dragItem {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 16px;
+        border-bottom: 1px solid #e2e8f3;
+
+        .deleteIcon {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

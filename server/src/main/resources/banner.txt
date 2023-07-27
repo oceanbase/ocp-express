@@ -1,0 +1,10 @@
+ / ___ \  / _____)(_____ \     (_______)
+| |   | || /       _____) )     _____    _   _  ____    ____   ____   ___   ___
+| |   | || |      |  ____/     |  ___)  ( \ / )|  _ \  / ___) / _  ) /___) /___)
+| |___| || \_____ | |          | |_____  ) X ( | | | || |    ( (/ / |___ ||___ |
+ \_____/  \______)|_|          |_______)(_/ \_)| ||_/ |_|     \____)(___/ (___/
+                                               |_|
+
+${AnsiColor.GREEN} :: Spring Boot ::        ${AnsiColor.BRIGHT_BLACK}${spring-boot.formatted-version}
+${AnsiColor.GREEN} ::  OCP Server ::        ${AnsiColor.BRIGHT_BLACK}${application.formatted-version}
+${AnsiBackground.DEFAULT}

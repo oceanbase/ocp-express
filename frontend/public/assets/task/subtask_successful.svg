@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="L1-系统管理&amp;个人设置" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.1.1-任务详情-标注" transform="translate(-81.000000, -385.000000)" fill="#0ac185">
+            <g id="Zone-2" transform="translate(71.000000, 375.000000)">
+                <g id="Group" transform="translate(10.000000, 10.000000)">
+                    <g id="Oval-2" opacity="0.15">
+                        <circle id="Oval" cx="21" cy="21" r="21"></circle>
+                    </g>
+                    <path d="M30.5238281,13.7992969 L20.1583594,28.1711719 C19.5332812,29.0423438 18.2388281,29.0423438 17.61375,28.1711719 L11.4761719,19.6661719 C11.2891406,19.4053125 11.4761719,19.0410938 11.7960937,19.0410938 L14.1044531,19.0410938 C14.6064844,19.0410938 15.0839062,19.2822656 15.3792187,19.6957031 L18.8835937,24.5585156 L26.6207812,13.8288281 C26.9160937,13.4203125 27.3885937,13.1742187 27.8955469,13.1742187 L30.2039062,13.1742187 C30.5238281,13.1742187 30.7108594,13.5384375 30.5238281,13.7992969 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

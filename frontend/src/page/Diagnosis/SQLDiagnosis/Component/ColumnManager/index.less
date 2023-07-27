@@ -1,0 +1,78 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+@import '~@oceanbase/design/es/theme/index.less';
+
+.tableExtra {
+  float: right;
+  color: #8592ad;
+  line-height: 28px;
+  cursor: pointer;
+  &:hover {
+    color: @colorPrimary;
+    transition: color 0.5s;
+  }
+  :global {
+    .anticon {
+      margin-right: 4px;
+    }
+  }
+}
+
+.fieldSearch {
+  text-align: center;
+  :global {
+    .ant-input-search {
+      width: 400px;
+      .ant-input {
+        border-radius: 0;
+      }
+      .ant-btn {
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+.drawer {
+  :global {
+    .ant-drawer-wrapper-body {
+      position: relative;
+    }
+  }
+}
+
+.drawBodyContainer {
+  position: relative;
+}
+
+.checkboxGroupGrid {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.listFooter {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: right;
+  background: #fff;
+  border-top: 1px solid #e9e9e9;
+  :global {
+    .ant-btn {
+      margin-left: 8px;
+    }
+  }
+}

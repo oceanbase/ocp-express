@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="134px" height="102px" viewBox="0 0 134 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="TopSQL浏览器版本提示" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.3-以-Chrome-浏览器为例-49~80-可能出现崩溃（不知原因）" transform="translate(-654.000000, -370.000000)">
+            <g id="编组" transform="translate(654.000000, 370.000000)">
+                <g id="网页">
+                    <rect id="矩形" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="134" height="102"></rect>
+                    <rect id="矩形" fill="#E2E7F2" fill-rule="nonzero" x="30" y="32.4818092" width="72.180798" height="53.5181908" rx="4.93871394"></rect>
+                    <g id="分组-2" transform="translate(50.833140, 43.460620)">
+                        <path d="M0,36.5261989 L0,1.68970643 C3.29805282e-16,0.756507338 0.756507338,3.93470497e-16 1.68970643,0 L43.6761482,0 C44.6093473,-4.09361777e-15 45.3658546,0.756507338 45.3658546,1.68970643 L45.3658546,37.6279684 L45.3658546,37.6279684 C45.3658546,37.9526566 45.0994896,38.2159054 44.770958,38.2159054 L1.68970643,38.2159054 C0.756507338,38.2159054 3.62205216e-15,37.459398 0,36.5261989 Z" id="Fill-30" fill="#F3F4FA"></path>
+                        <path d="M4.47486493,28.9392369 C4.14625888,28.9392369 3.87996825,28.6759881 3.87996825,28.3512999 L3.87996825,4.47150345 C3.87996825,4.14674175 4.14625888,3.88356645 4.47486493,3.88356645 L41.0990102,3.88356645 C41.4275419,3.88356645 41.6939069,4.14674175 41.6939069,4.47150345 L41.6939069,28.3512999 C41.6939069,28.6759881 41.4275419,28.9392369 41.0990102,28.9392369 L4.47486493,28.9392369 Z" id="Fill-32" fill="#CED7EC"></path>
+                        <path d="M3.88004261,28.322366 C7.81543292,28.322366 6.77048409,23.3939993 12.7307428,23.3939993 C18.6910015,23.3939993 18.3806063,27.7997561 23.029129,27.7997561 C27.7500896,27.7997561 27.4377853,15.1456369 31.9606361,15.1456369 C36.7347564,15.1456369 35.6571184,26.612067 41.6038544,26.612067 L41.6038544,34.3828941 C41.6038544,34.7078028 41.337192,34.9711251 41.0084372,34.9708314 L4.47441876,34.939744 C4.14611015,34.93945 3.88004261,34.6763482 3.88004261,34.351807 L3.88004261,28.322366 Z" id="Fill-38" fill="#393D65"></path>
+                    </g>
+                    <path d="M31.9334142,31.0136986 L100.211132,31.0136986 C101.278927,31.0136986 102.144546,31.8691908 102.144546,32.9244939 L102.144546,38.6186638 L30,38.6186638 L30,32.9244939 C30,31.8691908 30.865619,31.0136986 31.9334142,31.0136986 Z" id="路径" fill="#393D65" fill-rule="nonzero"></path>
+                    <ellipse id="椭圆形" fill="#FFFFFF" fill-rule="nonzero" cx="34.1326729" cy="34.8161812" rx="1.37997441" ry="1.36383012"></ellipse>
+                    <ellipse id="椭圆形" fill="#FFFFFF" fill-rule="nonzero" cx="39.286833" cy="34.8161812" rx="1.37997441" ry="1.36383012"></ellipse>
+                    <ellipse id="椭圆形" fill="#FFFFFF" fill-rule="nonzero" cx="44.4417987" cy="34.8161812" rx="1.37997441" ry="1.36383012"></ellipse>
+                    <rect id="矩形" fill="#B2BED9" fill-rule="nonzero" x="35.1361893" y="58.3269247" width="10.3276544" height="2.57718512" rx="1.28859256"></rect>
+                    <rect id="矩形" fill="#B2BED9" fill-rule="nonzero" x="35.1361893" y="63.288623" width="10.3276544" height="2.49916098" rx="1.24958049"></rect>
+                    <rect id="矩形" fill="#B2BED9" fill-rule="nonzero" x="35.1361893" y="68.1492085" width="10.3276544" height="2.49916098" rx="1.24958049"></rect>
+                    <ellipse id="椭圆形" fill="#F3F4FA" fill-rule="nonzero" cx="40.3000165" cy="49.022944" rx="5.15577129" ry="5.09545405"></ellipse>
+                    <path d="M40.3000165,54.1183994 C41.786012,54.1192153 43.1962793,53.4704222 44.1523443,52.3461355 C43.3990245,50.9327545 41.9155989,50.047985 40.2992109,50.047985 C38.6828228,50.047985 37.1993973,50.9327545 36.4460774,52.3461355 C37.402643,53.4706704 38.8135066,54.1194666 40.3000165,54.1183994 L40.3000165,54.1183994 Z" id="路径" fill="#393D65" fill-rule="nonzero"></path>
+                    <ellipse id="椭圆形" fill="#393D65" fill-rule="nonzero" cx="40.3274065" cy="48.3342616" rx="1.93905336" ry="1.91636842"></ellipse>
+                </g>
+                <rect id="矩形" fill="#FFFFFF" x="94" y="30" width="9" height="9"></rect>
+                <rect id="矩形备份-3" fill="#FFFFFF" x="78" y="47" width="8" height="8"></rect>
+                <rect id="矩形备份-5" fill="#FFFFFF" x="86" y="55" width="8" height="8"></rect>
+                <rect id="矩形备份-6" fill="#FFFFFF" x="70" y="55" width="8" height="8"></rect>
+                <rect id="矩形备份-4" fill="#FFFFFF" x="78" y="30" width="8" height="9"></rect>
+                <rect id="矩形备份-7" fill="#393D65" x="123" y="3" width="8" height="8"></rect>
+                <rect id="矩形备份-11" fill="#CED7EC" x="105" y="31" width="8" height="8"></rect>
+                <rect id="矩形备份-8" fill="#393D65" x="99" y="15" width="8" height="8"></rect>
+                <rect id="矩形备份-9" fill="#E2E7F2" x="113" y="45" width="8" height="8"></rect>
+                <rect id="矩形备份-10" fill="#E2E7F2" x="119" y="23" width="8" height="8"></rect>
+                <rect id="矩形备份" fill="#FFFFFF" x="86" y="39" width="8" height="8"></rect>
+                <rect id="矩形备份-2" fill="#FFFFFF" x="94" y="47" width="8" height="8"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

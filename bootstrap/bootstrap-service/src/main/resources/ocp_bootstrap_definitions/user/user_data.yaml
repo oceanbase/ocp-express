@@ -1,0 +1,12 @@
+data_source: dataSource
+data_definitions:
+  user:
+    table_name: user
+    on_duplicate_update: null
+    rows:
+      - { id: 100, account_locked: false, enabled: true, password: '', username: admin, need_change_password: true }
+
+migrations:
+  disabled_system_user:
+    raw_sqls:
+      - DELETE from `user` WHERE id = 200;

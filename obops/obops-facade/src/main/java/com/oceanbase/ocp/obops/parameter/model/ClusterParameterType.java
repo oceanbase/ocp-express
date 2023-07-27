@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+package com.oceanbase.ocp.obops.parameter.model;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.oceanbase.ocp.obsdk.operator.parameter.model.ObParameterScope;
+
+import lombok.Getter;
+
+public enum ClusterParameterType {
+
+    OB_CLUSTER_PARAMETER("CLUSTER"),
+
+    OB_TENANT_PARAMETER("TENANT"),
+    ;
+
+    @Getter
+    private final String value;
+
+    ClusterParameterType(String value) {
+        this.value = value;
+    }
+
+    public ObParameterScope toObParameterScope() {
+        return ObParameterScope.fromValue(value);
+    }
+
+    public static ClusterParameterType fromValue(String value) {
+        for (ClusterParameterType b : ClusterParameterType.values()) {
+            if (StringUtils.equalsIgnoreCase(b.value, value)) {
+                return b;
+            }
+        }
+        return null;
+    }
+}

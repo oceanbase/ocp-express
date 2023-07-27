@@ -1,0 +1,242 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+@import '~@oceanbase/design/es/theme/index.less';
+
+.filterIconFiltered {
+  color: @colorPrimary;
+  :global {
+    .anticon {
+      color: @colorPrimary !important;
+    }
+  }
+}
+.overlay {
+  width: 225px;
+  box-shadow: @boxShadowSecondary !important;
+  .searchWrapper {
+    padding: 8px;
+    .searchIcon {
+      opacity: 0.45;
+    }
+  }
+  ul {
+    margin-bottom: 0;
+    & > li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-right: 0;
+      padding: 7px 12px;
+      cursor: pointer;
+      .checkIcon {
+        margin-left: 8px;
+        visibility: hidden;
+      }
+      &:hover {
+        background-color: #e6f7ff;
+        .checkIcon {
+          color: rgba(0, 0, 0, 0.65);
+          visibility: visible;
+        }
+      }
+      .filterIconFiltered {
+        color: @colorPrimary;
+        :global {
+          .anticon {
+            color: @colorPrimary !important;
+          }
+        }
+      }
+      .overlay {
+        width: 225px;
+        .searchWrapper {
+          padding: 8px;
+          .searchIcon {
+            opacity: 0.45;
+          }
+        }
+        ul {
+          margin-bottom: 0;
+          & > li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-right: 0;
+            padding: 7px 12px;
+            cursor: pointer;
+            .checkIcon {
+              margin-left: 8px;
+              visibility: hidden;
+            }
+            &:hover {
+              background-color: #e6f7ff;
+              .checkIcon {
+                color: rgba(0, 0, 0, 0.65);
+                visibility: visible;
+              }
+            }
+            .filterIconFiltered {
+              color: @colorPrimary;
+              :global {
+                .anticon {
+                  color: @colorPrimary !important;
+                }
+              }
+            }
+            .overlay {
+              width: 225px;
+              .searchWrapper {
+                padding: 8px;
+                .searchIcon {
+                  opacity: 0.45;
+                }
+              }
+              ul {
+                margin-bottom: 0;
+                & > li {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin-right: 0;
+                  padding: 7px 12px;
+                  cursor: pointer;
+                  .checkIcon {
+                    margin-left: 8px;
+                    visibility: hidden;
+                  }
+                  &:hover {
+                    background-color: #e6f7ff;
+                    .checkIcon {
+                      color: rgba(0, 0, 0, 0.65);
+                      visibility: visible;
+                    }
+                  }
+                  .filterIconFiltered {
+                    color: @colorPrimary;
+                    :global {
+                      .anticon {
+                        color: @colorPrimary !important;
+                      }
+                    }
+                  }
+
+                  .overlay {
+                    width: 225px;
+                    .searchWrapper {
+                      padding: 8px;
+                      .searchIcon {
+                        opacity: 0.45;
+                      }
+                    }
+
+                    ul {
+                      margin-bottom: 0;
+                      & > li {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-right: 0;
+                        padding: 7px 12px;
+                        cursor: pointer;
+
+                        .checkIcon {
+                          margin-left: 8px;
+                          visibility: hidden;
+                        }
+
+                        &:hover {
+                          background-color: #e6f7ff;
+                          .checkIcon {
+                            color: rgba(0, 0, 0, 0.65);
+                            visibility: visible;
+                          }
+                        }
+
+                        // 选中态样式优先级要高于 hover 态
+                        &.selected {
+                          font-weight: 600;
+                          .checkIcon {
+                            color: @colorPrimary;
+                            visibility: visible;
+                          }
+                        }
+                      }
+                    }
+                  }
+
+                  .singleOverlay {
+                    ul {
+                      & > li {
+                        .checkIcon {
+                          display: none;
+                        }
+                      }
+                    }
+                  }
+                  &.selected {
+                    font-weight: 600;
+                    .checkIcon {
+                      color: @colorPrimary;
+                      visibility: visible;
+                    }
+                  }
+                }
+              }
+            }
+            .singleOverlay {
+              ul {
+                & > li {
+                  .checkIcon {
+                    display: none;
+                  }
+                }
+              }
+            }
+            &.selected {
+              font-weight: 600;
+              .checkIcon {
+                color: @colorPrimary;
+                visibility: visible;
+              }
+            }
+          }
+        }
+      }
+      .singleOverlay {
+        ul {
+          & > li {
+            .checkIcon {
+              display: none;
+            }
+          }
+        }
+      }
+      &.selected {
+        font-weight: 600;
+        .checkIcon {
+          color: @colorPrimary;
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
+.singleOverlay {
+  ul {
+    & > li {
+      .checkIcon {
+        display: none;
+      }
+    }
+  }
+}

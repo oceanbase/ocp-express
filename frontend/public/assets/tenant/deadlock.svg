@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="12px" height="14px" viewBox="0 0 12 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.45">
+        <g id="1.2-死锁分析-集群-3.2-及以上-自动检测关闭" transform="translate(-474.000000, -377.000000)" fill="#000000">
+            <g id="部署记录" transform="translate(304.000000, 302.000000)">
+                <g id="编组-6" transform="translate(16.000000, 62.000000)">
+                    <g id="带描述" transform="translate(140.000000, 0.000000)">
+                        <g id="icon" transform="translate(12.000000, 12.000000)">
+                            <path d="M13,7.25 L11.9375,7.25 L11.9375,3.75 C11.9375,2.6453125 11.0421875,1.75 9.9375,1.75 L6.0625,1.75 C4.9578125,1.75 4.0625,2.6453125 4.0625,3.75 L4.0625,7.25 L3,7.25 C2.7234375,7.25 2.5,7.4734375 2.5,7.75 L2.5,13.75 C2.5,14.0265625 2.7234375,14.25 3,14.25 L13,14.25 C13.2765625,14.25 13.5,14.0265625 13.5,13.75 L13.5,7.75 C13.5,7.4734375 13.2765625,7.25 13,7.25 Z M5.1875,3.75 C5.1875,3.2671875 5.5796875,2.875 6.0625,2.875 L9.9375,2.875 C10.4203125,2.875 10.8125,3.2671875 10.8125,3.75 L10.8125,7.25 L5.1875,7.25 L5.1875,3.75 Z M12.375,13.125 L3.625,13.125 L3.625,8.375 L12.375,8.375 L12.375,13.125 Z M7.5625,10.953125 L7.5625,11.78125 C7.5625,11.85 7.61875,11.90625 7.6875,11.90625 L8.3125,11.90625 C8.38125,11.90625 8.4375,11.85 8.4375,11.78125 L8.4375,10.953125 C8.6265625,10.8171875 8.75,10.5953125 8.75,10.34375 C8.75,9.9296875 8.4140625,9.59375 8,9.59375 C7.5859375,9.59375 7.25,9.9296875 7.25,10.34375 C7.25,10.5953125 7.3734375,10.8171875 7.5625,10.953125 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

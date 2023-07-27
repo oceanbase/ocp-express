@@ -1,0 +1,50 @@
+data_source: dataSource
+table_definitions:
+  metric_data_minute:
+    fields:
+      series_id: { type: bigint(20), nullable: false }
+      timestamp: { type: bigint(20), nullable: false }
+      data: { type: varbinary(65535), nullable: false }
+      interval: { type: tinyint(4), nullable: true, default_value: '60', comment: Minute-level monitoring collection interval }
+    indexes: { }
+    primary_key:
+      fields: [ series_id, timestamp ]
+    partition:
+      type: RANGE
+      fields: [ timestamp ]
+      range_partitions:
+        - { DUMMY: 0 }
+      subpartition: { type: HASH, hash_partition_count: 30, by_expr: series_id }
+    default_charset: utf8mb4
+
+  metric_data_second:
+    fields:
+      series_id: { type: bigint(20), nullable: false }
+      timestamp: { type: bigint(20), nullable: false }
+      data: { type: varbinary(65535), nullable: false }
+      interval: { type: tinyint(4), nullable: true, default_value: '1', comment: Second-level monitoring collection interval }
+    indexes: { }
+    primary_key:
+      fields: [ series_id, timestamp ]
+    partition:
+      type: RANGE
+      fields: [ timestamp ]
+      range_partitions:
+        - { DUMMY: 0 }
+      subpartition: { type: HASH, hash_partition_count: 30, by_expr: series_id }
+    default_charset: utf8mb4
+
+  metric_series_key_id:
+    fields:
+      series_id: { type: bigint(20), nullable: false }
+      series_key: { type: varchar(1024), nullable: true }
+    indexes:
+      idx_metric_key_id_series_key:
+        fields: [ series_key ]
+        unique: true
+        local: false
+    primary_key:
+      fields: [ series_id ]
+    comment: Monitoring Metric name to ID mapping table
+    default_charset: utf8mb4
+    renamed_from: ocp_metric_series_key_id

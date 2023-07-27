@@ -1,0 +1,31 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+package com.oceanbase.ocp.core.exception;
+
+import org.springframework.http.HttpStatus;
+
+import com.oceanbase.ocp.core.i18n.ErrorCode;
+
+public class ConflictException extends OcpException {
+
+    public ConflictException(ErrorCode errorCode) {
+        super(HttpStatus.CONFLICT, errorCode);
+    }
+
+    public ConflictException(ErrorCode errorCode, Object... args) {
+        super(HttpStatus.CONFLICT, errorCode, args);
+    }
+
+    public ConflictException(Throwable cause, ErrorCode errorCode, Object... args) {
+        super(cause, HttpStatus.CONFLICT, errorCode, args);
+    }
+}

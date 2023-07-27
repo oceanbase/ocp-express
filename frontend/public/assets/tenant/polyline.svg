@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="2.6.0-导航优化" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-dasharray="2" stroke-linecap="square">
+        <g id="导航方案" transform="translate(-2895.000000, -489.000000)" stroke="#D9D9D9">
+            <g id="编组-16" transform="translate(2865.000000, 446.000000)">
+                <g id="编组-21" transform="translate(16.000000, 16.000000)">
+                    <path d="M15,27 L15,44 L30,44" id="直线-2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

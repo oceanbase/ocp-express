@@ -1,0 +1,75 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+.drawer {
+  :global {
+    .ant-drawer-body {
+      height: calc(100% - 56px);
+      padding: 0;
+    }
+  }
+  .row {
+    height: 100%;
+    .left {
+      height: 100%;
+      padding: 24px 0;
+      .title {
+        font-size: 16px;
+        font-family: SFProText-Medium;
+      }
+      .description {
+        margin-left: 8px;
+        color: rgba(0, 0, 0, 0.45);
+        font-size: 12px;
+      }
+      .selectedRow {
+        background-color: #fafafa;
+      }
+      :global {
+        .ant-table-thead > tr > th:first-child,
+        .ant-table-tbody > tr > td:first-child {
+          padding-left: 24px;
+        }
+        .ant-table-thead > tr > th:last-child,
+        .ant-table-tbody > tr > td:last-child {
+          padding-right: 24px;
+        }
+      }
+    }
+    .middle {
+      height: 100%;
+      padding: 24px 0 24px 24px;
+      background-color: #fafafa;
+      .title {
+        margin-bottom: 16px;
+        padding: 4px 0;
+        font-size: 16px;
+        font-family: SFProText-Medium;
+      }
+      .all {
+        margin-bottom: 16px;
+      }
+      .zone {
+        padding-left: 24px !important;
+        cursor: pointer;
+      }
+      .selectedZone {
+        background-color: #edeff2;
+      }
+    }
+    .right {
+      height: 100%;
+      padding: 72px 0 24px 24px;
+      background-color: #edeff2;
+    }
+  }
+}

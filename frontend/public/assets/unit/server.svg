@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="12px" height="14px" viewBox="0 0 12 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="资源管理" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.1-Unit-管理" transform="translate(-520.000000, -327.000000)" fill="#36CFC9">
+            <g id="Group-8" transform="translate(232.000000, 178.000000)">
+                <g id="Icon/01-Line/1-example" transform="translate(286.000000, 148.000000)">
+                    <path d="M13,1 L3,1 C2.7234375,1 2.5,1.2234375 2.5,1.5 L2.5,5 L13.5,5 L13.5,1.5 C13.5,1.2234375 13.2765625,1 13,1 Z M7.125,3.375 C7.125,3.44375 7.06875,3.5 7,3.5 L4.125,3.5 C4.05625,3.5 4,3.44375 4,3.375 L4,2.625 C4,2.55625 4.05625,2.5 4.125,2.5 L7,2.5 C7.06875,2.5 7.125,2.55625 7.125,2.625 L7.125,3.375 Z M2.5,14.5 C2.5,14.7765625 2.7234375,15 3,15 L13,15 C13.2765625,15 13.5,14.7765625 13.5,14.5 L13.5,11 L2.5,11 L2.5,14.5 Z M11.5,12.375 C11.8453125,12.375 12.125,12.6546875 12.125,13 C12.125,13.3453125 11.8453125,13.625 11.5,13.625 C11.1546875,13.625 10.875,13.3453125 10.875,13 C10.875,12.6546875 11.1546875,12.375 11.5,12.375 Z M2.5,10 L13.5,10 L13.5,6 L2.5,6 L2.5,10 Z M4,7.625 C4,7.55625 4.05625,7.5 4.125,7.5 L7,7.5 C7.06875,7.5 7.125,7.55625 7.125,7.625 L7.125,8.375 C7.125,8.44375 7.06875,8.5 7,8.5 L4.125,8.5 C4.05625,8.5 4,8.44375 4,8.375 L4,7.625 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

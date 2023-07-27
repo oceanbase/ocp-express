@@ -1,0 +1,359 @@
+data_source: dataSource
+data_definitions:
+  config_properties:
+    table_name: config_properties
+    on_duplicate_update: [ description, description_en, fatal, need_restart, visible_level, default_value ]
+    rows:
+      ## Spring security and OCP Security configuration
+      - key: server.servlet.session.timeout
+        default_value: '30m'
+        need_restart: true
+        description: '登陆会话/Session超时的时间，默认是30m，最少60s。如果不加后缀单位，则默认是秒。重启生效。'
+        description_en: 'Session timeout interval, default is 30m, at least 60s. If the suffix unit is not added, the default is seconds. Restart OCP to take effect.'
+      - key: ocp.login.encryption.enabled
+        default_value: 'true'
+        need_restart: true
+        fatal: false
+        visible_level: 'PRIVATE'
+        description: '登录信息是否开启加密传输，默认开启，重启生效'
+        description_en: 'Switch to enable encrypted transmission of login information, enabled by default. Restart OCP to take effect.'
+      - key: ocp.login.encryption.public-key
+        default_value: ''
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '加密登录信息的公钥，建议部署后修改此配置，修改后重启生效'
+        description_en: 'The public key for login encryption, It is recommended to modify this configuration after deployment. Restart OCP to take effect.'
+      - key: ocp.login.encryption.private-key
+        default_value: ''
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '加密登录信息的私钥，建议部署后修改此配置，修改后重启生效'
+        description_en: 'The private key for encryption. It is recommended to modify this configuration after deployment. Restart OCP to take effect.'
+      - key: ocp.iam.auth.basic.enabled
+        default_value: 'true'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '是否启用Basic Auth登陆模式，通常供程序和SDK等客户端场景使用，默认true。本配置与ocp.iam.auth可同时开启。重启生效。'
+        description_en: 'Whether to enable Basic Authentication, usually for client programs and SDKs to call server APIs. The default is true. This configuration and ocp.iam.auth can be enabled together. Restart OCP to take effect.'
+      - key: ocp.iam.csrf.enabled
+        default_value: 'true'
+        need_restart: true
+        description: '是否启用CSRF跨站点请求伪造安全保护，通常基于网页登陆的方式都推荐要启用，默认true。重启生效。'
+        description_en: 'Whether to enable CSRF cross-site request forgery security protection. It is recommended to enable it, the default is true. Restart OCP to take effect.'
+      - key: ocp.iam.csrf.url.excluded
+        default_value: '/api/v1/iam/login.*'
+        need_restart: true
+        visible_level: 'PRIVATE'
+        description: '可指定跳过CSRF保护的URL列表，支持正则表达式匹配，默认为：/api/v1/iam/login.*。如果启用CSRF跨站点请求伪造安全保护，该选项才生效；URL是包含path和query param的完整字符串'
+        description_en: 'You can specify a URL list to skip CSRF protection, support regular expression matching, the default is: /api/v1/iam/login.*. This option will only take effect if CSRF cross-site request forgery security protection is enabled; URL is a complete string containing path and query param'
+      - key: ocp.express.vault.secret-key
+        default_value: '69723ed7f1eb4353af55f3b37c51e0cd3f8ac9fd460e26fa'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '密码箱加密密钥'
+        description_en: 'vault secret key'
+
+      ## Spring jpa、hibernate
+      - key: spring.jpa.properties.hibernate.globally_quoted_identifiers
+        default_value: 'true'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '在全局增加引用标识符'
+        description_en: 'Add reference identifier globally'
+      - key: spring.jpa.hibernate.naming-strategy
+        default_value: 'org.hibernate.cfg.ImprovedNamingStrategy'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'JPA naming-strategy，比 DefaultNamingStrategy 更完善的 字段和列名映射'
+        description_en: 'JPA naming-strategy, improved mapping strategy between java entity fields and database column names than DefaultNamingStrategy'
+      - key: spring.jpa.properties.hibernate.dialect
+        default_value: 'org.hibernate.dialect.MySQL5Dialect'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'JPA dialect use MySQL，JPA 方言配置，更适合 MySQL'
+        description_en: 'JPA dialect use MySQL, JPA dialect configuration, more suitable for MySQL'
+
+      ## Data source and druid pool
+      - key: spring.datasource.druid.name
+        default_value: 'metadb-connect-pool'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'metadb的druid连接池名称。重启生效'
+        description_en: 'metadb druid connection pool name. Restart to take effect'
+      - key: spring.datasource.druid.initial-size
+        default_value: '10'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '初始化时建立物理连接的个数。重启生效'
+        description_en: 'The number of physical connections established during initialization. Restart to take effect'
+      - key: spring.datasource.druid.min-idle
+        default_value: '2'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '最小连接池数量。重启生效'
+        description_en: 'Minimum number of connections. Restart to take effect'
+      - key: spring.datasource.druid.max-active
+        default_value: '100'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '最大连接池数量。重启生效'
+        description_en: 'The maximum number of connections. Restart to take effect'
+      - key: spring.datasource.druid.test-while-idle
+        default_value: 'true'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测。重启生效'
+        description_en: 'It is recommended to set it to true, which will not affect performance and ensure safety. Detect when applying for connection. Restart to take effect'
+      - key: spring.datasource.druid.validation-query
+        default_value: 'SELECT 1 FROM DUAL'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '用来检测连接是否有效的sql。重启生效'
+        description_en: 'SQL used to detect whether the connection is valid. Restart to take effect'
+      - key: spring.datasource.druid.max-wait
+        default_value: '2000'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '获取连接时最大等待时间，单位毫秒。重启生效'
+        description_en: 'Maximum waiting time when getting a connection, in milliseconds. Restart to take effect'
+      - key: spring.datasource.druid.keep-alive
+        default_value: 'true'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '连接池中的minIdle数量以内的连接，空闲时间超过minEvictableIdleTimeMillis（缺省值1800秒），则会执行keepAlive操作。重启生效'
+        description_en: 'For connections within the number of minIdle in the connection pool, if the idle time exceeds minEvictableIdleTimeMillis (the default value is 1800 seconds), the keepAlive operation will be performed. Restart to take effect'
+
+      ## logging
+      - key: logging.pattern.console
+        default_value: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%t,%X{traceId},%X{spanId}]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx'
+        visible_level: 'PRIVATE'
+        need_restart: true
+        description: '用于控制台输出的日志格式'
+        description_en: 'Log format for console output'
+      - key: logging.pattern.file
+        default_value: '%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%t,%X{traceId},%X{spanId}] %-40.40logger{39} : %m%n%wEx'
+        visible_level: 'PRIVATE'
+        need_restart: true
+        description: '用于文件输出的日志格式'
+        description_en: 'Log format used for file output'
+      - key: logging.file.name
+        need_restart: true
+        default_value: '${user.home}/ocp-express/log/ocp-express.log'
+        description: '日志文件的完整名字（绝对路径+文件名字），可以用Linux/MacOS系统环境变量如${HOME}或者java系统变量${user.home}；默认是${user.home}/ocp-express/log/ocp-express.log'
+        description_en: 'The full name of the log file (absolute path + file name), you can use Linux/MacOS system environment variables such as ${HOME} or java system variables ${user.home}; the default is ${user.home}/ocp-express/log/ocp-express.log'
+      - key: logging.file.max-size
+        need_restart: true
+        default_value: '100MB'
+        description: '当配置了logging.file.name后，通过本配置指定日志文件大小，如 30MB、1GB等；默认是100MB'
+        description_en: 'When logging.file.name is configured, specify the log file size through this configuration, such as 30MB, 1GB, etc.; the default is 100MB'
+      - key: logging.file.total-size-cap
+        need_restart: true
+        default_value: '10GB'
+        description: '当配置了logging.file.name后，通过本配置指定日志文件总大小，如1GB等；默认是10GB'
+        description_en: 'When logging.file.name is configured, specify the total log file size through this configuration, such as 1GB, etc.; the default is 10GB'
+      - key: logging.file.clean-history-on-start
+        need_restart: true
+        default_value: true
+        visible_level: 'PRIVATE'
+        description: '启动时删除压缩的日志文件'
+        description_en: 'Clean the archive log files on startup'
+      - key: logging.file.max-history
+        default_value: '30'
+        need_restart: true
+        description: '当配置了logging.file后，设置最多保留的归档日志文件的天数'
+        description_en: 'When logging.file is configured, set the maximum of retention days the log archive log files to keep'
+
+      ## Spring web request, pageable
+      - key: spring.data.web.pageable.one-indexed-parameters
+        default_value: 'true'
+        visible_level: 'PRIVATE'
+        description: 'Spring Data JPA和REST分页查询时，设置默认的页码起始值为1；如果是false，则起始页码为0'
+        description_en: 'When Spring Data JPA and REST paging query, set the default page number start value to 1; if it is false, the start page number is 0'
+
+      ## OCP global configuration
+      - key: ocp.version
+        default_value:
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'OCP版本号，由3位数字组成'
+        description_en: 'OCP release version number: major.minor.patch'
+      - key: ocp.version.full
+        default_value: ''
+        visible_level: 'PRIVATE'
+        description: 'OCP 的完整版本号，包含 build number'
+        description_en: 'full OCP version, including build number'
+      - key: server.port
+        default_value: '8180'
+        need_restart: true
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '设置应用服务器启动的端口号，默认为8180，重启生效'
+        description_en: 'Set the port number for the application server to start, the default port is 8180, restart to take effect'
+
+      ## OCP monitor configuration
+      - key: ocp.monitor.host.exporters
+        default_value: '/metrics/node/host,:62888/metrics/stat,:62889/metrics/stat'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: '主机监控exporter'
+        description_en: 'exporters of ocp host'
+      - key: ocp.monitor.ob.exporters
+        default_value: '/metrics/node/ob,/metrics/ob/basic,/metrics/ob/extra'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'OB监控exporter'
+        description_en: 'exporters of ob'
+      - key: ocp.metric.collect.interval.second
+        default_value: '15'
+        visible_level: 'PRIVATE'
+        description: '秒级别监控采集间隔，默认 15s，支持配置选项是 1s, 5s, 10s, 15s'
+        description_en: 'The parameter determines the second-level monitoring and collection interval. The supported configuration options are 1s, 5s, 10s, 15s. Default value is 15s'
+      - key: ocp.monitor.data.retention-days
+        default_value: '{"metric_data_second":8,"metric_data_minute":31}'
+        need_restart: true
+        description: '监控数据保存天数，key 是监控数据的表名，value 是保存的天数，修改后重启生效.'
+        description_en: 'Retention days for monitor data, key is table name for monitor data, value is the retention days. Restart to take effect.'
+      - key: ocp.monitor.exporter.inactive-validate-interval-seconds
+        default_value: '30'
+        visible_level: 'PRIVATE'
+        need_restart: true
+        description: '离线 exporter 校验间隔，默认 30s.'
+        description_en: 'Offline exporter validation interval, default to 30 seconds'
+      - key: ocp.monitor.max-continuous-inactive-count
+        default_value: '3'
+        visible_level: 'PRIVATE'
+        need_restart: true
+        description: '监控 exporter 最大连续离线次数，超过此次数则将 exporter 标记为离线. 默认是 3 次，修改后重启生效.'
+        description_en: 'Maximum continuous offline times for monitor exporter, if the number is exceeded, mark the exporter as offline. Default value is 3, restart to take effect.'
+
+      ## OB-SDK configuration
+      - key: obsdk.connector.holder.capacity
+        default_value: '100'
+        visible_level: 'PRIVATE'
+        description: 'obsdk连接器池容量，取值范围10~200，默认值100'
+        description_en: 'Obsdk connector holder capacity, value range 10~200, default value 100'
+      - key: obsdk.connector.max-idle.seconds
+        default_value: '3600'
+        visible_level: 'PRIVATE'
+        description: 'obsdk空闲连接器的过期时间，单位秒，取值范围300~18000，默认值3600'
+        description_en: 'The expiration time of the obsdk idle connector, in seconds, the value range is 300~18000, and the default value is 3600'
+      - key: obsdk.connector.cleanup.period.seconds
+        default_value: '300'
+        visible_level: 'PRIVATE'
+        description: 'obsdk过期连接器的清理周期，单位秒，取值范围30~1800，默认值300'
+        description_en: 'The interval for obsdk to clean up the expired connector, in seconds, the value range is 30~1800, and the default value is 300'
+      - key: obsdk.print.sql
+        default_value: 'true'
+        description: 'obsdk中sql打印开关，默认开启'
+        description_en: 'Sql print switch in obsdk, enabled by default'
+      - key: obsdk.slow.query.threshold.millis
+        default_value: '1000'
+        description: 'obsdk中慢查询日志阈值，单位毫秒，默认值 1000'
+        description_en: 'Slow query log threshold in obsdk, in milliseconds, the default value is 1000'
+      - key: obsdk.connector.init.timeout.millis
+        default_value: '3000'
+        visible_level: 'PRIVATE'
+        description: 'obsdk中连接器初始化超时时间，单位毫秒，默认值 3000'
+        description_en: 'Timeout of connector initialization in obsdk, in milliseconds, the default value is 5000'
+      - key: obsdk.connector.init.executor.thread-count
+        default_value: '16'
+        visible_level: 'PRIVATE'
+        description: 'obsdk中连接器初始化的线程个数'
+        description_en: 'The thread count of connector initialization in obsdk, the default value is 16'
+      - key: obsdk.operation.global.timeout.millis
+        default_value: '300000'
+        description: 'obsdk中运维命令全局超时时间，单位毫秒，取值范围10000~7200000，默认值 300000'
+        description_en: 'Global timeout of operation in obsdk, in milliseconds, the value range is 10000~7200000, and the default value is 300000'
+      - key: obsdk.socket.connect.timeout.millis
+        default_value: '2000'
+        visible_level: 'PRIVATE'
+        description: 'obsdk建立Socket连接的超时时间，单位:ms'
+        description_en: 'The timeout period for obsdk to connect to ob, unit: ms'
+      - key: obsdk.socket.read.timeout.millis
+        default_value: '1800000'
+        visible_level: 'PRIVATE'
+        description: 'Obsdk的Socket读取数据的超时时间，单位:ms'
+        description_en: 'Obsdk socket read data timeout time, unit: ms'
+
+      ## Ocp log configuration
+      - key: ocp.log.download.http.read.timeout
+        default_value: 180000
+        description: 'OCP 下载日志文件 http read timeout'
+        description_en: 'OCP http read timeout value for downloading log'
+      - key: ocp.log.download.http.connect.timeout
+        default_value: 180000
+        description: 'OCP 下载日志文件 http connect timeout'
+        description_en: 'OCP http connect timeout value for downloading log'
+
+      ## Executor configuration
+      - key: ocp.operation.executor.http.thread.core-pool-size
+        default_value: '10'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'http客户端, 批量处理异步请求时，线程池的核心线程数，默认10'
+        description_en: 'http client, when batch processing asynchronous requests, the number of core threads in the thread pool, the default is 10'
+      - key: ocp.operation.executor.http.thread.max-pool-size
+        default_value: '200'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'http客户端, 批量处理异步请求时，线程池最大线程数，默认200'
+        description_en: 'HTTP client, when batch processing asynchronous requests, the maximum number of threads in the thread pool, the default is 300'
+      - key: ocp.operation.executor.http.thread.keep-alive-time
+        default_value: '120000'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'http客户端，批量处理异步请求时，线程池的keepAliveTime, 单位 ms，默认120s'
+        description_en: 'HTTP client, when processing asynchronous requests in batches, the keepAliveTime of the thread pool, unit ms, default 120s'
+      - key: ocp.operation.executor.http.socket-timeout
+        default_value: '3000'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'http客户端，建立Socket连接的超时时间，默认3s'
+        description_en: 'HTTP client, the timeout period for establishing a Socket connection, the default is 3s'
+      - key: ocp.operation.executor.http.connect-timeout
+        default_value: '5000'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'http客户端，建立http连接的超时时间，默认5s'
+        description_en: 'HTTP client, the timeout period for establishing an http connection, the default is 5s'
+      - key: ocp.operation.executor.http.read-timeout
+        default_value: '30000'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'http读取数据的超时时间，单位 ms，默认30s'
+        description_en: 'HTTP timeout for reading data, unit is ms, the default is 30s'
+      - key: ocp.operation.executor.http.connection.max-pool-size
+        default_value: '100'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'Http连接池最大容量(每个OB Agent一个连接池)'
+        description_en: 'Maximum capacity of Http connection pool(One connection pool per OB Agent)'
+      - key: ocp.operation.executor.http.connection.max-per-route
+        default_value: '10'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'Http连接池每个路由(ip:port)的最大连接数'
+        description_en: 'The maximum number of connections per route (ip:port) in the Http connection pool'
+      - key: ocp.operation.executor.connector.cache.max-size
+        default_value: '1000'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'Connector的缓存大小'
+        description_en: 'Connector cache size'
+      - key: ocp.operation.executor.connector.cache.max-idle-seconds
+        default_value: '3600'
+        fatal: true
+        visible_level: 'PRIVATE'
+        description: 'Connector缓存最大空闲时间，超时删除，秒'
+        description_en: 'The maximum idle time of connector cache, timeout delete, second'

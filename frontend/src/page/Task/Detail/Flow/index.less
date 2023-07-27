@@ -1,0 +1,215 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+@import '~@oceanbase/design/es/theme/index.less';
+
+.splitPane {
+  top: auto !important;
+  width: calc(100% - 48px) !important;
+  height: calc(100% - 140px) !important;
+  min-height: calc(100% - 140px) !important;
+  background-color: #fff;
+  border-radius: 6px;
+
+  .tabsWrapper {
+    width: 100%;
+    padding: 0 16px 16px 16px;
+    box-shadow: @boxShadowSecondary;
+  }
+  .log {
+    padding: 12px 16px;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 12px;
+    line-height: 22px;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  :global {
+    .ant-tabs {
+      .ant-tabs-nav {
+        margin-bottom: 0;
+        background-color: #fff;
+      }
+      .ant-tabs-nav-list {
+        margin-top: 4px;
+      }
+      .ant-tabs-tab {
+        display: inline-flex;
+        min-width: 120px;
+        height: 28px;
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        line-height: 28px;
+        background-color: #fff;
+        border: none;
+        border-bottom: 1px solid #e8e8e8;
+        border-radius: 0;
+        transition: none;
+        &:hover {
+          color: rgba(0, 0, 0, 0.65);
+        }
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 20px;
+          margin-top: 4px;
+          padding: 0 8px;
+          border-left: 1px solid #e8e8e8;
+        }
+        .ant-tabs-tab-remove {
+          margin-top: 4px;
+          margin-right: 8px !important;
+          margin-left: 0;
+          padding: 0;
+        }
+      }
+      .ant-tabs-tab:first-child,
+      .ant-tabs-tab:last-child {
+        div {
+          border-left: 1px solid transparent;
+        }
+      }
+      .ant-tabs-tab-active {
+        background-color: #f7f8fc;
+        border-bottom: none;
+        border-left: 1px solid transparent;
+        border-radius: 2px;
+        .ant-tabs-tab-btn {
+          color: rgba(0, 0, 0, 0.85);
+          font-weight: normal;
+        }
+        div {
+          border-left: 1px solid transparent;
+        }
+        & + .ant-tabs-tab {
+          div {
+            border-left: 1px solid transparent;
+          }
+        }
+      }
+      .ant-tabs-extra-content {
+        margin-right: 16px;
+        line-height: 32px;
+      }
+    }
+  }
+}
+.english {
+  // 英文环境下，任务详情会占据两行，需要减去额外的 38px
+  height: calc(100% - 140px - 38px) !important;
+  min-height: calc(100% - 140px - 38px) !important;
+  .splitPane {
+    top: auto !important;
+    width: calc(100% - 208px) !important;
+    height: calc(100% - 187px) !important;
+    min-height: calc(100% - 187px) !important;
+    margin: 0 -24px;
+
+    .tabsWrapper {
+      width: 100%;
+    }
+
+    .log {
+      padding: 12px 16px;
+      color: rgba(0, 0, 0, 0.65);
+      font-size: 12px;
+      line-height: 22px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    :global {
+      .ant-tabs {
+        .ant-tabs-nav {
+          margin-bottom: 0;
+          background-color: #fff;
+        }
+
+        .ant-tabs-nav-list {
+          margin-top: 4px;
+        }
+
+        .ant-tabs-tab {
+          display: inline-flex;
+          min-width: 120px;
+          height: 28px;
+          margin: 0;
+          padding: 0;
+          font-size: 12px;
+          line-height: 28px;
+          background-color: #fff;
+          border: none;
+          border-bottom: 1px solid #e8e8e8;
+          border-radius: 0;
+          transition: none;
+
+          &:hover {
+            color: rgba(0, 0, 0, 0.65);
+          }
+
+          div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 20px;
+            margin-top: 4px;
+            padding: 0 8px;
+            border-left: 1px solid #e8e8e8;
+          }
+
+          .ant-tabs-tab-remove {
+            margin-top: 4px;
+            margin-right: 8px !important;
+            margin-left: 0;
+            padding: 0;
+          }
+        }
+
+        .ant-tabs-tab:first-child,
+        .ant-tabs-tab:last-child {
+          div {
+            border-left: 1px solid transparent;
+          }
+        }
+
+        .ant-tabs-tab-active {
+          background-color: #f7f8fc;
+          border-bottom: none;
+          border-left: 1px solid transparent;
+          border-radius: 2px;
+
+          .ant-tabs-tab-btn {
+            color: rgba(0, 0, 0, 0.85);
+            font-weight: normal;
+          }
+
+          div {
+            border-left: 1px solid transparent;
+          }
+
+          & + .ant-tabs-tab {
+            div {
+              border-left: 1px solid transparent;
+            }
+          }
+        }
+
+        .ant-tabs-extra-content {
+          margin-right: 16px;
+          line-height: 32px;
+        }
+      }
+    }
+  }
+}

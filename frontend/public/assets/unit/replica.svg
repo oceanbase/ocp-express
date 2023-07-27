@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="集群" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组">
+            <rect id="矩形" x="0" y="0" width="16" height="16"></rect>
+            <path d="M13.7886905,4.5625 C14.0438523,4.5625 14.25,4.76864769 14.25,5.02380952 L14.25,5.02380952 L14.25,13.7886905 C14.25,14.0438523 14.0438523,14.25 13.7886905,14.25 L13.7886905,14.25 L5.02380952,14.25 C4.76864769,14.25 4.5625,14.0438523 4.5625,13.7886905 L4.5625,13.7886905 L4.5625,5.02380952 C4.5625,4.76864769 4.76864769,4.5625 5.02380952,4.5625 L5.02380952,4.5625 Z M10.9761905,1.75 C11.2288007,1.75 11.4333721,1.95204535 11.4375,2.20366953 L11.4375,3.6875 L4.14880952,3.6875 C3.89364769,3.6875 3.6875,3.89364769 3.6875,4.14880952 L3.6875,11.4375 L2.21130952,11.4375 C1.95869931,11.4375 1.75412786,11.2354546 1.75,10.9838305 L1.75,2.21130952 C1.75,1.95869931 1.95204535,1.75412786 2.20366953,1.75 L10.9761905,1.75 Z" id="形状结合" fill="#FA8C16"></path>
+        </g>
+    </g>
+</svg>

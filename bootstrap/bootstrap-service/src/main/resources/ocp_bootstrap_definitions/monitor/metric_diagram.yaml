@@ -1,0 +1,1564 @@
+data_source: dataSource
+data_definitions: !transform
+    with:
+      metric_class: |
+        {
+          'table_name': 'metric_class',
+          'on_duplicate_update': ['name','name_en','scope','type','description','description_en'],
+          'rows': data.stream().map(m -> (m.remove('groups');m)).toList()
+        }
+      metric_group: |
+        {
+          'table_name': 'metric_group',
+          'on_duplicate_update': ['name','name_en','description','description_en','with_label'],
+          'rows': data.stream().map(m -> {'class_key':m.get('key'),'groups':m.groups})
+              .flatMap(m -> flatten('groups',m))
+              .map(m -> flattenMap('groups',m))
+              .map(m -> (m.remove('metas');m))
+              .toList()
+        }
+      metric_meta: |
+        {
+          'table_name': 'metric_meta',
+          'on_duplicate_update': ['group_key', 'class_key', 'key', 'name', 'name_en','description','description_en','unit','display_by_default','interval','labels','is_built_in', 'min_ob_version', 'max_ob_version'],
+          'rows': data.stream().map(m -> {'class_key':m.get('key'),'groups':m.groups})
+              .flatMap(m -> flatten('groups',m))
+              .map(m -> { 'class_key':m.class_key,'group_key':m.groups.key,'metas':m.groups.metas })
+              .flatMap(m -> flatten('metas',m))
+              .map(m -> flattenMap('metas',m))
+              .toList()
+        }
+    expr: |
+      { 
+        'metric_class':metric_class,
+        'metric_group':metric_group, 
+        'metric_meta':metric_meta 
+      }
+    data:
+      - key: performance_and_sql
+        name: 性能与SQL
+        name_en: Performance and SQL
+        description: 性能与SQL
+        description_en: Performance and SQL
+        scope: TENANT
+        type: NORMAL
+        groups:
+          - key: sql_count
+            name: QPS
+            name_en: QPS
+            description: 平均每秒处理 SQL 语句数
+            description_en: Average number of SQL statements processed per second
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: sql_all_count
+                unit: times/s
+                description: 每秒处理 SQL 语句数
+                description_en: Number of SQL statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: select
+                name_en: select
+                key: sql_select_count
+                unit: times/s
+                description: 每秒处理 Select 语句数
+                description_en: Number of Select statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: insert
+                name_en: insert
+                key: sql_insert_count
+                unit: times/s
+                description: 每秒处理 Insert 语句数
+                description_en: Number of Insert statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: update
+                name_en: update
+                key: sql_update_count
+                unit: times/s
+                description: 每秒处理 Update 语句数
+                description_en: Number of Update statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: replace
+                name_en: replace
+                key: sql_replace_count
+                unit: times/s
+                description: 每秒处理 Replace 语句数
+                description_en: Number of Replace statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: delete
+                name_en: delete
+                key: sql_delete_count
+                unit: times/s
+                description: 每秒处理 Delete 语句数
+                description_en: Number of Delete statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: other
+                name_en: other
+                key: sql_other_count
+                unit: times/s
+                description: DDL, DCL, DTL 等其他语句数
+                description_en: Number of DDL, DCL, DTL statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: sql_rt
+            name: 响应时间
+            name_en: Response time
+            description: 响应时间
+            description_en: Response time
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: sql_all_rt
+                unit: μs
+                description: SQL 语句平均处理耗时
+                description_en: The average processing time of each SQL statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: select
+                name_en: select
+                key: sql_select_rt
+                unit: μs
+                description: Select 语句平均处理耗时
+                description_en: The average processing time for each Select statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: insert
+                name_en: insert
+                key: sql_insert_rt
+                unit: μs
+                description: Insert 语句平均处理耗时
+                description_en: The average processing time of each Insert statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: update
+                name_en: update
+                key: sql_update_rt
+                unit: μs
+                description: Update 语句平均处理耗时
+                description_en: The average processing time of each Update statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: replace
+                name_en: replace
+                key: sql_replace_rt
+                unit: μs
+                description: Replace 语句平均处理耗时
+                description_en: The average processing time for each Replace statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: delete
+                name_en: delete
+                key: sql_delete_rt
+                unit: μs
+                description: Delete 语句平均处理耗时
+                description_en: The average processing time of each Delete statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: other
+                name_en: other
+                key: sql_other_rt
+                unit: μs
+                description: DDL, DCL, DTL 等其他语句平均处理耗时
+                description_en: The average processing time of each DDL, DCL, DTL statements
+                display_by_default: 1
+                is_built_in: 1
+          - key: session
+            name: 会话数
+            name_en: Number of sessions
+            description: 会话数
+            description_en: Number of sessions
+            with_label: 0
+            metas:
+              - name: active_session
+                name_en: active_session
+                key: active_session
+                unit: ''
+                description: 当前活跃会话数
+                description_en: Number of current active sessions
+                display_by_default: 1
+                is_built_in: 1
+              - name: all_session
+                name_en: all_session
+                key: all_session
+                unit: ''
+                description: 当前会话数
+                description_en: Number of current sessions
+                display_by_default: 1
+                is_built_in: 1
+          - key: sql_plan
+            name: SQL 执行计划类别
+            name_en: SQL execution plan category
+            description: SQL 执行计划类别
+            description_en: SQL execution plan category
+            with_label: 0
+            metas:
+              - name: local
+                name_en: local
+                key: sql_local_count
+                unit: times/s
+                description: 每秒处理本地执行数
+                description_en: Number of Processing local executions per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: remote
+                name_en: remote
+                key: sql_remote_count
+                unit: times/s
+                description: 每秒处理远程执行计划数
+                description_en: Number of remote execution plans processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: distributed
+                name_en: distributed
+                key: sql_distributed_count
+                unit: times/s
+                description: 每秒处理分布式执行计划数
+                description_en: Number of distributed execution plans processed per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: wait_event
+            name: 等待事件
+            name_en: Waiting for events
+            description: 每秒等待事件次数
+            description_en: Number of waiting events per second
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: wait_event_count
+                unit: times/s
+                description: 每秒等待事件次数
+                description_en: Number of waiting events per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: internal_wait
+                name_en: internal_wait
+                key: system_event_internal_total_waits
+                unit: times/s
+                description: 每秒内部等待事件次数
+                description_en: Internal wait events per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: sync_rpc_wait
+                name_en: sync_rpc_wait
+                key: system_event_sync_rpc_total_waits
+                unit: times/s
+                description: 每秒同步 RPC 等待事件次数
+                description_en: Sync rpc wait event
+                display_by_default: 1
+                is_built_in: 1
+              - name: row_lock_wait
+                name_en: row_lock_wait
+                key: system_event_row_lock_wait_total_waits
+                unit: times/s
+                description: 每秒锁等待事件次数
+                description_en: Row lock wait event
+                display_by_default: 1
+                is_built_in: 1
+              - name: io_wait
+                name_en: io_wait
+                key: system_event_io_total_waits
+                unit: times/s
+                description: 每秒 IO 等待事件次数
+                description_en: IO wait event
+                display_by_default: 1
+                is_built_in: 1
+              - name: latch_wait
+                name_en: latch_wait
+                key: system_event_latch_total_waits
+                unit: times/s
+                description: 每秒 latch 等待事件次数
+                description_en: Latch wait event
+                display_by_default: 1
+                is_built_in: 1
+              - name: other_wait
+                name_en: other_wait
+                key: system_event_other_total_waits
+                unit: times/s
+                description: 每秒其他等待事件次数
+                description_en: Other wait event
+                display_by_default: 1
+                is_built_in: 1
+          - key: wait_event_rt
+            name: 等待事件耗时
+            name_en: Waiting for event time
+            description: 等待事件平均耗时
+            description_en: Waiting for event average time
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: wait_event_rt
+                unit: μs
+                description: 等待事件平均耗时
+                description_en: Average time spent waiting for events
+                display_by_default: 1
+                is_built_in: 1
+              - name: internal_wait
+                name_en: internal_wait
+                key: system_event_internal_time_waited
+                unit: μs
+                description: 内部等待事件平均耗时
+                description_en: Average time spent for internal wait event
+                display_by_default: 1
+                is_built_in: 1
+              - name: sync_rpc_wait
+                name_en: sync_rpc_wait
+                key: system_event_sync_rpc_time_waited
+                unit: μs
+                description: 同步 RPC 等待事件平均耗时
+                description_en: Average time spent for sync rpc wait event
+                display_by_default: 1
+                is_built_in: 1
+              - name: row_lock_wait
+                name_en: row_lock_wait
+                key: system_event_row_lock_wait_time_waited
+                unit: μs
+                description: 锁等待时间平均耗时
+                description_en: Average time spent for row lock wait event
+                display_by_default: 1
+                is_built_in: 1
+              - name: io_wait
+                name_en: io_wait
+                key: system_event_io_time_waited
+                unit: μs
+                description: IO 等待事件平均耗时
+                description_en: Average time spent for IO wait event
+                display_by_default: 1
+                is_built_in: 1
+              - name: latch_wait
+                name_en: latch_wait
+                key: system_event_latch_time_waited
+                unit: μs
+                description: latch 等待事件平均耗时
+                description_en: Average time spent for latch wait event
+                display_by_default: 1
+                is_built_in: 1
+              - name: other_wait
+                name_en: other_wait
+                key: system_event_other_time_waited
+                unit: μs
+                description: 其他等待事件平均耗时
+                description_en: Average time spent for other wait event
+                display_by_default: 1
+                is_built_in: 1
+          - key: request_queue_count
+            name: 请求等待队列
+            name_en: Request waiting queue
+            description: 每秒 SQL 进入等待队列个数
+            description_en: Number of SQL entering waiting queue per second
+            with_label: 0
+            metas:
+              - name: request_enqueue_count
+                name_en: request_enqueue_count
+                key: request_enqueue_count
+                unit: times/s
+                description: 进入处理队列的请求数量
+                description_en: The number of requests that entered the queue
+                display_by_default: 1
+                is_built_in: 1
+              - name: request_dequeue_count
+                name_en: request_dequeue_count
+                key: request_dequeue_count
+                unit: times/s
+                description: 从处理队列出队的请求数量
+                description_en: Number of requests dequeued from the queue
+                display_by_default: 1
+                is_built_in: 1
+          - key: request_queue_time
+            name: 请求等待队列耗时
+            name_en: Request waiting queue time consuming
+            description: SQL 请求在等待队列中的等待耗时
+            description_en: SQL request waiting time in waiting queue
+            with_label: 0
+            metas:
+              - name: queue_time
+                name_en: queue_time
+                key: request_queue_time
+                unit: μs
+                description: SQL 在等待队列中等待耗时
+                description_en: SQL waiting time in the waiting queue
+                display_by_default: 1
+                is_built_in: 1
+          - key: CPU usage rate
+            name: CPU使用率
+            name_en: CPU Utilization
+            description: CPU使用率
+            description_en: CPU Utilization
+            with_label: 0
+            metas:
+              - name: cpu_rate
+                name_en: cpu_rate
+                key: ob_cpu_percent
+                unit: '%'
+                description: CPU使用率
+                description_en: CPU usage rate
+                display_by_default: 1
+                is_built_in: 1
+          - key: memory usage pecent
+            name: 内存使用率
+            name_en: memroy usage pecent
+            description: 租户内存使用百分比
+            description_en: Tenant memory usage pecent
+            with_label: 0
+            metas:
+              - name: memory_usage
+                name_en: memory_usage
+                key: ob_memory_percent
+                unit: '%'
+                description: 租户内存已使用百分比
+                description_en: tenant memory usage pecent
+                display_by_default: 1
+                is_built_in: 1
+          - key: MEMStore usage percent
+            name: MEMStore使用百分比
+            name_en: MEMStore usage percent
+            description: MEMStore使用百分比
+            description_en: MEMStore usage percent
+            with_label: 0
+            metas:
+              - name: MEMStore_percent
+                name_en: MEMStore_percent
+                key: memstore_percent
+                unit: '%'
+                description: MEMStore使用百分比
+                description_en: MEMStore usage percent
+                display_by_default: 1
+                is_built_in: 1
+          - key: Rpc package rt
+            name: Rpc 包耗时
+            name_en: Rpc package rt
+            description: Rpc 收、发包耗时
+            description_en: The average response time of rpc package in/out
+            with_label: 0
+            metas:
+              - name: in
+                name_en: in
+                key: rpc_packet_in_rt
+                unit: μs
+                description: Rpc 收包平均耗时
+                description_en: The average response time of rpc package in
+                display_by_default: 1
+                is_built_in: 1
+              - name: out
+                name_en: out
+                key: rpc_packet_out_rt
+                unit: μs
+                description: Rpc 发包平均耗时
+                description_en: The average response time of rpc package out
+                display_by_default: 1
+                is_built_in: 1
+          - key: Rpc package throughput
+            name: Rpc 包吞吐量
+            name_en: Rpc package throughput
+            description: 单位时间内Rpc 收、发包byte数据量
+            description_en: Rpc package in/out byte throughput in one unit of time
+            with_label: 0
+            metas:
+              - name: in
+                name_en: in
+                key: rpc_packet_in
+                unit: byte
+                description: Rpc 收包吞吐量
+                description_en: Rpc package in throughput
+                display_by_default: 1
+                is_built_in: 1
+              - name: out
+                name_en: out
+                key: rpc_packet_out
+                unit: byte
+                description: Rpc 发包吞吐量
+                description_en: Rpc package out throughput
+                display_by_default: 1
+                is_built_in: 1
+          - key: cursors
+            name: 打开的游标数
+            name_en: Cursors
+            description: 打开的游标数
+            description_en: Cursors
+            with_label: 0
+            metas:
+              - name: open_cursors
+                name_en: open_cursors
+                key: opened_cursors_count
+                unit: ''
+                description: 打开的游标数
+                description_en: Opened cursors count
+                display_by_default: 1
+                is_built_in: 1
+                min_ob_version: '2.2.75'
+      - key: transaction
+        name: 事务
+        name_en: transaction
+        description: 事务
+        description_en: transaction
+        scope: TENANT
+        type: NORMAL
+        groups:
+          - key: transaction_count
+            name: TPS
+            name_en: TPS
+            description: 平均每秒处理事务数
+            description_en: Average number of transactions processed per second
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: tps
+                unit: times/s
+                description: 每秒处理事务数
+                description_en: Transactions per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_commit_count
+                name_en: trans_commit_count
+                key: transaction_commit_count
+                unit: times/s
+                description: 每秒提交事务数
+                description_en: Transactions committed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_rollback_count
+                name_en: trans_rollback_count
+                key: transaction_rollback_count
+                unit: times/s
+                description: 每秒回滚事务数
+                description_en: Transactions rollback per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_timeout_count
+                name_en: trans_timeout_count
+                key: transaction_timeout_count
+                unit: times/s
+                description: 每秒超时事务数
+                description_en: Transactions timeout per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: transaction_rt
+            name: 事务响应时间
+            name_en: Transaction response time
+            description: 服务端每个事务平均处理时间
+            description_en: Average processing time per transaction on the server side
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: tps_rt
+                unit: μs
+                description: 事务平均处理耗时
+                description_en: Average processing time per transaction
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_commit_rt
+                name_en: trans_commit_rt
+                key: transaction_commit_rt
+                unit: μs
+                description: 事务平均提交耗时
+                description_en: Average commit time per transaction
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_rollback_rt
+                name_en: trans_rollback_rt
+                key: transaction_rollback_rt
+                unit: μs
+                description: 事务平均回滚耗时
+                description_en: Average rollback time per transaction
+                display_by_default: 1
+                is_built_in: 1
+          - key: transaction_log_count
+            name: 事务日志数
+            name_en: Number of transaction logs
+            description: 每秒提交的事务日志数
+            description_en: Number of transaction logs committed per second
+            with_label: 0
+            metas:
+              - name: log_count
+                name_en: log_count
+                key: trans_commit_log_count
+                unit: times/s
+                description: 每秒提交的事务日志数
+                description_en: Number of transaction logs submitted per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: transaction_log_amount
+            name: 事务日志量
+            name_en: Transaction log volume
+            description: 每秒提交的事务日志大小
+            description_en: Transaction log size committed per second
+            with_label: 0
+            metas:
+              - name: log_size
+                name_en: log_size
+                key: clog_trans_log_total_size
+                unit: byte
+                description: 每秒提交的事务日志大小
+                description_en: Transaction log size submitted per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: transaction_log_rt
+            name: 事务日志耗时
+            name_en: Transaction log time-consuming
+            description: 服务端处理事务日志的平均耗时
+            description_en: Average time-consuming server processing transaction log
+            with_label: 0
+            metas:
+              - name: sync_time
+                name_en: sync_time
+                key: trans_commit_log_sync_rt
+                unit: μs
+                description: 每次事务日志网络同步平均耗时
+                description_en: Average time for each transaction log network synchronization
+                display_by_default: 1
+                is_built_in: 1
+              - name: write_disk
+                name_en: write_disk
+                key: clog_write_disk_rt
+                unit: μs
+                description: 每次事务日志写盘平均耗时
+                description_en: Average time to write each transaction log to disk
+                display_by_default: 1
+                is_built_in: 1
+          - key: lock_wait_count
+            name: 事务锁等待次数
+            name_en: Number of transaction lock waits
+            description: 每秒事务锁等待次数
+            description_en: Number of transaction lock waits per second
+            with_label: 0
+            metas:
+              - name: success
+                name_en: success
+                key: memstore_write_lock_succ_count
+                unit: times/s
+                description: 写锁等待成功次数
+                description_en: Number of successful write lock waits
+                display_by_default: 1
+                is_built_in: 1
+              - name: fail
+                name_en: fail
+                key: memstore_write_lock_fail_count
+                unit: times/s
+                description: 写锁等待失败次数
+                description_en: Number of failed write lock waits
+                display_by_default: 1
+                is_built_in: 1
+          - key: lock_wait_time
+            name: 事务锁平均等待时间
+            name_en: Average time to wait for transaction lock
+            description: 每个事务锁等待平均耗时
+            description_en: Average time to wait for each transaction lock
+            with_label: 0
+            metas:
+              - name: wait_time
+                name_en: wait_time
+                key: memstore_write_lock_wait_time
+                unit: μs
+                description: 写锁平均等待耗时
+                description_en: Average waiting time for write lock
+                display_by_default: 1
+                is_built_in: 1
+          - key: trans_count_by_type
+            name: 事务数量
+            name_en: Transaction count
+            description: 平均每秒指定类型事务数
+            description_en: Average number of specified transactions per second
+            with_label: 0
+            metas:
+              - name: trans_single_partition_count
+                name_en: trans_single_partition_count
+                key: transaction_single_partition_count
+                unit: times/s
+                description: 每秒普通事务数
+                description_en: Normal transactions per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_multi_partition_count
+                name_en: trans_multi_partition_count
+                key: transaction_multi_partition_count
+                unit: times/s
+                description: 每秒分布式事务数
+                description_en: Distributed transactions per second
+                display_by_default: 1
+                is_built_in: 1
+      - key: storage_and_cache
+        name: 存储与缓存
+        name_en: Storage and Cache
+        description: 存储与缓存
+        description_en: Storage and Cache
+        scope: TENANT
+        type: NORMAL
+        groups:
+          - key: memstore
+            name: MEMStore
+            name_en: MEMStore
+            description: OB 可写入数据内存
+            description_en: OB writable data memory
+            with_label: 0
+            metas:
+              - name: total
+                name_en: total
+                key: total_memstore_used
+                unit: MB
+                description: MEMStore 总大小
+                description_en: MEMStore total size
+                display_by_default: 1
+                is_built_in: 1
+              - name: active
+                name_en: active
+                key: active_memstore_used
+                unit: MB
+                description: 活跃 MEMStore 大小
+                description_en: Active MEMStore size
+                display_by_default: 1
+                is_built_in: 1
+              - name: trigger
+                name_en: trigger
+                key: major_freeze_trigger
+                unit: MB
+                description: 触发合并阈值
+                description_en: Trigger merge threshold
+                display_by_default: 1
+                is_built_in: 1
+              - name: limit
+                name_en: limit
+                key: memstore_limit
+                unit: MB
+                description: MEMStore的limit
+                description_en: MEMStore limit
+                display_by_default: 1
+                is_built_in: 1
+          - key: iops
+            name: IOPS
+            name_en: IOPS
+            description: 平均每秒 IO 次数
+            description_en: Average number of IOs per second
+            with_label: 0
+            metas:
+              - name: read
+                name_en: read
+                key: io_read_count
+                unit: times/s
+                description: SSStore 每秒读次数
+                description_en: SSStore reads per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: write
+                name_en: write
+                key: io_write_count
+                unit: times/s
+                description: SSStore 每秒写次数
+                description_en: SSStore write times per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: io_time
+            name: IO 耗时
+            name_en: IO time-consuming
+            description: 平均每次 IO 耗时
+            description_en: Average IO time-consuming
+            with_label: 0
+            metas:
+              - name: read
+                name_en: read
+                key: io_read_rt
+                unit: μs
+                description: SSStore 每次读取平均耗时
+                description_en: SSStore average time per read
+                display_by_default: 1
+                is_built_in: 1
+              - name: write
+                name_en: write
+                key: io_write_rt
+                unit: μs
+                description: SSStore 每次写入平均耗时
+                description_en: SSStore average time per write
+                display_by_default: 1
+                is_built_in: 1
+          - key: io_throughput
+            name: IO 吞吐量
+            name_en: I/O Throughput
+            description: 平均每秒 IO 数据量
+            description_en: Average size of I/O data per second
+            with_label: 0
+            metas:
+              - name: read
+                name_en: read
+                key: io_read_size
+                unit: byte
+                description: SSStore 每秒读取数据量
+                description_en: SSStore read data volume per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: write
+                name_en: write
+                key: io_write_size
+                unit: byte
+                description: SSStore 每秒写入数据量
+                description_en: SSStore write data volume per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: cache_size
+            name: 缓存大小
+            name_en: Cache size
+            description: 缓存大小
+            description_en: Cache size
+            with_label: 0
+            metas:
+              - name: block_cache
+                name_en: block_cache
+                key: block_cache_size_mb
+                unit: MB
+                description: 块缓存大小
+                description_en: Block cache size
+                display_by_default: 1
+                is_built_in: 1
+              - name: row_cache
+                name_en: row_cache
+                key: row_cache_size_mb
+                unit: MB
+                description: 行缓存大小
+                description_en: Row cache size
+                display_by_default: 1
+                is_built_in: 1
+              - name: plan_cache
+                name_en: plan_cache
+                key: plan_cache_size_mb
+                unit: MB
+                description: 执行计划缓存大小
+                description_en: Execute plan cache size
+                display_by_default: 1
+                is_built_in: 1
+              - name: clog_cache
+                name_en: clog_cache
+                key: clog_cache_size_mb
+                unit: MB
+                description: Clog 缓存大小
+                description_en: Clog cache size
+                display_by_default: 1
+                is_built_in: 1
+              - name: bloom_filter_cache
+                name_en: bloom_filter_cache
+                key: bloom_filter_cache_size_mb
+                unit: MB
+                description: bloom filter 缓存大小
+                description_en: Bloom filter cache size
+                display_by_default: 1
+                is_built_in: 1
+              - name: location_cache
+                name_en: location_cache
+                key: location_cache_size_mb
+                unit: MB
+                description: location 缓存大小
+                description_en: Location cache size
+                display_by_default: 1
+                is_built_in: 1
+          - key: cache_hit_ratio
+            name: 缓存命中率
+            name_en: Cache hit rate
+            description: 缓存命中率
+            description_en: Cache hit rate
+            with_label: 0
+            metas:
+              - name: block_cache
+                name_en: block_cache
+                key: block_cache_hit_ratio
+                unit: '%'
+                description: 块缓存命中率
+                description_en: Block cache hit rate
+                display_by_default: 1
+                is_built_in: 1
+              - name: row_cache
+                name_en: row_cache
+                key: row_cache_hit_ratio
+                unit: '%'
+                description: 行缓存命中率
+                description_en: Row cache hit rate
+                display_by_default: 1
+                is_built_in: 1
+              - name: plan_cache
+                name_en: plan_cache
+                key: plan_cache_hit_ratio
+                unit: '%'
+                description: 执行计划缓存命中率
+                description_en: execution plan cache hit rate
+                display_by_default: 1
+                is_built_in: 1
+              - name: clog_cache
+                name_en: clog_cache
+                key: clog_cache_hit_ratio
+                unit: '%'
+                description: Clog 缓存命中率
+                description_en: Clog cache hit rate
+                display_by_default: 1
+                is_built_in: 1
+              - name: bloom_filter_cache
+                name_en: bloom_filter_cache
+                key: bloom_filter_cache_hit_ratio
+                unit: '%'
+                description: bloom filter 缓存命中率
+                description_en: Bloom filter cache hit rate
+                display_by_default: 1
+                is_built_in: 1
+              - name: location_cache
+                name_en: location_cache
+                key: location_cache_hit_ratio
+                unit: '%'
+                description: location 缓存命中率
+                description_en: Location cache hit rate
+                display_by_default: 1
+                is_built_in: 1
+          - key: cache_req_total
+            name: 缓存请求次数
+            name_en: Cache request total count
+            description: 缓存请求次数
+            description_en: Cache request total count
+            with_label: 0
+            metas:
+              - name: block_cache
+                name_en: block_cache
+                key: block_cache_req_total
+                unit: ''
+                description: 块缓存请求次数
+                description_en: Block cache total request count
+                display_by_default: 1
+                is_built_in: 1
+              - name: row_cache
+                name_en: row_cache
+                key: row_cache_req_total
+                unit: ''
+                description: 行缓存请求次数
+                description_en: Row cache total request count
+                display_by_default: 1
+                is_built_in: 1
+              - name: clog_cache
+                name_en: clog_cache
+                key: clog_cache_req_total
+                unit: ''
+                description: Clog 缓存请求次数
+                description_en: Clog cache total request count
+                display_by_default: 1
+                is_built_in: 1
+              - name: bloom_filter_cache
+                name_en: bloom_filter_cache
+                key: bloom_filter_cache_req_total
+                unit: ''
+                description: bloom filter 缓存请求次数
+                description_en: Bloom filter cache total request count
+                display_by_default: 1
+                is_built_in: 1
+              - name: location_cache
+                name_en: location_cache
+                key: location_cache_req_total
+                unit: ''
+                description: location 缓存请求次数
+                description_en: Location cache total request count
+                display_by_default: 1
+                is_built_in: 1
+      - key: database_metrics
+        name: 数据库性能
+        name_en: Database performance
+        description: 数据库性能
+        description_en: Database performance
+        scope: CLUSTER
+        type: NORMAL
+        groups:
+          - key: QPS
+            name: QPS
+            name_en: QPS
+            description: 平均每秒处理 SQL 语句数
+            description_en: Average number of SQL statements processed per second
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: sql_all_count
+                unit: times/s
+                description: 每秒处理 SQL 语句数
+                description_en: Number of SQL statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: select
+                name_en: select
+                key: sql_select_count
+                unit: times/s
+                description: 每秒处理 Select 语句数
+                description_en: Number of Select statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: insert
+                name_en: insert
+                key: sql_insert_count
+                unit: times/s
+                description: 每秒处理 Insert 语句数
+                description_en: Number of Insert statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: update
+                name_en: update
+                key: sql_update_count
+                unit: times/s
+                description: 每秒处理 Update 语句数
+                description_en: Number of Update statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: replace
+                name_en: replace
+                key: sql_replace_count
+                unit: times/s
+                description: 每秒处理 Replace 语句数
+                description_en: Number of Replace statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: delete
+                name_en: delete
+                key: sql_delete_count
+                unit: times/s
+                description: 每秒处理 Delete 语句数
+                description_en: Number of Delete statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: other
+                name_en: other
+                key: sql_other_count
+                unit: times/s
+                description: DDL, DCL, DTL 等其他语句数
+                description_en: Number of DDL, DCL, DTL statements processed per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: QPS_RT
+            name: 查询响应时间
+            name_en: Query response time
+            description: 服务端每条 SQL 语句处理平均耗时
+            description_en: The average time it takes to process each SQL statement on the
+              server
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: sql_all_rt
+                unit: μs
+                description: SQL 语句平均处理耗时
+                description_en: The average processing time of each SQL statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: select
+                name_en: select
+                key: sql_select_rt
+                unit: μs
+                description: Select 语句平均处理耗时
+                description_en: The average processing time for each Select statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: insert
+                name_en: insert
+                key: sql_insert_rt
+                unit: μs
+                description: Insert 语句平均处理耗时
+                description_en: The average processing time of each Insert statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: update
+                name_en: update
+                key: sql_update_rt
+                unit: μs
+                description: Update 语句平均处理耗时
+                description_en: The average processing time of each Update statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: replace
+                name_en: replace
+                key: sql_replace_rt
+                unit: μs
+                description: Replace 语句平均处理耗时
+                description_en: The average processing time for each Replace statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: delete
+                name_en: delete
+                key: sql_delete_rt
+                unit: μs
+                description: Delete 语句平均处理耗时
+                description_en: The average processing time of each Delete statement
+                display_by_default: 1
+                is_built_in: 1
+              - name: other
+                name_en: other
+                key: sql_other_rt
+                unit: μs
+                description: DDL, DCL, DTL 等其他语句平均处理耗时
+                description_en: The average processing time of each DDL, DCL, DTL statements
+                display_by_default: 1
+                is_built_in: 1
+          - key: TPS
+            name: TPS
+            name_en: TPS
+            description: 平均每秒处理事务数
+            description_en: Average number of transactions processed per second
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: tps
+                unit: times/s
+                description: 每秒处理事务数
+                description_en: Transactions per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_commit_count
+                name_en: trans_commit_count
+                key: transaction_commit_count
+                unit: times/s
+                description: 每秒提交事务数
+                description_en: Transactions committed per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_rollback_count
+                name_en: trans_rollback_count
+                key: transaction_rollback_count
+                unit: times/s
+                description: 每秒回滚事务数
+                description_en: Transactions rollback per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_timeout_count
+                name_en: trans_timeout_count
+                key: transaction_timeout_count
+                unit: times/s
+                description: 每秒超时事务数
+                description_en: Transactions timeout per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: transaction_rt
+            name: 事务响应时间
+            name_en: Transaction response time
+            description: 服务端每个事务平均处理时间
+            description_en: Average processing time of each transaction on the server side
+            with_label: 0
+            metas:
+              - name: all
+                name_en: all
+                key: tps_rt
+                unit: μs
+                description: 事务平均处理耗时
+                description_en: Average processing time per transaction
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_commit_rt
+                name_en: trans_commit_rt
+                key: transaction_commit_rt
+                unit: μs
+                description: 事务平均提交耗时
+                description_en: Average commit time per transaction
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_rollback_rt
+                name_en: trans_rollback_rt
+                key: transaction_rollback_rt
+                unit: μs
+                description: 事务平均回滚耗时
+                description_en: Average rollback time per transaction
+                display_by_default: 1
+                is_built_in: 1
+          - key: session
+            name: 会话数
+            name_en: Number of sessions
+            description: 会话数
+            description_en: Number of sessions
+            with_label: 0
+            metas:
+              - name: active_session
+                name_en: active_session
+                key: active_session
+                unit: ''
+                description: 当前活跃会话数
+                description_en: Number of current active sessions
+                display_by_default: 1
+                is_built_in: 1
+              - name: all_session
+                name_en: all_session
+                key: all_session
+                unit: ''
+                description: 当前会话数
+                description_en: Number of current sessions
+                display_by_default: 1
+                is_built_in: 1
+          - key: queue_time
+            name: 请求等待队列耗时
+            name_en: Request waiting queue time-consuming
+            description: SQL 请求在等待队列中的等待耗时
+            description_en: SQL request waiting time in the waiting queue
+            with_label: 0
+            metas:
+              - name: queue_time
+                name_en: queue_time
+                key: request_queue_time
+                unit: μs
+                description: SQL 在等待队列中等待耗时
+                description_en: SQL waiting time in the waiting queue
+                display_by_default: 1
+                is_built_in: 1
+          - key: trans_log
+            name: 事务日志数
+            name_en: Number of transaction logs
+            description: 每秒提交的事务日志数
+            description_en: Number of transaction logs committed per second
+            with_label: 0
+            metas:
+              - name: log_count
+                name_en: log_count
+                key: trans_commit_log_count
+                unit: times/s
+                description: 每秒提交的事务日志数
+                description_en: Number of transaction logs submitted per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: trans_log_size
+            name: 事务日志量
+            name_en: Transaction log volume
+            description: 每秒提交的事务日志大小
+            description_en: Transaction log size committed per second
+            with_label: 0
+            metas:
+              - name: log_size
+                name_en: log_size
+                key: clog_trans_log_total_size
+                unit: byte
+                description: 每秒提交的事务日志大小
+                description_en: Transaction log size submitted per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: trans_log_rt
+            name: 事务日志耗时
+            name_en: Transaction log time-consuming
+            description: 服务端处理事务日志的平均耗时
+            description_en: Average time-consuming server processing transaction log
+            with_label: 0
+            metas:
+              - name: write_disk
+                name_en: write_disk
+                key: clog_write_disk_rt
+                unit: μs
+                description: 每次事务日志写盘平均耗时
+                description_en: Average time to write each transaction log to disk
+                display_by_default: 1
+                is_built_in: 1
+              - name: sync_time
+                name_en: sync_time
+                key: trans_commit_log_sync_rt
+                unit: μs
+                description: 每次事务日志网络同步平均耗时
+                description_en: Average time for each transaction log network synchronization
+                display_by_default: 1
+                is_built_in: 1
+          - key: iops
+            name: IOPS
+            name_en: IOPS
+            description: 平均每秒 IO 次数
+            description_en: Average number of IOs per second
+            with_label: 0
+            metas:
+              - name: read
+                name_en: read
+                key: io_read_count
+                unit: times/s
+                description: SSStore 每秒读次数
+                description_en: SSStore reads per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: write
+                name_en: write
+                key: io_write_count
+                unit: times/s
+                description: SSStore 每秒写次数
+                description_en: SSStore writes per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: io_rt
+            name: IO 耗时
+            name_en: IO time-consuming
+            description: 平均每次 IO 耗时
+            description_en: Average IO time-consuming
+            with_label: 0
+            metas:
+              - name: read
+                name_en: read
+                key: io_read_rt
+                unit: μs
+                description: SSStore 每次读取平均耗时
+                description_en: SSStore average time per read
+                display_by_default: 1
+                is_built_in: 1
+              - name: write
+                name_en: write
+                key: io_write_rt
+                unit: μs
+                description: SSStore 每次写入平均耗时
+                description_en: SSStore average time per write
+                display_by_default: 1
+                is_built_in: 1
+          - key: io_throughput
+            name: IO 吞吐量
+            name_en: I/O Throughput
+            description: 平均每秒 IO 数据量
+            description_en: Average size of I/O data per second
+            with_label: 0
+            metas:
+              - name: read
+                name_en: read
+                key: io_read_size
+                unit: byte
+                description: SSStore 每秒读取数据量
+                description_en: SSStore read data volume per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: write
+                name_en: write
+                key: io_write_size
+                unit: byte
+                description: SSStore 每秒写入数据量
+                description_en: SSStore write data volume per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: trans_count_by_type
+            name: 事务数量
+            name_en: Transaction count
+            description: 平均每秒指定类型事务数
+            description_en: Average number of specified transactions per second
+            with_label: 0
+            metas:
+              - name: trans_single_partition_count
+                name_en: trans_single_partition_count
+                key: transaction_single_partition_count
+                unit: times/s
+                description: 每秒普通事务数
+                description_en: Normal transactions per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: trans_multi_partition_count
+                name_en: trans_multi_partition_count
+                key: transaction_multi_partition_count
+                unit: times/s
+                description: 每秒分布式事务数
+                description_en: Distributed transactions per second
+                display_by_default: 1
+                is_built_in: 1
+      - key: host_metrics
+        name: 主机性能
+        name_en: Host performance
+        description: 主机性能
+        description_en: Host performance
+        scope: CLUSTER
+        type: NORMAL
+        groups:
+          - key: load
+            name: Linux 系统负载
+            name_en: Linux system load
+            description: Linux 系统负载
+            description_en: Linux system load
+            with_label: 0
+            metas:
+              - name: load1
+                name_en: load1
+                key: load1
+                unit: ''
+                description: 过去1分钟系统平均负载
+                description_en: Past 1 minute system average load
+                display_by_default: 1
+                is_built_in: 1
+              - name: load5
+                name_en: load5
+                key: load5
+                unit: ''
+                description: 过去5分钟系统平均负载
+                description_en: Past 5 minutes system average load
+                display_by_default: 1
+                is_built_in: 1
+              - name: load15
+                name_en: load15
+                key: load15
+                unit: ''
+                description: 过去15分钟系统平均负载
+                description_en: Past 15 minutes system average load
+                display_by_default: 1
+                is_built_in: 1
+          - key: cpu_percent
+            name: CPU 使用率
+            name_en: CPU Usage
+            description: CPU 使用率
+            description_en: CPU Usage
+            with_label: 0
+            metas:
+              - name: cpu_percent
+                name_en: cpu_percent
+                key: cpu_percent
+                unit: '%'
+                description: CPU 使用率
+                description_en: CPU usage
+                display_by_default: 1
+                is_built_in: 1
+          - key: memory
+            name: 内存
+            name_en: Memory
+            description: 内存
+            description_en: Memory
+            with_label: 0
+            metas:
+              - name: used
+                name_en: used
+                key: memory_used
+                unit: GB
+                description: 使用物理内存大小
+                description_en: Used physical memory size
+                display_by_default: 1
+                is_built_in: 1
+              - name: buffers
+                name_en: buffers
+                key: memory_buffers
+                unit: GB
+                description: 内核 Buffer Cache 大小
+                description_en: Core Buffer Cache size
+                display_by_default: 1
+                is_built_in: 1
+              - name: free
+                name_en: free
+                key: memory_free
+                unit: GB
+                description: 可用物理内存大小
+                description_en: Available physical memory size
+                display_by_default: 1
+                is_built_in: 1
+              - name: cached
+                name_en: cached
+                key: memory_cached
+                unit: GB
+                description: 缓存使用的内存
+                description_en: Memory used by the cache
+                display_by_default: 1
+                is_built_in: 1
+          - key: io_util
+            name: IO 使用率
+            name_en: IO Utilization
+            description: IO 使用率
+            description_en: IO Utilization
+            with_label: 0
+            metas:
+              - name: io_util
+                name_en: io_util
+                key: io_util
+                unit: '%'
+                description: IO 使用率
+                description_en: IO Utilization
+                display_by_default: 1
+                is_built_in: 1
+          - key: io_qusize
+            name: IO 队列长度
+            name_en: IO queue size
+            description: IO 队列长度
+            description_en: IO queue size
+            with_label: 0
+            metas:
+              - name: io_qusize
+                name_en: io_qusize
+                key: io_qusize
+                unit: ''
+                description: IO 队列长度
+                description_en: IO queue size
+                display_by_default: 1
+                is_built_in: 1
+          - key: IOPS
+            name: IOPS
+            name_en: IOPS
+            description: 平均每秒 IO 次数
+            description_en: Average number of IOs per second
+            with_label: 0
+            metas:
+              - name: read
+                name_en: read
+                key: io_read
+                unit: times/s
+                description: 每秒读次数
+                description_en: Reads per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: write
+                name_en: write
+                key: io_write
+                unit: times/s
+                description: 每秒写次数
+                description_en: Number of writes per second
+                display_by_default: 1
+                is_built_in: 1
+          - key: io_time
+            name: IO 耗时
+            name_en: IO time-consuming
+            description: 平均每次 IO 耗时
+            description_en: Average IO time-consuming
+            with_label: 0
+            metas:
+              - name: read
+                name_en: read
+                key: io_read_time
+                unit: μs
+                description: 平均每次 IO 读取耗时
+                description_en: Elapsed time per IO read
+                display_by_default: 1
+                is_built_in: 1
+              - name: write
+                name_en: write
+                key: io_write_time
+                unit: μs
+                description: 平均每次 IO 写入耗时
+                description_en: Elapsed time per IO write
+                display_by_default: 1
+                is_built_in: 1
+          - key: io_throughput
+            name: IO 吞吐量
+            name_en: I/O Throughput
+            description: 平均每秒 IO 数据量
+            description_en: Average size of I/O data per second
+            with_label: 0
+            metas:
+              - name: read
+                name_en: read
+                key: io_read_byte
+                unit: MB
+                description: 每次读取数据量
+                description_en: Amount of data read each time
+                display_by_default: 1
+                is_built_in: 1
+              - name: write
+                name_en: write
+                key: io_write_byte
+                unit: MB
+                description: 每次写入数据量
+                description_en: Amount of data written each time
+                display_by_default: 1
+                is_built_in: 1
+          - key: network_throughput
+            name: 网络吞吐率
+            name_en: Network Throughput Rate
+            description: 网络吞吐率
+            description_en: Network Throughput Rate
+            with_label: 0
+            metas:
+              - name: receive
+                name_en: receive
+                key: net_recv
+                unit: MB
+                description: 每秒接收数据量
+                description_en: Amount of data received per second
+                display_by_default: 1
+                is_built_in: 1
+              - name: send
+                name_en: send
+                key: net_send
+                unit: MB
+                description: 每秒发送数据量
+                description_en: Data sent per second
+                display_by_default: 1
+                is_built_in: 1

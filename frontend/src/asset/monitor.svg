@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>monitor_un</title>
+    <defs>
+        <path d="M11,0 C11.5522847,-1.01453063e-16 12,0.44771525 12,1 L12,1.585 L7.8934288,5.69235763 C7.78993699,5.79584944 7.64751925,5.84776792 7.50431755,5.83754833 L7.4186076,5.82387549 L4.01165602,4.9721376 C3.8655872,4.93562039 3.71083963,4.96687027 3.5903882,5.05720885 L3.5903882,5.05720885 L0,7.749 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 L11,0 Z" id="path-1"></path>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.9">
+        <g id="图标下载" transform="translate(-91.000000, -408.000000)">
+            <g id="monitor_un" transform="translate(91.000000, 408.000000)">
+                <rect id="矩形" x="0" y="0" width="18" height="18"></rect>
+                <g id="编组" transform="translate(3.000000, 3.000000)">
+                    <path d="M4.23087961,6.0577199 L7.72535733,6.93133933 C7.89574484,6.97393621 8.07598836,6.92401164 8.20017853,6.79982147 L12,3 L12,3 L12,11 C12,11.5522847 11.5522847,12 11,12 L1,12 C0.44771525,12 0,11.5522847 0,11 L0,9 L3.8096118,6.14279115 C3.93006323,6.05245258 4.08481079,6.0212027 4.23087961,6.0577199 Z" id="矩形" fill="#5C6B8A"></path>
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="形状结合" fill="#8592AD" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

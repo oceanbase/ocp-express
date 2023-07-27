@@ -1,0 +1,33 @@
+##########################################################
+#            OBFlow Secret Scan Ignore List              #
+##########################################################
+**
+  http://127.0.0.1*
+  http://www.127.0.0.1*
+  https://www.127.0.0.1*
+  http://127.1*
+  http://license.coscl.org.cn/MulanPSL2*
+  http://maven.apache.org/*
+  http://www.springframework.org/*
+  http://www.w3.org/*
+  https://127.0.0.1*
+  https://docs.spring.io/*
+  https://gw.alipayobjects.com/as/g/component/tracert/*
+  https://javadoc.io/*
+  https://maven.apache.org/*
+  https://nodejs.org/*
+  https://openjdk.org/*
+  https://www.apache.org*
+  https://www.oceanbase.com*
+  www.example.com
+  www.oceanbase.com
+  https://github.com/*
+**/*.yml
+  https://aci.alipay.com/*
+**/README.md
+--------------------------------------------------------
+# Should use GLOB wildcard to config and analysis the ignored folder
+# The root patch should start with '/'
+/server/src/main/resources/static/**
+/.git/**
+--------------------------------------------------------

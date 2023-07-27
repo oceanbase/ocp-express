@@ -1,0 +1,142 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+.drawer {
+  .parameterName {
+    margin-left: 24px;
+    :global {
+      .ant-legacy-form-item-control-wrapper .ant-legacy-form-item-control {
+        line-height: 32px !important;
+      }
+    }
+  }
+  .row {
+    height: 100%;
+
+    .left {
+      height: 100%;
+      padding: 24px 0;
+
+      .title {
+        font-size: 16px;
+        font-family: SFProText-Medium;
+      }
+
+      .description {
+        margin-left: 8px;
+        color: rgba(0, 0, 0, 0.45);
+        font-size: 12px;
+      }
+
+      .selectedRow {
+        background-color: #fafafa;
+      }
+
+      :global {
+        .ant-table-thead > tr > th:first-child,
+        .ant-table-tbody > tr > td:first-child {
+          padding-left: 24px;
+        }
+
+        .ant-table-thead > tr > th:last-child,
+        .ant-table-tbody > tr > td:last-child {
+          padding-right: 24px;
+        }
+
+        .ant-legacy-form-item .ant-legacy-form-item-control {
+          line-height: 60px;
+        }
+      }
+    }
+
+    .middle {
+      height: 100%;
+      padding: 24px 0;
+      background-color: #fafafa;
+
+      .title {
+        margin-bottom: 16px;
+        margin-left: 24px;
+        padding: 4px 0;
+        font-size: 16px;
+        font-family: SFProText-Medium;
+      }
+
+      .all {
+        margin-bottom: 16px;
+        margin-left: 24px;
+      }
+
+      .zoneFormItem {
+        :global {
+          .ant-legacy-form-item-children {
+            width: 100%;
+          }
+          .ant-checkbox-group {
+            width: 100%;
+          }
+        }
+      }
+
+      .zone {
+        padding: 8px 24px;
+        cursor: pointer;
+      }
+
+      .selectedZone {
+        background-color: #edeff2;
+      }
+    }
+
+    .right {
+      height: 100%;
+      padding: 72px 0 24px 24px;
+      background-color: #edeff2;
+    }
+  }
+}
+
+.confirmDrawer {
+  .restartAlert {
+    margin-bottom: 8px;
+  }
+
+  .alert {
+    margin-bottom: 24px;
+  }
+
+  :global {
+    .ant-table {
+      // 设置 Tree 的子节点的 padding-left
+      .ant-tree li ul {
+        padding-left: 40px;
+      }
+    }
+  }
+}
+
+.tenantName {
+  padding-left: 5px;
+  line-height: 30px;
+}
+.newValue {
+  padding-left: 5px;
+  line-height: 30px;
+  background-color: #fef6e7;
+}
+
+.treeNewValue {
+  width: 205px;
+  padding-left: 5px;
+  // line-height: 30px;
+  background-color: #fef6e7;
+}

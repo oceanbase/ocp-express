@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Copyright (c) 2023 OceanBase
+  - OCP Express is licensed under Mulan PSL v2.
+  - You can use this software according to the terms and conditions of the Mulan PSL v2.
+  - You may obtain a copy of Mulan PSL v2 at:
+  -          http://license.coscl.org.cn/MulanPSL2
+  - THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  - EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  - MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  - See the Mulan PSL v2 for more details.
+  -->
+
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>diagnose_un</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.9">
+        <g id="图标下载" transform="translate(-91.000000, -442.000000)">
+            <g id="diagnose_un" transform="translate(91.000000, 442.000000)">
+                <rect id="矩形" x="0" y="0" width="18" height="18"></rect>
+                <path d="M2,7.5 L15,7.5 L15,14.5 C15,15.0522847 14.5522847,15.5 14,15.5 L3,15.5 C2.44771525,15.5 2,15.0522847 2,14.5 L2,7.5 L2,7.5 Z" id="矩形" fill="#5C6B8A"></path>
+                <path d="M3,3.5 L14,3.5 C14.5522847,3.5 15,3.94771525 15,4.5 L15,6.5 L15,6.5 L2,6.5 L2,4.5 C2,3.94771525 2.44771525,3.5 3,3.5 Z" id="矩形备份" fill="#8592AD"></path>
+                <line x1="7" y1="11" x2="10" y2="11" id="路径-2" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="8.5" y1="9.5" x2="8.5" y2="12.5" id="路径-2备份" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></line>
+            </g>
+        </g>
+    </g>
+</svg>

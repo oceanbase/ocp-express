@@ -1,0 +1,38 @@
+management:
+  info:
+    build:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: 'env,refresh,prometheus'
+
+server:
+  compression:
+    enabled: true
+    mime-types: application/javascript,text/css,application/json,application/xml,text/html,text/xml,text/plain
+spring:
+  application:
+    name: ocp
+  datasource:
+    driver-class-name: com.oceanbase.jdbc.Driver
+    type: org.springframework.jdbc.datasource.DriverManagerDataSource
+    url: ${JDBC_URL}?useUnicode=true&characterEncoding=UTF8&connectTimeout=2000&socketTimeout=600000&sessionVariables=ob_query_timeout=600000000,ob_trx_timeout=600000000&rewriteBatchedStatements=true
+    username: ${JDBC_USERNAME}
+    password: ${JDBC_PASSWORD}
+    druid:
+      filters: stat
+  profiles:
+    active: composite,default
+  thymeleaf:
+    check-template-location: false
+  cloud:
+    config:
+      label: master
+      server:
+        bootstrap: true
+        composite:
+          - type: native
+            search-locations: classpath:/, classpath:/config, file:./, file:./config, file:${CONFIG_LOCATION}
+          - type: jdbc
+            sql: SELECT `key` AS `KEY`, COALESCE(`value`,`default_value`) AS `VALUE` FROM `config_properties` where `APPLICATION`=? and `PROFILE`=? and `label`=?

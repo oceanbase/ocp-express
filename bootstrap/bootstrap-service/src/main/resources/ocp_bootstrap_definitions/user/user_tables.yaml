@@ -1,0 +1,38 @@
+data_source: dataSource
+table_definitions:
+
+  user:
+    fields:
+      id: { type: bigint(20), nullable: false, auto_increment: true }
+      account_locked: { type: tinyint(1), nullable: false, default_value: '0', comment: Is user locked }
+      enabled: { type: tinyint(1), nullable: false, default_value: '1', comment: Is user enabled }
+      password: { type: varchar(256), nullable: false, comment: Encrypted password }
+      username: { type: varchar(64), nullable: false, comment: Username }
+      lock_expired_time: { type: datetime, nullable: true, comment: Lock expired time }
+      need_change_password: { type: tinyint(1), nullable: false, default_value: '1', comment: Whether need change password}
+      create_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+      update_time: { type: datetime, nullable: true, default_value: !const 'CURRENT_TIMESTAMP' }
+    indexes:
+      uk_user_username:
+        fields: [ username ]
+        unique: true
+        local: false
+    primary_key:
+      fields: [ id ]
+    comment: 'User table'
+    auto_increment: 1001000
+    default_charset: utf8mb4
+
+migrations:
+  migrate_user_info:
+    condition: "oldOcpVersion().before('2.0.0')"
+    source_sql: SELECT id, account_locked, enabled, password, username, lock_expired_time, need_change_password, create_time, update_time FROM `iam_user`
+    update_by: [ id ]
+    target_table: user
+
+  delete_unused_tables_and_columns:
+    raw_sqls:
+      - DROP TABLE IF EXISTS `profile_credential`;
+      - DROP TABLE IF EXISTS `profile_credential_access`;
+      - DROP TABLE IF EXISTS `iam_user_login_record`;
+      - DROP TABLE IF EXISTS `iam_user`;

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2023 OceanBase
+  ~ OCP Express is licensed under Mulan PSL v2.
+  ~ You can use this software according to the terms and conditions of the Mulan PSL v2.
+  ~ You may obtain a copy of Mulan PSL v2 at:
+  ~          http://license.coscl.org.cn/MulanPSL2
+  ~ THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+  ~ EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+  ~ MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+  ~ See the Mulan PSL v2 for more details.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.oceanbase</groupId>
+        <artifactId>ocp-express</artifactId>
+        <version>4.1.0-20230726</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>ocp-express-ob-parser</artifactId>
+
+    <properties>
+        <project-root-path>../..</project-root-path>
+        <root-project.basedir>${project.parent.basedir}</root-project.basedir>
+        <antlr-base-package>com.oceanbase.ocp.sqlparser</antlr-base-package>
+        <antlr-generated-code-path>target/generated-sources/antlr/com/oceanbase/ocp/sqlparser</antlr-generated-code-path>
+
+        <antlr4-maven-plugin.version>4.9.2</antlr4-maven-plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>${antlr4-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>ob-mysql-sql</id>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                        <configuration>
+                            <visitor>true</visitor>
+                            <listener>true</listener>
+                            <arguments>
+                                <argument>-package</argument>
+                                <argument>${antlr-base-package}.obmysql.sql</argument>
+                            </arguments>
+                            <sourceDirectory>src/main/resources/obmysql/sql</sourceDirectory>
+                            <outputDirectory>${antlr-generated-code-path}/obmysql/sql</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ob-mysql-pl</id>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                        <configuration>
+                            <visitor>true</visitor>
+                            <listener>true</listener>
+                            <arguments>
+                                <argument>-package</argument>
+                                <argument>${antlr-base-package}.obmysql.pl</argument>
+                            </arguments>
+                            <sourceDirectory>src/main/resources/obmysql/pl</sourceDirectory>
+                            <outputDirectory>${antlr-generated-code-path}/obmysql/pl</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ob-oracle-sql</id>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                        <configuration>
+                            <visitor>true</visitor>
+                            <listener>true</listener>
+                            <arguments>
+                                <argument>-package</argument>
+                                <argument>${antlr-base-package}.oboracle.sql</argument>
+                            </arguments>
+                            <sourceDirectory>src/main/resources/oboracle/sql</sourceDirectory>
+                            <outputDirectory>${antlr-generated-code-path}/oboracle/sql</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ob-oracle-pl</id>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                        <configuration>
+                            <visitor>true</visitor>
+                            <listener>true</listener>
+                            <arguments>
+                                <argument>-package</argument>
+                                <argument>${antlr-base-package}.oboracle.pl</argument>
+                            </arguments>
+                            <sourceDirectory>src/main/resources/oboracle/pl</sourceDirectory>
+                            <outputDirectory>${antlr-generated-code-path}/oboracle/pl</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${isSkipUnitTest}</skipTests>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

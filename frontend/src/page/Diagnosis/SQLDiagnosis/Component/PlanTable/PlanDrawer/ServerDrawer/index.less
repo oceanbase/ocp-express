@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 2023 OceanBase
+ * OCP Express is licensed under Mulan PSL v2.
+ * You can use this software according to the terms and conditions of the Mulan PSL v2.
+ * You may obtain a copy of Mulan PSL v2 at:
+ *          http://license.coscl.org.cn/MulanPSL2
+ * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ * See the Mulan PSL v2 for more details.
+ */
+
+@import '~@oceanbase/design/es/theme/index.less';
+.footerBar {
+  padding: 10px 24px;
+}
+.planTitle {
+  font-weight: 500;
+  font-size: 16px;
+}
+.planDivider {
+  margin: 12px 0 12px 0;
+}
+.obPlanTable {
+  :global {
+    .ant-table {
+      .ant-table-tbody > tr > td.ant-table-cell {
+        height: 24px;
+        padding: 0 8px !important;
+        white-space: nowrap;
+      }
+      .ant-table-row-indent + .ant-table-row-expand-icon {
+        margin-top: 0;
+      }
+      .ant-table-thead > tr > th {
+        height: 24px;
+        padding: 0 8px;
+      }
+      .ant-table-cell {
+        font-size: 12px;
+      }
+      .ant-table-container {
+        tr:nth-child(2n + 1) {
+          td {
+            background-color: @colorFill !important;
+          }
+        }
+        tr:nth-child(2n) {
+          td {
+            background-color: #fff !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.planExtra {
+  display: block;
+  float: right;
+  :global {
+    .ant-form-inline {
+      .ant-form-item {
+        margin-right: 0;
+      }
+    }
+  }
+}

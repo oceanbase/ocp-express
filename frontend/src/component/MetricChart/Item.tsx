@@ -38,7 +38,7 @@ import ContentWithQuestion from '@/component/ContentWithQuestion';
 import type { MonitorServer } from '@/component/MonitorSearch';
 import { ReactComponent as DrilldownSvg } from '@/asset/drilldown.svg';
 import DrilldownDrawer from './DrilldownDrawer';
-import styles from './Item.less';
+import useStyles from './Item.style';
 import { MAX_POINTS } from '@/constant/monitor';
 
 export interface MetricGroupWithChartConfig extends API.MetricGroup {
@@ -128,6 +128,7 @@ const Item: React.FC<ItemProps> = ({
   maxPoints = MAX_POINTS,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   const { userData } = useSelector((state: DefaultRootState) => state.profile);
   // const { tenantData } = useSelector((state: DefaultRootState) => state.tenant);
 
@@ -159,7 +160,7 @@ const Item: React.FC<ItemProps> = ({
   // 访问且关闭过下钻入口提示的用户 ID 列表，在列表中的用户进入支持下钻的页面时，不展示监控下钻入口
   const drilldownTooltipUserList = jsonParse(
     localStorage.getItem('__OCP_DRILLDOWN_TOOLTIP_USER_LIST__') || '[]',
-    []
+    [],
   ) as number[];
 
   useEffect(() => {
@@ -183,7 +184,7 @@ const Item: React.FC<ItemProps> = ({
     drilldownTooltipUserList.push(userData.id);
     localStorage.setItem(
       '__OCP_DRILLDOWN_TOOLTIP_USER_LIST__',
-      JSON.stringify(drilldownTooltipUserList)
+      JSON.stringify(drilldownTooltipUserList),
     );
   };
 
@@ -204,7 +205,7 @@ const Item: React.FC<ItemProps> = ({
   } = metricGroupChartConfig || chartConfig || ({} as any);
   // 当前指标组是否只包含单个指标
   const isSingleMetric = metrics && metrics.length === 1;
-  const unitList = uniq(metrics.map(item => item.unit)) || [];
+  const unitList = uniq(metrics.map((item) => item.unit)) || [];
   // 是否为双轴图 (包含两种单位)
   const isDualAxes = unitList.length === 2;
 
@@ -319,7 +320,7 @@ const Item: React.FC<ItemProps> = ({
     cpu,
   });
 
-  const metricsString = metrics.map(item => item.key).join(',');
+  const metricsString = metrics.map((item) => item.key).join(',');
 
   function getOptions(type: 'card' | 'modal') {
     const propsRange = [moment(startTime), moment(endTime)];
@@ -373,8 +374,8 @@ const Item: React.FC<ItemProps> = ({
     let chartData = [];
     metricData.forEach((item: { [x: string]: any; timestamp?: any }) => {
       Object.keys(item)
-        .filter(key => key !== 'timestamp')
-        .forEach(key => {
+        .filter((key) => key !== 'timestamp')
+        .forEach((key) => {
           const dataItem = {};
           const metricItem = findBy(metrics, 'key', key);
           // 使用指标的短名称 name，比如 { key: 'sql_all_count', name: 'all' }，取其中的 name
@@ -425,14 +426,14 @@ const Item: React.FC<ItemProps> = ({
 
   useEffect(() => {
     // 需要手动实现条件请求，因为 useRequest ready 配置仅在首次请求生效
-    if (every(options.condition, item => !isNullValue(item))) {
+    if (every(options.condition, (item) => !isNullValue(item))) {
       queryMetric(options.params);
     }
   }, options.deps);
 
   useEffect(() => {
     // 需要手动实现条件请求，因为 useRequest ready 配置仅在首次请求生效
-    if (every(modalOptions.condition, item => !isNullValue(item))) {
+    if (every(modalOptions.condition, (item) => !isNullValue(item))) {
       queryModalMetric(modalOptions.params);
     }
   }, modalOptions.deps);
@@ -455,7 +456,7 @@ const Item: React.FC<ItemProps> = ({
             <div>
               <div>{description}</div>
               <ul>
-                {metrics.map(metric => (
+                {metrics.map((metric) => (
                   <li key={metric.key}>{`${metric.name}: ${metric.description}`}</li>
                 ))}
               </ul>
@@ -645,8 +646,8 @@ const Item: React.FC<ItemProps> = ({
             data={
               isDualAxes
                 ? [
-                    chartData.filter(item => !isNullValue(item.value1)),
-                    chartData.filter(item => !isNullValue(item.value2)),
+                    chartData.filter((item) => !isNullValue(item.value1)),
+                    chartData.filter((item) => !isNullValue(item.value2)),
                   ]
                 : chartData
             }
@@ -701,8 +702,8 @@ const Item: React.FC<ItemProps> = ({
                 data={
                   isDualAxes
                     ? [
-                        modalChartData.filter(item => !isNullValue(item.value1)),
-                        modalChartData.filter(item => !isNullValue(item.value2)),
+                        modalChartData.filter((item) => !isNullValue(item.value1)),
+                        modalChartData.filter((item) => !isNullValue(item.value2)),
                       ]
                     : modalChartData
                 }

@@ -39,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <ConfigProvider theme={theme} locale={antdLocaleMap[locale] || zh_CN}>
+    <ConfigProvider locale={antdLocaleMap[locale] || zh_CN}>
       <ErrorBoundary>
         <BlankLayout>{children}</BlankLayout>
       </ErrorBoundary>

@@ -23,7 +23,7 @@ import { formatTime } from '@/util/datetime';
 import { getTaskPercent } from '@/util/task';
 import MyCard from '@/component/MyCard';
 import MyProgress from '@/component/MyProgress';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface TaskBubbleProps {
   dispatch: any;
@@ -46,6 +46,7 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
   className,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   const [visible, setVisible] = useState(false);
   const total = runningTaskList.length;
   // 当前如果还有正在执行中的任务，则发起轮询
@@ -80,7 +81,7 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
     () => {
       getRunningTaskList();
     },
-    polling ? 1000 : null
+    polling ? 1000 : null,
   );
 
   const columns = [
@@ -155,7 +156,7 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
       placement="topRight"
       visible={visible}
       // 由于 SideTip 是 fixed 定位，因此需要将任务卡片挂载到 SideTip 上，否则滚动时两者会分离
-      getPopupContainer={triggerNode => triggerNode}
+      getPopupContainer={(triggerNode) => triggerNode}
       content={
         <MyCard
           className="card-without-padding"
@@ -165,14 +166,14 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
               defaultMessage: '当前共有 {total} 个任务正在进行中',
             },
 
-            { total }
+            { total },
           )}
         >
           <Table
             loading={loading && !polling}
             dataSource={runningTaskList}
             columns={columns}
-            rowKey={record => record.id}
+            rowKey={(record) => record.id}
             scroll={{
               y: 300,
             }}

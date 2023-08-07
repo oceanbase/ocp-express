@@ -79,15 +79,15 @@ class WhitelistInput extends React.Component<WhitelistInputProps, WhitelistInput
         formatMessage({
           id: 'ocp-express.Tenant.New.EnterAnIpWhitelist',
           defaultMessage: '请输入 IP 白名单',
-        })
+        }),
       );
     }
-    if (value && some(value.split(','), item => !isWhitelistIP(item))) {
+    if (value && some(value.split(','), (item) => !isWhitelistIP(item))) {
       callback(
         formatMessage({
           id: 'ocp-express.component.WhitelistInput.InvalidIpAddress',
           defaultMessage: 'IP 地址不合法',
-        })
+        }),
       );
     }
     callback();
@@ -243,7 +243,7 @@ class WhitelistInput extends React.Component<WhitelistInputProps, WhitelistInput
                 id: 'ocp-express.component.WhitelistInput.EnterAnIpAddressSeparate',
                 defaultMessage: '请输入 IP 地址，多个 IP 地址请以逗号分隔',
               })}
-              tagRender={props => {
+              tagRender={(props) => {
                 const { label, value: tagValue, closable, onClose } = props;
                 return (
                   <Tag

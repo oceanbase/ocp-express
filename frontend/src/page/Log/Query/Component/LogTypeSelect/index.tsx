@@ -14,7 +14,7 @@ import MySelect from '@/component/MySelect';
 import { LOG_TYPE_LIST } from '@/constant/log';
 import { Space } from '@oceanbase/design';
 import React, { useEffect, useState } from 'react';
-import styles from './index.less';
+import useStyles from './index.style';
 
 interface LogTypeSelectProps {
   onChangeLogType?: (val: string) => void;
@@ -27,6 +27,7 @@ const LogTypeSelect: React.FC<LogTypeSelectProps> = ({
   onChangeLogType,
   defaultLogType,
 }) => {
+  const { styles } = useStyles();
   const [type, setType] = useState<string>();
   const [typeValue, setTypeValue] = useState<string[]>([]);
   const [typeList, setTypeList] = useState<string[]>([]);
@@ -48,7 +49,7 @@ const LogTypeSelect: React.FC<LogTypeSelectProps> = ({
         }
         onChangeLogType(typeText);
       }
-      const typeOptions = LOG_TYPE_LIST.find(item => item.value === defaultLogType);
+      const typeOptions = LOG_TYPE_LIST.find((item) => item.value === defaultLogType);
       if (typeOptions?.types) {
         setTypeList(typeOptions?.types);
         setTypeValue(typeOptions?.types);
@@ -85,12 +86,13 @@ const LogTypeSelect: React.FC<LogTypeSelectProps> = ({
         options={LOG_TYPE_LIST}
         onChange={onLogTypeChange}
       />
+
       <MySelect
         mode="tags"
         value={typeValue}
         allowClear={true}
         maxTagCount="responsive"
-        onChange={val => {
+        onChange={(val) => {
           setTypeValue(val);
           if (onChange) {
             onChange(val);

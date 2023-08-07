@@ -55,7 +55,7 @@ const ModifyDbUserPassword: React.FC<ModifyDbUserPasswordProps> = ({
         formatMessage({
           id: 'ocp-express.Detail.Component.ModifyDbUserPassword.TheNewPasswordEnteredTwice',
           defaultMessage: '两次输入的新密码不一致，请重新输入',
-        })
+        }),
       );
     } else {
       callback();
@@ -67,9 +67,9 @@ const ModifyDbUserPassword: React.FC<ModifyDbUserPasswordProps> = ({
   });
 
   const handleSubmit = () => {
-    validateFields().then(values => {
+    validateFields().then((values) => {
       const { newPassword, saveToCredential } = values;
-      getLoginKey().then(response => {
+      getLoginKey().then((response) => {
         const publicKey = response?.data?.publicKey || '';
         dispatch({
           type: 'database/changeDbUserPassword',
@@ -89,8 +89,8 @@ const ModifyDbUserPassword: React.FC<ModifyDbUserPasswordProps> = ({
                     defaultMessage: '{dbUserUsername} 密码修改成功',
                   },
 
-                  { dbUserUsername: dbUser.username }
-                )
+                  { dbUserUsername: dbUser.username },
+                ),
               );
 
               onSuccess();

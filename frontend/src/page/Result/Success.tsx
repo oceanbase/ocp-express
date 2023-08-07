@@ -20,7 +20,7 @@ import { useRequest, useInterval } from 'ahooks';
 import * as TaskController from '@/service/ocp-express/TaskController';
 import { getTaskProgress } from '@/util/task';
 import PageCard from '@/component/PageCard';
-import styles from './Success.less';
+import useStyles from './Success.style';
 
 export interface TaskSuccessProps {
   match: {
@@ -38,6 +38,7 @@ const TaskSuccess: React.FC<TaskSuccessProps> = ({
     params: { taskId },
   },
 }) => {
+  const { styles } = useStyles();
   const { data, refresh } = useRequest(TaskController.getTaskInstance, {
     defaultParams: [
       {
@@ -53,7 +54,7 @@ const TaskSuccess: React.FC<TaskSuccessProps> = ({
       refresh();
     },
     // 任务处于运行态，则轮询任务进度
-    taskData.status === 'RUNNING' ? 1000 : null
+    taskData.status === 'RUNNING' ? 1000 : null,
   );
 
   return (

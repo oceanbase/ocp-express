@@ -16,7 +16,7 @@ import { FullscreenBox } from '@oceanbase/design';
 import type { FullscreenBoxProps } from '@oceanbase/design/es/FullscreenBox';
 import type { Graph } from '@antv/g6';
 import GraphToolbar from '@/component/GraphToolbar';
-import styles from './index.less';
+import useStyles from './index.style';
 
 interface FullScreenProps extends FullscreenBoxProps {
   // 左上角标题
@@ -46,6 +46,7 @@ const FullScreen: React.FC<FullScreenProps> = ({
   style,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   const [fullscreen, setFullscreen] = useState(false);
   const boxRef = useRef();
 
@@ -110,7 +111,7 @@ const FullScreen: React.FC<FullScreenProps> = ({
                 id: 'ocp-express.component.FullScreen.ProtectedModeTitle',
                 defaultMessage: '保护模式：{title}',
               },
-              { title }
+              { title },
             )}
           </span>
           <span className={styles.description}>{description}</span>

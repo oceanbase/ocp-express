@@ -17,7 +17,7 @@ import { Button, Result, Space } from '@oceanbase/design';
 import type { ResultProps } from 'antd/es/result';
 import { PageContainer } from '@ant-design/pro-components';
 import PageCard from '@/component/PageCard';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface SuccessProps extends ResultProps {
   iconUrl?: string;
@@ -35,6 +35,7 @@ const Success: React.FC<SuccessProps> = ({
   style,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   return (
     <PageContainer className={`${styles.container} ${className}`} style={style}>
       <PageCard

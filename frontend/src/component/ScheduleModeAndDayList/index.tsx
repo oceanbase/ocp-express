@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Checkbox, Radio } from 'antd';
 import { BACKUP_SCHEDULE_MODE_LIST, WEEK_OPTIONS, MONTH_OPTIONS } from '@/constant/backup';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export type ScheduleMode = 'WEEK' | 'MONTH';
 
@@ -38,16 +38,17 @@ export interface ScheduleModeAndDayListInterface extends React.FC<ScheduleModeAn
 
 const ScheduleModeAndDayList: ScheduleModeAndDayListInterface = ({
   value = {},
-  onChange = () => { },
+  onChange = () => {},
   SCHEDULE_MODE_LIST,
   initialMode,
 }) => {
+  const { styles } = useStyles();
   const { scheduleMode = initialMode || 'WEEK', dayList = [] } = value;
   return (
     <div className={styles.container}>
       <Radio.Group
         value={scheduleMode}
-        onChange={e => {
+        onChange={(e) => {
           onChange({
             ...value,
             scheduleMode: e.target.value,
@@ -55,7 +56,7 @@ const ScheduleModeAndDayList: ScheduleModeAndDayListInterface = ({
           });
         }}
       >
-        {(SCHEDULE_MODE_LIST ? SCHEDULE_MODE_LIST : BACKUP_SCHEDULE_MODE_LIST).map(item => (
+        {(SCHEDULE_MODE_LIST ? SCHEDULE_MODE_LIST : BACKUP_SCHEDULE_MODE_LIST).map((item) => (
           <Radio.Button key={item.value} value={item.value}>
             {item.label}
           </Radio.Button>
@@ -66,28 +67,29 @@ const ScheduleModeAndDayList: ScheduleModeAndDayListInterface = ({
         {
           //  调度周期为月、周时，展示选项
           scheduleMode !== 'DAY'
-            ? (scheduleMode === 'WEEK' ? WEEK_OPTIONS : MONTH_OPTIONS).map(item => (
-              <li
-                key={item.value}
-                // 调度周期为月，选中日期数为 10 天时，disable 掉未选中的日期
-                className={`${dayList.includes(item.value) ? styles.selected : ''} ${scheduleMode === 'MONTH' &&
-                  dayList.length === 10 &&
-                  !dayList.includes(item.value)
-                  ? styles.disabled
-                  : ''
+            ? (scheduleMode === 'WEEK' ? WEEK_OPTIONS : MONTH_OPTIONS).map((item) => (
+                <li
+                  key={item.value}
+                  // 调度周期为月，选中日期数为 10 天时，disable 掉未选中的日期
+                  className={`${dayList.includes(item.value) ? styles.selected : ''} ${
+                    scheduleMode === 'MONTH' &&
+                    dayList.length === 10 &&
+                    !dayList.includes(item.value)
+                      ? styles.disabled
+                      : ''
                   }`}
-                onClick={() => {
-                  onChange({
-                    ...value,
-                    dayList: dayList.includes(item.value)
-                      ? dayList.filter(day => day !== item.value)
-                      : [...dayList, item.value],
-                  });
-                }}
-              >
-                {item.label}
-              </li>
-            ))
+                  onClick={() => {
+                    onChange({
+                      ...value,
+                      dayList: dayList.includes(item.value)
+                        ? dayList.filter((day) => day !== item.value)
+                        : [...dayList, item.value],
+                    });
+                  }}
+                >
+                  {item.label}
+                </li>
+              ))
             : null
         }
 
@@ -96,10 +98,10 @@ const ScheduleModeAndDayList: ScheduleModeAndDayListInterface = ({
           <Checkbox
             checked={dayList.length === 7}
             indeterminate={dayList.length > 0 && dayList.length < 7}
-            onChange={e => {
+            onChange={(e) => {
               onChange({
                 ...value,
-                dayList: e.target.checked ? WEEK_OPTIONS.map(item => item.value) : [],
+                dayList: e.target.checked ? WEEK_OPTIONS.map((item) => item.value) : [],
               });
             }}
             style={{ marginLeft: 14, marginTop: 8 }}
@@ -121,7 +123,7 @@ ScheduleModeAndDayList.validate = (rule, value, callback) => {
       formatMessage({
         id: 'ocp-express.Component.ScheduleModeAndDayList.SelectASchedulingMode',
         defaultMessage: '请选择调度模式',
-      })
+      }),
     );
   }
   // 如果调度周期等于日时，跳出校验调度周期规则
@@ -130,7 +132,7 @@ ScheduleModeAndDayList.validate = (rule, value, callback) => {
       formatMessage({
         id: 'ocp-express.Component.ScheduleModeAndDayList.SelectASchedulingPeriod',
         defaultMessage: '请选择调度周期',
-      })
+      }),
     );
   }
 

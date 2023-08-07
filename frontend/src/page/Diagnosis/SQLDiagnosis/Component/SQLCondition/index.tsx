@@ -16,7 +16,7 @@ import { Button, Col, Form, Input, Modal, Row, Tag, useToken } from '@oceanbase/
 import { find, flatMap, uniqueId } from 'lodash';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import MySelect from '@/component/MySelect';
-import styles from './index.less';
+import useStyles from './index.style';
 
 const { Option } = MySelect;
 
@@ -31,8 +31,9 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
   onChange,
   value: propValue,
 }) => {
+  const { styles } = useStyles();
   const [list, setList] = React.useState<SQLDiagnosis.FilterExpressionList>(
-    generateTagValue(propValue)
+    generateTagValue(propValue),
   );
 
   const [visible, setVisible] = React.useState(false);
@@ -55,9 +56,9 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
       return [];
     }
 
-    return filterExpressionList.map(item => {
+    return filterExpressionList.map((item) => {
       // 使用 title 来展示
-      const searchAttrTitle = find(searchAttrList, select => select.name === item.searchAttr)
+      const searchAttrTitle = find(searchAttrList, (select) => select.name === item.searchAttr)
         ?.title as string;
 
       return {
@@ -72,7 +73,7 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
   function tagRender(props: { label: string; value: string; onClose: (...arg: any) => void }) {
     const { label, value } = props;
 
-    const onPreventMouseDown = event => {
+    const onPreventMouseDown = (event) => {
       event.preventDefault();
       event.stopPropagation();
     };
@@ -93,7 +94,7 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
         closable={true}
         onClose={() => {
           // 删除这个选项
-          const result = list.filter(item => item.value !== value);
+          const result = list.filter((item) => item.value !== value);
 
           setList(result);
           if (onChange) {
@@ -139,7 +140,7 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
         visible={visible}
         onCancel={() => setVisible(false)}
         onOk={() => {
-          form.validateFields().then(value => {
+          form.validateFields().then((value) => {
             const { filterExpressionList = [] } = value;
             const result = [...list, ...generateTagValue(filterExpressionList)];
             if (onChange) {
@@ -172,11 +173,11 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
                                     [
                                       ...list,
                                       ...params?.filter(
-                                        (item, ii) => ii !== index && item?.searchAttr
+                                        (item, ii) => ii !== index && item?.searchAttr,
                                       ),
                                     ],
 
-                                    item => item.searchAttr
+                                    (item) => item.searchAttr,
                                   );
 
                                   return (
@@ -206,15 +207,15 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
                                       >
                                         {searchAttrList
                                           .filter(
-                                            item =>
+                                            (item) =>
                                               // 已选择的筛选指标需要过滤掉
                                               !otherSearchAttrs.includes(item.name) &&
                                               // SQL 文本不能作为筛选指标
                                               item.name !== 'sqlTextShort' &&
                                               // 诊断结果不能作为筛选指标
-                                              item.name !== 'diagTypes'
+                                              item.name !== 'diagTypes',
                                           )
-                                          .map(item => (
+                                          .map((item) => (
                                             <Option key={item.name} value={item.name as string}>
                                               {item.title}
                                             </Option>
@@ -250,7 +251,7 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
                                   showSearch={true}
                                   optionFilterProp="children"
                                 >
-                                  {searchOpList.map(item => (
+                                  {searchOpList.map((item) => (
                                     <Option key={item} value={item}>
                                       {item}
                                     </Option>
@@ -268,7 +269,7 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
                                   ]);
 
                                   const attrItem = searchAttrList.find(
-                                    item => item.name === searchAttr
+                                    (item) => item.name === searchAttr,
                                   );
 
                                   return (

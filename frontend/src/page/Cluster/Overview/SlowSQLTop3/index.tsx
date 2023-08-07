@@ -23,7 +23,7 @@ import MyCard from '@/component/MyCard';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
 import { RFC3339_DATE_TIME_FORMAT } from '@/constant/datetime';
 import { NEAR_6_HOURS } from '@/component/OCPRangePicker/constant';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface SlowSQLTop3Props {
   typeButton?: React.ReactNode;
@@ -31,6 +31,7 @@ export interface SlowSQLTop3Props {
 }
 
 const SlowSQLTop3: React.FC<SlowSQLTop3Props> = () => {
+  const { styles } = useStyles();
   const { token } = useToken();
   // 获取租户 SlowSQL 数 Top3 (最近 6 小时)
   const startTime = moment().subtract(6, 'hour').format(RFC3339_DATE_TIME_FORMAT);
@@ -45,7 +46,7 @@ const SlowSQLTop3: React.FC<SlowSQLTop3Props> = () => {
     ],
   });
   let topSlowSqlList = topSlowSqlListData?.data?.contents || [];
-  const maxSlowSqlCount = max(topSlowSqlList.map(item => item.count));
+  const maxSlowSqlCount = max(topSlowSqlList.map((item) => item.count));
 
   // 数据不够，补足三列
   if (topSlowSqlList.length === 1) {
@@ -170,7 +171,7 @@ const SlowSQLTop3: React.FC<SlowSQLTop3Props> = () => {
                                   x: string;
                                   y: number;
                                 };
-                              }[]
+                              }[],
                             ) => {
                               const data = items?.[0]?.data || {};
                               const text = formatMessage(
@@ -178,7 +179,7 @@ const SlowSQLTop3: React.FC<SlowSQLTop3Props> = () => {
                                   id: 'ocp-express.Component.SlowSQLTop3.Datay',
                                   defaultMessage: '{dataY} 条',
                                 },
-                                { dataY: data.y }
+                                { dataY: data.y },
                               );
 
                               return `<div style="padding: 4px">${text}</div>`;

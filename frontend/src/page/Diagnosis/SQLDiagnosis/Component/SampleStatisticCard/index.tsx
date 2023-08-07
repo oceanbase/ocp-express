@@ -17,7 +17,7 @@ import { groupBy } from 'lodash';
 import { InfoCircleFilled } from '@ant-design/icons';
 import { isEnglish } from '@/util';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
-import styles from './index.less';
+import useStyles from './index.style';
 
 interface IProps {
   onChange: (picked: API.SqlAuditStatSampleAttribute[]) => void;
@@ -27,18 +27,19 @@ interface IProps {
 }
 
 const SampleStatisticCard = ({ onChange, picked, attributes, onReset, ...restProps }: IProps) => {
+  const { styles } = useStyles();
   const { token } = useToken();
 
   const handleChange = (keys: string[]) => {
-    const next = attributes.filter(f => keys.includes(f.name as string));
+    const next = attributes.filter((f) => keys.includes(f.name as string));
     onChange(next);
   };
 
-  const units = Object.keys(groupBy(picked, field => field.unit));
+  const units = Object.keys(groupBy(picked, (field) => field.unit));
 
   const shouldDisable = (attr: API.SqlAuditStatSampleAttribute) => {
     // 已经被选中的指标，不禁用
-    if (picked.find(field => field.name === attr.name)) {
+    if (picked.find((field) => field.name === attr.name)) {
       return false;
     }
     // 在已选中指标类型中，且选中指标数小于 10，则不禁用
@@ -80,11 +81,11 @@ const SampleStatisticCard = ({ onChange, picked, attributes, onReset, ...restPro
       <Divider style={{ margin: '12px 0px' }} />
       <Row style={{ width: '100%' }}>
         <Checkbox.Group
-          value={picked.map(f => f.name as string)}
-          onChange={vs => handleChange(vs as string[])}
+          value={picked.map((f) => f.name as string)}
+          onChange={(vs) => handleChange(vs as string[])}
           className={styles.checkboxGroupGrid}
         >
-          {attributes?.map(attr => {
+          {attributes?.map((attr) => {
             return (
               <Col span={isEnglish() ? 8 : 6} style={{ marginBottom: 16 }}>
                 <Checkbox

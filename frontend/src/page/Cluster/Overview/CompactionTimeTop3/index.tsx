@@ -21,12 +21,13 @@ import { formatTime } from '@/util/datetime';
 import * as ObTenantCompactionController from '@/service/ocp-express/ObTenantCompactionController';
 import MyCard from '@/component/MyCard';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
-import styles from './index.less';
+import useStyles from './index.style';
 import { formatDuration } from '@/util';
 
-export interface CompactionTimeTop3Props { }
+export interface CompactionTimeTop3Props {}
 
 const CompactionTimeTop3: React.FC<CompactionTimeTop3Props> = () => {
+  const { styles } = useStyles();
   const { token } = useToken();
   // 获取合并时间 Top3 的租户合并数据
   const { data: topCompactionListData, loading } = useRequest(
@@ -38,16 +39,20 @@ const CompactionTimeTop3: React.FC<CompactionTimeTop3Props> = () => {
           times: 5,
         },
       ],
-    }
+    },
   );
 
   let topCompactionList = topCompactionListData?.data?.contents || [];
 
   // 对数据根据costTime进行降序排序
-  topCompactionList = orderBy(topCompactionList.map(item => ({
-    ...item,
-    costTime: maxBy(item.compactionList, 'costTime').costTime
-  })), ['costTime'], ['desc'])
+  topCompactionList = orderBy(
+    topCompactionList.map((item) => ({
+      ...item,
+      costTime: maxBy(item.compactionList, 'costTime').costTime,
+    })),
+    ['costTime'],
+    ['desc'],
+  );
 
   // 数据不够，补足三列
   if (topCompactionList.length === 1) {
@@ -140,7 +145,7 @@ const CompactionTimeTop3: React.FC<CompactionTimeTop3Props> = () => {
             const color = isAscend ? theme.semanticRed : theme.semanticGreen;
             const durationData = formatDuration(latestCompaction?.costTime, 1);
             const chartData = [...(item.compactionList || [])]
-              .map(compaction => compaction.costTime as number)
+              .map((compaction) => compaction.costTime as number)
               // 用于图表，数据顺序需要翻转下，把最近一次合并数据放最后
               .reverse();
 
@@ -190,12 +195,18 @@ const CompactionTimeTop3: React.FC<CompactionTimeTop3Props> = () => {
                                 x: string;
                                 y: number;
                               };
-                            }[]
+                            }[],
                           ) => {
                             const data = items?.[0]?.data || {};
                             const currentDurationData = formatDuration(data.y);
                             // return `<div style="padding: 4px">${currentDurationData.value} ${currentDurationData.unitLabel}</div>`;
-                            return `<div style="padding: 4px"><div></div>合并开始时间：${topCompactionList[0]?.compactionList[0]?.startTime ? formatTime(topCompactionList[0]?.compactionList[0]?.startTime) : '-'}<div>合并耗时：${currentDurationData.value} ${currentDurationData.unitLabel}</div></div>`;
+                            return `<div style="padding: 4px"><div></div>合并开始时间：${
+                              topCompactionList[0]?.compactionList[0]?.startTime
+                                ? formatTime(topCompactionList[0]?.compactionList[0]?.startTime)
+                                : '-'
+                            }<div>合并耗时：${currentDurationData.value} ${
+                              currentDurationData.unitLabel
+                            }</div></div>`;
                           },
                         }}
                         color={color}

@@ -46,7 +46,7 @@ import ContentWithQuestion from '@/component/ContentWithQuestion';
 import Log from './Log';
 import type { TaskGraphRef } from './Log/TaskGraph';
 import Flow from './Flow';
-import styles from './index.less';
+import useStyles from './index.style';
 
 const { Text } = Typography;
 
@@ -86,6 +86,7 @@ const Detail: React.FC<DetailProps> = ({
     query: { backUrl },
   },
 }) => {
+  const { styles } = useStyles();
   const [mode, setMode] = useState<'log' | 'flow'>('log');
   const [subtaskId, setSubtaskId] = useState<number | string | undefined>(undefined);
   const logRef = useRef<TaskGraphRef>(null);
@@ -113,7 +114,7 @@ const Detail: React.FC<DetailProps> = ({
   // 当前选中的子任务
   const subtask = find(
     taskData?.subtasks || [],
-    item => !isNullValue(subtaskId) && item.id === toNumber(subtaskId)
+    (item) => !isNullValue(subtaskId) && item.id === toNumber(subtaskId),
   );
 
   // 子任务处在运行中的状态才发起日志轮询，待执行的任务不需要发起轮询，因为待执行的任务无法查看日志
@@ -151,7 +152,7 @@ const Detail: React.FC<DetailProps> = ({
     () => {
       lockRefresh();
     },
-    polling ? 1000 : null
+    polling ? 1000 : null,
   );
 
   // 子任务日志轮询
@@ -162,19 +163,19 @@ const Detail: React.FC<DetailProps> = ({
         subtaskInstanceId: subtask?.id,
       });
     },
-    logPolling ? 1000 : null
+    logPolling ? 1000 : null,
   );
 
   // 放弃任务
   const { runAsync: rollbackTask } = useRequest(TaskController.rollbackTask, {
     manual: true,
-    onSuccess: res => {
+    onSuccess: (res) => {
       if (res.successful) {
         message.success(
           formatMessage({
             id: 'ocp-express.Task.Detail.TaskAbandoned',
             defaultMessage: '任务放弃成功',
-          })
+          }),
         );
 
         refresh();
@@ -185,13 +186,13 @@ const Detail: React.FC<DetailProps> = ({
   // 重试任务
   const { runAsync: retryTask } = useRequest(TaskController.retryTask, {
     manual: true,
-    onSuccess: res => {
+    onSuccess: (res) => {
       if (res.successful) {
         message.success(
           formatMessage({
             id: 'ocp-express.Task.Detail.TheTaskIsRetried',
             defaultMessage: '任务重试成功',
-          })
+          }),
         );
 
         refresh();
@@ -204,10 +205,10 @@ const Detail: React.FC<DetailProps> = ({
     TaskController.downloadTaskDiagnosis,
     {
       manual: true,
-      onSuccess: res => {
+      onSuccess: (res) => {
         download(res, `log_task_${taskId}.zip`);
       },
-    }
+    },
   );
 
   const handleOperation = (key: string) => {
@@ -308,7 +309,7 @@ const Detail: React.FC<DetailProps> = ({
               data-aspm-param={``}
               data-aspm-expo
               value={mode}
-              onChange={e => {
+              onChange={(e) => {
                 setMode(e.target.value);
                 // 重置选中的 subtask
                 setSubtaskId(undefined);
@@ -372,7 +373,7 @@ const Detail: React.FC<DetailProps> = ({
               {getOperationComponent({
                 mode: 'button',
                 displayCount: 3,
-                operations: (statusItem.operations || []).map(item => {
+                operations: (statusItem.operations || []).map((item) => {
                   if (item.value === 'downloadLog') {
                     return {
                       ...item,
@@ -548,7 +549,7 @@ const Detail: React.FC<DetailProps> = ({
           log={log}
           logLoading={logLoading}
           logPolling={logPolling}
-          onSubtaskChange={newSubtaskId => {
+          onSubtaskChange={(newSubtaskId) => {
             setSubtaskId(newSubtaskId);
           }}
         />
@@ -561,7 +562,7 @@ const Detail: React.FC<DetailProps> = ({
           log={log}
           logLoading={logLoading}
           logPolling={logPolling}
-          onSubtaskChange={newSubtaskId => {
+          onSubtaskChange={(newSubtaskId) => {
             setSubtaskId(newSubtaskId);
           }}
         />

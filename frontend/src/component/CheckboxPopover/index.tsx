@@ -28,7 +28,7 @@ import { groupBy, some, uniq } from 'lodash';
 import { isNullValue } from '@oceanbase/util';
 import { InfoCircleFilled } from '@ant-design/icons';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface OptionType extends CheckboxOptionType {
   description?: string;
@@ -61,12 +61,13 @@ const CheckboxPopover = ({
   overlayClassName,
   ...restProps
 }: CheckboxPopoverProps) => {
+  const { styles } = useStyles();
   const { token } = useToken();
   // 分组列表
-  const groupList = uniq(options?.map(item => item.group));
+  const groupList = uniq(options?.map((item) => item.group));
   const groupByData = groupBy(options, 'group');
   // 分组选项存在多于 3 个的情况下，设置最大宽度，否则设置最小宽度
-  const width = some(Object.keys(groupByData), key => groupByData[key].length > 3) ? 608 : 480;
+  const width = some(Object.keys(groupByData), (key) => groupByData[key].length > 3) ? 608 : 480;
   return (
     <Popover
       overlayStyle={{
@@ -93,7 +94,7 @@ const CheckboxPopover = ({
                           id: 'ocp-express.component.CheckboxPopover.YouCanSelectUpTo',
                           defaultMessage: '最多可选择 {maxSelectCount} 个对象',
                         },
-                        { maxSelectCount: maxSelectCount }
+                        { maxSelectCount: maxSelectCount },
                       )}
                   </span>
                 </span>
@@ -114,7 +115,7 @@ const CheckboxPopover = ({
           <Divider style={{ margin: 0 }} />
           <Checkbox.Group
             value={value}
-            onChange={newValue => {
+            onChange={(newValue) => {
               onChange(newValue);
             }}
             style={{
@@ -133,8 +134,8 @@ const CheckboxPopover = ({
 
                   <Row gutter={[16, 16]}>
                     {options
-                      ?.filter(item => !group || item.group === group)
-                      ?.map(item => {
+                      ?.filter((item) => !group || item.group === group)
+                      ?.map((item) => {
                         return (
                           <Col key={item.value} span={item.span || 6}>
                             <Checkbox

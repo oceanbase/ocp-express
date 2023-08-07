@@ -17,7 +17,7 @@ import Icon from '@ant-design/icons';
 import type { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 import type { BadgeProps } from 'antd/es/badge';
 import type { TooltipProps } from 'antd/es/tooltip';
-import styles from './index.less';
+import useStyles from './index.style';
 
 interface IconConfig extends IconComponentProps {
   badge?: BadgeProps;
@@ -43,6 +43,7 @@ const ContentWithIcon: React.FC<ContentWithIconProps> = ({
   className,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   return (
     <span className={`${styles.item} ${className}`} {...restProps}>
       {prefixIcon &&
@@ -51,6 +52,7 @@ const ContentWithIcon: React.FC<ContentWithIconProps> = ({
         ) : (
           getIcon('prefix', prefixIcon)
         ))}
+
       <span className={styles.content}>{content}</span>
       {affixIcon &&
         (isValidElement(affixIcon) ? (
@@ -64,6 +66,7 @@ const ContentWithIcon: React.FC<ContentWithIconProps> = ({
 
 function getIcon(position: IconPosition, config: IconConfig) {
   const { component, badge, tooltip, pointable = false, ...restProps } = config;
+  const { styles } = useStyles();
   return (
     config && (
       <Tooltip {...tooltip} overlayStyle={{ maxWidth: 350, ...tooltip?.overlayStyle }}>

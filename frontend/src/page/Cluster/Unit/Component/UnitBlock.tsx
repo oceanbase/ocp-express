@@ -18,7 +18,7 @@ import MouseTooltip from '@/component/MouseTooltip';
 // import { useRequest } from 'ahooks';
 // import * as ObUnitController from '@/service/custom/ObUnitController';
 // import { UNIT_MIGRATE_TYPE_LIST } from '@/constant/oceanbase';
-import styles from './UnitBlock.less';
+import useStyles from './UnitBlock.style';
 
 export interface UnitBlockProps extends React.HTMLProps<HTMLDivElement> {
   clusterId: number;
@@ -36,6 +36,7 @@ const UnitBlock: React.FC<UnitBlockProps> = ({
   style,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   // const migrateTypeItem = findByValue(UNIT_MIGRATE_TYPE_LIST, unitInfo?.migrateType);
   // const migrateTarget = migrateTypeItem.migrateLabel
   //   ? `${migrateTypeItem.migrateLabel}: ${unitInfo?.migrateSvrIp} `
@@ -105,7 +106,7 @@ const UnitBlock: React.FC<UnitBlockProps> = ({
                   {
                     id: 'ocp-express.Resource.Component.UnitBlock.TenantNameUnitinfotenantname',
                   },
-                  { unitInfoTenantName: unitInfo.tenantName }
+                  { unitInfoTenantName: unitInfo.tenantName },
                 )}
               </div>
               <div>
@@ -113,7 +114,7 @@ const UnitBlock: React.FC<UnitBlockProps> = ({
                   {
                     id: 'ocp-express.Resource.Component.UnitBlock.ResourcePoolUnitinforesourcepoolname',
                   },
-                  { unitInfoResourcePoolName: unitInfo.resourcePoolName }
+                  { unitInfoResourcePoolName: unitInfo.resourcePoolName },
                 )}
               </div>
               {/* Popover 里就展示 Unit 规格的原本名称 */}
@@ -122,7 +123,7 @@ const UnitBlock: React.FC<UnitBlockProps> = ({
                   {
                     id: 'ocp-express.Resource.Component.UnitBlock.SpecificationUnitinfounitconfig',
                   },
-                  { unitInfoUnitConfig: unitInfo.unitConfig }
+                  { unitInfoUnitConfig: unitInfo.unitConfig },
                 )}
               </div>
               <div>
@@ -132,7 +133,7 @@ const UnitBlock: React.FC<UnitBlockProps> = ({
                   },
                   {
                     unitInfoMaxCpuAssignedCount: unitInfo.maxCpuAssignedCount,
-                  }
+                  },
                 )}
               </div>
               <div>
@@ -142,7 +143,7 @@ const UnitBlock: React.FC<UnitBlockProps> = ({
                   },
                   {
                     maxMemoryAssigned,
-                  }
+                  },
                 )}
               </div>
               <div>

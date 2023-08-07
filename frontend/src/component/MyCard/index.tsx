@@ -13,7 +13,7 @@
 import React from 'react';
 import { Card, Spin } from '@oceanbase/design';
 import type { CardProps } from 'antd/es/card';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface MyCardProps extends CardProps {
   children: React.ReactNode;
@@ -33,23 +33,27 @@ const MyCard = ({
   headStyle,
   bodyStyle,
   ...restProps
-}: MyCardProps) => (
-  <Card
-    className={`${className} ${styles.card}`}
-    bordered={false}
-    bodyStyle={{ padding: '20px 24px', ...bodyStyle }}
-    {...restProps}
-  >
-    {(title || extra) && (
-      <div className={styles.header} style={headStyle}>
-        {title && <span className={styles.title}>{title}</span>}
-        {extra && <span className={styles.extra}>{extra}</span>}
+}: MyCardProps) => {
+  const { styles } = useStyles();
+  return (
+    <Card
+      className={`${className} ${styles.card}`}
+      bordered={false}
+      bodyStyle={{ padding: '20px 24px', ...bodyStyle }}
+      {...restProps}
+    >
+      {(title || extra) && (
+        <div className={styles.header} style={headStyle}>
+          {title && <span className={styles.title}>{title}</span>}
+          {extra && <span className={styles.extra}>{extra}</span>}
+        </div>
+      )}
+
+      <div style={{ width: '100%' }}>
+        <Spin spinning={loading}>{children}</Spin>
       </div>
-    )}
-    <div style={{ width: '100%' }}>
-      <Spin spinning={loading}>{children}</Spin>
-    </div>
-  </Card>
-);
+    </Card>
+  );
+};
 
 export default MyCard;

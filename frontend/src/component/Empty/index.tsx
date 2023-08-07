@@ -54,6 +54,7 @@ export default ({
       {children}
     </Empty>
   );
+
   const pageCard = (
     <PageCard
       className={`${mode === 'page' ? styles.page : styles.component} ${className}`}
@@ -62,6 +63,7 @@ export default ({
       {empty}
     </PageCard>
   );
+
   if (mode === 'page') {
     return <PageContainer>{pageCard}</PageContainer>;
   }

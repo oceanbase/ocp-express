@@ -13,7 +13,7 @@
 import React from 'react';
 import { Progress } from 'antd';
 import type { ProgressProps } from 'antd/es/progress';
-import styles from './index.less';
+import useStyles from './index.style';
 import MouseTooltip from '@/component/MouseTooltip';
 
 export interface WaterLevelProps extends ProgressProps {
@@ -23,6 +23,7 @@ export interface WaterLevelProps extends ProgressProps {
 }
 
 const WaterLevel: React.FC<WaterLevelProps> = ({ title, description, tooltip, ...restProps }) => {
+  const { styles } = useStyles();
   return (
     <MouseTooltip
       overlay={tooltip}

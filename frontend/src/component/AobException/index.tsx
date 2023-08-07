@@ -87,7 +87,7 @@ class AobException extends React.PureComponent<AobExceptionProps> {
                     type="primary"
                   >
                     {backText}
-                  </Button>
+                  </Button>,
                 )
               ))}
           </div>

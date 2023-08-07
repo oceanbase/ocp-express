@@ -19,7 +19,7 @@ import { getUnitSpecLimitText } from '@/util/tenant';
 import MySelect from '@/component/MySelect';
 import SelectDropdownRender from '@/component/SelectDropdownRender';
 import AddUnitSpecModal from '@/component/AddUnitSpecModal';
-import styles from './index.less';
+import useStyles from './index.style';
 
 const { Option } = MySelect;
 
@@ -31,10 +31,11 @@ export interface UnitSpecSelectProps extends SelectProps<any> {
 }
 
 const UnitSpecSelect: React.FC<UnitSpecSelectProps> = ({ name, type, obVersion, ...restProps }) => {
+  const { styles } = useStyles();
   const dispatch = useDispatch();
   const { unitSpecList } = useSelector((state: DefaultRootState) => state.tenant);
   const loading = useSelector(
-    (state: DefaultRootState) => state.loading.effects['tenant/getUnitSpecList']
+    (state: DefaultRootState) => state.loading.effects['tenant/getUnitSpecList'],
   );
 
   const [visible, setVisible] = useState(false);
@@ -72,7 +73,7 @@ const UnitSpecSelect: React.FC<UnitSpecSelectProps> = ({ name, type, obVersion, 
           id: 'ocp-express.src.component.UnitSpecSelect.PleaseSelectTheUnitSpecification',
           defaultMessage: '请选择 Unit 规格',
         })}
-        dropdownRender={menu => (
+        dropdownRender={(menu) => (
           <SelectDropdownRender
             menu={menu}
             text={formatMessage({
@@ -128,7 +129,7 @@ const UnitSpecSelect: React.FC<UnitSpecSelectProps> = ({ name, type, obVersion, 
                 </Tooltip>
               </Option>
             );
-          }
+          },
         )}
       </MySelect>
       <AddUnitSpecModal

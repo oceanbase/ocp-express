@@ -20,9 +20,9 @@ import styles from './index.less';
 
 export type ValueType =
   | {
-    unitSpecName?: string | undefined;
-    unitCount?: number | undefined;
-  }
+      unitSpecName?: string | undefined;
+      unitCount?: number | undefined;
+    }
   | undefined;
 
 export interface ResourcePoolSelectProps {
@@ -56,7 +56,7 @@ class ResourcePoolSelect extends React.Component<ResourcePoolSelectProps, Resour
           formatMessage({
             id: 'ocp-express.component.ResourcePoolSelect.PleaseSelectTheUnitSpecification',
             defaultMessage: '请选择 Unit 规格',
-          })
+          }),
         );
       }
       if (!value.unitCount) {
@@ -64,7 +64,7 @@ class ResourcePoolSelect extends React.Component<ResourcePoolSelectProps, Resour
           formatMessage({
             id: 'ocp-express.component.ResourcePoolSelect.PleaseEnterTheUnitQuantity',
             defaultMessage: '请输入 Unit 数量',
-          })
+          }),
         );
       }
       callback();
@@ -115,6 +115,7 @@ class ResourcePoolSelect extends React.Component<ResourcePoolSelectProps, Resour
           obVersion={obVersion}
           onChange={this.handleSelectChange}
         />
+
         <InputNumber
           min={1}
           value={value && value.unitCount}

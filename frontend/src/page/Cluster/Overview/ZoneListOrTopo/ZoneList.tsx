@@ -33,18 +33,18 @@ export interface ZoneListProps {
 const ZoneList = React.forwardRef<ZoneListRef, ZoneListProps>(({ clusterData }, ref) => {
   const dataSource = clusterData?.zones || [];
   const expandable =
-    clusterData?.zones?.filter(item => (item?.servers?.length || 0) > 0).length > 0;
+    clusterData?.zones?.filter((item) => (item?.servers?.length || 0) > 0).length > 0;
 
   const [expandedRowKeys, setExpandedRowKeys] = useState<React.Key[]>(
     // 默认展开全部 Zone
-    dataSource.map(item => item.name) || []
+    dataSource.map((item) => item.name) || [],
   );
   const [statusList, setStatusList] = useState<string[]>([]);
 
   // 向组件外部暴露 refresh 属性函数，可通过 ref 引用
   useImperativeHandle(ref, () => ({
     expandAll: () => {
-      setExpandedRowKeys(dataSource.map(item => item.name as string));
+      setExpandedRowKeys(dataSource.map((item) => item.name as string));
     },
     setStatusList: (newStatusList: API.ObServerStatus[]) => {
       setStatusList(newStatusList);
@@ -108,7 +108,7 @@ const ZoneList = React.forwardRef<ZoneListRef, ZoneListProps>(({ clusterData }, 
         defaultMessage: '状态',
       }),
       dataIndex: 'status',
-      filters: ZONE_STATUS_LIST.map(item => ({
+      filters: ZONE_STATUS_LIST.map((item) => ({
         value: item.value,
         text: item.label,
       })),
@@ -199,7 +199,7 @@ const ZoneList = React.forwardRef<ZoneListRef, ZoneListProps>(({ clusterData }, 
                     defaultMessage: '{cpuCoreAssigned}/{cpuCoreTotal} 核',
                   },
 
-                  { cpuCoreAssigned, cpuCoreTotal }
+                  { cpuCoreAssigned, cpuCoreTotal },
                 )}
                 affixWidth={110}
                 percent={cpuCoreAssignedPercent}
@@ -213,7 +213,7 @@ const ZoneList = React.forwardRef<ZoneListRef, ZoneListProps>(({ clusterData }, 
                 })}
                 prefixWidth={prefixWidth}
                 affix={`${byte2GB(memoryInBytesAssigned).toFixed(1)}/${byte2GB(
-                  memoryInBytesTotal
+                  memoryInBytesTotal,
                 ).toFixed(1)} GB`}
                 affixWidth={110}
                 percent={memoryAssignedPercent}
@@ -242,7 +242,7 @@ const ZoneList = React.forwardRef<ZoneListRef, ZoneListProps>(({ clusterData }, 
           defaultMessage: '状态',
         }),
         dataIndex: 'status',
-        filters: OB_SERVER_STATUS_LIST.map(item => ({
+        filters: OB_SERVER_STATUS_LIST.map((item) => ({
           value: item.value,
           text: item.label,
         })),
@@ -259,9 +259,10 @@ const ZoneList = React.forwardRef<ZoneListRef, ZoneListProps>(({ clusterData }, 
       <Table
         columns={expandColumns}
         dataSource={(servers || []).filter(
-          item => statusList.length === 0 || statusList.includes(item.status as API.ObServerStatus)
+          (item) =>
+            statusList.length === 0 || statusList.includes(item.status as API.ObServerStatus),
         )}
-        rowKey={item => item.id}
+        rowKey={(item) => item.id}
         pagination={false}
         onChange={(pagination, filters) => {
           setStatusList(filters.status || []);
@@ -280,7 +281,7 @@ const ZoneList = React.forwardRef<ZoneListRef, ZoneListProps>(({ clusterData }, 
         expandable && !record.servers?.length ? 'table-row-hide-expand-icon' : ''
       }
       expandedRowKeys={expandedRowKeys}
-      onExpandedRowsChange={newExpandedRowKeys => {
+      onExpandedRowsChange={(newExpandedRowKeys) => {
         setExpandedRowKeys(newExpandedRowKeys);
       }}
       expandable={{

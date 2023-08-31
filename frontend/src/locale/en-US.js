@@ -48,6 +48,7 @@ export default {
   "ocp-express.component.GraphToolbar.DisplayOriginalRatio": "Original Ratio",
   "ocp-express.Detail.Component.ModifyResourcePoolModal.EnterTheUnitQuantity": "Enter the number of units",
   "ocp-express.Layout.BasicLayout.TaskCenter": "Task Center",
+  "ocp-express.Layout.BasicLayout.Task": "Task",
   "ocp-express.Layout.BasicLayout.FailedTaskCount": "There are {failedTaskCount} failed tasks",
   "ocp-express.Layout.BasicLayout.RunningTaskCount": "There are {runningTaskCount} running tasks",
   "ocp-express.src.component.ClusterAndUserSelect.ProxyroSys": "The system user of",

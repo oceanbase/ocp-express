@@ -355,7 +355,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                         fontSize: 12,
                       }}
                     >
-                      任务
+                      {formatMessage({
+                        id: 'ocp-express.Layout.BasicLayout.Task',
+                        defaultMessage: '任务',
+                      })}
                     </span>
                   </Space>
                 </Badge>

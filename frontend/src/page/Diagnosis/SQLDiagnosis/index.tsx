@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
-import { Button, Card, Checkbox, Col, Form, Input, Row, Space, message } from '@oceanbase/design';
+import { Button, Card, Checkbox, Col, Form, Input, Row, Space, message, Alert } from '@oceanbase/design';
 import { PageContainer } from '@ant-design/pro-components';
 import React, { Fragment, useEffect, useState } from 'react';
 import { flatten, isArray, isEqual, isObject, omit } from 'lodash';
@@ -30,6 +30,7 @@ import { RFC3339_DATE_TIME_FORMAT } from '@/constant/datetime';
 import { DEFAULT_RANGE, SQL_ATTRIBUTE_LIST, SQL_TYPE_LIST } from '@/constant/sqlDiagnosis';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';
 import { isEnglish } from '@/util';
+// import { formatTime } from '@/util/datetime';
 import MyDropdown from '@/component/MyDropdown';
 import ColumnManager from './Component/ColumnManager';
 import SQLCondition from './Component/SQLCondition';
@@ -132,6 +133,19 @@ const SQLDiagnosis: React.FC<IProps> = ({ location }) => {
     (location?.query?.tenantId && Number(location?.query?.tenantId)) || tenants[0]?.obTenantId;
 
   const tenantData = tenants.find(item => item.obTenantId === tenantId) || {};
+
+  // TODO 改接口后端尚未开发改造完毕
+  // const { data } = useRequest(ObStatCollectionConfigController.queryTenantTopSqlSwitch, {
+  //   defaultParams: [
+  //     {
+  //       // id: clusterId,
+  //       tenantId,
+  //     },
+  //   ],
+  // });
+
+  // const tenantTopSqlSwitch = data?.data || {};
+  // const topSqlTraceUpdateTime = formatTime(tenantTopSqlSwitch.updateTime);
 
   const onSearch = (queryV = {}) => {
     const formValues = form.getFieldsValue();
@@ -336,6 +350,26 @@ const SQLDiagnosis: React.FC<IProps> = ({ location }) => {
         ),
       }}
     >
+      {/* {tenantTopSqlSwitch.switchOn === false && (
+        <Alert
+          type="info"
+          showIcon
+          // message="111111"
+          message={formatMessage(
+            {
+              id: 'ocp-express.Detail.SQLDiagnosis.TheSqlCollectionOfThe',
+              defaultMessage:
+                '当前租户所属集群 {clusterDataName} 的 SQL 采集为关闭状态，关闭时间点：{topSqlTraceUpdateTime}，关闭期间无 SQL 数据',
+            },
+
+            {
+              clusterDataName: `${tenantData.clusterName}:${tenantData.obClusterId}`,
+              topSqlTraceUpdateTime,
+            }
+          )}
+          style={{ marginBottom: 16 }}
+        />
+      )} */}
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card bordered={false} bodyStyle={{ paddingBottom: 0 }}>

@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Typography, Row, Col, Divider, Checkbox, Space, useToken } from '@oceanbase/design';
 import { groupBy } from 'lodash';
-import { InfoCircleFilled } from '@ant-design/icons';
+import { InfoCircleFilled } from '@oceanbase/icons';
 import { isEnglish } from '@/util';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
 import styles from './index.less';

@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
 import React, { useEffect } from 'react';
 import { Button, Card, Descriptions, Result } from '@oceanbase/design';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { isNullValue } from '@oceanbase/util';
 import { useRequest, useInterval } from 'ahooks';
 import * as TaskController from '@/service/ocp-express/TaskController';

@@ -15,7 +15,7 @@ import { connect, history } from 'umi';
 import React, { useEffect } from 'react';
 import { Card, Col, Row } from '@oceanbase/design';
 import { flatten } from 'lodash';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { findBy } from '@oceanbase/util';
 import { useRequest } from 'ahooks';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';

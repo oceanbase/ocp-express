@@ -26,7 +26,7 @@ import type { PopoverProps } from 'antd/es/popover';
 import type { CheckboxOptionType } from 'antd/es/checkbox';
 import { groupBy, some, uniq } from 'lodash';
 import { isNullValue } from '@oceanbase/util';
-import { InfoCircleFilled } from '@ant-design/icons';
+import { InfoCircleFilled } from '@oceanbase/icons';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
 import styles from './index.less';
 
@@ -150,8 +150,8 @@ const CheckboxPopover = ({
                                 tooltip={
                                   item.description
                                     ? {
-                                        title: item.description,
-                                      }
+                                      title: item.description,
+                                    }
                                     : false
                                 }
                               />

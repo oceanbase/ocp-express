@@ -16,7 +16,7 @@ import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
 import { Radio, Tag, Tooltip, theme } from '@oceanbase/design';
 import ContentWithIcon from '@/component/ContentWithIcon';
-import { ExclamationCircleFilled } from '@ant-design/icons';
+import { ExclamationCircleFilled } from '@oceanbase/icons';
 import type { RadioChangeEvent } from 'antd/es/radio';
 import type { SelectValue } from 'antd/es/select';
 import { some } from 'lodash';

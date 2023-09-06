@@ -13,10 +13,10 @@
 import { formatMessage } from '@/util/intl';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'umi';
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, Menu } from '@oceanbase/design';
 import { isNullValue } from '@oceanbase/util';
 import { DEFAULT_LIST_DATA, ALL } from '@/constant';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@oceanbase/icons';
 import { noop } from 'lodash';
 
 export interface ServerDropdownProps {

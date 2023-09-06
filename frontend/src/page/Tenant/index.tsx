@@ -12,9 +12,9 @@
 
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
-// import { EllipsisOutlined } from '@ant-design/icons';
+// import { EllipsisOutlined } from '@oceanbase/icons';
 import React from 'react';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { Button, Col, Row } from '@oceanbase/design';
 import { useRequest } from 'ahooks';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';

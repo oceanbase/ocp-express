@@ -13,7 +13,7 @@
 import React from 'react';
 import { useToken } from '@oceanbase/design';
 import type { TooltipProps } from 'antd/es/tooltip';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined } from '@oceanbase/icons';
 import ContentWithIcon from '@/component/ContentWithIcon';
 
 export interface ContentWithQuestionProps {

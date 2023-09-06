@@ -12,10 +12,10 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useEffect, useRef } from 'react';
-import { Button, Space } from 'antd';
-import type { FilterDropdownProps } from 'antd/es/table/interface';
-import { TreeSearch, useToken } from '@oceanbase/design';
-import type { TreeSearchRef, Node } from '@oceanbase/design/src/TreeSearch';
+import type { FilterDropdownProps } from '@oceanbase/design/es/table/interface';
+import { token, Button, Space } from '@oceanbase/design';
+import { TreeSearch } from '@oceanbase/ui';
+import type { TreeSearchRef, Node } from '@oceanbase/ui/es/TreeSearch';
 
 export interface TableTreeFilterDropdownProps extends FilterDropdownProps {
   /* 确定筛选后的回调函数 */
@@ -37,8 +37,6 @@ const TableTreeFilterDropdown: React.FC<TableTreeFilterDropdownProps> = ({
   ...restProps
 }) => {
   const ref = useRef<TreeSearchRef>(null);
-
-  const { token } = useToken();
 
   const confirmFilter = () => {
     confirm();

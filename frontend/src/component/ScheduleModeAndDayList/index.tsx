@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Checkbox, Radio } from 'antd';
+import { Checkbox, Radio } from '@oceanbase/design';
 import { BACKUP_SCHEDULE_MODE_LIST, WEEK_OPTIONS, MONTH_OPTIONS } from '@/constant/backup';
 import styles from './index.less';
 

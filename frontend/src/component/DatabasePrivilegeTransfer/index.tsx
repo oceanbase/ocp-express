@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Modal } from '@oceanbase/design';
 import { Card, Checkbox, Col, Row, Spin, Button, Empty } from '@oceanbase/design';
-import { RightOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@oceanbase/icons';
 import classNames from 'classnames';
 import MyInput from '@/component/MyInput';
 import { differenceBy, findIndex, includes } from 'lodash';

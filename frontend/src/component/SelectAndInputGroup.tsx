@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Input, Select } from 'antd';
+import { Input, Select } from '@oceanbase/design';
 import type { InputProps } from 'antd/es/input';
 import type { SelectProps } from 'antd/es/select';
 

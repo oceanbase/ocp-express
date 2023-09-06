@@ -14,8 +14,8 @@ import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
 import React from 'react';
 import { Button, Result } from '@oceanbase/design';
-import Icon from '@ant-design/icons';
-import { PageContainer } from '@ant-design/pro-components';
+import Icon from '@oceanbase/icons';
+import { PageContainer } from '@oceanbase/ui';
 import PageCard from '@/component/PageCard';
 import { ReactComponent as FailSvg } from '@/asset/fail.svg';
 

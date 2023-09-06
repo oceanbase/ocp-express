@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect, useImperativeHandle } from 'react';
 import { Empty, Spin, Tabs } from '@oceanbase/design';
-import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { DownOutlined, UpOutlined } from '@oceanbase/icons';
 import { find, isFunction } from 'lodash';
 import SplitPane from 'react-split-pane';
 import { isEnglish } from '@/util';

@@ -16,7 +16,7 @@ import React, { useEffect } from 'react';
 import { Badge, Tooltip } from '@oceanbase/design';
 import { toNumber } from 'lodash';
 import { findByValue } from '@oceanbase/util';
-import { CaretDownFilled } from '@ant-design/icons';
+import { CaretDownFilled } from '@oceanbase/icons';
 import { TENANT_STATUS_LIST } from '@/constant/tenant';
 import { useBasicMenu, useTenantMenu } from '@/hook/useMenu';
 import useDocumentTitle from '@/hook/useDocumentTitle';

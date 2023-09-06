@@ -12,9 +12,9 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Lottie } from '@oceanbase/design';
-import type { MenuItem } from '@oceanbase/design/es/BasicLayout';
-import Icon from '@ant-design/icons';
+import { Lottie } from '@oceanbase/ui';
+import type { MenuItem } from '@oceanbase/ui/es/BasicLayout';
+import Icon from '@oceanbase/icons';
 import IconFont from '@/component/IconFont';
 import { ReactComponent as MonitorSvg } from '@/asset/monitor.svg';
 import { ReactComponent as DiagnosisSvg } from '@/asset/diagnosis.svg';

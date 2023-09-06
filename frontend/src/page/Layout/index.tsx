@@ -11,7 +11,7 @@
  */
 
 import { formatMessage } from '@/util/intl';
-import { getLocale } from 'umi';
+import { getLocale, history } from 'umi';
 import React, { useEffect } from 'react';
 import { ConfigProvider, theme } from '@oceanbase/design';
 import en_US from 'antd/es/locale/en_US';
@@ -39,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <ConfigProvider theme={theme} locale={antdLocaleMap[locale] || zh_CN}>
+    <ConfigProvider navigate={history.push} theme={theme} locale={antdLocaleMap[locale] || zh_CN}>
       <ErrorBoundary>
         <BlankLayout>{children}</BlankLayout>
       </ErrorBoundary>

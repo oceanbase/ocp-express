@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import useDocumentTitle from '@/hook/useDocumentTitle';
 import useReload from '@/hook/useReload';
 import ContentWithReload from '@/component/ContentWithReload';

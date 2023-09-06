@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { history, useSelector } from 'umi';
 import React, { useState, useEffect } from 'react';
 import { Button, Space } from '@oceanbase/design';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { useRequest } from 'ahooks';
 import * as ObUserController from '@/service/ocp-express/ObUserController';
 import Empty from '@/component/Empty';

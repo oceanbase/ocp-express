@@ -11,7 +11,7 @@
  */
 
 import React from 'react';
-import { Card } from 'antd';
+import { Card } from '@oceanbase/design';
 import type { CommonProps, MetricGroupWithChartConfig } from './Item';
 import Item from './Item';
 

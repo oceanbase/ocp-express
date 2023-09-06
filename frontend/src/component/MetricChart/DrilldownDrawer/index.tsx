@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { useSelector } from 'umi';
 import React, { useState, useEffect } from 'react';
 import { Alert, Card, Col, Empty, Menu, Row, Space } from '@oceanbase/design';
-import { LinkOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@oceanbase/icons';
 import { directTo, findByValue } from '@oceanbase/util';
 import { find, flatten } from 'lodash';
 import moment from 'moment';

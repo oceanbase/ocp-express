@@ -13,7 +13,7 @@
 import React from 'react';
 import { Empty } from '@oceanbase/design';
 import type { EmptyProps as AntdEmptyProps } from 'antd/es/empty';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import PageCard from '@/component/PageCard';
 import styles from './index.less';
 

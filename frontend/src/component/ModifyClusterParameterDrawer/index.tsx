@@ -36,7 +36,7 @@ import {
 } from '@oceanbase/design';
 import React, { useEffect, useState } from 'react';
 import { flatten, isEqual, unionWith, uniq, uniqBy } from 'lodash';
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
 import styles from './index.less';
 
@@ -388,7 +388,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                     if (
                       targetZone?.label?.split('：')[0] === server?.title?.split('：')[0] ||
                       `${targetZone?.label?.split('：')[0]}:${targetZone?.port}` ===
-                        server?.title?.split('：')[0]
+                      server?.title?.split('：')[0]
                     ) {
                       return {
                         key: server.key,
@@ -749,10 +749,10 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                     parameter: currentParameter?.map((param, key) =>
                                       index === key
                                         ? {
-                                            applyTo: val,
-                                            value: param.value,
-                                            target: [],
-                                          }
+                                          applyTo: val,
+                                          value: param.value,
+                                          target: [],
+                                        }
                                         : param
                                     ),
                                   });
@@ -816,10 +816,10 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                               parameter: currentParameter?.map((param, key) => {
                                                 return index === key
                                                   ? {
-                                                      applyTo: param?.applyTo,
-                                                      value: param.value,
-                                                      target: getSelectAllOptions(param?.applyTo),
-                                                    }
+                                                    applyTo: param?.applyTo,
+                                                    value: param.value,
+                                                    target: getSelectAllOptions(param?.applyTo),
+                                                  }
                                                   : param;
                                               }),
                                             });
@@ -829,10 +829,10 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                               parameter: currentParameter?.map((param, key) =>
                                                 index === key
                                                   ? {
-                                                      applyTo: param?.applyTo,
-                                                      value: param.value,
-                                                      target: [],
-                                                    }
+                                                    applyTo: param?.applyTo,
+                                                    value: param.value,
+                                                    target: [],
+                                                  }
                                                   : param
                                               ),
                                             });

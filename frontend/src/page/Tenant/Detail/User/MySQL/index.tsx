@@ -25,7 +25,7 @@ import {
   Modal,
   message,
 } from '@oceanbase/design';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { useRequest } from 'ahooks';
 import * as TenantSessionService from '@/service/ocp-express/ObTenantSessionController';
 import * as ObUserController from '@/service/ocp-express/ObUserController';

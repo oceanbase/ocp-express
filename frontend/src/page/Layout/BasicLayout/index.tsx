@@ -13,20 +13,12 @@
 import { formatMessage } from '@/util/intl';
 import { getLocale, history, useDispatch, useSelector } from 'umi';
 import React, { useEffect, useState } from 'react';
-import {
-  Alert,
-  Menu,
-  Badge,
-  Tooltip,
-  Modal,
-  Space,
-  BasicLayout as OBUIBasicLayout,
-  useToken,
-} from '@oceanbase/design';
+import { Alert, Badge, Menu, Modal, Space, token, Tooltip } from '@oceanbase/design';
+import { BasicLayout as OBUIBasicLayout } from '@oceanbase/ui';
+import type { BasicLayoutProps as OBUIBasicLayoutProps } from '@oceanbase/ui/es/BasicLayout';
 import { find } from 'lodash';
 import moment from 'moment';
-import type { BasicLayoutProps as OBUIBasicLayoutProps } from '@oceanbase/design/dist/BasicLayout';
-import { LoadingOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { LoadingOutlined, UnorderedListOutlined } from '@oceanbase/icons';
 import { DATE_FORMAT_DISPLAY } from '@/constant/datetime';
 import { useBasicMenu } from '@/hook/useMenu';
 import { useRequest } from 'ahooks';
@@ -38,7 +30,6 @@ import tracert from '@/util/tracert';
 import ModifyUserPasswordModal from '@/component/ModifyUserPasswordModal';
 import TenantAdminPasswordModal from '@/component/TenantAdminPasswordModal';
 import styles from './index.less';
-
 interface BasicLayoutProps extends OBUIBasicLayoutProps {
   children: React.ReactNode;
   location: {
@@ -68,8 +59,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const [offsetSeconds, setOffsetSeconds] = useState(0);
   // 是否展示修改密码的弹窗
   const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const { token } = useToken();
 
   const logoUrl = isEnglish()
     ? '/assets/logo/ocp_express_logo_en.svg'
@@ -240,6 +229,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         // OCP 监控采集间隔
         ocpMonitorCollectInterval: collectInterval,
       })}
+      {...restProps}
       location={location}
       banner={
         offsetAlertVisible && (
@@ -355,7 +345,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                         fontSize: 12,
                       }}
                     >
-                      任务
+                      {formatMessage({
+                        id: 'ocp-express.Layout.BasicLayout.Task',
+                        defaultMessage: '任务',
+                      })}
                     </span>
                   </Space>
                 </Badge>
@@ -374,7 +367,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           releaseTime: formatTime(appInfo.buildTime, DATE_FORMAT_DISPLAY),
         },
       }}
-      {...restProps}
+
     >
       {children}
 
@@ -414,7 +407,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           });
         }}
       />
-    </OBUIBasicLayout>
+    </OBUIBasicLayout >
   );
 };
 

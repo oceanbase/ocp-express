@@ -14,8 +14,8 @@ import React, { useState, useRef } from 'react';
 import { formatMessage } from '@/util/intl';
 import { history, connect } from 'umi';
 import { Button, Card, Checkbox, Tooltip, Space } from '@oceanbase/design';
-import { SyncOutlined } from '@ant-design/icons';
-import { PageContainer } from '@ant-design/pro-components';
+import { SyncOutlined } from '@oceanbase/icons';
+import { PageContainer } from '@oceanbase/ui';
 import { useRequest } from 'ahooks';
 import useDocumentTitle from '@/hook/useDocumentTitle';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';
@@ -45,7 +45,7 @@ const Index: React.FC<IndexProps> = ({ location, tenantData }: IndexProps) => {
   const [activeOnly, setActiveOnly] = useState(false);
   const [loading, setLoading] = useState(false);
   const listRef = useRef({
-    refreshListTenantSessions: () => {},
+    refreshListTenantSessions: () => { },
   });
 
   const { tab = 'list', tenantId: propTenantId } = location?.query || {};

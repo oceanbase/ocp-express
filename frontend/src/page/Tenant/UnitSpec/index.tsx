@@ -13,9 +13,9 @@
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
 import React, { useState } from 'react';
-import type { Route } from 'antd/es/breadcrumb/Breadcrumb';
+import type { Route } from '@oceanbase/design/es/breadcrumb/Breadcrumb';
 import { Col, Row, Button, Card, Input, Table } from '@oceanbase/design';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { findByValue } from '@oceanbase/util';
 import * as ObUnitSpecController from '@/service/ocp-express/ObUnitSpecController';
 import { getTableData } from '@/util';
@@ -28,7 +28,7 @@ import DeleteUnitSpecModal from '@/component/DeleteUnitSpecModal';
 
 import styles from './index.less';
 
-export interface UnitProps {}
+export interface UnitProps { }
 const Unit: React.FC<UnitProps> = () => {
   useDocumentTitle(
     formatMessage({

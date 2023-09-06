@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { connect } from 'umi';
 import React, { useState, useEffect } from 'react';
 import { Badge, Popover, Table, Tooltip, SideTip } from '@oceanbase/design';
-import { CloseOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { CloseOutlined, ClockCircleOutlined } from '@oceanbase/icons';
 import { findByValue, directTo } from '@oceanbase/util';
 import { useInterval } from 'ahooks';
 import { DEFAULT_LIST_DATA } from '@/constant';
@@ -195,15 +195,15 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
         tooltip={
           loading && !polling
             ? {
-                title: formatMessage({
-                  id: 'ocp-express.component.TaskBubble.InTheTaskRequest',
-                  defaultMessage: '任务请求中',
-                }),
-                placement: 'left',
-              }
+              title: formatMessage({
+                id: 'ocp-express.component.TaskBubble.InTheTaskRequest',
+                defaultMessage: '任务请求中',
+              }),
+              placement: 'left',
+            }
             : total > 0
-            ? undefined
-            : {
+              ? undefined
+              : {
                 title: formatMessage({
                   id: 'ocp-express.component.TaskBubble.NoOngoingTasks',
                   defaultMessage: '没有正在进行的任务',

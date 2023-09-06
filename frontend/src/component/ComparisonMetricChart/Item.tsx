@@ -18,7 +18,7 @@ import type { ChartProps } from '@/component/Chart';
 import type { TooltipScroll } from '@/component/Chart';
 import Chart from '@/component/Chart';
 import { useComparisonMetrichartDataList } from '@/hook/sqlDiagnosis';
-import { Card } from 'antd';
+import { Card } from '@oceanbase/design';
 
 export interface MetricGroupWithChartConfig extends API.MetricGroup {
   chartConfig?: ChartProps;

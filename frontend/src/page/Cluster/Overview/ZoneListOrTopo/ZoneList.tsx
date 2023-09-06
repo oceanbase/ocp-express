@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
 import React, { useState, useImperativeHandle } from 'react';
-import { Badge } from 'antd';
+import { Badge } from '@oceanbase/design';
 import { Table } from '@oceanbase/design';
 import { byte2GB, findByValue } from '@oceanbase/util';
 import { isEnglish } from '@/util';

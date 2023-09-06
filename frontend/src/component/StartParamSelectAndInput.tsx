@@ -14,10 +14,10 @@ import MyInput from '@/component/MyInput';
 import MySelect from '@/component/MySelect';
 import { isEnglish } from '@/util';
 import { formatMessage } from '@/util/intl';
-import { Button, Col, Form, Row } from 'antd';
+import { Button, Col, Form, Row } from '@oceanbase/design';
 import React from 'react';
 import { sortByString } from '@oceanbase/util';
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusOutlined } from '@oceanbase/icons';
 import type { FormInstance } from 'antd/es/form';
 
 const { Option } = MySelect;

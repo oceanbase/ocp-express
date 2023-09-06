@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Button, Checkbox, Menu, Switch, Tooltip } from 'antd';
+import { Button, Checkbox, Menu, Switch, Tooltip } from '@oceanbase/design';
 import { isObject } from 'lodash';
 import type { TooltipProps } from 'antd/es/tooltip';
 

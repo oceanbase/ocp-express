@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
 import { Button, Card, Checkbox, Col, Form, Input, Row, Space, message, Alert } from '@oceanbase/design';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import React, { Fragment, useEffect, useState } from 'react';
 import { flatten, isArray, isEqual, isObject, omit } from 'lodash';
 import moment from 'moment';

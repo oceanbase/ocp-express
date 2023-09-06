@@ -12,13 +12,14 @@
 
 import { formatMessage } from '@/util/intl';
 import { useSelector } from 'umi';
-import { Empty, Space, Spin, Tooltip, Modal, Ranger, useToken } from '@oceanbase/design';
+import { Empty, Space, Spin, Tooltip, Modal, token } from '@oceanbase/design';
+import { Ranger } from '@oceanbase/ui';
 import React, { useEffect, useState, useRef } from 'react';
 import { every, uniq } from 'lodash';
 import type { Moment } from 'moment';
 import moment from 'moment';
 import { findBy, isNullValue, jsonParse, sortByNumber } from '@oceanbase/util';
-import Icon, { CloseOutlined, FullscreenOutlined } from '@ant-design/icons';
+import Icon, { CloseOutlined, FullscreenOutlined } from '@oceanbase/icons';
 import { useInViewport } from 'ahooks';
 import * as MonitorController from '@/service/ocp-express/MonitorController';
 import {
@@ -140,8 +141,6 @@ const Item: React.FC<ItemProps> = ({
   const [isInViewPort] = useInViewport(ref);
   const [inViewPort, setInViewPort] = useState(false);
 
-  const { token } = useToken();
-
   // 如果进入过可视范围内，则缓存起来，避免重新进入可视范围时重复发起请求
   useEffect(() => {
     if (isInViewPort) {
@@ -228,11 +227,11 @@ const Item: React.FC<ItemProps> = ({
       },
       ...(isSingleMetric
         ? {
-            metric: {
-              // range 数据类型，且指标组只包含一个指标，使用指标组名代替指标名
-              alias: name,
-            },
-          }
+          metric: {
+            // range 数据类型，且指标组只包含一个指标，使用指标组名代替指标名
+            alias: name,
+          },
+        }
         : {}),
       ...meta,
     },
@@ -645,16 +644,16 @@ const Item: React.FC<ItemProps> = ({
             data={
               isDualAxes
                 ? [
-                    chartData.filter(item => !isNullValue(item.value1)),
-                    chartData.filter(item => !isNullValue(item.value2)),
-                  ]
+                  chartData.filter(item => !isNullValue(item.value1)),
+                  chartData.filter(item => !isNullValue(item.value2)),
+                ]
                 : chartData
             }
             tooltipScroll={
               tooltipScroll
                 ? {
-                    maxHeight: '180px',
-                  }
+                  maxHeight: '180px',
+                }
                 : false
             }
             {...config}
@@ -701,16 +700,16 @@ const Item: React.FC<ItemProps> = ({
                 data={
                   isDualAxes
                     ? [
-                        modalChartData.filter(item => !isNullValue(item.value1)),
-                        modalChartData.filter(item => !isNullValue(item.value2)),
-                      ]
+                      modalChartData.filter(item => !isNullValue(item.value1)),
+                      modalChartData.filter(item => !isNullValue(item.value2)),
+                    ]
                     : modalChartData
                 }
                 tooltipScroll={
                   tooltipScroll
                     ? {
-                        maxHeight: '350px',
-                      }
+                      maxHeight: '350px',
+                    }
                     : false
                 }
                 {...config}

@@ -12,8 +12,8 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState, useRef, useImperativeHandle } from 'react';
-import { Radio } from 'antd';
-import { UnorderedListOutlined, ApartmentOutlined } from '@ant-design/icons';
+import { Radio } from '@oceanbase/design';
+import { UnorderedListOutlined, ApartmentOutlined } from '@oceanbase/icons';
 import scrollIntoView from 'scroll-into-view';
 import MyCard from '@/component/MyCard';
 import type { ZoneListRef } from './ZoneList';

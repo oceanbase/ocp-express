@@ -12,8 +12,8 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Password } from '@oceanbase/design';
-import type { PasswordProps } from '@oceanbase/design/dist/src/Password';
+import { Password } from '@oceanbase/ui';
+import type { PasswordProps } from '@oceanbase/ui/es/Password';
 
 const OCPPassword: React.FC<PasswordProps> = props => {
   // 特殊字符支持 ~!@#%^&*_\-+=`|(){}[]:;',.?/

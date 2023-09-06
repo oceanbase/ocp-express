@@ -31,7 +31,7 @@ import {
   ExclamationCircleOutlined,
   EyeOutlined,
   UpOutlined,
-} from '@ant-design/icons';
+} from '@oceanbase/icons';
 import type { ColumnProps } from 'antd/es/table';
 import { PLAN_TYPE_LIST } from '@/constant/tenant';
 import { formatTime } from '@/util/datetime';
@@ -400,13 +400,13 @@ const PlanDrawer: React.FC<TopSQLPlanProps> = props => {
 
                 {allExpansion
                   ? formatMessage({
-                      id: 'ocp-express.SQLDiagnosis.Component.Plan.FoldAll',
-                      defaultMessage: '全部收起',
-                    })
+                    id: 'ocp-express.SQLDiagnosis.Component.Plan.FoldAll',
+                    defaultMessage: '全部收起',
+                  })
                   : formatMessage({
-                      id: 'ocp-express.SQLDiagnosis.Component.Plan.ExpandAll',
-                      defaultMessage: '全部展开',
-                    })}
+                    id: 'ocp-express.SQLDiagnosis.Component.Plan.ExpandAll',
+                    defaultMessage: '全部展开',
+                  })}
               </a>
             </Col>
           )}

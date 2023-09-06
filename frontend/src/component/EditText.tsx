@@ -11,8 +11,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Input, Row, Col } from 'antd';
-import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { Input, Row, Col } from '@oceanbase/design';
+import { EditOutlined, CheckOutlined, CloseOutlined } from '@oceanbase/icons';
 
 export interface EditTextProps {
   address: string;

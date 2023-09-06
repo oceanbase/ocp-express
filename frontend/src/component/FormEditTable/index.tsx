@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined } from '@oceanbase/icons';
 import { Button, Popconfirm, Space, Table } from '@oceanbase/design';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';

@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { useSelector } from 'umi';
 import React from 'react';
 import { Form, Alert, Modal, message } from '@oceanbase/design';
-import { ExclamationCircleFilled } from '@ant-design/icons';
+import { ExclamationCircleFilled } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
 import * as IamController from '@/service/ocp-express/IamController';
 import * as ObUserController from '@/service/ocp-express/ObUserController';

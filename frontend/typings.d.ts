@@ -10,9 +10,9 @@
  * See the Mulan PSL v2 for more details.
  */
 
-import type { ButtonProps } from 'antd/es/button';
-import type { PopconfirmProps } from 'antd/es/popconfirm';
-import type { TooltipProps } from 'antd/es/tooltip';
+import type { ButtonProps } from '@oceanbase/design/es/button';
+import type { PopconfirmProps } from '@oceanbase/design/es/popconfirm';
+import type { TooltipProps } from '@oceanbase/design/es/tooltip';
 
 declare module '*.less';
 declare module '@/config/*';
@@ -70,14 +70,14 @@ declare global {
       divider?: boolean;
       isDanger?: boolean;
       accessibleField?:
-        | 'readAccessible'
-        | 'createAccessible'
-        | 'updateAccessible'
-        | 'deleteAccessible'
-        // 下载主机日志，属于主机的通用权限
-        | 'readHostAccessible'
-        // 查看任务详情，属于任务的通用权限
-        | 'readTaskAccessible';
+      | 'readAccessible'
+      | 'createAccessible'
+      | 'updateAccessible'
+      | 'deleteAccessible'
+      // 下载主机日志，属于主机的通用权限
+      | 'readHostAccessible'
+      // 查看任务详情，属于任务的通用权限
+      | 'readTaskAccessible';
       buttonProps?: ButtonProps;
       tooltip?: Omit<TooltipProps, 'overlay'>;
       popconfirm?: PopconfirmProps;

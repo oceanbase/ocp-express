@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { connect } from 'umi';
-import { InputNumber } from 'antd';
+import { InputNumber } from '@oceanbase/design';
 import type { SelectValue } from 'antd/es/select';
 import UnitSpecSelect from '@/component/UnitSpecSelect';
 import styles from './index.less';

@@ -27,7 +27,7 @@ import {
   Modal,
   message,
 } from '@oceanbase/design';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { sortByMoment } from '@oceanbase/util';
 import { PAGINATION_OPTION_10 } from '@/constant';
 import { FORBID_OPERATION_DBLIST } from '@/constant/tenant';

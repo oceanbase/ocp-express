@@ -28,8 +28,8 @@ import {
   Modal,
   message,
 } from '@oceanbase/design';
-import type { Route } from 'antd/es/breadcrumb/Breadcrumb';
-import { PageContainer } from '@ant-design/pro-components';
+import type { Route } from '@oceanbase/design/es/breadcrumb/Breadcrumb';
+import { PageContainer } from '@oceanbase/ui';
 import { findByValue } from '@oceanbase/util';
 import { useRequest } from 'ahooks';
 import { uniq } from 'lodash';
@@ -446,13 +446,13 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
       path: `/tenant/${tenantId}/user${roleName ? '/role' : ''}`,
       breadcrumbName: roleName
         ? formatMessage({
-            id: 'ocp-express.Oracle.UserOrRoleDetail.RoleList',
-            defaultMessage: '角色列表',
-          })
+          id: 'ocp-express.Oracle.UserOrRoleDetail.RoleList',
+          defaultMessage: '角色列表',
+        })
         : formatMessage({
-            id: 'ocp-express.Oracle.UserOrRoleDetail.UserList',
-            defaultMessage: '用户列表',
-          }),
+          id: 'ocp-express.Oracle.UserOrRoleDetail.UserList',
+          defaultMessage: '用户列表',
+        }),
     },
 
     {

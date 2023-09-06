@@ -11,7 +11,7 @@
  */
 
 import React, { useState } from 'react';
-import { DownSquareOutlined, UpSquareOutlined } from '@ant-design/icons';
+import { DownSquareOutlined, UpSquareOutlined } from '@oceanbase/icons';
 import { Typography, TypographyProps } from '@oceanbase/design';
 
 const { Paragraph } = Typography;

@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { history, connect } from 'umi';
 import React, { useEffect } from 'react';
 import { Alert, Card, Col, Row } from '@oceanbase/design';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { findBy, directTo } from '@oceanbase/util';
 import { find } from 'lodash';
 import { useRequest } from 'ahooks';

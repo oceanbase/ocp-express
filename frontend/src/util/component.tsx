@@ -34,7 +34,7 @@ import {
 import React from 'react';
 import { noop } from 'lodash';
 import moment from 'moment';
-import { EllipsisOutlined, SearchOutlined } from '@ant-design/icons';
+import { EllipsisOutlined, SearchOutlined } from '@oceanbase/icons';
 import type { ButtonProps } from 'antd/es/button';
 import type { PopconfirmProps } from 'antd/es/popconfirm';
 import type { FilterDropdownProps } from 'antd/es/table/interface';

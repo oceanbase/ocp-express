@@ -12,7 +12,7 @@
 
 import React from 'react';
 import { Divider } from '@oceanbase/design';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@oceanbase/icons';
 import ContentWithIcon from '@/component/ContentWithIcon';
 
 const SelectDropdownRender: React.FC<{

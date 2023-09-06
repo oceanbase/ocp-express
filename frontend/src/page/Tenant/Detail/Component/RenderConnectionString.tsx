@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Tooltip, Typography, Space } from '@oceanbase/design';
-import { FolderOpenOutlined } from '@ant-design/icons';
+import { FolderOpenOutlined } from '@oceanbase/icons';
 
 const { Text } = Typography;
 

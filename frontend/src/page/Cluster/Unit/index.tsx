@@ -22,14 +22,14 @@ import {
   Spin,
   Switch,
   Tooltip,
-  FullscreenBox,
   message,
   token,
 } from '@oceanbase/design';
+import { FullscreenBox } from '@oceanbase/ui'
 import React, { useRef, useState } from 'react';
 import { find, flatten, some } from 'lodash';
-import { PageContainer } from '@ant-design/pro-components';
-import { BellOutlined, DownOutlined, FullscreenOutlined, SyncOutlined } from '@ant-design/icons';
+import { PageContainer } from '@oceanbase/ui';
+import { BellOutlined, DownOutlined, FullscreenOutlined, SyncOutlined } from '@oceanbase/icons';
 import { useInterval, useKeyPress, useLockFn, useRequest, useScroll } from 'ahooks';
 import * as ObUnitController from '@/service/custom/ObUnitController';
 import * as ObResourceController from '@/service/ocp-express/ObResourceController';

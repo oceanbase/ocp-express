@@ -248,8 +248,8 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
           onBack: fullscreen
             ? undefined
             : () => {
-                history.push('/overview');
-              },
+              history.push('/overview');
+            },
           extra: (
             <div
               style={{
@@ -434,13 +434,13 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                   title={
                     fullscreen
                       ? formatMessage({
-                          id: 'ocp-express.Detail.Resource.Unit.ExitFullScreen',
-                          defaultMessage: '退出全屏',
-                        })
+                        id: 'ocp-express.Detail.Resource.Unit.ExitFullScreen',
+                        defaultMessage: '退出全屏',
+                      })
                       : formatMessage({
-                          id: 'ocp-express.Detail.Resource.Unit.FullScreen',
-                          defaultMessage: '全屏',
-                        })
+                        id: 'ocp-express.Detail.Resource.Unit.FullScreen',
+                        defaultMessage: '全屏',
+                      })
                   }
                 >
                   <FullscreenOutlined
@@ -529,20 +529,10 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
             >
               <Row
                 gutter={[0, 12]}
+                className={styles.unitRow}
                 style={{
-                  position: 'sticky',
-                  left: 0,
-                  zIndex: 2,
                   // 未开始滚动时，隐藏 box-shadow 的样式，类似于 antd Table 的滚动效果
                   boxShadow: scroll?.left === 0 ? 'none' : '2px 0px 10px rgba(0, 0, 0, 0.12)',
-                  backgroundColor: '#ffffff',
-                  padding: '16px 12px 24px 24px',
-                  marginBottom: 0,
-                  marginTop: 0,
-                  width: 300,
-                  // 仅设置 width: 300 不生效，还需要设置 min-width
-                  minWidth: 300,
-                  borderRadius: token.borderRadius,
                 }}
               >
                 {['region', 'zone', 'server'].map((item) => (

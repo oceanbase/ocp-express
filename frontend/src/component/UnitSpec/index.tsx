@@ -49,6 +49,7 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
 
   const { cpuLowerLimit, memoryLowerLimit } = unitSpecLimit;
   const { idleCpuCore, idleMemoryInBytes } = idleUnitSpec;
+
   return (
     <Row
       gutter={8}
@@ -97,14 +98,21 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
           }}
         />
 
-        {memoryLowerLimit && idleMemoryInBytes && (
+        {memoryLowerLimit !== undefined && idleMemoryInBytes !== undefined && (
           <div style={extraStyle}>
-            {formatMessage(
+
+            {memoryLowerLimit < idleMemoryInBytes ? formatMessage(
               {
                 id: 'ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes',
                 defaultMessage: '当前可配置范围值 {memoryLowerLimit}~{idleMemoryInBytes}',
               },
-              { memoryLowerLimit: memoryLowerLimit, idleMemoryInBytes: idleMemoryInBytes }
+              { memoryLowerLimit, idleMemoryInBytes }
+            ) : formatMessage(
+              {
+                id: 'ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes2',
+                defaultMessage: '当前可配置资源不足',
+              },
+              { memoryLowerLimit, idleMemoryInBytes }
             )}
           </div>
         )}

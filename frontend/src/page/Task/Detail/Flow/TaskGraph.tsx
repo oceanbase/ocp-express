@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Dropdown, Menu, Tooltip, Typography, theme } from '@oceanbase/design';
+import { Dropdown, Menu, Tooltip, Typography, token } from '@oceanbase/design';
 import { find, isEqual, toLower, toNumber } from 'lodash';
 import { sortByNumber, findByValue, isNullValue } from '@oceanbase/util';
 import type { Graph } from '@antv/g6';
@@ -365,8 +365,8 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
         nodeStateStyles: {
           hover: {
             lineWidth: 2,
-            stroke: theme.token.colorPrimary,
-            fill: theme.token.colorPrimaryBg,
+            stroke: token.colorPrimary,
+            fill: token.colorPrimaryBg,
           },
         },
 

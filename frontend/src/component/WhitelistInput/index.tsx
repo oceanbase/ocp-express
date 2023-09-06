@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import { Radio, Tag, Tooltip, theme } from '@oceanbase/design';
+import { Radio, Tag, Tooltip, token } from '@oceanbase/design';
 import ContentWithIcon from '@/component/ContentWithIcon';
 import { ExclamationCircleFilled } from '@oceanbase/icons';
 import type { RadioChangeEvent } from 'antd/es/radio';
@@ -138,7 +138,7 @@ class WhitelistInput extends React.Component<WhitelistInputProps, WhitelistInput
                 prefixIcon={{
                   component: ExclamationCircleFilled,
                   style: {
-                    color: theme.token.colorWarning,
+                    color: token.colorWarning,
                     marginTop: -1,
                   },
                 }}
@@ -147,7 +147,7 @@ class WhitelistInput extends React.Component<WhitelistInputProps, WhitelistInput
                   defaultMessage: '存在访问安全风险，请谨慎操作',
                 })}
                 style={{
-                  color: theme.token.colorWarning,
+                  color: token.colorWarning,
                   // 与 icon 的 marginTop 配合，可以实现 icon 和文本的上对齐
                   alignItems: 'flex-start',
                 }}

@@ -17,7 +17,7 @@ import { max } from 'lodash';
 import moment from 'moment';
 import { Progress } from '@oceanbase/charts';
 import { toPercent } from '@oceanbase/charts/es/util/number';
-import { Col, Empty, Row, Typography, useToken } from '@oceanbase/design';
+import { Col, Empty, Row, Typography, token } from '@oceanbase/design';
 import { useRequest } from 'ahooks';
 import * as MonitorController from '@/service/ocp-express/MonitorController';
 import MyCard from '@/component/MyCard';
@@ -29,7 +29,6 @@ import { isNullValue } from '@oceanbase/util';
 export interface TenantResourceTop3Props { }
 
 const TenantResourceTop3: React.FC<TenantResourceTop3Props> = () => {
-  const { token } = useToken();
 
   const commonParams = {
     endTime: moment().format(RFC3339_DATE_TIME_FORMAT),
@@ -238,8 +237,8 @@ const TenantResourceTop3: React.FC<TenantResourceTop3Props> = () => {
                             if (item.key === 'ob_tenant_disk_usage') {
                               // 刚部署的 OCP Express，可能存在 percentValue 为空、usedValue 不为空的情况，为了避免百分比出现 NaN，需要做下空值判断
                               return `${formatSize(dataItem.usedValue)} / ${isNullValue(dataItem.percentValue)
-                                  ? '-'
-                                  : toPercent(dataItem.percentValue / 100, 1)
+                                ? '-'
+                                : toPercent(dataItem.percentValue / 100, 1)
                                 }%`;
                             }
                             return `${toPercent(dataItem.percentValue / 100, 1)}%`;

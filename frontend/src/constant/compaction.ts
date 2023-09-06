@@ -10,7 +10,7 @@
  * See the Mulan PSL v2 for more details.
  */
 
-import { theme } from '@oceanbase/design';
+import { token } from '@oceanbase/design';
 import { formatMessage } from '@/util/intl';
 
 export const COMPACTION_STATUS_LISTV4: Global.StatusItem[] = [
@@ -153,7 +153,7 @@ export const COMPACTION_RESULT_LIST = [
       id: 'ocp-express.src.constant.compaction.Exception',
       defaultMessage: '异常',
     }),
-    color: theme.token.colorError,
+    color: token.colorError,
   },
 
   {

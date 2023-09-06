@@ -29,7 +29,7 @@ import {
   Tooltip,
   Tree,
   Modal,
-  theme,
+  token,
 } from '@oceanbase/design';
 import React from 'react';
 import { noop } from 'lodash';
@@ -122,7 +122,7 @@ export const getColumnSearchProps = ({
   ),
 
   filterIcon: (filtered: boolean) => (
-    <SearchOutlined style={{ color: filtered ? theme.token.colorPrimary : undefined }} />
+    <SearchOutlined style={{ color: filtered ? token.colorPrimary : undefined }} />
   ),
 
   // 前端搜索，需要定义 onFilter 函数

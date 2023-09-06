@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
-import { Dropdown, Menu, Space, Tooltip, Typography, useToken } from '@oceanbase/design';
+import { Dropdown, Menu, Space, Tooltip, Typography, token } from '@oceanbase/design';
 import { debounce, some } from 'lodash';
 import Icon, { MoreOutlined } from '@oceanbase/icons';
 import { findByValue, isNullValue } from '@oceanbase/util';
@@ -126,8 +126,6 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
     const [canvas, setCanvas] = useState<Canvas>();
     const graphRef = useRef<HTMLDivElement>(null);
     const graphSize = useSize(graphRef);
-
-    const { token } = useToken();
 
     // 子任务是否有分叉
     const hasBranch = some(

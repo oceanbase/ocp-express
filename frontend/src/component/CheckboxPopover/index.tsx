@@ -20,7 +20,7 @@ import {
   Checkbox,
   Space,
   Popover,
-  useToken,
+  token,
 } from '@oceanbase/design';
 import type { PopoverProps } from 'antd/es/popover';
 import type { CheckboxOptionType } from 'antd/es/checkbox';
@@ -61,7 +61,7 @@ const CheckboxPopover = ({
   overlayClassName,
   ...restProps
 }: CheckboxPopoverProps) => {
-  const { token } = useToken();
+
   // 分组列表
   const groupList = uniq(options?.map(item => item.group));
   const groupByData = groupBy(options, 'group');

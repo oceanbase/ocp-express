@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useEffect } from 'react';
-import { Button, Col, Form, Input, Modal, Row, Tag, useToken } from '@oceanbase/design';
+import { Button, Col, Form, Input, Modal, Row, Tag, token } from '@oceanbase/design';
 import { find, flatMap, uniqueId } from 'lodash';
 import { PlusOutlined, DeleteOutlined } from '@oceanbase/icons';
 import MySelect from '@/component/MySelect';
@@ -37,8 +37,6 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
 
   const [visible, setVisible] = React.useState(false);
   const [form] = Form.useForm();
-
-  const { token } = useToken();
 
   useEffect(() => {
     if (propValue?.length === 0) {

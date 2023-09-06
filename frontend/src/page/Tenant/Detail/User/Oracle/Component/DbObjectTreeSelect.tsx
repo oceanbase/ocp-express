@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
-import { TreeSelect, Tag, Space, useToken } from '@oceanbase/design';
+import { TreeSelect, Tag, Space, token } from '@oceanbase/design';
 import { TableOutlined, FundViewOutlined, DeliveredProcedureOutlined } from '@oceanbase/icons';
 import { uniq, findIndex } from 'lodash';
 
@@ -48,8 +48,6 @@ const DbObjectTreeSelect: React.FC<DbObjectTreeSelectProps> = ({
   onChange,
 }) => {
   const [searchValue, setSearchValue] = useState('');
-
-  const { token } = useToken();
 
   const handleChange = newValue => {
     if (onChange) {

@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Typography, Row, Col, Divider, Checkbox, Space, useToken } from '@oceanbase/design';
+import { Typography, Row, Col, Divider, Checkbox, Space, token } from '@oceanbase/design';
 import { groupBy } from 'lodash';
 import { InfoCircleFilled } from '@oceanbase/icons';
 import { isEnglish } from '@/util';
@@ -27,7 +27,6 @@ interface IProps {
 }
 
 const SampleStatisticCard = ({ onChange, picked, attributes, onReset, ...restProps }: IProps) => {
-  const { token } = useToken();
 
   const handleChange = (keys: string[]) => {
     const next = attributes.filter(f => keys.includes(f.name as string));

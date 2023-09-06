@@ -134,19 +134,6 @@ const SQLDiagnosis: React.FC<IProps> = ({ location }) => {
 
   const tenantData = tenants.find(item => item.obTenantId === tenantId) || {};
 
-  // TODO 改接口后端尚未开发改造完毕
-  // const { data } = useRequest(ObStatCollectionConfigController.queryTenantTopSqlSwitch, {
-  //   defaultParams: [
-  //     {
-  //       // id: clusterId,
-  //       tenantId,
-  //     },
-  //   ],
-  // });
-
-  // const tenantTopSqlSwitch = data?.data || {};
-  // const topSqlTraceUpdateTime = formatTime(tenantTopSqlSwitch.updateTime);
-
   const onSearch = (queryV = {}) => {
     const formValues = form.getFieldsValue();
     if (!formValues?.range?.range || formValues?.range?.range?.length === 0) {
@@ -350,26 +337,6 @@ const SQLDiagnosis: React.FC<IProps> = ({ location }) => {
         ),
       }}
     >
-      {/* {tenantTopSqlSwitch.switchOn === false && (
-        <Alert
-          type="info"
-          showIcon
-          // message="111111"
-          message={formatMessage(
-            {
-              id: 'ocp-express.Detail.SQLDiagnosis.TheSqlCollectionOfThe',
-              defaultMessage:
-                '当前租户所属集群 {clusterDataName} 的 SQL 采集为关闭状态，关闭时间点：{topSqlTraceUpdateTime}，关闭期间无 SQL 数据',
-            },
-
-            {
-              clusterDataName: `${tenantData.clusterName}:${tenantData.obClusterId}`,
-              topSqlTraceUpdateTime,
-            }
-          )}
-          style={{ marginBottom: 16 }}
-        />
-      )} */}
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card bordered={false} bodyStyle={{ paddingBottom: 0 }}>

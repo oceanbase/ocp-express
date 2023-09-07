@@ -268,6 +268,7 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
           arrowPointAtCenter={true}
           overlayStyle={{
             maxWidth: 200,
+            background: 'red'
           }}
           content={
             <Descriptions colon={false} column={1}>
@@ -344,6 +345,7 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
           style={{
             maxWidth: isEnglish() ? 600 : 500,
             padding: 16,
+            backgroundColor: token.colorBgContainer
           }}
           overlay={
             <span>
@@ -370,8 +372,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
                         {isNullValue(item.totalValue)
                           ? '-'
                           : item.key === 'cpu'
-                          ? `${item.totalValue} C`
-                          : // 内存和磁盘需要进行单位换算
+                            ? `${item.totalValue} C`
+                            : // 内存和磁盘需要进行单位换算
                             formatSize(item.totalValue)}
                       </Descriptions.Item>
                       <Descriptions.Item label={item.description}>
@@ -389,8 +391,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
                         {isNullValue(item.leftValue)
                           ? '-'
                           : item.key === 'cpu'
-                          ? `${item.leftValue} C`
-                          : // 内存和磁盘需要进行单位换算
+                            ? `${item.leftValue} C`
+                            : // 内存和磁盘需要进行单位换算
                             formatSize(item.leftValue)}
                       </Descriptions.Item>
                     </Descriptions>

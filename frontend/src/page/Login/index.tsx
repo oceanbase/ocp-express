@@ -13,7 +13,8 @@
 import { formatMessage } from '@/util/intl';
 import { history, useDispatch, useSelector } from 'umi';
 import React, { useState, useEffect } from 'react';
-import { Login, message } from '@oceanbase/design';
+import { message } from '@oceanbase/design';
+import { Login } from '@oceanbase/ui';
 import { isNullValue } from '@oceanbase/util';
 import { useRequest } from 'ahooks';
 import * as IamController from '@/service/ocp-express/IamController';

@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
-import { Card, Col, Row, Table, Tooltip, theme } from '@oceanbase/design';
+import { Card, Col, Row, Table, Tooltip, token } from '@oceanbase/design';
 import { StatisticCard } from '@ant-design/pro-components';
 import { sortByNumber } from '@oceanbase/util';
 import { useRequest } from 'ahooks';
@@ -204,9 +204,9 @@ const Statistics: React.FC<StatisticsProps> = ({ tenantId }) => {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <StatisticCard.Group style={{ backgroundColor: theme.token.colorBgLayout }}>
+        <StatisticCard.Group style={{ backgroundColor: token.colorBgLayout }}>
           <StatisticCard
-            style={{ backgroundColor: theme.token.colorBgLayout }}
+            style={{ backgroundColor: token.colorBgLayout }}
             statistic={{
               title: formatMessage({
                 id: 'ocp-express.Detail.Session.Statistics.TotalNumberOfSessions',
@@ -216,7 +216,7 @@ const Statistics: React.FC<StatisticsProps> = ({ tenantId }) => {
             }}
           />
           <StatisticCard
-            style={{ backgroundColor: theme.token.colorBgLayout }}
+            style={{ backgroundColor: token.colorBgLayout }}
             statistic={{
               title: formatMessage({
                 id: 'ocp-express.Detail.Session.Statistics.NumberOfActiveSessions',
@@ -226,7 +226,7 @@ const Statistics: React.FC<StatisticsProps> = ({ tenantId }) => {
             }}
           />
           <StatisticCard
-            style={{ backgroundColor: theme.token.colorBgLayout }}
+            style={{ backgroundColor: token.colorBgLayout }}
             statistic={{
               title: formatMessage({
                 id: 'ocp-express.Detail.Session.Statistics.MaximumActiveSessionTimeIn',

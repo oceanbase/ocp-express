@@ -11,7 +11,7 @@
  */
 
 import React, { useState, useRef } from 'react';
-import { useToken } from '@oceanbase/design';
+import { token } from '@oceanbase/design';
 import ReactStickyMouseTooltip from 'react-sticky-mouse-tooltip';
 import { useMouse, useSize } from 'ahooks';
 
@@ -33,8 +33,6 @@ const MouseTooltip: React.FC<MouseTooltipProps> = ({
   ...restProps
 }) => {
   const [visible, setVisible] = useState(false);
-
-  const { token } = useToken();
 
   // 获取鼠标位置
   const mouse = useMouse();

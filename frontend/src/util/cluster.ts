@@ -104,8 +104,8 @@ export function getCompactionResult(tenantCompaction?: API.TenantCompaction) {
     ? 'FAIL'
     : // 合并中
     tenantCompaction?.status === 'COMPACTING'
-    ? 'COMPACTING'
-    : // 合并成功
+      ? 'COMPACTING'
+      : // 合并成功
       'SUCCESS';
 }
 
@@ -148,7 +148,7 @@ export function getUnitSpecLimit(
       ((memoryInBytesTotal - memoryInBytesAssigned) / (1024 * 1024 * 1024)).toFixed(0)
     );
   }
-
+  debugger
   return { idleCpuCoreTotal, idleMemoryInBytesTotal };
 }
 

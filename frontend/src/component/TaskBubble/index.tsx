@@ -13,7 +13,8 @@
 import { formatMessage } from '@/util/intl';
 import { connect } from 'umi';
 import React, { useState, useEffect } from 'react';
-import { Badge, Popover, Table, Tooltip, SideTip } from '@oceanbase/design';
+import { Badge, Popover, Table, Tooltip } from '@oceanbase/design';
+import { SideTip } from '@oceanbase/ui'
 import { CloseOutlined, ClockCircleOutlined } from '@oceanbase/icons';
 import { findByValue, directTo } from '@oceanbase/util';
 import { useInterval } from 'ahooks';

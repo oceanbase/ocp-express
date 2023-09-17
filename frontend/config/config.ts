@@ -13,8 +13,9 @@
 import { defineConfig } from 'umi';
 import AntdMomentWebpackPlugin from '@ant-design/moment-webpack-plugin';
 import routes from './routes';
+
 const ocp = {
-  target: '', // OCP Express 测试环境
+  target: '', // OCP Express 后端地址
 };
 
 export default defineConfig({

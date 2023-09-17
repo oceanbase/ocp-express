@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
-import { Alert, Descriptions, Modal, message, useToken } from '@oceanbase/design';
+import { Alert, Descriptions, Modal, message, token } from '@oceanbase/design';
 import type { ModalProps } from 'antd/es/modal';
 import MyInput from '@/component/MyInput';
 import { useRequest } from 'ahooks';
@@ -29,8 +29,6 @@ const DeleteTenantModal: React.FC<DeleteTenantModalProps> = ({
   ...restProps
 }) => {
   const [confirmCode, setConfirmCode] = useState('');
-
-  const { token } = useToken();
 
   const { run, loading } = useRequest(ObTenantController.deleteTenant, {
     manual: true,

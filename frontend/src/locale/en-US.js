@@ -1136,6 +1136,7 @@ export default {
   "ocp-express.Component.BackupStrategyDetail.LiboblogexpiredaysDays": "{libObLogExpireDays} Days",
   "ocp-express.page.Alarm.NotificationMessageRecord": "Notification History",
   "ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes": "Current configurable range value {memoryLowerLimit}~{idleMemoryInBytes}",
+  "ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes2": "There are currently insufficient configurable resources",
   "ocp-express.Detail.Compaction.MergeConfiguration": "Configuration for Major Compaction",
   "ocp-express.src.util.TheLengthCannotExceedMaxlength": "The value cannot exceed {maxLength} characters in length.",
   "ocp-express.Component.SQLDetail.SQLTunning.ViewDiagnosticDetails": "View Diagnostic Details",

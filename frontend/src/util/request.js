@@ -133,10 +133,10 @@ const errorHandler = ({ request, response, data }) => {
     // 有对应的错误信息才进行展示，避免遇到 204 等状态码(退出登录) 时，报一个空错误
     if (
       msg &&
-      code !== 3010 &&
-      code !== 301000 &&
-      code !== 15100 &&
-      code !== 15101 &&
+      // code !== 3010 &&
+      // code !== 301000 &&
+      code !== 60017 &&
+      code !== 60018 &&
       showErrorMessage
     ) {
       message.error(msg, 3);
@@ -145,8 +145,8 @@ const errorHandler = ({ request, response, data }) => {
     if (status === 403 && SHOULD_ERROR_PAGE) {
       history.push('/error/403');
     } else if (status === 404 && SHOULD_ERROR_PAGE) {
-      if (code === 15101) {
-        // 15101 租户密码不存在，提示录入租户管理员密码密码。
+      if (code === 60018) {
+        // 60018 租户密码不存在，提示录入租户管理员密码密码。
         return dispatch({
           type: 'global/update',
           payload: {
@@ -162,7 +162,7 @@ const errorHandler = ({ request, response, data }) => {
         history.push('/error/404');
       }
     } else if (status === 500) {
-      if (code === 15100) {
+      if (code === 60017) {
         return dispatch({
           type: 'global/update',
           payload: {

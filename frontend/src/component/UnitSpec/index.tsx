@@ -50,6 +50,9 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
   const { cpuLowerLimit, memoryLowerLimit } = unitSpecLimit;
   const { idleCpuCore, idleMemoryInBytes } = idleUnitSpec;
 
+  // 修改 unit 时，可配置范围上限，当前 unit 已分配内存 + 剩余空闲内存 
+  const currentMaxMemorySize = idleMemoryInBytes + defaultUnitSpec?.maxMemorySize;
+
   return (
     <Row
       gutter={8}
@@ -90,7 +93,7 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
         <InputNumber
           addonAfter="GB"
           min={memoryLowerLimit}
-          max={idleMemoryInBytes}
+          max={currentMaxMemorySize}
           defaultValue={defaultUnitSpec?.maxMemorySize}
           onChange={(value: number) => {
             setMemorySizeValue(value);
@@ -98,21 +101,20 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
           }}
         />
 
-        {memoryLowerLimit !== undefined && idleMemoryInBytes !== undefined && (
+        {memoryLowerLimit !== undefined && currentMaxMemorySize !== undefined && (
           <div style={extraStyle}>
 
-            {memoryLowerLimit < idleMemoryInBytes ? formatMessage(
+            {memoryLowerLimit < currentMaxMemorySize ? formatMessage(
               {
                 id: 'ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes',
                 defaultMessage: '当前可配置范围值 {memoryLowerLimit}~{idleMemoryInBytes}',
               },
-              { memoryLowerLimit, idleMemoryInBytes }
+              { memoryLowerLimit, idleMemoryInBytes: currentMaxMemorySize }
             ) : formatMessage(
               {
                 id: 'ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes2',
                 defaultMessage: '当前可配置资源不足',
-              },
-              { memoryLowerLimit, idleMemoryInBytes }
+              }
             )}
           </div>
         )}

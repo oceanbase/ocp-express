@@ -11,9 +11,8 @@
  */
 
 import React from 'react';
-import { Progress } from '@oceanbase/design';
+import { Progress, theme } from '@oceanbase/design';
 import type { ProgressProps } from 'antd/es/progress';
-import { theme } from '@oceanbase/charts';
 import styles from './index.less';
 
 export interface MyProgressProps extends ProgressProps {

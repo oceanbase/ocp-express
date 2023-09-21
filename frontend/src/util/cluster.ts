@@ -144,11 +144,11 @@ export function getUnitSpecLimit(
   if (cpuCoreTotal && cpuCoreAssigned && memoryInBytesTotal && memoryInBytesAssigned) {
     // OBServer 剩余资源
     idleCpuCoreTotal = cpuCoreTotal - cpuCoreAssigned;
-    idleMemoryInBytesTotal = toNumber(
-      ((memoryInBytesTotal - memoryInBytesAssigned) / (1024 * 1024 * 1024)).toFixed(0)
+    idleMemoryInBytesTotal = Math.floor(toNumber(
+      ((memoryInBytesTotal - memoryInBytesAssigned) / (1024 * 1024 * 1024)))
     );
   }
-  debugger
+
   return { idleCpuCoreTotal, idleMemoryInBytesTotal };
 }
 

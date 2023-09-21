@@ -112,14 +112,12 @@ class FormEditZoneReplicaTable<T> extends FormEditTable<FormEditZoneReplicaTable
             const { idleCpuCoreTotal, idleMemoryInBytesTotal } = getUnitSpecLimit(
               zoneData?.servers[0]?.stats
             );
-            debugger
 
             idleCpuCore = idleCpuCoreTotal;
             idleMemoryInBytes = idleMemoryInBytesTotal;
           }
 
           return (
-            // <div></div>
             <UnitSpec
               unitSpecLimit={unitSpecLimit}
               idleUnitSpec={{ idleCpuCore, idleMemoryInBytes }}

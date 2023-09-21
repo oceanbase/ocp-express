@@ -24,12 +24,12 @@ import {
   Modal,
   message,
 } from '@oceanbase/design';
-import type { Route } from 'antd/es/breadcrumb/Breadcrumb';
+import type { Route } from '@oceanbase/design/es/breadcrumb/Breadcrumb';
 import { find, isFunction, toNumber } from 'lodash';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { useToken } from '@oceanbase/design';
 import { isNullValue, findByValue } from '@oceanbase/util';
-import Icon from '@ant-design/icons';
+import Icon from '@oceanbase/icons';
 import { useRequest, useInterval, useLockFn } from 'ahooks';
 import useDocumentTitle from '@/hook/useDocumentTitle';
 import { breadcrumbItemRender } from '@/util/component';

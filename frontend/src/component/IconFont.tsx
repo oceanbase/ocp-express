@@ -11,7 +11,7 @@
  */
 
 import React from 'react';
-import { createFromIconfontCN } from '@ant-design/icons';
+import { createFromIconfontCN } from '@oceanbase/icons';
 
 interface IconFontProps {
   type: string;

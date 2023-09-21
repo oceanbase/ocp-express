@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Form, Alert, Modal, message } from '@oceanbase/design';
-import { ExclamationCircleFilled } from '@ant-design/icons';
+import { ExclamationCircleFilled } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
 import * as IamController from '@/service/ocp-express/IamController';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';
@@ -84,13 +84,13 @@ const TenantAdminPasswordModal: React.FC<TenantAdminPasswordModalProps> = ({
           message.success(
             type === 'ADD'
               ? formatMessage({
-                  id: 'ocp-express.src.component.TenantAdminPasswordModal.PasswordAddedSuccessfully',
-                  defaultMessage: '密码新增成功',
-                })
+                id: 'ocp-express.src.component.TenantAdminPasswordModal.PasswordAddedSuccessfully',
+                defaultMessage: '密码新增成功',
+              })
               : formatMessage({
-                  id: 'ocp-express.src.component.TenantAdminPasswordModal.PasswordModifiedSuccessfully',
-                  defaultMessage: '密码修改成功',
-                })
+                id: 'ocp-express.src.component.TenantAdminPasswordModal.PasswordModifiedSuccessfully',
+                defaultMessage: '密码修改成功',
+              })
           );
           if (onSuccess) {
             onSuccess();
@@ -118,13 +118,13 @@ const TenantAdminPasswordModal: React.FC<TenantAdminPasswordModalProps> = ({
       title={
         type === 'ADD'
           ? formatMessage({
-              id: 'ocp-express.src.component.TenantAdminPasswordModal.EnterTheTenantAdministratorPassword',
-              defaultMessage: '录入租户管理员密码',
-            })
+            id: 'ocp-express.src.component.TenantAdminPasswordModal.EnterTheTenantAdministratorPassword',
+            defaultMessage: '录入租户管理员密码',
+          })
           : formatMessage({
-              id: 'ocp-express.src.component.TenantAdminPasswordModal.UpdateTenantAdministratorPassword',
-              defaultMessage: '更新租户管理员密码',
-            })
+            id: 'ocp-express.src.component.TenantAdminPasswordModal.UpdateTenantAdministratorPassword',
+            defaultMessage: '更新租户管理员密码',
+          })
       }
       destroyOnClose={true}
       {...restProps}

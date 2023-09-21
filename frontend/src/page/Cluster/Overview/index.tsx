@@ -13,9 +13,9 @@
 import { formatMessage } from '@/util/intl';
 import { connect, history, useDispatch } from 'umi';
 import React, { useEffect, useRef } from 'react';
-import { Space, Tag, Col, Row, Badge, Button, useToken } from '@oceanbase/design';
+import { Space, Tag, Col, Row, Badge, Button, token } from '@oceanbase/design';
 import { flatten, reduce } from 'lodash';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import scrollIntoView from 'scroll-into-view';
 import useReload from '@/hook/useReload';
 import useDocumentTitle from '@/hook/useDocumentTitle';
@@ -41,7 +41,7 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({
   match: {
-    params: {},
+    params: { },
   },
   loading,
   clusterData,
@@ -55,7 +55,6 @@ const Detail: React.FC<DetailProps> = ({
     })
   );
 
-  const { token } = useToken();
   const [reloading, reload] = useReload(false);
   const zoneListOrTopoRef = useRef<ZoneListOrTopoRef>();
 

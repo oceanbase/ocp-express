@@ -12,8 +12,8 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Cascader } from 'antd';
-import type { CascaderProps, DefaultOptionType } from 'antd/es/cascader';
+import { Cascader } from '@oceanbase/design';
+import type { CascaderProps, DefaultOptionType } from '@oceanbase/design/es/cascader';
 import { some, uniq } from 'lodash';
 import { useRequest } from 'ahooks';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';

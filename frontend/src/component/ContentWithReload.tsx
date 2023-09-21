@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { SyncOutlined } from '@ant-design/icons';
+import { SyncOutlined } from '@oceanbase/icons';
 import ContentWithIcon from '@/component/ContentWithIcon';
 
 export interface ContentWithReloadProps {

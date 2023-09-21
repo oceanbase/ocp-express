@@ -16,7 +16,7 @@ import React, { useState } from 'react';
 import { Badge, Card, Radio, Space, Table, useToken } from '@oceanbase/design';
 import { omitBy, some, toNumber } from 'lodash';
 import moment from 'moment';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { isNullValue, directTo, findByValue } from '@oceanbase/util';
 import { useUpdateEffect, useInterval } from 'ahooks';
 import * as TaskController from '@/service/ocp-express/TaskController';
@@ -122,8 +122,8 @@ const Task: React.FC<TaskProps> = ({
             ...(query.size
               ? {}
               : {
-                  size: 10,
-                }),
+                size: 10,
+              }),
           },
 
           value => isNullValue(value)
@@ -280,26 +280,26 @@ const Task: React.FC<TaskProps> = ({
         loading={loading && !polling}
         {...(mode === 'page'
           ? {
-              pagination: {
-                ...tableProps.pagination,
-                current: page,
-              },
+            pagination: {
+              ...tableProps.pagination,
+              current: page,
+            },
 
-              onChange: (pagination, filters, sorter) => {
-                if (tableProps.onChange) {
-                  tableProps.onChange(pagination, filters, sorter);
-                }
-                setPage(pagination.current || 1);
-                history.push({
-                  pathname,
-                  query: {
-                    ...query,
-                    page: pagination.current,
-                    size: pagination.pageSize,
-                  },
-                });
-              },
-            }
+            onChange: (pagination, filters, sorter) => {
+              if (tableProps.onChange) {
+                tableProps.onChange(pagination, filters, sorter);
+              }
+              setPage(pagination.current || 1);
+              history.push({
+                pathname,
+                query: {
+                  ...query,
+                  page: pagination.current,
+                  size: pagination.pageSize,
+                },
+              });
+            },
+          }
           : {})}
       />
     </div>

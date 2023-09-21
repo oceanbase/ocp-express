@@ -13,7 +13,7 @@
 import React from 'react';
 import type { SpaceProps } from '@oceanbase/design';
 import { Space } from '@oceanbase/design';
-import { InfoCircleFilled } from '@ant-design/icons';
+import { InfoCircleFilled } from '@oceanbase/icons';
 import useStyles from './index.style';
 
 export interface ContentWithInfoProps extends SpaceProps {

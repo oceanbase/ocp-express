@@ -17,7 +17,7 @@ import { formatTime } from '@/util/datetime';
 import { formatMessage } from '@/util/intl';
 import { Col, Descriptions, Divider, Drawer, Row, Table, Space } from '@oceanbase/design';
 import React, { useEffect, useState } from 'react';
-import { DownOutlined, EyeOutlined, UpOutlined } from '@ant-design/icons';
+import { DownOutlined, EyeOutlined, UpOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
 import type { ColumnProps } from 'antd/es/table';
 import useStyles from './index.style';
@@ -278,13 +278,13 @@ export const ServerDrawer: React.FC<ServerDrawerProps> = (props) => {
 
                 {allExpansion
                   ? formatMessage({
-                      id: 'ocp-express.SQLDiagnosis.Component.Plan.FoldAll',
-                      defaultMessage: '全部收起',
-                    })
+                    id: 'ocp-express.SQLDiagnosis.Component.Plan.FoldAll',
+                    defaultMessage: '全部收起',
+                  })
                   : formatMessage({
-                      id: 'ocp-express.SQLDiagnosis.Component.Plan.ExpandAll',
-                      defaultMessage: '全部展开',
-                    })}
+                    id: 'ocp-express.SQLDiagnosis.Component.Plan.ExpandAll',
+                    defaultMessage: '全部展开',
+                  })}
               </a>
             </Col>
           )}

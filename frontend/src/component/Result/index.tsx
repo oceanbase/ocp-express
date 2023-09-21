@@ -15,7 +15,7 @@ import { history } from 'umi';
 import React from 'react';
 import { Button, Result, Space } from '@oceanbase/design';
 import type { ResultProps } from 'antd/es/result';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import PageCard from '@/component/PageCard';
 import useStyles from './index.style';
 

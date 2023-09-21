@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect } from 'react';
 import { Divider, Space, Tooltip } from '@oceanbase/design';
-import { FullscreenOutlined, MinusOutlined, PlusOutlined, SyncOutlined } from '@ant-design/icons';
+import { FullscreenOutlined, MinusOutlined, PlusOutlined, SyncOutlined } from '@oceanbase/icons';
 import { debounce } from 'lodash';
 import { toPercent } from '@oceanbase/util';
 import type { Graph } from '@antv/g6';

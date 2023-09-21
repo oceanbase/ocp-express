@@ -11,9 +11,9 @@
  */
 
 import React, { useState } from 'react';
-import { Empty, Spin } from 'antd';
+import { Empty, Spin } from '@oceanbase/design';
 import { Modal } from '@oceanbase/design';
-import { FullscreenOutlined } from '@ant-design/icons';
+import { FullscreenOutlined } from '@oceanbase/icons';
 import type { ChartProps } from '@/component/Chart';
 import Chart from '@/component/Chart';
 import MyCard from '@/component/MyCard';

@@ -12,8 +12,8 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState, useRef } from 'react';
-import { FullscreenBox } from '@oceanbase/design';
-import type { FullscreenBoxProps } from '@oceanbase/design/es/FullscreenBox';
+import { FullscreenBox } from '@oceanbase/ui';
+import type { FullscreenBoxProps } from '@oceanbase/ui/es/FullscreenBox';
 import type { Graph } from '@antv/g6';
 import GraphToolbar from '@/component/GraphToolbar';
 import useStyles from './index.style';

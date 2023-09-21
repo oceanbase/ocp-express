@@ -17,7 +17,7 @@ import { formatMessage } from '@/util/intl';
 import { Button, Checkbox, Col, Divider, Drawer, Input, Row } from '@oceanbase/design';
 import React, { useEffect, useState } from 'react';
 import { groupBy, isNumber, uniqBy } from 'lodash';
-import { FilterOutlined } from '@ant-design/icons';
+import { FilterOutlined } from '@oceanbase/icons';
 import useStyles from './index.style';
 
 interface IProps {
@@ -29,7 +29,7 @@ interface IProps {
   defaultFields: SQLDiagnosis.SqlAuditStatDetailAttribute[];
   onOk: (
     fileds: SQLDiagnosis.SqlAuditStatDetailAttribute[],
-    actives: SQLDiagnosis.SqlAuditStatDetailAttribute[],
+    actives: SQLDiagnosis.SqlAuditStatDetailAttribute[]
   ) => void;
 }
 
@@ -47,7 +47,7 @@ const ColumnManager = ({
 
   // 筛选后的 attributes
   const [filterContents, setFilterContents] = useState<SQLDiagnosis.SqlAuditStatDetailAttribute[]>(
-    [],
+    []
   );
 
   const [selected, setSelected] = useState<SQLDiagnosis.SqlAuditStatDetailAttribute[]>([]);
@@ -59,12 +59,12 @@ const ColumnManager = ({
 
   const handleItemChange = (name: string, checked: boolean) => {
     if (checked) {
-      const nextChecked = attributes.find((attr) => attr.name === name);
+      const nextChecked = attributes.find(attr => attr.name === name);
       if (nextChecked) {
-        setSelected(attributes.filter((attr) => [...selected, nextChecked].indexOf(attr) !== -1));
+        setSelected(attributes.filter(attr => [...selected, nextChecked].indexOf(attr) !== -1));
       }
     } else {
-      setSelected(selected.filter((item) => item.name !== name));
+      setSelected(selected.filter(item => item.name !== name));
     }
   };
 
@@ -73,20 +73,20 @@ const ColumnManager = ({
       checked
         ? // 选中当前组
           attributes.filter(
-            (attr) =>
+            attr =>
               uniqBy(
-                [...selected, ...filterContents.filter((item) => item.group === group)],
-                (i) => i.name,
-              ).indexOf(attr) !== -1,
+                [...selected, ...filterContents.filter(item => item.group === group)],
+                i => i.name
+              ).indexOf(attr) !== -1
           )
         : // 取消选中当前组
-          selected.filter((item) => {
+          selected.filter(item => {
             // displayAlways 表示常驻项，不可取消
             if (item.displayAlways === true) {
               return true;
             }
-            return item.group !== group || !filterContents.map((i) => i.name).includes(item.name);
-          }),
+            return item.group !== group || !filterContents.map(i => i.name).includes(item.name);
+          })
     );
   };
 
@@ -95,30 +95,30 @@ const ColumnManager = ({
       setFilterContents(attributes.slice(0));
     } else {
       setFilterContents(
-        attributes.filter((item) => {
+        attributes.filter(item => {
           return (
             item?.name?.toLocaleUpperCase().includes(word.toLocaleUpperCase()) ||
             item?.title?.toLocaleUpperCase().includes(word.toLocaleUpperCase()) ||
             (item?.group as string).toLocaleUpperCase().includes(word.toLocaleUpperCase())
           );
-        }),
+        })
       );
     }
   };
 
   useEffect(() => {
     if (Array.isArray(queryValues?.fields)) {
-      setSelected(attributes.filter((attr) => queryValues?.fields?.includes(attr.name)));
+      setSelected(attributes.filter(attr => queryValues?.fields?.includes(attr.name)));
     } else {
       reset();
     }
     setFilterContents([...attributes]);
   }, [sqlType]);
 
-  const groups = Object.entries(groupBy(filterContents, (item) => item.group)).sort((a, b) => {
+  const groups = Object.entries(groupBy(filterContents, item => item.group)).sort((a, b) => {
     // 需要对 group 数据进行固定排序
-    const indexA = ATTRIBUTE_GROUPS.findIndex((group) => group.name === a[0]);
-    const indexB = ATTRIBUTE_GROUPS.findIndex((group) => group.name === b[0]);
+    const indexA = ATTRIBUTE_GROUPS.findIndex(group => group.name === a[0]);
+    const indexB = ATTRIBUTE_GROUPS.findIndex(group => group.name === b[0]);
     if (!isNumber(indexA) || !isNumber(indexB)) return 0;
     return indexA - indexB;
   });
@@ -170,15 +170,15 @@ const ColumnManager = ({
         {groups.map(([key, items], index) => {
           const isLast = index === Object.keys(groups).length - 1;
           const groupValues = items
-            .filter((item) => !!selected.find((s) => s.name === item.name))
+            .filter(item => !!selected.find(s => s.name === item.name))
             .map(({ name }) => name as string);
           const groupSelected = selected.filter(
-            (s) => s.group === key && filterContents.find((i) => i.name === s.name),
+            s => s.group === key && filterContents.find(i => i.name === s.name)
           );
 
           // 常驻指标不影响 Checkbox 的逻辑
-          const checkedItems = items?.filter((item) => item.displayAlways !== true);
-          const realGroupSelected = groupSelected?.filter((item) => item.displayAlways !== true);
+          const checkedItems = items?.filter(item => item.displayAlways !== true);
+          const realGroupSelected = groupSelected?.filter(item => item.displayAlways !== true);
 
           return (
             <div key={key}>
@@ -192,9 +192,9 @@ const ColumnManager = ({
                       !!realGroupSelected && checkedItems.length === realGroupSelected.length
                     }
                     value={key}
-                    onChange={(e) => onGroupChange(e.target.checked, key)}
+                    onChange={e => onGroupChange(e.target.checked, key)}
                   >
-                    {ATTRIBUTE_GROUPS.find((group) => group.name === key)?.title || key}
+                    {ATTRIBUTE_GROUPS.find(group => group.name === key)?.title || key}
                   </Checkbox>
                 </Col>
                 <Checkbox.Group
@@ -202,14 +202,14 @@ const ColumnManager = ({
                   // onChange={values => handleChange(key, values as string[])}
                   className={styles.checkboxGroupGrid}
                 >
-                  {items?.map((item) => {
+                  {items?.map(item => {
                     return (
                       <Col span={isEnglish() ? 8 : 6} style={{ marginBottom: 16 }}>
                         <Checkbox
                           value={item.name}
                           key={item.name}
                           disabled={item.displayAlways}
-                          onChange={(e) => handleItemChange(item.name as string, e.target.checked)}
+                          onChange={e => handleItemChange(item.name as string, e.target.checked)}
                         >
                           <ContentWithQuestion
                             content={
@@ -250,10 +250,10 @@ const ColumnManager = ({
             onClick={() => {
               // 新增的元数据
               const increment = selected.filter(
-                (attr) => !fields.find((field) => field.name === attr.name),
+                attr => !fields.find(field => field.name === attr.name)
               );
               if (setQueryValues) {
-                setQueryValues({ ...queryValues, fields: selected.map((attr) => attr.name) });
+                setQueryValues({ ...queryValues, fields: selected.map(attr => attr.name) });
               }
 
               // increment 用来做 table 新增列的动画渲染

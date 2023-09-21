@@ -29,10 +29,10 @@ import {
 import React from 'react';
 import { groupBy, sum, uniq } from 'lodash';
 import moment from 'moment';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import type { Route } from 'antd/es/breadcrumb/Breadcrumb';
 import { findByValue, formatNumber, isNullValue, sortByNumber } from '@oceanbase/util';
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from '@oceanbase/icons';
 import type { ColumnProps } from 'antd/es/table';
 import { OCP_AGENT_PROCESS_STATUS_LIST } from '@/constant/compute';
 import { useRequest } from 'ahooks';
@@ -122,7 +122,7 @@ const Index: React.FC<BasicProps> = ({ match }) => {
   // 重启 Agent
   const { run: restartHostAgent } = useRequest(HostController.restartHostAgent, {
     manual: true,
-    onSuccess: (res) => {
+    onSuccess: res => {
       if (res.successful) {
         refresh();
       }
@@ -146,7 +146,7 @@ const Index: React.FC<BasicProps> = ({ match }) => {
   const metricDataList: DataItem &
     {
       mount_point?: string;
-    }[] = (data?.data?.contents || []).map((item) => {
+    }[] = (data?.data?.contents || []).map(item => {
     // 取最后一个数据点，作为磁盘当前的数据展示
     const last = item?.data?.[item?.data?.length - 1];
     return {
@@ -161,17 +161,17 @@ const Index: React.FC<BasicProps> = ({ match }) => {
     } = {
       device: key,
       // 同一个磁盘可能有多个挂载目录
-      mount_point_list: uniq(value?.map((item) => item.mount_point as string) || []),
+      mount_point_list: uniq(value?.map(item => item.mount_point as string) || []),
     };
 
     metricList
-      .filter((metric) => metric !== 'host_disk_used_percent')
-      .forEach((metric) => {
+      .filter(metric => metric !== 'host_disk_used_percent')
+      .forEach(metric => {
         dataItem[metric] =
           // 对求和结果做数据处理
           formatNumber(
-            sum(value?.filter((item) => !isNullValue(item[metric])).map((item) => item[metric])),
-            2,
+            sum(value?.filter(item => !isNullValue(item[metric])).map(item => item[metric])),
+            2
           ) || 0;
       });
     // 磁盘使用率，不直接使用接口返回的 (因为有多个挂载目录，接口返回的是按挂载目录计算的使用率)，而是手动计算
@@ -245,7 +245,7 @@ const Index: React.FC<BasicProps> = ({ match }) => {
       }),
 
       dataIndex: 'mount_point_list',
-      render: (text?: string[]) => text?.map((item) => <div>{item}</div>),
+      render: (text?: string[]) => text?.map(item => <div>{item}</div>),
     },
   ];
 
@@ -440,7 +440,7 @@ const Index: React.FC<BasicProps> = ({ match }) => {
               loading={loading}
               columns={columns}
               dataSource={dataSource}
-              rowKey={(record) => record.device}
+              rowKey={record => record.device}
               pagination={false}
             />
           </MyCard>
@@ -488,7 +488,7 @@ const Index: React.FC<BasicProps> = ({ match }) => {
                           id: 'ocp-express.Cluster.Host.AreYouSureYouWantToRestartThe',
                           defaultMessage: '确定要重启主机 {ip} OBAgent 吗？',
                         },
-                        { ip: ip },
+                        { ip: ip }
                       ),
 
                       content: formatMessage({

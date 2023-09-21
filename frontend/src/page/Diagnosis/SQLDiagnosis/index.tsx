@@ -12,8 +12,8 @@
 
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
-import { Button, Card, Checkbox, Col, Form, Input, Row, Space, message } from '@oceanbase/design';
-import { PageContainer } from '@ant-design/pro-components';
+import { Button, Card, Checkbox, Col, Form, Input, Row, Space, message, Alert } from '@oceanbase/design';
+import { PageContainer } from '@oceanbase/ui';
 import React, { Fragment, useEffect, useState } from 'react';
 import { flatten, isArray, isEqual, isObject, omit } from 'lodash';
 import moment from 'moment';
@@ -30,6 +30,7 @@ import { RFC3339_DATE_TIME_FORMAT } from '@/constant/datetime';
 import { DEFAULT_RANGE, SQL_ATTRIBUTE_LIST, SQL_TYPE_LIST } from '@/constant/sqlDiagnosis';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';
 import { isEnglish } from '@/util';
+// import { formatTime } from '@/util/datetime';
 import MyDropdown from '@/component/MyDropdown';
 import ColumnManager from './Component/ColumnManager';
 import SQLCondition from './Component/SQLCondition';

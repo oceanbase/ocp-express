@@ -24,13 +24,13 @@ import {
 import * as ObResourceController from '@/service/ocp-express/ObResourceController';
 import { formatSizeForChart } from '@/util';
 import { Modal } from '@oceanbase/design';
-import { Empty, Space, Spin } from 'antd';
+import { Empty, Space, Spin } from '@oceanbase/design';
 import React, { useEffect, useState } from 'react';
 import { every, find, flatten, uniq } from 'lodash';
 import type { Moment } from 'moment';
 import moment from 'moment';
 import { byte2GB, isNullValue } from '@oceanbase/util';
-import { FullscreenOutlined } from '@ant-design/icons';
+import { FullscreenOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
 import useStyles from './Item.style';
 import { MAX_POINTS } from '@/constant/monitor';

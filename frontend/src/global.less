@@ -96,7 +96,6 @@ a[disabled] {
 /* 卡片中的 Table 分页器的 margin-bottom 为 0，避免下边的间距过大 */
 .ant-card {
   .ant-card-head {
-
     /* 卡片头部中表单的字体不加粗 */
     .ant-legacy-form-item {
       font-weight: normal;
@@ -117,8 +116,7 @@ a[disabled] {
       .ant-descriptions-view {
         tbody {
           .ant-descriptions-row:last-child {
-
-            &>th,
+            & > th,
             td {
               // 设置卡片内容区的 Descriptions 的最后一行的单元格 padding-bottom: 0，避免叠加卡片的 padding-bottom 导致下间距过大
               padding-bottom: 0;
@@ -179,10 +177,9 @@ a[disabled] {
 }
 
 .ant-legacy-form-horizontal {
-
   // Form 的直接子表单项，最后一个的底部 margin 为 0
   // 说明: 必须是直接子元素，因为可能表单项会被 Grid 布局包裹，那个时候就每个表单项都是 last-child，样式会出现问题
-  >.ant-legacy-form-item:last-child {
+  > .ant-legacy-form-item:last-child {
     margin-bottom: 0;
   }
 
@@ -218,12 +215,18 @@ a[disabled] {
 }
 
 // 自定义 Steps 的连线条样式，否则和背景色无法区分
-.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {
+.ant-steps-item-process
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-title::after {
   background-color: #e8e8e8;
 }
 
 // 自定义 Steps 的连线条样式，否则和背景色无法区分
-.ant-steps-item-wait>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {
+.ant-steps-item-wait
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-title::after {
   background-color: #e8e8e8;
 }
 
@@ -241,7 +244,6 @@ a[disabled] {
 
 // 设置锚点导航的全局样式
 .ant-anchor {
-
   // 设置锚点间距
   .ant-anchor-link {
     padding: 8px 0 8px 16px;
@@ -333,8 +335,8 @@ a[disabled] {
     /* 带checkbox的Table，CheckBox 会被第二列的元素遮挡到，添加 z-index，提高第一列显示层级 */
     // card-without-padding 下的表格，为了保证第一列 title 与卡片 title 左对齐，写死了 padding-left 的宽度为 24px，导致会出现 checkbox 遮挡的问题
     // 为了避免 checkbox 被遮挡，需要定制表格第一列的 z-index
-    .ant-table-thead>tr>th:first-child,
-    .ant-table-tbody>tr>td:first-child {
+    .ant-table-thead > tr > th:first-child,
+    .ant-table-tbody > tr > td:first-child {
       z-index: 1;
       padding-left: 24px !important;
 
@@ -345,8 +347,8 @@ a[disabled] {
     }
 
     /* 最后一列要与 extra 右对齐 */
-    .ant-table-thead>tr>th:last-child,
-    .ant-table-tbody>tr>td:last-child {
+    .ant-table-thead > tr > th:last-child,
+    .ant-table-tbody > tr > td:last-child {
       padding-right: 24px !important;
     }
 
@@ -426,19 +428,19 @@ a[disabled] {
 
 /* 块状区域间隔 24px */
 .block-group {
-  &>span {
+  & > span {
     &:not(:last-child) {
       margin-right: 24px;
     }
   }
 
   // Access 组件容器
-  &>span:not(:first-child) {
+  & > span:not(:first-child) {
     margin-left: 8px;
   }
 
   // Icon 组件容器
-  &>i:not(:first-child) {
+  & > i:not(:first-child) {
     margin-left: 8px;
   }
 }
@@ -460,8 +462,8 @@ a[disabled] {
     font-family: PingFangSC-Medium;
   }
 
-  .ant-descriptions-row>th,
-  .ant-descriptions-row>td {
+  .ant-descriptions-row > th,
+  .ant-descriptions-row > td {
     padding-bottom: 8px;
   }
 }
@@ -518,7 +520,7 @@ a[disabled] {
   margin-right: 4px;
   margin-bottom: 2px;
   line-height: 22px;
-  background: #f5f5f5;
+  background: @colorBgLayout;
   border: 1px solid #f0f0f0;
   border-radius: 2px;
 }
@@ -553,8 +555,8 @@ a[disabled] {
 
 /* 表格去掉行 hover 样式效果 */
 .table-without-hover-style {
-  .ant-table-tbody>tr:hover {
-    &:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td {
+  .ant-table-tbody > tr:hover {
+    &:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
       background-color: transparent;
     }
   }
@@ -569,7 +571,7 @@ a[disabled] {
 
 /* 执行计划算子表的全局样式 */
 .table-for-plan-operation {
-  .ant-table-thead>tr>th {
+  .ant-table-thead > tr > th {
     height: 24px;
     padding: 2px 8px;
     font-size: 14px;
@@ -582,7 +584,7 @@ a[disabled] {
     }
   }
 
-  .ant-table-tbody>tr>td {
+  .ant-table-tbody > tr > td {
     height: 24px;
     padding: 0 8px;
     white-space: nowrap;
@@ -594,7 +596,7 @@ a[disabled] {
     }
   }
 
-  .ant-table-row-indent+.ant-table-row-expand-icon {
+  .ant-table-row-indent + .ant-table-row-expand-icon {
     margin-top: 0;
   }
 
@@ -713,7 +715,6 @@ a[disabled] {
 
 /* 设置带 description 的选择框下拉选项的样式 */
 .select-dropdown-with-description {
-
   // 对于 HostSelect，空状态图标无法水平居中对齐，这里需要修正样式
   .ant-empty {
     margin-right: auto;
@@ -726,7 +727,7 @@ a[disabled] {
       align-items: center;
       justify-content: space-between;
 
-      >span {
+      > span {
         &:nth-child(2) {
           margin-left: 16px;
           color: @colorText;
@@ -738,7 +739,6 @@ a[disabled] {
 
 /* 设置带 description 的选择框下拉选项的样式，hover 才出现 */
 .select-dropdown-with-hover-description {
-
   // 对于 HostSelect，空状态图标无法水平居中对齐，这里需要修正样式
   .ant-empty {
     margin-right: auto;
@@ -751,7 +751,7 @@ a[disabled] {
       align-items: center;
       justify-content: space-between;
 
-      >span {
+      > span {
         &:nth-child(2) {
           margin-left: 16px;
           color: @colorTextTertiary;
@@ -764,7 +764,7 @@ a[disabled] {
 
   .ant-select-item:hover {
     .ant-select-item-option-content {
-      >span {
+      > span {
         &:nth-child(2) {
           visibility: visible;
         }
@@ -1013,7 +1013,6 @@ a[disabled] {
 
 /* 目前仅 AWR 和 ASH 报告需要用到该全局样式，SQL Trace 报告无需使用 */
 .ocp-report-layout {
-
   // 用于超长宽的表格 横向滚动时设置表格的隔行换色，
   // 滚动表格 跟 正常的表格 正好奇偶性相反
   .scroll-table-zebra-color {
@@ -1044,7 +1043,13 @@ a[disabled] {
   // Title合并的表格，开始结束字段和不合并 Title 的统计表格，CSS是一样的
   // 但是设计要求不一致，基础表格 Title 部分需要 550 加粗
   .basic-table-header {
-    .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>thead>tr>th {
+    .ant-table.ant-table-bordered
+      > .ant-table-container
+      > .ant-table-content
+      > table
+      > thead
+      > tr
+      > th {
       font-weight: 550;
       // 所有的表头都不换行，以保证展示效果。如果表格宽度不够，则 Table 那边会按需设置 scroll.x = true
       white-space: nowrap;
@@ -1084,7 +1089,7 @@ a[disabled] {
   }
 
   // 锚点 active 态下为蓝色
-  .ant-anchor-link-active>.ant-anchor-link-title {
+  .ant-anchor-link-active > .ant-anchor-link-title {
     color: @colorPrimary !important;
   }
 
@@ -1146,7 +1151,7 @@ a[disabled] {
 
   // 表格隔行换色
   .ant-table-content {
-    .ant-table-tbody>tr.ant-table-row:hover>td {
+    .ant-table-tbody > tr.ant-table-row:hover > td {
       background: #e6f7ff !important;
     }
 
@@ -1155,7 +1160,13 @@ a[disabled] {
     }
   }
 
-  .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>thead>tr:not(:last-child)>th {
+  .ant-table.ant-table-bordered
+    > .ant-table-container
+    > .ant-table-content
+    > table
+    > thead
+    > tr:not(:last-child)
+    > th {
     font-weight: 550;
     // 所有的表头都不换行，以保证展示效果。如果表格宽度不够，则 Table 那边会按需设置 scroll.x = true
     white-space: nowrap;
@@ -1195,8 +1206,8 @@ a[disabled] {
   }
 
   // descriptions 上下间距为 16
-  .ant-descriptions-row>th,
-  .ant-descriptions-row>td {
+  .ant-descriptions-row > th,
+  .ant-descriptions-row > td {
     padding-bottom: 8px;
   }
 
@@ -1206,7 +1217,7 @@ a[disabled] {
     line-height: 20px;
   }
 
-  .ant-table-empty .ant-table-tbody>tr.ant-table-placeholder {
+  .ant-table-empty .ant-table-tbody > tr.ant-table-placeholder {
     .ant-empty-normal .ant-empty-image {
       height: 32px;
     }

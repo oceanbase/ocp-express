@@ -13,7 +13,8 @@
 import { formatMessage } from '@/util/intl';
 import { history, useSelector } from 'umi';
 import React, { useEffect } from 'react';
-import { Form, Col, Row, Switch, Ranger } from '@oceanbase/design';
+import { Form, Col, Row, Switch } from '@oceanbase/design';
+import { Ranger } from '@oceanbase/ui';
 import { isEqual, omitBy } from 'lodash';
 import moment from 'moment';
 import { isNullValue, toBoolean } from '@oceanbase/util';

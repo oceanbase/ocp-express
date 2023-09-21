@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { Button, Tooltip, Typography, Table } from '@oceanbase/design';
 import React, { useState } from 'react';
 import { findByValue } from '@oceanbase/util';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@oceanbase/icons';
 import { max } from 'lodash';
 import { isEnglish } from '@/util';
 import { formatTime } from '@/util/datetime';

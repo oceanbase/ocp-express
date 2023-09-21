@@ -13,8 +13,8 @@
 import { formatMessage } from '@/util/intl';
 import type { ReactElement, SyntheticEvent } from 'react';
 import React from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Table } from 'antd';
+import { PlusOutlined } from '@oceanbase/icons';
+import { Button, Table } from '@oceanbase/design';
 import type { ButtonProps } from 'antd/es/button';
 import type { TableProps, ColumnProps } from 'antd/es/table';
 import styles from './index.less';

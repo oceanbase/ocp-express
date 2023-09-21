@@ -21,9 +21,9 @@ import {
   Typography,
   Badge,
   Popover,
-  useToken,
+  token,
 } from '@oceanbase/design';
-import { EllipsisOutlined } from '@ant-design/icons';
+import { EllipsisOutlined } from '@oceanbase/icons';
 import { findByValue, isNullValue } from '@oceanbase/util';
 import { Liquid } from '@oceanbase/charts';
 import { toPercent } from '@oceanbase/charts/es/util/number';
@@ -47,7 +47,6 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({ clusterData }) => {
   const { styles } = useStyles();
-  const { token } = useToken();
 
   const statusItem = findByValue(OB_CLUSTER_STATUS_LIST, clusterData.status);
   // 将 badge 状态映射为 color
@@ -60,11 +59,11 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
 
   // 部署模式
   const deployModeString = (clusterData.zones || [])
-    .map((item) => ({
+    .map(item => ({
       regionName: item.regionName,
       serverCount: (item.servers || []).length,
     }))
-    .map((item) => item.serverCount)
+    .map(item => item.serverCount)
     .join('-');
 
   const commonParams = {
@@ -84,7 +83,7 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
           metrics: 'ob_cpu_assigned_percentage',
         },
       ],
-    },
+    }
   );
 
   const cpuAssignedPercent = (cpuAssignedPercentData?.data?.contents || [])[0]?.data;
@@ -121,7 +120,7 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
           metrics: 'ob_memory_assigned_percentage',
         },
       ],
-    },
+    }
   );
 
   const memoryAssignedPercent = (memoryAssignedPercentData?.data?.contents || [])[0]?.data;
@@ -158,7 +157,7 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
           metrics: 'ob_disk_used_percentage',
         },
       ],
-    },
+    }
   );
 
   const diskUsedPercent = (diskUsedPercentData?.data?.contents || [])[0]?.data;
@@ -245,7 +244,7 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
                 id: 'ocp-express.Component.ClusterInfo.ClusterClustername',
                 defaultMessage: '集群 {clusterName}',
               },
-              { clusterName: clusterName },
+              { clusterName: clusterName }
             )}
           </span>
           <Badge
@@ -348,7 +347,7 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
           overlay={
             <span>
               <Row gutter={[48, 12]}>
-                {metricList.map((item) => (
+                {metricList.map(item => (
                   <Col key={item.key} span={8}>
                     <div
                       style={{ paddingLeft: 4, fontSize: 16, fontWeight: 500, marginBottom: 12 }}

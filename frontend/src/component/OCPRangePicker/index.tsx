@@ -15,7 +15,7 @@ import React from 'react';
 import { DatePicker, Select, Space } from '@oceanbase/design';
 import type { Moment } from 'moment';
 import moment from 'moment';
-import { ClockCircleOutlined } from '@ant-design/icons';
+import { ClockCircleOutlined } from '@oceanbase/icons';
 import { useControllableValue } from 'ahooks';
 import { DATE_TIME_FORMAT_DISPLAY } from '@/constant/datetime';
 import type { RangeOption } from './constant';

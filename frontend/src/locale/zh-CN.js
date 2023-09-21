@@ -7766,6 +7766,7 @@ export default {
   "ocp-express.Diagnosis.Session.SessionStatistics": "会话统计",
   "ocp-express.Layout.BasicLayout.SystemInformation": "系统信息",
   "ocp-express.Layout.BasicLayout.TaskCenter": "任务中心",
+  "ocp-express.Layout.BasicLayout.Task": "任务",
   "ocp-express.Layout.BasicLayout.FailedTaskCount": "有 {failedTaskCount} 条失败任务",
   "ocp-express.Layout.BasicLayout.RunningTaskCount": "有 {runningTaskCount} 条正在运行中的任务",
   "ocp-express.Query.Component.IpSelect.NullIndicatesThatAllIpAddressesAreSelected": "为空则表示选择全部 IP",

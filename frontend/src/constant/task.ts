@@ -10,7 +10,7 @@
  * See the Mulan PSL v2 for more details.
  */
 
-import { theme } from '@oceanbase/design';
+import { token } from '@oceanbase/design';
 import { formatMessage } from '@/util/intl';
 
 // 任务状态列表
@@ -92,7 +92,7 @@ export const SUBTASK_STATUS_LIST: Global.StatusItem[] = [
 
     value: 'SUCCESSFUL',
     badgeStatus: 'success',
-    color: theme.token.colorSuccess,
+    color: token.colorSuccess,
     operations: [
       {
         value: 'viewLog',
@@ -113,7 +113,7 @@ export const SUBTASK_STATUS_LIST: Global.StatusItem[] = [
 
     value: 'RUNNING',
     badgeStatus: 'processing',
-    color: theme.token.colorPrimary,
+    color: token.colorPrimary,
     operations: [
       {
         value: 'viewLog',
@@ -142,7 +142,7 @@ export const SUBTASK_STATUS_LIST: Global.StatusItem[] = [
 
     value: 'FAILED',
     badgeStatus: 'error',
-    color: theme.token.colorError,
+    color: token.colorError,
     operations: [
       {
         value: 'viewLog',

@@ -10,7 +10,7 @@
  * See the Mulan PSL v2 for more details.
  */
 
-import { HddFilled } from '@ant-design/icons';
+import { HddFilled } from '@oceanbase/icons';
 
 // 链路节点类型列表
 export const NODE_TYPE_LIST = [

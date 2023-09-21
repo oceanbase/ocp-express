@@ -24,7 +24,7 @@ import {
   Highlight,
 } from '@oceanbase/design';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import { CheckOutlined, CopyOutlined } from '@ant-design/icons';
+import { CheckOutlined, CopyOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
 import * as ObTenantSessionController from '@/service/ocp-express/ObTenantSessionController';
 import { formatSql, getTableData } from '@/util';

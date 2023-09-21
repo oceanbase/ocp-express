@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React, { useEffect, useState } from 'react';
 import { Button, Space } from '@oceanbase/design';
-import type { FilterDropdownProps } from 'antd/es/table/interface';
+import type { FilterDropdownProps } from '@oceanbase/design/es/table/interface';
 import MyInput from '@/component/MyInput';
 
 export interface TableFilterDropdownProps extends FilterDropdownProps {

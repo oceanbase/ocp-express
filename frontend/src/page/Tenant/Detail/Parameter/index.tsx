@@ -28,7 +28,7 @@ import {
   message,
 } from '@oceanbase/design';
 import { isNullValue } from '@oceanbase/util';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { useRequest } from 'ahooks';
 import * as ObTenantParameterController from '@/service/ocp-express/ObTenantParameterController';
 import { getBooleanLabel, isEnglish } from '@/util';

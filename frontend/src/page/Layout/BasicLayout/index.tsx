@@ -15,22 +15,21 @@ import { getLocale, history, useDispatch, useSelector } from 'umi';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
-  Menu,
   Badge,
+  ConfigProvider,
   Dropdown,
-  Tooltip,
+  Menu,
   Modal,
   Space,
-  BasicLayout as OBUIBasicLayout,
-  useToken,
+  Tooltip,
   theme,
-  ConfigProvider,
+  token,
 } from '@oceanbase/design';
-import { theme as antTheme } from 'antd';
+import { BasicLayout as OBUIBasicLayout } from '@oceanbase/ui';
+import type { BasicLayoutProps as OBUIBasicLayoutProps } from '@oceanbase/ui/es/BasicLayout';
 import { find } from 'lodash';
 import moment from 'moment';
-import type { BasicLayoutProps as OBUIBasicLayoutProps } from '@oceanbase/design/dist/BasicLayout';
-import { LoadingOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { LoadingOutlined, UnorderedListOutlined } from '@oceanbase/icons';
 import { DATE_FORMAT_DISPLAY } from '@/constant/datetime';
 import { useBasicMenu } from '@/hook/useMenu';
 import { useRequest, useLocalStorageState } from 'ahooks';
@@ -41,8 +40,8 @@ import { formatTime } from '@/util/datetime';
 import tracert from '@/util/tracert';
 import ModifyUserPasswordModal from '@/component/ModifyUserPasswordModal';
 import TenantAdminPasswordModal from '@/component/TenantAdminPasswordModal';
-import useStyles from './index.style';
 import Global from './Global';
+import useStyles from './index.style';
 
 interface BasicLayoutProps extends OBUIBasicLayoutProps {
   children: React.ReactNode;
@@ -74,8 +73,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const [offsetSeconds, setOffsetSeconds] = useState(0);
   // 是否展示修改密码的弹窗
   const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const { token } = useToken();
 
   // Save themeMode in local storage
   // ref: https://ahooks.js.org/hooks/use-local-storage-state/
@@ -239,16 +236,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
   return (
     <ConfigProvider
-      theme={
-        themeMode === 'light'
-          ? theme
-          : themeMode === 'dark'
-          ? {
-              token: theme.defaultSeed,
-              algorithm: antTheme.darkAlgorithm,
-            }
-          : undefined
-      }
+      theme={{
+        isDark: themeMode === 'dark',
+        algorithm: themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+      }}
     >
       <Global themeMode={themeMode} />
       <OBUIBasicLayout

@@ -17,7 +17,7 @@ import { every } from 'lodash';
 import moment from 'moment';
 import type { Moment } from 'moment';
 import { findByValue, isNullValue } from '@oceanbase/util';
-import { FilterOutlined, FullscreenOutlined } from '@ant-design/icons';
+import { FilterOutlined, FullscreenOutlined } from '@oceanbase/icons';
 import { useInViewport } from 'ahooks';
 import * as MonitorController from '@/service/ocp-express/MonitorController';
 import { MAX_POINTS, MONITOR_SCOPE_LIST } from '@/constant/monitor';

@@ -26,7 +26,7 @@ import {
   Modal,
   message,
 } from '@oceanbase/design';
-import { EllipsisOutlined } from '@ant-design/icons';
+import { EllipsisOutlined } from '@oceanbase/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { groupBy, max, omit, omitBy, toNumber } from 'lodash';
 import type { Moment } from 'moment';

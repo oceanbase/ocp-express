@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { connect } from 'umi';
 import React, { useState, useEffect } from 'react';
 import { Badge, Popover, Table, Tooltip, SideTip } from '@oceanbase/design';
-import { CloseOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { CloseOutlined, ClockCircleOutlined } from '@oceanbase/icons';
 import { findByValue, directTo } from '@oceanbase/util';
 import { useInterval } from 'ahooks';
 import { DEFAULT_LIST_DATA } from '@/constant';
@@ -81,7 +81,7 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
     () => {
       getRunningTaskList();
     },
-    polling ? 1000 : null,
+    polling ? 1000 : null
   );
 
   const columns = [
@@ -156,7 +156,7 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
       placement="topRight"
       visible={visible}
       // 由于 SideTip 是 fixed 定位，因此需要将任务卡片挂载到 SideTip 上，否则滚动时两者会分离
-      getPopupContainer={(triggerNode) => triggerNode}
+      getPopupContainer={triggerNode => triggerNode}
       content={
         <MyCard
           className="card-without-padding"
@@ -166,14 +166,14 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
               defaultMessage: '当前共有 {total} 个任务正在进行中',
             },
 
-            { total },
+            { total }
           )}
         >
           <Table
             loading={loading && !polling}
             dataSource={runningTaskList}
             columns={columns}
-            rowKey={(record) => record.id}
+            rowKey={record => record.id}
             scroll={{
               y: 300,
             }}

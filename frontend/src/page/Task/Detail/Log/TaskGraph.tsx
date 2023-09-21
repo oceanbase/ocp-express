@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { Dropdown, Menu, Space, Tooltip, Typography, useToken } from '@oceanbase/design';
 import { debounce, some } from 'lodash';
-import Icon, { MoreOutlined } from '@ant-design/icons';
+import Icon, { MoreOutlined } from '@oceanbase/icons';
 import { findByValue, isNullValue } from '@oceanbase/util';
 import { Canvas } from '@antv/g';
 import { useSize, useUpdateEffect } from 'ahooks';

@@ -13,8 +13,8 @@
 import { formatMessage } from '@/util/intl';
 import { connect } from 'umi';
 import React, { useState, useEffect } from 'react';
-import { Card, Dropdown, Menu } from 'antd';
-import { ClockCircleOutlined, DownOutlined } from '@ant-design/icons';
+import { Card, Dropdown, Menu } from '@oceanbase/design';
+import { ClockCircleOutlined, DownOutlined } from '@oceanbase/icons';
 import moment from 'moment';
 import { findBy } from '@oceanbase/util';
 import { RFC3339_DATE_TIME_FORMAT } from '@/constant/datetime';

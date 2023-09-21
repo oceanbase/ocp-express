@@ -36,7 +36,7 @@ import {
 } from '@oceanbase/design';
 import React, { useEffect, useState } from 'react';
 import { flatten, isEqual, unionWith, uniq, uniqBy } from 'lodash';
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
 import useStyles from './index.style';
 
@@ -125,13 +125,13 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
     ObClusterParameterController.updateClusterParameter,
     {
       manual: true,
-      onSuccess: (res) => {
+      onSuccess: res => {
         if (res?.successful) {
           message.success(
             formatMessage({
               id: 'ocp-express.component.ModifyClusterParameterDrawer.ParameterValueModified',
               defaultMessage: '参数值修改成功',
-            }),
+            })
           );
           setConfirmVisible(false);
           if (onSuccess) {
@@ -139,17 +139,17 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
           }
         }
       },
-    },
+    }
   );
 
   const handleModifyValue = () => {
-    validateFields().then((values) => {
+    validateFields().then(values => {
       const { parameter: modifyParameter } = values;
       let otherrParam = {};
       // 修改租户类型参数 整理接口数据
       if (parameter?.parameterType === 'OB_TENANT_PARAMETER') {
-        otherrParam = modifyParameter?.map((item) => {
-          if (item?.target?.filter((o) => o.value === 'all')?.length !== 0) {
+        otherrParam = modifyParameter?.map(item => {
+          if (item?.target?.filter(o => o.value === 'all')?.length !== 0) {
             return {
               name: parameter?.name,
               value: item.value,
@@ -161,20 +161,20 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
               name: parameter?.name,
               value: item.value,
               parameterType: parameter?.parameterType,
-              tenants: item.target.map((o) => o.label),
+              tenants: item.target.map(o => o.label),
             };
           }
         });
       } else {
         // 修改集群类型参数 整理接口数据
-        otherrParam = modifyParameter?.map((item) => {
+        otherrParam = modifyParameter?.map(item => {
           // 含有 Zone 级别
           if (item.applyTo === 'Zone') {
             return {
               name: parameter?.name,
               value: item.value,
               parameterType: parameter?.parameterType,
-              zones: item.target.map((o) => o.label),
+              zones: item.target.map(o => o.label),
             };
           } else if (item?.applyTo === 'OBServer') {
             // 含有 OBServer 级别
@@ -182,7 +182,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
               name: parameter?.name,
               value: item.value,
               parameterType: parameter?.parameterType,
-              servers: item.target.map((o) => o.label),
+              servers: item.target.map(o => o.label),
             };
           } else {
             // 集群级别
@@ -200,10 +200,10 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
   };
 
   // 对集群下的 Zone 格式整理
-  const zoneList = (clusterData?.zones || []).map((item) => ({
+  const zoneList = (clusterData?.zones || []).map(item => ({
     label: item.name,
     value: item.name,
-    serverList: (item.servers || []).map((server) => ({
+    serverList: (item.servers || []).map(server => ({
       ip: server.ip,
       id: server.id,
       port: server.port,
@@ -222,21 +222,21 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
   if (parameter?.parameterType === 'OB_CLUSTER_PARAMETER') {
     const serverList: string[] = [];
     if (editParameter?.length > 0 && editParameter[0] !== undefined) {
-      editParameter.map((item) => {
+      editParameter.map(item => {
         if (item?.applyTo === 'cluster') {
-          zoneList.map((zone) => zone.serverList.map((server) => serverList.push(server.ip)));
+          zoneList.map(zone => zone.serverList.map(server => serverList.push(server.ip)));
         } else if (item?.applyTo === 'Zone') {
-          zoneList.map((zone) => {
-            item?.target?.map((target) => {
+          zoneList.map(zone => {
+            item?.target?.map(target => {
               if (target.label === zone.label) {
-                zone.serverList.map((server) => serverList.push(server.ip));
+                zone.serverList.map(server => serverList.push(server.ip));
               }
             });
           });
         } else if (item?.applyTo === 'OBServer') {
-          zoneList.map((zone) => {
-            item?.target?.map((target) => {
-              zone.serverList.map((server) => {
+          zoneList.map(zone => {
+            item?.target?.map(target => {
+              zone.serverList.map(server => {
                 if (target.label?.split(':')[0] === server.ip) {
                   serverList.push(server.ip);
                 }
@@ -256,10 +256,10 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
       // 修改租户类型参数 数据整理
       if (parameter.parameterType === 'OB_TENANT_PARAMETER') {
         const obTenantParameters: obTenantParametersType[] = [];
-        currentValue?.tenantValues?.map((tenantValue) => {
-          editParameter.map((item) => {
+        currentValue?.tenantValues?.map(tenantValue => {
+          editParameter.map(item => {
             // 如果选择了 全部租户
-            if (item?.target?.filter((o) => o.value === 'all')?.length !== 0) {
+            if (item?.target?.filter(o => o.value === 'all')?.length !== 0) {
               obTenantParameters.push({
                 tenantName: tenantValue.tenantName,
                 value: item.value,
@@ -267,7 +267,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                 isNewValue: true,
               });
             } else {
-              item?.target?.map((target) => {
+              item?.target?.map(target => {
                 if (tenantValue.tenantName === target.label) {
                   obTenantParameters.push({
                     tenantName: target.label,
@@ -282,7 +282,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
         });
         return uniqBy(
           unionWith(obTenantParameters, currentValue?.tenantValues, isEqual),
-          'tenantName',
+          'tenantName'
         );
       } else {
         // 修改参数值，取原参数值生成 treeData
@@ -305,13 +305,13 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
           },
         ];
 
-        treeData[0]?.children?.map((item) => {
-          currentValue?.obParameters?.map((obParameter) => {
+        treeData[0]?.children?.map(item => {
+          currentValue?.obParameters?.map(obParameter => {
             if (obParameter.zone === item.title) {
               treeNoeList.push({
                 title: item?.title,
                 key: item.key,
-                children: item?.children?.map((server) => ({
+                children: item?.children?.map(server => ({
                   title: obParameter?.value
                     ? `${server?.title}：${obParameter?.value}`
                     : `${server?.title}`,
@@ -330,7 +330,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
           },
         ];
 
-        editParameter?.map((item) => {
+        editParameter?.map(item => {
           // 修改参数值，生效范围包含集群
           if (item?.applyTo === 'cluster') {
             parametersTreeData = [
@@ -346,7 +346,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                       key: `1-${index}-${key}`,
                       isNewValue:
                         parametersTreeData[0]?.children[index]?.children[key]?.title?.split(
-                          ': ',
+                          ': '
                         )[1] !== item?.value,
                     };
                   }),
@@ -354,8 +354,8 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
               },
             ];
           } else if (item?.applyTo === 'Zone') {
-            item?.target?.forEach((targetZone) => {
-              parametersTreeData = parametersTreeData.map((param) => ({
+            item?.target?.forEach(targetZone => {
+              parametersTreeData = parametersTreeData.map(param => ({
                 title: 'cluster',
                 key: '1',
                 children: param?.children?.map((zone, index) => {
@@ -378,14 +378,14 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
               }));
             });
           } else if (item?.applyTo === 'OBServer') {
-            item?.target?.map((targetZone) => {
-              parametersTreeData = parametersTreeData.map((param) => ({
+            item?.target?.map(targetZone => {
+              parametersTreeData = parametersTreeData.map(param => ({
                 title: 'cluster',
                 key: '1',
-                children: param?.children?.map((zone) => ({
+                children: param?.children?.map(zone => ({
                   title: zone.title,
                   key: zone.key,
-                  children: zone?.children?.map((server) => {
+                  children: zone?.children?.map(server => {
                     if (
                       targetZone?.label?.split('：')[0] === server?.title?.split('：')[0] ||
                       `${targetZone?.label?.split('：')[0]}:${targetZone?.port}` ===
@@ -430,7 +430,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
 
       width: '50%',
       dataIndex: 'newValue',
-      render: (text) => {
+      render: text => {
         if (parameter?.parameterType === 'OB_TENANT_PARAMETER') {
           return text
             ?.sort((a, b) => {
@@ -444,7 +444,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
               }
               return 0;
             })
-            ?.map((item) => (
+            ?.map(item => (
               <div className={item?.isNewValue ? styles.newValue : styles.tenantName}>
                 {`${item?.tenantName}: ${item?.value}`}
               </div>
@@ -454,7 +454,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
           <Tree
             defaultExpandAll={true}
             treeData={text}
-            titleRender={(node) => {
+            titleRender={node => {
               // 改动的值标记颜色
               if (node?.isNewValue) {
                 return <div className={styles.treeNewValue}>{node.title}</div>;
@@ -470,31 +470,31 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
   const getSelectAllOptions = (applyTo: string) => {
     if (applyTo === 'OBServer') {
       const selectAllOptions = [];
-      zoneList?.map((zone) => {
-        zone?.serverList.map((server) =>
+      zoneList?.map(zone => {
+        zone?.serverList.map(server =>
           selectAllOptions.push({
             value: server.id,
             label: `${server.ip}:${server.port}`,
             port: server.port,
-          }),
+          })
         );
       });
       return selectAllOptions;
     } else {
-      return zoneList.map((zone) => ({ value: zone.value, label: zone.label }));
+      return zoneList.map(zone => ({ value: zone.value, label: zone.label }));
     }
   };
 
   const filterTenantList = (tenantData, text, tenants) => {
     const selectedtenantList: number[] = flatten(
-      (tenants && tenants?.map((item) => item?.target?.map((o) => o?.value) || [])) || [],
+      (tenants && tenants?.map(item => item?.target?.map(o => o?.value) || [])) || []
     );
 
     return tenantData.filter(
-      (item) =>
+      item =>
         !selectedtenantList
-          .filter((tenant) => !(text || []).includes(tenant))
-          .includes(item.obTenantId),
+          .filter(tenant => !(text || []).includes(tenant))
+          .includes(item.obTenantId)
     );
   };
 
@@ -574,7 +574,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                 parameter?.parameterType,
                 () => {
                   setCheckVisible(true);
-                },
+                }
               )}
             </Text>
           )}
@@ -656,8 +656,8 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                       id: 'ocp-express.component.ModifyClusterParameterDrawer.SelectAnActiveObjectFirst',
                                       defaultMessage: '请先选择生效对象',
                                     })}
-                                    onChange={(val) => {
-                                      const values = val?.map((item) => item.value);
+                                    onChange={val => {
+                                      const values = val?.map(item => item.value);
                                       if (values.length === 0) {
                                         setAllTenantSelectedStatus('allowed');
                                       } else if (values[0] === 'all') {
@@ -685,8 +685,8 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                       // 租户类型参数，租户只可赋值一次
                                       filterTenantList(
                                         tenantList,
-                                        params?.target?.map((item) => item?.value),
-                                        currentParameter,
+                                        params?.target?.map(item => item?.value),
+                                        currentParameter
                                       )
                                         ?.sort((a, b) => {
                                           const nameA = a?.name?.toUpperCase();
@@ -699,7 +699,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                           }
                                           return 0;
                                         })
-                                        ?.map((item) => {
+                                        ?.map(item => {
                                           return (
                                             <Option
                                               value={item.obTenantId}
@@ -744,7 +744,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                             >
                               <MySelect
                                 allowClear={true}
-                                onChange={(val) => {
+                                onChange={val => {
                                   const currentParameter = getFieldValue(['parameter']);
                                   setFieldsValue({
                                     parameter: currentParameter?.map((param, key) =>
@@ -754,12 +754,12 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                             value: param.value,
                                             target: [],
                                           }
-                                        : param,
+                                        : param
                                     ),
                                   });
                                 }}
                               >
-                                {rangeList.map((item) => {
+                                {rangeList.map(item => {
                                   return (
                                     <Option value={item.value} key={item.value}>
                                       {item.name}
@@ -809,7 +809,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                           defaultMessage: '请先选择生效范围',
                                         })
                                       }
-                                      dropdownRender={(menu) => (
+                                      dropdownRender={menu => (
                                         <SelectAllAndClearRender
                                           menu={menu}
                                           onSelectAll={() => {
@@ -834,7 +834,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                                       value: param.value,
                                                       target: [],
                                                     }
-                                                  : param,
+                                                  : param
                                               ),
                                             });
                                           }}
@@ -842,7 +842,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                       )}
                                     >
                                       {params?.applyTo === 'Zone' &&
-                                        zoneList.map((item) => {
+                                        zoneList.map(item => {
                                           return (
                                             <Option value={item.value} key={item.value}>
                                               {item.label}
@@ -850,10 +850,10 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                                           );
                                         })}
                                       {params?.applyTo === 'OBServer' &&
-                                        zoneList?.map((zone) => {
+                                        zoneList?.map(zone => {
                                           return (
                                             <OptGroup label={zone.label}>
-                                              {zone?.serverList.map((server) => (
+                                              {zone?.serverList.map(server => (
                                                 <Option key={server.id} value={server.id}>
                                                   {`${server.ip}:${server.port}`}
                                                 </Option>
@@ -970,7 +970,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
               newValue: getParameterValue(),
             },
           ]}
-          rowKey={(record) => record.key}
+          rowKey={record => record.key}
           pagination={false}
           className="table-without-hover-style"
         />
@@ -983,7 +983,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
             id: 'ocp-express.component.ModifyClusterParameterDrawer.ViewParameternameParameterValues',
             defaultMessage: '查看 {parameterName} 参数值',
           },
-          { parameterName: parameter.name },
+          { parameterName: parameter.name }
         )}
         visible={checkVisible}
         footer={false}

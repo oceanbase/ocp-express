@@ -12,12 +12,11 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Checkbox, Col, Row, Spin, Typography, Card } from 'antd';
-import { Tooltip } from '@oceanbase/design';
+import { Checkbox, Col, Row, Spin, Typography, Card, Tooltip } from '@oceanbase/design';
 import classNames from 'classnames';
 import { flatten, isEqual, uniq } from 'lodash';
 import { sortByEnum } from '@oceanbase/util';
-import { RightOutlined, DeleteOutlined } from '@ant-design/icons';
+import { RightOutlined, DeleteOutlined } from '@oceanbase/icons';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { isEnglish } from '@/util';
 import ContentWithIcon from '@/component/ContentWithIcon';

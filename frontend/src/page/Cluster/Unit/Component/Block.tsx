@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Badge, Divider, Progress, Space, Tooltip, Typography } from '@oceanbase/design';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined } from '@oceanbase/icons';
 import { isNullValue, byte2GB, directTo, findByValue } from '@oceanbase/util';
 import { TENANT_STATUS_LIST } from '@/constant/tenant';
 import MouseTooltip from '@/component/MouseTooltip';

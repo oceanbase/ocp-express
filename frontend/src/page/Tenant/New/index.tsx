@@ -27,11 +27,11 @@ import {
   Table,
   Tooltip,
 } from '@oceanbase/design';
-import type { Route } from 'antd/es/breadcrumb/Breadcrumb';
+import type { Route } from '@oceanbase/design/es/breadcrumb/Breadcrumb';
 import React, { useEffect, useState } from 'react';
 import { uniq } from 'lodash';
 import { findBy, isNullValue } from '@oceanbase/util';
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@oceanbase/ui';
 import { useRequest } from 'ahooks';
 import * as IamController from '@/service/ocp-express/IamController';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';
@@ -193,15 +193,15 @@ const New: React.FC<NewProps> = ({
               memorySize: replicaZone?.unitConfig?.maxMemorySize,
               ...(replicaZone
                 ? {
-                    // 已分布副本的 Zone，已勾选
-                    checked: true,
-                    ...replicaZone,
-                  }
+                  // 已分布副本的 Zone，已勾选
+                  checked: true,
+                  ...replicaZone,
+                }
                 : {
-                    // 未分布副本的 Zone，未勾选
-                    checked: false,
-                    replicaType: 'FULL',
-                  }),
+                  // 未分布副本的 Zone，未勾选
+                  checked: false,
+                  replicaType: 'FULL',
+                }),
             };
           }),
           mode: sourceTenantData.mode,
@@ -360,9 +360,9 @@ const New: React.FC<NewProps> = ({
       header={{
         title: isClone
           ? formatMessage({
-              id: 'ocp-express.Tenant.New.ReplicationTenant',
-              defaultMessage: '复制租户',
-            })
+            id: 'ocp-express.Tenant.New.ReplicationTenant',
+            defaultMessage: '复制租户',
+          })
           : formatMessage({ id: 'ocp-express.Tenant.New.NewTenant', defaultMessage: '新建租户' }),
         breadcrumb: { routes, itemRender: breadcrumbItemRender },
         onBack: () => {
@@ -689,7 +689,7 @@ const New: React.FC<NewProps> = ({
                         },
                       ]}
                     >
-                      {(fields, {}) => {
+                      {(fields, { }) => {
                         return (
                           <>
                             {fields.map((field, index: number) => {

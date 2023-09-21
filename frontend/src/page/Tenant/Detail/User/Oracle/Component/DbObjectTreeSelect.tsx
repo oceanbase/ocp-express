@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
 import { TreeSelect, Tag, Space, useToken } from '@oceanbase/design';
-import { TableOutlined, FundViewOutlined, DeliveredProcedureOutlined } from '@ant-design/icons';
+import { TableOutlined, FundViewOutlined, DeliveredProcedureOutlined } from '@oceanbase/icons';
 import { uniq, findIndex } from 'lodash';
 
 const { TreeNode } = TreeSelect;

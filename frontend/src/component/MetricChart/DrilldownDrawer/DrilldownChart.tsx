@@ -16,7 +16,7 @@ import { Empty, Space, Tooltip } from '@oceanbase/design';
 import { find, isString } from 'lodash';
 import moment from 'moment';
 import { directTo, findByValue } from '@oceanbase/util';
-import Icon, { FilterOutlined, LinkOutlined } from '@ant-design/icons';
+import Icon, { FilterOutlined, LinkOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
 import * as MonitorController from '@/service/ocp-express/MonitorController';
 import {

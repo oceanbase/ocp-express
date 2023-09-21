@@ -24,10 +24,9 @@ import {
   Space,
   Spin,
   message,
-  Ranger,
-  FullscreenBox,
 } from '@oceanbase/design';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Ranger, FullscreenBox } from '@oceanbase/ui'
+import { LoadingOutlined } from '@oceanbase/icons';
 import { flatten, find } from 'lodash';
 import type { Moment } from 'moment';
 import moment from 'moment';

@@ -15,9 +15,9 @@ import React, { useState } from 'react';
 import { Card, Divider, Dropdown, Input, Typography } from '@oceanbase/design';
 import type { DropDownProps } from 'antd/es/dropdown';
 import type { InputProps } from 'antd/es/input';
-import { CheckOutlined, FilterOutlined, SearchOutlined } from '@ant-design/icons';
-import useStyles from './index.style';
+import { CheckOutlined, FilterOutlined, SearchOutlined } from '@oceanbase/icons';
 import { findByValue } from '@oceanbase/util';
+import useStyles from './index.style';
 
 const { Text } = Typography;
 
@@ -168,17 +168,15 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         ) : children ? (
           React.cloneElement(children, {
             // 筛选项不为空时用主色调标记筛选 icon
-            className: `pointable ${
-              value && value.length > 0 ? styles.filterIconFiltered : ''
-            } ${className}`,
+            className: `pointable ${value && value.length > 0 ? styles.filterIconFiltered : ''
+              } ${className}`,
             style,
           })
         ) : (
           <FilterOutlined
             // 筛选项不为空时用主色调标记筛选 icon
-            className={`pointable ${
-              value && value.length > 0 ? styles.filterIconFiltered : ''
-            } ${className}`}
+            className={`pointable ${value && value.length > 0 ? styles.filterIconFiltered : ''
+              } ${className}`}
             style={style}
           />
         )}

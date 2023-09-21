@@ -21,9 +21,9 @@ import {
   Spin,
   Tooltip,
   Typography,
-  FullscreenBox,
-  useToken,
+  token,
 } from '@oceanbase/design';
+import { FullscreenBox } from '@oceanbase/ui'
 import React, { useEffect, useRef, useState } from 'react';
 import {
   CarryOutOutlined,
@@ -33,7 +33,7 @@ import {
   FullscreenOutlined,
   PauseOutlined,
   ReloadOutlined,
-} from '@ant-design/icons';
+} from '@oceanbase/icons';
 import { useKeyPress } from 'ahooks';
 import { isEnglish } from '@/util';
 import { downloadLog } from '@/util/log';
@@ -62,7 +62,6 @@ const LogCard: React.FC<LogCardProps> = ({
   logPolling,
 }) => {
   const { styles } = useStyles();
-  const { token } = useToken();
   // 是否全屏展示
   const [fullscreen, setFullscreen] = useState(false);
   const boxRef = useRef<FullscreenBox>();

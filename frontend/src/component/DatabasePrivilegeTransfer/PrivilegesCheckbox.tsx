@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Checkbox, Button } from '@oceanbase/design';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined } from '@oceanbase/icons';
 import { DATABASE_PRIVILEGE_LIST } from '@/constant/tenant';
 import styles from './index.less';
 

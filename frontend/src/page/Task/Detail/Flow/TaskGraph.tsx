@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Dropdown, Menu, Tooltip, Typography, theme } from '@oceanbase/design';
+import { Dropdown, Menu, Tooltip, Typography, token } from '@oceanbase/design';
 import { find, isEqual, toLower, toNumber } from 'lodash';
 import { sortByNumber, findByValue, isNullValue } from '@oceanbase/util';
 import type { Graph } from '@antv/g6';
@@ -154,7 +154,7 @@ G6.registerNode(
     },
   },
 
-  'single-node',
+  'single-node'
 );
 
 G6.registerEdge(
@@ -196,7 +196,7 @@ G6.registerEdge(
     },
   },
 
-  'cubic-vertical',
+  'cubic-vertical'
 );
 
 export interface TaskGraphProps {
@@ -247,7 +247,7 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
   // 定位到目标节点
   public setTargetSubtask = (targetSubtaskId?: number, showLog = false) => {
     const { taskData, onLogAdd } = this.props;
-    const targetSubtask = find(taskData?.subtasks || [], (item) => item.id === targetSubtaskId);
+    const targetSubtask = find(taskData?.subtasks || [], item => item.id === targetSubtaskId);
     if (this.graph) {
       this.graph.fitView();
       this.graph.focusItem(`${targetSubtaskId}`);
@@ -268,7 +268,7 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
     this.setTargetSubtask(
       latestNode?.id,
       // 当前节点执行失败或正在执行，才默认展示日志
-      ['FAILED', 'RUNNING'].includes(latestNode?.status),
+      ['FAILED', 'RUNNING'].includes(latestNode?.status)
     );
   };
 
@@ -279,14 +279,14 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
       // 后端返回的 subtasks 列表顺序会变化，因此前端需要对子任务列表按照 id 大小进行排序，以固定列表顺序
       .sort((a, b) => sortByNumber(a, b, 'id'))
       // 还需要将上下游的子任务列表也进行排序，这样才能保证解析得到的 data 才是固定的
-      .map((item) => ({
+      .map(item => ({
         ...item,
         // 从大到小排序
         upstreams: (item.upstreams || []).sort((a, b) => a - b),
         downstreams: (item.downstreams || []).sort((a, b) => a - b),
       }))
-      .forEach((item) => {
-        (item.upstreams || []).forEach((id) => {
+      .forEach(item => {
+        (item.upstreams || []).forEach(id => {
           const edge = {
             source: `${id}`,
             target: `${item.id}`,
@@ -294,14 +294,14 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
 
           const isExisted = find(
             edges,
-            (item2) => item2.source === edge.source && item2.target === edge.target,
+            item2 => item2.source === edge.source && item2.target === edge.target
           );
 
           if (!isExisted) {
             edges.push(edge);
           }
         });
-        (item.downstreams || []).forEach((id) => {
+        (item.downstreams || []).forEach(id => {
           const edge = {
             source: `${item.id}`,
             target: `${id}`,
@@ -309,7 +309,7 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
 
           const isExisted = find(
             edges,
-            (item2) => item2.source === edge.source && item2.target === edge.target,
+            item2 => item2.source === edge.source && item2.target === edge.target
           );
 
           if (!isExisted) {
@@ -319,7 +319,7 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
       });
 
     const data = {
-      nodes: subtasks.map((item) => ({
+      nodes: subtasks.map(item => ({
         ...item,
         id: `${item.id}`,
       })),
@@ -365,8 +365,8 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
         nodeStateStyles: {
           hover: {
             lineWidth: 2,
-            stroke: theme.token.colorPrimary,
-            fill: theme.token.colorPrimaryBg,
+            stroke: token.colorPrimary,
+            fill: token.colorPrimaryBg,
           },
         },
 
@@ -382,7 +382,7 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
       graph.render();
 
       // 监听 moreGroup 的 click 事件
-      canvas.on('moreGroup:click', (e) => {
+      canvas.on('moreGroup:click', e => {
         const subtaskNode = e.currentTarget && e.currentTarget.getParent();
         const model = subtaskNode && subtaskNode.get('item') && subtaskNode.get('item').getModel();
         this.setState(
@@ -400,7 +400,7 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
               this.menu.style.left = `${e.x}px`;
               this.menu.style.top = `${e.y}px`;
             }
-          },
+          }
         );
       });
 
@@ -485,7 +485,7 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
         }}
         style={{ left: -1500 }}
       >
-        {operations.map((item) => {
+        {operations.map(item => {
           const disabled = taskData?.isRemote && ['retry'].includes(item.value);
           return item.value === 'taskId' ? (
             <div
@@ -530,7 +530,7 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
         </Dropdown>
         <div
           id="container"
-          ref={(node) => {
+          ref={node => {
             this.main = node;
           }}
         />

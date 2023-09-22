@@ -26,7 +26,7 @@ import { RFC3339_DATE_TIME_FORMAT } from '@/constant/datetime';
 import { formatSize } from '@/util';
 import { isNullValue } from '@oceanbase/util';
 
-export interface TenantResourceTop3Props { }
+export interface TenantResourceTop3Props {}
 
 const TenantResourceTop3: React.FC<TenantResourceTop3Props> = () => {
   const { token } = useToken();
@@ -214,6 +214,7 @@ const TenantResourceTop3: React.FC<TenantResourceTop3Props> = () => {
                     {item.chartData.map(dataItem => (
                       <Col key={dataItem.ob_tenant_id} span={24}>
                         <Progress
+                          compact={true}
                           title={
                             <Typography.Text
                               data-aspm-click="c304255.d308758"
@@ -237,10 +238,11 @@ const TenantResourceTop3: React.FC<TenantResourceTop3Props> = () => {
                           formatter={() => {
                             if (item.key === 'ob_tenant_disk_usage') {
                               // 刚部署的 OCP Express，可能存在 percentValue 为空、usedValue 不为空的情况，为了避免百分比出现 NaN，需要做下空值判断
-                              return `${formatSize(dataItem.usedValue)} / ${isNullValue(dataItem.percentValue)
+                              return `${formatSize(dataItem.usedValue)} / ${
+                                isNullValue(dataItem.percentValue)
                                   ? '-'
                                   : toPercent(dataItem.percentValue / 100, 1)
-                                }%`;
+                              }%`;
                             }
                             return `${toPercent(dataItem.percentValue / 100, 1)}%`;
                           }}
@@ -249,7 +251,7 @@ const TenantResourceTop3: React.FC<TenantResourceTop3Props> = () => {
                           }}
                           warningPercent={0.7}
                           dangerPercent={0.8}
-                          maxColumnWidth={6}
+                          maxColumnWidth={8}
                         />
                       </Col>
                     ))}

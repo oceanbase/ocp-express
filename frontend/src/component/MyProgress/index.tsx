@@ -13,7 +13,7 @@
 import React from 'react';
 import { Progress } from '@oceanbase/design';
 import type { ProgressProps } from 'antd/es/progress';
-import { theme } from '@oceanbase/charts';
+import { useTheme } from '@oceanbase/charts';
 import useStyles from './index.style';
 
 export interface MyProgressProps extends ProgressProps {
@@ -30,7 +30,7 @@ export interface MyProgressProps extends ProgressProps {
 
 const MyProgress: React.FC<MyProgressProps> = ({
   wrapperClassName,
-  strokeColor = theme.defaultColor,
+  strokeColor,
   strokeLinecap = 'square',
   prefix,
   prefixWidth = 40,
@@ -40,6 +40,7 @@ const MyProgress: React.FC<MyProgressProps> = ({
   ...restProps
 }: MyProgressProps) => {
   const { styles } = useStyles();
+  const theme = useTheme();
   return (
     <span className={`${styles.progress} ${wrapperClassName}`}>
       {prefix && (
@@ -49,7 +50,11 @@ const MyProgress: React.FC<MyProgressProps> = ({
       )}
 
       <span className={styles.wrapper}>
-        <Progress strokeColor={strokeColor} strokeLinecap={strokeLinecap} {...restProps} />
+        <Progress
+          strokeColor={strokeColor || theme.defaultColor}
+          strokeLinecap={strokeLinecap}
+          {...restProps}
+        />
       </span>
       {affix && (
         <span className={styles.affix} style={{ width: affixWidth }}>

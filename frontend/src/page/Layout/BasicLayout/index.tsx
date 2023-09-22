@@ -13,18 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { getLocale, history, useDispatch, useSelector } from 'umi';
 import React, { useEffect, useState } from 'react';
-import {
-  Alert,
-  Badge,
-  ConfigProvider,
-  Dropdown,
-  Menu,
-  Modal,
-  Space,
-  Tooltip,
-  theme,
-  token,
-} from '@oceanbase/design';
+import { Alert, Badge, Dropdown, Menu, Modal, Space, Tooltip, token } from '@oceanbase/design';
 import { BasicLayout as OBUIBasicLayout } from '@oceanbase/ui';
 import type { BasicLayoutProps as OBUIBasicLayoutProps } from '@oceanbase/ui/es/BasicLayout';
 import { find } from 'lodash';
@@ -32,7 +21,7 @@ import moment from 'moment';
 import { LoadingOutlined, UnorderedListOutlined } from '@oceanbase/icons';
 import { DATE_FORMAT_DISPLAY } from '@/constant/datetime';
 import { useBasicMenu } from '@/hook/useMenu';
-import { useRequest, useLocalStorageState } from 'ahooks';
+import { useRequest } from 'ahooks';
 import * as InfoController from '@/service/ocp-express/InfoController';
 import * as TaskController from '@/service/ocp-express/TaskController';
 import { isEnglish } from '@/util';
@@ -40,7 +29,6 @@ import { formatTime } from '@/util/datetime';
 import tracert from '@/util/tracert';
 import ModifyUserPasswordModal from '@/component/ModifyUserPasswordModal';
 import TenantAdminPasswordModal from '@/component/TenantAdminPasswordModal';
-import Global from './Global';
 import useStyles from './index.style';
 
 interface BasicLayoutProps extends OBUIBasicLayoutProps {
@@ -54,6 +42,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const { styles } = useStyles();
   const dispatch = useDispatch();
   const {
+    themeMode,
     appInfo,
     systemInfo: { monitorInfo: { collectInterval } = {} },
     showTenantAdminPasswordModal,
@@ -73,12 +62,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const [offsetSeconds, setOffsetSeconds] = useState(0);
   // 是否展示修改密码的弹窗
   const [passwordVisible, setPasswordVisible] = useState(false);
-
-  // Save themeMode in local storage
-  // ref: https://ahooks.js.org/hooks/use-local-storage-state/
-  const [themeMode, setThemeMode] = useLocalStorageState('themeMode', {
-    defaultValue: 'light',
-  });
 
   const logoUrl = isEnglish()
     ? '/assets/logo/ocp_express_logo_en.svg'
@@ -235,239 +218,236 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   )?.link;
 
   return (
-    <ConfigProvider
-      theme={{
-        isDark: themeMode === 'dark',
-        algorithm: themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
-      }}
-    >
-      <Global themeMode={themeMode} />
-      <OBUIBasicLayout
-        className={styles.container}
-        data-aspm="c304179"
-        data-aspm-desc="系统信息"
-        data-aspm-expo
-        // 扩展参数
-        data-aspm-param={tracert.stringify({
-          // OCP 构建版本号，格式为 1.0.0-rc.1
-          ocpBuildVersion: appInfo.buildVersion,
-          // OCP 版本号
-          ocpVersion: appInfo.buildVersion?.split('-')?.[0],
-          // OCP 语言
-          ocpLocale: getLocale(),
-          // OCP 主机
-          ocpHost: window.location.host,
-          // OCP 监控采集间隔
-          ocpMonitorCollectInterval: collectInterval,
-        })}
-        location={location}
-        banner={
-          offsetAlertVisible && (
-            <Alert
-              message={message}
-              type={overThreshold ? 'warning' : 'success'}
-              banner={true}
-              showIcon={true}
-              icon={
-                loading || validating ? (
-                  <LoadingOutlined style={{ color: token.colorPrimary }} />
-                ) : (
-                  false
-                )
-              }
-              action={
-                <a
-                  onClick={() => {
-                    // 由于接口请求较快，为了保证 loading 的展示效果，增加 1s 的持续时间
-                    setValidating(true);
-                    setTimeout(() => {
-                      setValidating(false);
-                    }, 1000);
-                    refresh();
+    <OBUIBasicLayout
+      className={styles.container}
+      data-aspm="c304179"
+      data-aspm-desc="系统信息"
+      data-aspm-expo
+      // 扩展参数
+      data-aspm-param={tracert.stringify({
+        // OCP 构建版本号，格式为 1.0.0-rc.1
+        ocpBuildVersion: appInfo.buildVersion,
+        // OCP 版本号
+        ocpVersion: appInfo.buildVersion?.split('-')?.[0],
+        // OCP 语言
+        ocpLocale: getLocale(),
+        // OCP 主机
+        ocpHost: window.location.host,
+        // OCP 监控采集间隔
+        ocpMonitorCollectInterval: collectInterval,
+      })}
+      location={location}
+      banner={
+        offsetAlertVisible && (
+          <Alert
+            message={message}
+            type={overThreshold ? 'warning' : 'success'}
+            banner={true}
+            showIcon={true}
+            icon={
+              loading || validating ? (
+                <LoadingOutlined style={{ color: token.colorPrimary }} />
+              ) : (
+                false
+              )
+            }
+            action={
+              <a
+                onClick={() => {
+                  // 由于接口请求较快，为了保证 loading 的展示效果，增加 1s 的持续时间
+                  setValidating(true);
+                  setTimeout(() => {
+                    setValidating(false);
+                  }, 1000);
+                  refresh();
+                }}
+              >
+                {formatMessage({
+                  id: 'ocp-express.Layout.BasicLayout.VerifyAgain',
+                  defaultMessage: '再次校验',
+                })}
+              </a>
+            }
+            // 时间差过大不允许关闭提示
+            closable={overThreshold ? false : true}
+            onClose={() => {
+              setOffsetAlertVisible(false);
+            }}
+          />
+        )
+      }
+      logoUrl={logoUrl}
+      simpleLogoUrl={simpleLogoUrl}
+      menus={menus}
+      defaultOpenKeys={defaultOpenKey ? [defaultOpenKey] : []}
+      sideHeader={sideHeader}
+      topHeader={{
+        title: (
+          <div style={{ float: 'right' }}>
+            <Dropdown
+              overlay={
+                <Menu
+                  onClick={({ key }) => {
+                    dispatch({
+                      type: 'global/setThemeMode',
+                      payload: {
+                        themeMode: key,
+                      },
+                    });
                   }}
                 >
-                  {formatMessage({
-                    id: 'ocp-express.Layout.BasicLayout.VerifyAgain',
-                    defaultMessage: '再次校验',
-                  })}
-                </a>
+                  <Menu.Item key="light">浅色主题</Menu.Item>
+                  <Menu.Item key="dark">暗黑主题</Menu.Item>
+                </Menu>
               }
-              // 时间差过大不允许关闭提示
-              closable={overThreshold ? false : true}
-              onClose={() => {
-                setOffsetAlertVisible(false);
-              }}
-            />
-          )
-        }
-        logoUrl={logoUrl}
-        simpleLogoUrl={simpleLogoUrl}
-        menus={menus}
-        defaultOpenKeys={defaultOpenKey ? [defaultOpenKey] : []}
-        sideHeader={sideHeader}
-        topHeader={{
-          title: (
-            <div style={{ float: 'right' }}>
-              <Dropdown
-                overlay={
-                  <Menu
-                    onClick={({ key }) => {
-                      setThemeMode(key);
-                    }}
-                  >
-                    <Menu.Item key="light">浅色主题</Menu.Item>
-                    <Menu.Item key="dark">暗黑主题</Menu.Item>
-                  </Menu>
-                }
+            >
+              <span
+                style={{
+                  marginRight: 28,
+                  fontSize: 12,
+                  cursor: 'pointer',
+                }}
               >
+                🎉
                 <span
                   style={{
-                    marginRight: 28,
-                    fontSize: 12,
-                    cursor: 'pointer',
+                    marginLeft: 8,
                   }}
                 >
-                  🎉
-                  <span
-                    style={{
-                      marginLeft: 8,
-                    }}
-                  >
-                    {themeMode === 'light' ? '浅色主题' : '暗黑主题'}
-                  </span>
+                  {themeMode === 'light' ? '浅色主题' : '暗黑主题'}
                 </span>
-              </Dropdown>
-              <Tooltip
-                title={
-                  failedTaskList.length > 0
-                    ? formatMessage(
-                        {
-                          id: 'ocp-express.Layout.BasicLayout.FailedTaskCount',
-                          defaultMessage: '有 {failedTaskCount} 条失败任务',
-                        },
+              </span>
+            </Dropdown>
+            <Tooltip
+              title={
+                failedTaskList.length > 0
+                  ? formatMessage(
+                      {
+                        id: 'ocp-express.Layout.BasicLayout.FailedTaskCount',
+                        defaultMessage: '有 {failedTaskCount} 条失败任务',
+                      },
 
-                        { failedTaskCount: failedTaskList.length }
-                      )
-                    : runningTaskList.length > 0
-                    ? formatMessage(
-                        {
-                          id: 'ocp-express.Layout.BasicLayout.RunningTaskCount',
-                          defaultMessage: '有 {runningTaskCount} 条正在运行中的任务',
-                        },
+                      { failedTaskCount: failedTaskList.length }
+                    )
+                  : runningTaskList.length > 0
+                  ? formatMessage(
+                      {
+                        id: 'ocp-express.Layout.BasicLayout.RunningTaskCount',
+                        defaultMessage: '有 {runningTaskCount} 条正在运行中的任务',
+                      },
 
-                        { runningTaskCount: runningTaskList.length }
-                      )
-                    : formatMessage({
-                        id: 'ocp-express.Layout.BasicLayout.TaskCenter',
-                        defaultMessage: '任务中心',
-                      })
-                }
+                      { runningTaskCount: runningTaskList.length }
+                    )
+                  : formatMessage({
+                      id: 'ocp-express.Layout.BasicLayout.TaskCenter',
+                      defaultMessage: '任务中心',
+                    })
+              }
+            >
+              <span
+                data-aspm-click="c304248.d308744"
+                data-aspm-desc="顶部导航-任务中心入口"
+                onClick={() => {
+                  history.push('/task');
+                }}
+                style={{
+                  cursor: 'pointer',
+                  display: 'inline-block',
+                  textAlign: 'center',
+                  marginRight: 8,
+                  fontSize: 12,
+                }}
               >
-                <span
-                  data-aspm-click="c304248.d308744"
-                  data-aspm-desc="顶部导航-任务中心入口"
-                  onClick={() => {
-                    history.push('/task');
-                  }}
+                <Badge
+                  size="small"
+                  offset={[4, 0]}
+                  // count={failedTaskList.length || runningTaskList.length}
                   style={{
-                    cursor: 'pointer',
-                    display: 'inline-block',
-                    textAlign: 'center',
-                    marginRight: 8,
-                    fontSize: 12,
+                    backgroundColor:
+                      // 失败任务，展示红色圆点
+                      failedTaskList.length > 0
+                        ? token.colorError
+                        : // 存在执行中的任务，展示蓝色圆点
+                        runningTaskList.length > 0
+                        ? token.colorPrimary
+                        : undefined,
                   }}
                 >
-                  <Badge
-                    size="small"
-                    offset={[4, 0]}
-                    // count={failedTaskList.length || runningTaskList.length}
-                    style={{
-                      backgroundColor:
-                        // 失败任务，展示红色圆点
-                        failedTaskList.length > 0
-                          ? token.colorError
-                          : // 存在执行中的任务，展示蓝色圆点
-                          runningTaskList.length > 0
-                          ? token.colorPrimary
-                          : undefined,
-                    }}
-                  >
-                    <Space>
-                      <UnorderedListOutlined
-                        style={
-                          {
-                            // color: '#5c6b8a',
-                          }
+                  <Space>
+                    <UnorderedListOutlined
+                      style={
+                        {
+                          // color: '#5c6b8a',
                         }
-                      />
+                      }
+                    />
 
-                      <span
-                        style={{
-                          // color: token.colorTextTertiary,
-                          fontSize: 12,
-                        }}
-                      >
-                        任务
-                      </span>
-                    </Space>
-                  </Badge>
-                </span>
-              </Tooltip>
-            </div>
-          ),
+                    <span
+                      style={{
+                        // color: token.colorTextTertiary,
+                        fontSize: 12,
+                      }}
+                    >
+                      任务
+                    </span>
+                  </Space>
+                </Badge>
+              </span>
+            </Tooltip>
+          </div>
+        ),
 
-          username: userData.username,
-          userMenu,
-          showLocale: true,
-          locales: ['zh-CN', 'en-US'],
-          appData: {
-            shortName: 'OCP Express',
-            version: appInfo.buildVersion,
-            releaseTime: formatTime(appInfo.buildTime, DATE_FORMAT_DISPLAY),
-          },
+        username: userData.username,
+        userMenu,
+        showLocale: true,
+        locales: ['zh-CN', 'en-US'],
+        appData: {
+          shortName: 'OCP Express',
+          version: appInfo.buildVersion,
+          releaseTime: formatTime(appInfo.buildTime, DATE_FORMAT_DISPLAY),
+        },
+      }}
+      {...restProps}
+    >
+      {children}
+
+      <ModifyUserPasswordModal
+        visible={passwordVisible}
+        isSelf={true}
+        userData={userData}
+        onCancel={() => {
+          setPasswordVisible(false);
         }}
-        {...restProps}
-      >
-        {children}
+        onSuccess={() => {
+          setPasswordVisible(false);
+        }}
+      />
 
-        <ModifyUserPasswordModal
-          visible={passwordVisible}
-          isSelf={true}
-          userData={userData}
-          onCancel={() => {
-            setPasswordVisible(false);
-          }}
-          onSuccess={() => {
-            setPasswordVisible(false);
-          }}
-        />
-
-        <TenantAdminPasswordModal
-          visible={showTenantAdminPasswordModal}
-          type={tenantAdminPasswordErrorData?.type}
-          errorMessage={tenantAdminPasswordErrorData?.errorMessage}
-          tenantName={tenantAdminPasswordErrorData?.tenantName}
-          onCancel={() => {
-            dispatch({
-              type: 'global/update',
-              payload: {
-                showTenantAdminPasswordModal: false,
-                tenantAdminPasswordErrorData: {},
-              },
-            });
-          }}
-          onSuccess={() => {
-            dispatch({
-              type: 'global/update',
-              payload: {
-                showTenantAdminPasswordModal: false,
-                tenantAdminPasswordErrorData: {},
-              },
-            });
-          }}
-        />
-      </OBUIBasicLayout>
-    </ConfigProvider>
+      <TenantAdminPasswordModal
+        visible={showTenantAdminPasswordModal}
+        type={tenantAdminPasswordErrorData?.type}
+        errorMessage={tenantAdminPasswordErrorData?.errorMessage}
+        tenantName={tenantAdminPasswordErrorData?.tenantName}
+        onCancel={() => {
+          dispatch({
+            type: 'global/update',
+            payload: {
+              showTenantAdminPasswordModal: false,
+              tenantAdminPasswordErrorData: {},
+            },
+          });
+        }}
+        onSuccess={() => {
+          dispatch({
+            type: 'global/update',
+            payload: {
+              showTenantAdminPasswordModal: false,
+              tenantAdminPasswordErrorData: {},
+            },
+          });
+        }}
+      />
+    </OBUIBasicLayout>
   );
 };
 

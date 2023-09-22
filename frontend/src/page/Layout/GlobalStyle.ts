@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'antd-style';
 
-const Global = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   body, .ob-layout {
     background: ${(p) => p.theme.colorBgLayout};
   }
@@ -20,8 +20,8 @@ const Global = createGlobalStyle`
   }
   .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu-inline .ant-menu-item-selected {
     ${(p) => {
-        return p.themeMode === 'dark' ? `background-image: none; background: ${p.theme.controlItemBgActive}` : ''
-    }}
+    return p.themeMode === 'dark' ? `background-image: none; background: ${p.theme.controlItemBgActive}` : ''
+  }}
   }
   .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu .ant-menu-item, .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu .ant-menu-submenu {
     color: ${(p) => p.theme.colorText};
@@ -31,14 +31,14 @@ const Global = createGlobalStyle`
   }
   .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu-vertical .ant-menu-item-selected .ant-menu-title-content {
     ${(p) => {
-        return p.themeMode === 'dark' ? `background: ${p.theme.controlItemBgActive}; border: 0.5px solid ${p.theme.colorBorderSecondary}` : ''
-    }}
+    return p.themeMode === 'dark' ? `background: ${p.theme.controlItemBgActive}; border: 0.5px solid ${p.theme.colorBorderSecondary}` : ''
+  }}
   }
   .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu-inline .ant-divider {
     ${(p) => {
-        return p.themeMode === 'dark' ? 'border-image: none;' : ''
-    }}
+    return p.themeMode === 'dark' ? 'border-image: none;' : ''
+  }}
   }
 `;
 
-export default Global;
+export default GlobalStyle;

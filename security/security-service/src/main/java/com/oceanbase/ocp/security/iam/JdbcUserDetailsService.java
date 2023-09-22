@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 
 import com.oceanbase.ocp.core.exception.TooManyAttemptException;
 import com.oceanbase.ocp.core.security.model.AuthenticatedUser;
-import com.oceanbase.ocp.core.util.WebRequestUtils;
 import com.oceanbase.ocp.security.iam.dao.UserRepository;
 import com.oceanbase.ocp.security.iam.entity.UserEntity;
 
@@ -38,7 +37,6 @@ public class JdbcUserDetailsService implements UserDetailsService {
 
     @Autowired
     private HttpServletRequest request;
-
     @Autowired
     private UserLoginAttemptManager userLoginAttemptManager;
 
@@ -58,9 +56,7 @@ public class JdbcUserDetailsService implements UserDetailsService {
             return entity.toAuthenticatedUser();
         }
 
-        if (!WebRequestUtils.isBasicAuth(request)) {
-            checkUserAttempts(entity);
-        }
+        checkUserAttempts(entity);
         return entity.toAuthenticatedUser();
     }
 

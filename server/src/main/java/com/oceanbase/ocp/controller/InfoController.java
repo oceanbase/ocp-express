@@ -11,20 +11,17 @@
  */
 package com.oceanbase.ocp.controller;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.oceanbase.ocp.common.util.HostUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.druid.stat.DruidStatManagerFacade;
-
-import com.oceanbase.ocp.common.util.HostUtils;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -64,11 +61,6 @@ public class InfoController {
         infoMap.put("springBootVersion", buildProperties.get("spring-boot.version"));
         infoMap.put("server", HostUtils.getLocalIp());
         return infoMap;
-    }
-
-    @GetMapping("/druid/stat")
-    public Object druidStat() {
-        return DruidStatManagerFacade.getInstance().getDataSourceStatDataList();
     }
 
 }

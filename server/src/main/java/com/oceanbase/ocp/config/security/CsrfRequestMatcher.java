@@ -12,11 +12,10 @@
 
 package com.oceanbase.ocp.config.security;
 
-import java.util.Arrays;
-import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.oceanbase.ocp.common.util.trace.TraceUtils;
+import com.oceanbase.ocp.core.util.WebRequestUtils;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -25,10 +24,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import com.oceanbase.ocp.common.util.trace.TraceUtils;
-
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  * Enables CSRF protection with whitelists of headers, http methods, and url
@@ -43,9 +41,6 @@ public class CsrfRequestMatcher implements RequestMatcher {
 
     private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
 
-    @Value("${ocp.iam.csrf.header.excluded:ocp-sdk}")
-    private String[] excludedHeaders;
-
     @Value("${ocp.iam.csrf.url.excluded:/}")
     private String[] excludedUrls;
 
@@ -57,8 +52,7 @@ public class CsrfRequestMatcher implements RequestMatcher {
             return false;
         }
 
-        // Skip CSRF protection - excluded headers
-        if (headerMatches(request, excludedHeaders)) {
+        if (WebRequestUtils.isBasicAuth(request)) {
             return false;
         }
 

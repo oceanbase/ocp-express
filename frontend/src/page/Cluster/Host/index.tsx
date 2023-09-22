@@ -24,7 +24,7 @@ import {
   Button,
   Descriptions,
   Modal,
-  useToken,
+  token,
 } from '@oceanbase/design';
 import React from 'react';
 import { groupBy, sum, uniq } from 'lodash';
@@ -67,7 +67,6 @@ interface DataItem {
 
 const Index: React.FC<BasicProps> = ({ match }) => {
   const { styles } = useStyles();
-  const { token } = useToken();
 
   const ip = match?.params?.ip;
   const obSvrPort = match?.params?.serverPort;

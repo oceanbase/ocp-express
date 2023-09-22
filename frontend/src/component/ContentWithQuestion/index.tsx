@@ -11,7 +11,7 @@
  */
 
 import React from 'react';
-import { useToken } from '@oceanbase/design';
+import { token } from '@oceanbase/design';
 import type { TooltipProps } from 'antd/es/tooltip';
 import { QuestionCircleOutlined } from '@oceanbase/icons';
 import ContentWithIcon from '@/component/ContentWithIcon';
@@ -33,7 +33,7 @@ const ContentWithQuestion: React.FC<ContentWithQuestionProps> = ({
   inLabel,
   ...restProps
 }) => {
-  const { token } = useToken();
+
   return (
     <ContentWithIcon
       content={content}

@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
 import React, { useState } from 'react';
-import { Badge, Card, Radio, Space, Table, useToken } from '@oceanbase/design';
+import { Badge, Card, Radio, Space, Table, token } from '@oceanbase/design';
 import { omitBy, some, toNumber } from 'lodash';
 import moment from 'moment';
 import { PageContainer } from '@oceanbase/ui';
@@ -61,8 +61,6 @@ const Task: React.FC<TaskProps> = ({
   const [status, setStatus] = useState(query.status || '');
   const [taskName, setTaskName] = useState(query.name);
   const [page, setPage] = useState(initialPage);
-
-  const { token } = useToken();
 
   const { tableProps, loading, refresh } = getTableData({
     fn: TaskController.listTaskInstances,

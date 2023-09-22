@@ -104,8 +104,8 @@ export function getCompactionResult(tenantCompaction?: API.TenantCompaction) {
     ? 'FAIL'
     : // 合并中
     tenantCompaction?.status === 'COMPACTING'
-    ? 'COMPACTING'
-    : // 合并成功
+      ? 'COMPACTING'
+      : // 合并成功
       'SUCCESS';
 }
 
@@ -144,8 +144,8 @@ export function getUnitSpecLimit(
   if (cpuCoreTotal && cpuCoreAssigned && memoryInBytesTotal && memoryInBytesAssigned) {
     // OBServer 剩余资源
     idleCpuCoreTotal = cpuCoreTotal - cpuCoreAssigned;
-    idleMemoryInBytesTotal = toNumber(
-      ((memoryInBytesTotal - memoryInBytesAssigned) / (1024 * 1024 * 1024)).toFixed(0)
+    idleMemoryInBytesTotal = Math.floor(toNumber(
+      ((memoryInBytesTotal - memoryInBytesAssigned) / (1024 * 1024 * 1024)))
     );
   }
 

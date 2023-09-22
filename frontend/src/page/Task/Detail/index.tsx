@@ -27,7 +27,7 @@ import {
 import type { Route } from '@oceanbase/design/es/breadcrumb/Breadcrumb';
 import { find, isFunction, toNumber } from 'lodash';
 import { PageContainer } from '@oceanbase/ui';
-import { useToken } from '@oceanbase/design';
+import { token } from '@oceanbase/design';
 import { isNullValue, findByValue } from '@oceanbase/util';
 import Icon from '@oceanbase/icons';
 import { useRequest, useInterval, useLockFn } from 'ahooks';
@@ -91,8 +91,6 @@ const Detail: React.FC<DetailProps> = ({
   const [subtaskId, setSubtaskId] = useState<number | string | undefined>(undefined);
   const logRef = useRef<TaskGraphRef>(null);
   const flowRef = useRef<TaskGraphRef>(null);
-
-  const { token } = useToken();
 
   // 获取任务详情
   const { data, refresh, loading } = useRequest(TaskController.getTaskInstance, {

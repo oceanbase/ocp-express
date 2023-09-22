@@ -32,13 +32,9 @@ public interface DbUserService {
 
     void grantGlobalPrivilege(Long obTenantId, String username, List<String> privilegeStrings);
 
-    void revokeGlobalPrivilege(Long obTenantId, String username, List<String> privilegeStrings);
-
     void modifyGlobalPrivilege(Long obTenantId, String username, List<String> privilegeStrings);
 
     void grantDbPrivilege(Long obTenantId, String username, List<DbPrivilegeParam> dbPrivileges);
-
-    void revokeDbPrivilege(Long obTenantId, String username, List<DbPrivilegeParam> dbPrivileges);
 
     void modifyDbPrivilege(Long obTenantId, String username, List<DbPrivilegeParam> dbPrivileges);
 

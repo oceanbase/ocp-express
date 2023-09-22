@@ -15,7 +15,7 @@ import { history } from 'umi';
 import React from 'react';
 import moment from 'moment';
 import { max } from 'lodash';
-import { Empty, Col, Row, useToken } from '@oceanbase/design';
+import { Empty, Col, Row, token } from '@oceanbase/design';
 import { TinyColumn } from '@oceanbase/charts';
 import { useRequest } from 'ahooks';
 import * as ObSqlStatController from '@/service/ocp-express/ObSqlStatController';
@@ -32,7 +32,7 @@ export interface SlowSQLTop3Props {
 
 const SlowSQLTop3: React.FC<SlowSQLTop3Props> = () => {
   const { styles } = useStyles();
-  const { token } = useToken();
+
   // 获取租户 SlowSQL 数 Top3 (最近 6 小时)
   const startTime = moment().subtract(6, 'hour').format(RFC3339_DATE_TIME_FORMAT);
   const endTime = moment().format(RFC3339_DATE_TIME_FORMAT);
@@ -46,7 +46,7 @@ const SlowSQLTop3: React.FC<SlowSQLTop3Props> = () => {
     ],
   });
   let topSlowSqlList = topSlowSqlListData?.data?.contents || [];
-  const maxSlowSqlCount = max(topSlowSqlList.map((item) => item.count));
+  const maxSlowSqlCount = max(topSlowSqlList.map(item => item.count));
 
   // 数据不够，补足三列
   if (topSlowSqlList.length === 1) {
@@ -171,7 +171,7 @@ const SlowSQLTop3: React.FC<SlowSQLTop3Props> = () => {
                                   x: string;
                                   y: number;
                                 };
-                              }[],
+                              }[]
                             ) => {
                               const data = items?.[0]?.data || {};
                               const text = formatMessage(
@@ -179,7 +179,7 @@ const SlowSQLTop3: React.FC<SlowSQLTop3Props> = () => {
                                   id: 'ocp-express.Component.SlowSQLTop3.Datay',
                                   defaultMessage: '{dataY} 条',
                                 },
-                                { dataY: data.y },
+                                { dataY: data.y }
                               );
 
                               return `<div style="padding: 4px">${text}</div>`;

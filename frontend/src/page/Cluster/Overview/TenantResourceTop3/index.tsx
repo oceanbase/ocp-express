@@ -17,7 +17,7 @@ import { max } from 'lodash';
 import moment from 'moment';
 import { Progress } from '@oceanbase/charts';
 import { toPercent } from '@oceanbase/charts/es/util/number';
-import { Col, Empty, Row, Typography, useToken } from '@oceanbase/design';
+import { Col, Empty, Row, Typography, token } from '@oceanbase/design';
 import { useRequest } from 'ahooks';
 import * as MonitorController from '@/service/ocp-express/MonitorController';
 import MyCard from '@/component/MyCard';
@@ -29,8 +29,6 @@ import { isNullValue } from '@oceanbase/util';
 export interface TenantResourceTop3Props {}
 
 const TenantResourceTop3: React.FC<TenantResourceTop3Props> = () => {
-  const { token } = useToken();
-
   const commonParams = {
     endTime: moment().format(RFC3339_DATE_TIME_FORMAT),
     labels: 'app:OB',

@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
 import React from 'react';
-import { Empty, Col, Row, useToken } from '@oceanbase/design';
+import { Empty, Col, Row, token } from '@oceanbase/design';
 import { TinyArea, useTheme } from '@oceanbase/charts';
 import { orderBy, maxBy } from 'lodash';
 import { useRequest } from 'ahooks';
@@ -28,8 +28,8 @@ export interface CompactionTimeTop3Props {}
 
 const CompactionTimeTop3: React.FC<CompactionTimeTop3Props> = () => {
   const { styles } = useStyles();
-  const { token } = useToken();
   const theme = useTheme();
+
   // 获取合并时间 Top3 的租户合并数据
   const { data: topCompactionListData, loading } = useRequest(
     ObTenantCompactionController.topCompactions,

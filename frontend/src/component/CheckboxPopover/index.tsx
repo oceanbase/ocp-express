@@ -12,16 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import {
-  Typography,
-  Row,
-  Col,
-  Divider,
-  Checkbox,
-  Space,
-  Popover,
-  useToken,
-} from '@oceanbase/design';
+import { Typography, Row, Col, Divider, Checkbox, Space, Popover, token } from '@oceanbase/design';
 import type { PopoverProps } from 'antd/es/popover';
 import type { CheckboxOptionType } from 'antd/es/checkbox';
 import { groupBy, some, uniq } from 'lodash';
@@ -62,12 +53,12 @@ const CheckboxPopover = ({
   ...restProps
 }: CheckboxPopoverProps) => {
   const { styles } = useStyles();
-  const { token } = useToken();
+
   // 分组列表
-  const groupList = uniq(options?.map((item) => item.group));
+  const groupList = uniq(options?.map(item => item.group));
   const groupByData = groupBy(options, 'group');
   // 分组选项存在多于 3 个的情况下，设置最大宽度，否则设置最小宽度
-  const width = some(Object.keys(groupByData), (key) => groupByData[key].length > 3) ? 608 : 480;
+  const width = some(Object.keys(groupByData), key => groupByData[key].length > 3) ? 608 : 480;
   return (
     <Popover
       overlayStyle={{
@@ -94,7 +85,7 @@ const CheckboxPopover = ({
                           id: 'ocp-express.component.CheckboxPopover.YouCanSelectUpTo',
                           defaultMessage: '最多可选择 {maxSelectCount} 个对象',
                         },
-                        { maxSelectCount: maxSelectCount },
+                        { maxSelectCount: maxSelectCount }
                       )}
                   </span>
                 </span>
@@ -115,7 +106,7 @@ const CheckboxPopover = ({
           <Divider style={{ margin: 0 }} />
           <Checkbox.Group
             value={value}
-            onChange={(newValue) => {
+            onChange={newValue => {
               onChange(newValue);
             }}
             style={{
@@ -134,8 +125,8 @@ const CheckboxPopover = ({
 
                   <Row gutter={[16, 16]}>
                     {options
-                      ?.filter((item) => !group || item.group === group)
-                      ?.map((item) => {
+                      ?.filter(item => !group || item.group === group)
+                      ?.map(item => {
                         return (
                           <Col key={item.value} span={item.span || 6}>
                             <Checkbox
@@ -151,8 +142,8 @@ const CheckboxPopover = ({
                                 tooltip={
                                   item.description
                                     ? {
-                                      title: item.description,
-                                    }
+                                        title: item.description,
+                                      }
                                     : false
                                 }
                               />

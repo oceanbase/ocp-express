@@ -7603,6 +7603,7 @@ export default {
   "ocp-express.component.UnitSpec.Nuclear": "核",
   "ocp-express.component.UnitSpec.CurrentConfigurableRangeValueCpulowerlimitIdlecpucore": "当前可配置范围值 {cpuLowerLimit}~{idleCpuCore}",
   "ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes": "当前可配置范围值 {memoryLowerLimit}~{idleMemoryInBytes}",
+  "ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes2": "当前可配置资源不足",
   "ocp-express.src.constant.backup.CreateABackupPolicy": "新建备份策略",
   "ocp-express.src.constant.backup.PauseBackupScheduling": "暂停备份调度",
   "ocp-express.src.constant.backup.StartBackupScheduling": "启动备份调度",

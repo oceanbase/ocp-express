@@ -35,8 +35,6 @@ import com.oceanbase.ocp.obops.database.model.DbRole;
 import com.oceanbase.ocp.obops.database.model.DbUser;
 import com.oceanbase.ocp.obops.database.param.CreateDbRoleParam;
 import com.oceanbase.ocp.obops.database.param.CreateDbUserParam;
-import com.oceanbase.ocp.obops.database.param.GrantDbPrivilegeParam;
-import com.oceanbase.ocp.obops.database.param.GrantGlobalPrivilegeParam;
 import com.oceanbase.ocp.obops.database.param.GrantObjectPrivilegeParam;
 import com.oceanbase.ocp.obops.database.param.GrantRoleParam;
 import com.oceanbase.ocp.obops.database.param.ModifyDbPrivilegeParam;
@@ -44,8 +42,6 @@ import com.oceanbase.ocp.obops.database.param.ModifyDbUserPasswordParam;
 import com.oceanbase.ocp.obops.database.param.ModifyGlobalPrivilegeParam;
 import com.oceanbase.ocp.obops.database.param.ModifyObjectPrivilegeParam;
 import com.oceanbase.ocp.obops.database.param.ModifyRoleParam;
-import com.oceanbase.ocp.obops.database.param.RevokeDbPrivilegeParam;
-import com.oceanbase.ocp.obops.database.param.RevokeGlobalPrivilegeParam;
 import com.oceanbase.ocp.obops.database.param.RevokeObjectPrivilegeParam;
 import com.oceanbase.ocp.obops.database.param.RevokeRoleParam;
 import com.oceanbase.ocp.obsdk.accessor.user.model.DbObject;
@@ -119,43 +115,11 @@ public class ObUserController {
         return ResponseBuilder.noData();
     }
 
-    @PostMapping(value = "/ob/tenants/{tenantId:[\\d]+}/users/{username}/grantGlobalPrivilege",
-            produces = {"application/json"}, consumes = {"application/json"})
-    public NoDataResponse grantGlobalPrivilege(@PathVariable("tenantId") Long tenantId,
-            @PathVariable("username") String username, @Valid @RequestBody GrantGlobalPrivilegeParam param) {
-        dbUserService.grantGlobalPrivilege(tenantId, username, param.getGlobalPrivileges());
-        return ResponseBuilder.noData();
-    }
-
-    @PostMapping(value = "/ob/tenants/{tenantId:[\\d]+}/users/{username}/revokeGlobalPrivilege",
-            produces = {"application/json"}, consumes = {"application/json"})
-    public NoDataResponse revokeGlobalPrivilege(@PathVariable("tenantId") Long tenantId,
-            @PathVariable("username") String username, @Valid @RequestBody RevokeGlobalPrivilegeParam param) {
-        dbUserService.revokeGlobalPrivilege(tenantId, username, param.getGlobalPrivileges());
-        return ResponseBuilder.noData();
-    }
-
     @PostMapping(value = "/ob/tenants/{tenantId:[\\d]+}/users/{username}/modifyGlobalPrivilege",
             produces = {"application/json"}, consumes = {"application/json"})
     public NoDataResponse modifyGlobalPrivilege(@PathVariable("tenantId") Long tenantId,
             @PathVariable("username") String username, @Valid @RequestBody ModifyGlobalPrivilegeParam param) {
         dbUserService.modifyGlobalPrivilege(tenantId, username, param.getGlobalPrivileges());
-        return ResponseBuilder.noData();
-    }
-
-    @PostMapping(value = "/ob/tenants/{tenantId:[\\d]+}/roles/{roleName}/grantGlobalPrivilege",
-            produces = {"application/json"}, consumes = {"application/json"})
-    public NoDataResponse grantGlobalPrivilegeToRole(@PathVariable("tenantId") Long tenantId,
-            @PathVariable("roleName") String roleName, @Valid @RequestBody GrantGlobalPrivilegeParam param) {
-        dbRoleService.grantGlobalPrivilege(tenantId, roleName, param.getGlobalPrivileges());
-        return ResponseBuilder.noData();
-    }
-
-    @PostMapping(value = "/ob/tenants/{tenantId:[\\d]+}/roles/{roleName}/revokeGlobalPrivilege",
-            produces = {"application/json"}, consumes = {"application/json"})
-    public NoDataResponse revokeGlobalPrivilegeFromRole(@PathVariable("tenantId") Long tenantId,
-            @PathVariable("roleName") String roleName, @Valid @RequestBody RevokeGlobalPrivilegeParam param) {
-        dbRoleService.revokeGlobalPrivilege(tenantId, roleName, param.getGlobalPrivileges());
         return ResponseBuilder.noData();
     }
 
@@ -212,22 +176,6 @@ public class ObUserController {
     public NoDataResponse modifyRoleFromRole(@PathVariable("tenantId") Long tenantId,
             @PathVariable("roleName") String roleName, @Valid @RequestBody ModifyRoleParam param) {
         dbRoleService.modifyRole(tenantId, roleName, param.getRoles());
-        return ResponseBuilder.noData();
-    }
-
-    @PostMapping(value = "/ob/tenants/{tenantId:[\\d]+}/users/{username}/grantDbPrivilege",
-            produces = {"application/json"}, consumes = {"application/json"})
-    public NoDataResponse grantDbPrivilege(@PathVariable("tenantId") Long tenantId,
-            @PathVariable("username") String username, @Valid @RequestBody GrantDbPrivilegeParam param) {
-        dbUserService.grantDbPrivilege(tenantId, username, param.getDbPrivileges());
-        return ResponseBuilder.noData();
-    }
-
-    @PostMapping(value = "/ob/tenants/{tenantId:[\\d]+}/users/{username}/revokeDbPrivilege",
-            produces = {"application/json"}, consumes = {"application/json"})
-    public NoDataResponse revokeDbPrivilege(@PathVariable("tenantId") Long tenantId,
-            @PathVariable("username") String username, @Valid @RequestBody RevokeDbPrivilegeParam param) {
-        dbUserService.revokeDbPrivilege(tenantId, username, param.getDbPrivileges());
         return ResponseBuilder.noData();
     }
 

@@ -14,6 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { getLocale, history, useSelector } from 'umi';
 import React, { useEffect } from 'react';
 import { ConfigProvider, theme } from '@oceanbase/design';
+import { ChartProvider } from '@oceanbase/charts';
 import en_US from 'antd/es/locale/en_US';
 import zh_CN from 'antd/es/locale/zh_CN';
 import BlankLayout from './BlankLayout';
@@ -51,10 +52,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         algorithm: themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <GlobalStyle themeMode={themeMode} />
-      <ErrorBoundary>
-        <BlankLayout>{children}</BlankLayout>
-      </ErrorBoundary>
+      <ChartProvider theme={themeMode}>
+        <GlobalStyle themeMode={themeMode} />
+        <ErrorBoundary>
+          <BlankLayout>{children}</BlankLayout>
+        </ErrorBoundary>
+      </ChartProvider>
     </ConfigProvider>
   );
 };

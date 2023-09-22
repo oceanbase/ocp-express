@@ -164,18 +164,6 @@ public class DbUserServiceImpl implements DbUserService {
     }
 
     @Override
-    public void revokeGlobalPrivilege(Long obTenantId, String username, List<String> privilegeStrings) {
-        ObTenantEntity tenantEntity = tenantDaoManager.nullSafeGetObTenant(obTenantId);
-        checkUserOperationAllowed(tenantEntity, username);
-        List<GlobalPrivilege> privileges =
-                DbPrivilegeUtils.parseGlobalPrivileges(privilegeStrings, tenantEntity.getMode());
-
-        ObAccessor obAccessor = obAccessorFactory.createObAccessor(obTenantId);
-        checkUserExist(obAccessor, username);
-        dbPrivilegeManager.revokeGlobalPrivilege(obTenantId, Grantee.user(username), privileges);
-    }
-
-    @Override
     public void modifyGlobalPrivilege(Long obTenantId, String username, List<String> privilegeStrings) {
         ObTenantEntity tenantEntity = tenantDaoManager.nullSafeGetObTenant(obTenantId);
         checkUserOperationAllowed(tenantEntity, username);
@@ -199,17 +187,6 @@ public class DbUserServiceImpl implements DbUserService {
         ObAccessor obAccessor = obAccessorFactory.createObAccessor(obTenantId);
         checkUserExist(obAccessor, username);
         dbPrivilegeManager.grantDbPrivilege(obTenantId, Grantee.user(username), mapDbPrivilege(dbPrivileges));
-    }
-
-    @Override
-    public void revokeDbPrivilege(Long obTenantId, String username, List<DbPrivilegeParam> dbPrivileges) {
-        ObTenantEntity tenantEntity = tenantDaoManager.nullSafeGetObTenant(obTenantId);
-        checkMysqlPrivilegeManagementSupported(tenantEntity);
-        checkUserOperationAllowed(tenantEntity, username);
-
-        ObAccessor obAccessor = obAccessorFactory.createObAccessor(obTenantId);
-        checkUserExist(obAccessor, username);
-        dbPrivilegeManager.revokeDbPrivilege(obTenantId, Grantee.user(username), mapDbPrivilege(dbPrivileges));
     }
 
     @Override

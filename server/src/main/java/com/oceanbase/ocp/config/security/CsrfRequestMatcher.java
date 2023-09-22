@@ -26,6 +26,7 @@ import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import com.oceanbase.ocp.common.util.trace.TraceUtils;
+import com.oceanbase.ocp.core.util.WebRequestUtils;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -43,9 +44,6 @@ public class CsrfRequestMatcher implements RequestMatcher {
 
     private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
 
-    @Value("${ocp.iam.csrf.header.excluded:ocp-sdk}")
-    private String[] excludedHeaders;
-
     @Value("${ocp.iam.csrf.url.excluded:/}")
     private String[] excludedUrls;
 
@@ -57,8 +55,7 @@ public class CsrfRequestMatcher implements RequestMatcher {
             return false;
         }
 
-        // Skip CSRF protection - excluded headers
-        if (headerMatches(request, excludedHeaders)) {
+        if (WebRequestUtils.isBasicAuth(request)) {
             return false;
         }
 

@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.druid.stat.DruidStatManagerFacade;
-
 import com.oceanbase.ocp.common.util.HostUtils;
 
 @RestController
@@ -64,11 +62,6 @@ public class InfoController {
         infoMap.put("springBootVersion", buildProperties.get("spring-boot.version"));
         infoMap.put("server", HostUtils.getLocalIp());
         return infoMap;
-    }
-
-    @GetMapping("/druid/stat")
-    public Object druidStat() {
-        return DruidStatManagerFacade.getInstance().getDataSourceStatDataList();
     }
 
 }

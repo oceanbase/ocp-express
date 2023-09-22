@@ -15,10 +15,12 @@ const GlobalStyle = createGlobalStyle`
     border-bottom: 1px solid ${(p) => p.theme.colorBorderSecondary} !important;
     box-shadow: none;
   }
-  .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu-inline .ant-menu-item-selected {
-    ${(p) => {
+  .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu {
+    .ant-menu-item-selected, .ant-menu-item-active, .ant-menu-submenu-active {
+      ${(p) => {
     return p.themeMode === 'dark' ? `background-image: none; background: ${p.theme.controlItemBgActive}` : ''
   }}
+    }
   }
   .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu .ant-menu-item, .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu .ant-menu-submenu {
     color: ${(p) => p.theme.colorText};

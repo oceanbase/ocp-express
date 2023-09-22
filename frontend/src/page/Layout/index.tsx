@@ -17,6 +17,7 @@ import { ConfigProvider, theme } from '@oceanbase/design';
 import { ChartProvider } from '@oceanbase/charts';
 import en_US from 'antd/es/locale/en_US';
 import zh_CN from 'antd/es/locale/zh_CN';
+import { ThemeProvider } from 'antd-style';
 import BlankLayout from './BlankLayout';
 import ErrorBoundary from '@/component/ErrorBoundary';
 import GlobalStyle from './GlobalStyle';
@@ -52,12 +53,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         algorithm: themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <ChartProvider theme={themeMode}>
-        <GlobalStyle themeMode={themeMode} />
-        <ErrorBoundary>
-          <BlankLayout>{children}</BlankLayout>
-        </ErrorBoundary>
-      </ChartProvider>
+      <ThemeProvider appearance={themeMode}>
+        <ChartProvider theme={themeMode}>
+          <GlobalStyle themeMode={themeMode} />
+          <ErrorBoundary>
+            <BlankLayout>{children}</BlankLayout>
+          </ErrorBoundary>
+        </ChartProvider>
+      </ThemeProvider>
     </ConfigProvider>
   );
 };

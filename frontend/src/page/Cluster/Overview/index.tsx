@@ -41,7 +41,7 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({
   match: {
-    params: { },
+    params: {},
   },
   loading,
   clusterData,
@@ -296,7 +296,6 @@ const Detail: React.FC<DetailProps> = ({
                   style={{
                     fontWeight: 'normal',
                     lineHeight: '24px',
-                    color: '#5C6B8A',
                     position: 'relative',
                     top: -4,
                   }}

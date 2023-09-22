@@ -9,7 +9,7 @@ const useStyles = createStyles(({ token }) => {
       fontSize: "12px",
       background: token.colorBgLayout,
       border: "0.5px solid rgba(0, 0, 0, 0.06)",
-      borderRadius: "2px",
+      borderRadius: token.borderRadius,
       img: { width: "16px", height: "16px", marginTop: "4px" },
       ".ant-badge-status-text": { fontSize: "12px" },
       ".ant-typography": { fontSize: "12px" },

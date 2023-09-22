@@ -23,7 +23,7 @@ import {
   Typography,
   token,
 } from '@oceanbase/design';
-import { FullscreenBox } from '@oceanbase/ui'
+import { FullscreenBox } from '@oceanbase/ui';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   CarryOutOutlined,
@@ -235,7 +235,7 @@ const LogCard: React.FC<LogCardProps> = ({
                   overlay={
                     // 下拉菜单的最大高度为 300px，超过则滚动展示，避免节点数过多超出屏幕外
                     <Menu style={{ maxHeight: 300, overflow: 'auto' }}>
-                      {collapsedLogNodeList.map((item) => (
+                      {collapsedLogNodeList.map(item => (
                         <Menu.Item
                           key={item}
                           onClick={() => {
@@ -244,7 +244,10 @@ const LogCard: React.FC<LogCardProps> = ({
                           style={
                             // 设置 active 样式
                             item === logNode
-                              ? { backgroundColor: token.colorPrimary, color: '#ffffff' }
+                              ? {
+                                  backgroundColor: token.colorPrimary,
+                                  color: token.colorTextLightSolid,
+                                }
                               : {}
                           }
                         >
@@ -357,7 +360,7 @@ const LogCard: React.FC<LogCardProps> = ({
       >
         <div
           id="ocp-subtask-log-wrapper"
-          onScroll={(e) => {
+          onScroll={e => {
             const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
             // 当滚动到日志底部，才允许自动滚动
             if (

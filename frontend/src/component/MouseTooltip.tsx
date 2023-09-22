@@ -78,7 +78,7 @@ const MouseTooltip: React.FC<MouseTooltipProps> = ({
           boxShadow: token.boxShadowSecondary,
           padding: '16px 24px',
           borderRadius: token.borderRadius,
-          background: '#fff',
+          background: token.colorBgContainer,
           maxWidth: 300,
           ...style,
         }}

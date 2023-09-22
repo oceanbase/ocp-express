@@ -97,7 +97,7 @@ const New: React.FC<NewProps> = ({
   useDocumentTitle(
     isClone
       ? formatMessage({ id: 'ocp-express.Tenant.New.CopyTenant', defaultMessage: '复制租户' })
-      : formatMessage({ id: 'ocp-express.Tenant.New.CreateATenant', defaultMessage: '新建租户' }),
+      : formatMessage({ id: 'ocp-express.Tenant.New.CreateATenant', defaultMessage: '新建租户' })
   );
 
   const {
@@ -118,7 +118,7 @@ const New: React.FC<NewProps> = ({
     {
       manual: false,
       defaultParams: [{}],
-    },
+    }
   );
 
   const clusterUnitSpecLimit = clusterUnitSpecLimitData?.data || {};
@@ -127,7 +127,7 @@ const New: React.FC<NewProps> = ({
     ObClusterController.listCharsets,
     {
       manual: false,
-    },
+    }
   );
 
   const charsetList = charsetListData?.data?.contents || [];
@@ -137,7 +137,7 @@ const New: React.FC<NewProps> = ({
       // 获取字符集列表后再设置 collation 列表，因为两者有先后依赖关系
       listCharsets({
         tenantMode: 'MYSQL',
-      }).then((charsetRes) => {
+      }).then(charsetRes => {
         handleCharsetChange('utf8mb4', charsetRes.data?.contents || []);
       });
       if (isClone) {
@@ -151,7 +151,7 @@ const New: React.FC<NewProps> = ({
   useEffect(() => {
     if (!isClone) {
       setFieldsValue({
-        zones: (clusterData?.zones || []).map((item) => ({
+        zones: (clusterData?.zones || []).map(item => ({
           checked: true,
           name: item.name,
           replicaType: 'FULL',
@@ -168,11 +168,11 @@ const New: React.FC<NewProps> = ({
   // 获取租户数据: 仅在复制租户时调用
   const { data: tenantInfo, run: getTenantData } = useRequest(ObTenantController.getTenant, {
     manual: true,
-    onSuccess: (res) => {
+    onSuccess: res => {
       if (res.successful) {
         const sourceTenantData = res?.data || {};
 
-        const sourceZones = (sourceTenantData?.zones || []).map((item) => ({
+        const sourceZones = (sourceTenantData?.zones || []).map(item => ({
           name: item.name,
           replicaType: item.replicaType,
           unitCount: item.resourcePool?.unitCount,
@@ -183,9 +183,9 @@ const New: React.FC<NewProps> = ({
         const charset = sourceTenantData.charset || 'utf8mb4';
         setFieldsValue({
           name: `${sourceTenantData.name}_clone`,
-          zonesUnitCount: tenantData.zones?.map((item) => item.units?.length)?.[0] || 1,
-          zones: (clusterData.zones || []).map((zone) => {
-            const replicaZone = sourceZones.find((item) => item.name === zone.name);
+          zonesUnitCount: tenantData.zones?.map(item => item.units?.length)?.[0] || 1,
+          zones: (clusterData.zones || []).map(zone => {
+            const replicaZone = sourceZones.find(item => item.name === zone.name);
 
             return {
               name: zone.name,
@@ -193,15 +193,15 @@ const New: React.FC<NewProps> = ({
               memorySize: replicaZone?.unitConfig?.maxMemorySize,
               ...(replicaZone
                 ? {
-                  // 已分布副本的 Zone，已勾选
-                  checked: true,
-                  ...replicaZone,
-                }
+                    // 已分布副本的 Zone，已勾选
+                    checked: true,
+                    ...replicaZone,
+                  }
                 : {
-                  // 未分布副本的 Zone，未勾选
-                  checked: false,
-                  replicaType: 'FULL',
-                }),
+                    // 未分布副本的 Zone，未勾选
+                    checked: false,
+                    replicaType: 'FULL',
+                  }),
             };
           }),
           mode: sourceTenantData.mode,
@@ -215,7 +215,7 @@ const New: React.FC<NewProps> = ({
         // 获取字符集列表后再设置 collation 列表，因为两者有先后依赖关系
         listCharsets({
           tenantMode: sourceTenantData.mode,
-        }).then((charsetRes) => {
+        }).then(charsetRes => {
           // 需要从 charsetRes 获取最新的字符集列表
           const newChartsetList = charsetRes.data?.contents || [];
           setCollations(findBy(newChartsetList, 'name', charset)?.collations || []);
@@ -235,27 +235,27 @@ const New: React.FC<NewProps> = ({
     ObTenantController.createTenant,
     {
       manual: true,
-      onSuccess: (res) => {
+      onSuccess: res => {
         if (res.successful) {
           const taskId = res?.data?.id;
           history.push(`/tenant/result/${taskId}`);
         }
       },
-    },
+    }
   );
 
   const handleSubmit = () => {
-    validateFields().then((values) => {
+    validateFields().then(values => {
       const { zones, zonesUnitCount, rootPassword, ...restValues } = values;
-      getLoginKey().then((response) => {
+      getLoginKey().then(response => {
         const publicKey = response?.data?.publicKey || '';
         addTenant({
           ...restValues,
           rootPassword: encrypt(rootPassword, publicKey),
           zones: zones
             // 仅提交勾选的 Zone 副本
-            ?.filter((item) => item.checked)
-            ?.map((item) => {
+            ?.filter(item => item.checked)
+            ?.map(item => {
               const { name, replicaType, cpuCore, memorySize, unitCount } = item;
               return {
                 name,
@@ -282,12 +282,9 @@ const New: React.FC<NewProps> = ({
   };
 
   const replicaTypeTooltipConfig = {
-    color: '#fff',
     overlayStyle: {
       maxWidth: 400,
     },
-
-    overlayInnerStyle: { color: 'rgba(0, 0, 0, 0.85)' },
     title: formatMessage({
       id: 'ocp-express.Tenant.New.CurrentlyOnlyFullFunctionReplicasAreSupported',
       defaultMessage: '当前仅支持全功能型副本',
@@ -360,9 +357,9 @@ const New: React.FC<NewProps> = ({
       header={{
         title: isClone
           ? formatMessage({
-            id: 'ocp-express.Tenant.New.ReplicationTenant',
-            defaultMessage: '复制租户',
-          })
+              id: 'ocp-express.Tenant.New.ReplicationTenant',
+              defaultMessage: '复制租户',
+            })
           : formatMessage({ id: 'ocp-express.Tenant.New.NewTenant', defaultMessage: '新建租户' }),
         breadcrumb: { routes, itemRender: breadcrumbItemRender },
         onBack: () => {
@@ -438,7 +435,7 @@ const New: React.FC<NewProps> = ({
                     ]}
                   >
                     <MySelect
-                      onChange={(value) => {
+                      onChange={value => {
                         setFieldsValue({
                           charset: 'utf8mb4',
                         });
@@ -449,13 +446,13 @@ const New: React.FC<NewProps> = ({
                         if (!isNullValue(clusterId)) {
                           listCharsets({
                             tenantMode: value,
-                          }).then((charsetRes) => {
+                          }).then(charsetRes => {
                             handleCharsetChange('utf8mb4', charsetRes.data?.contents || []);
                           });
                         }
                       }}
                     >
-                      {TENANT_MODE_LIST.map((item) => (
+                      {TENANT_MODE_LIST.map(item => (
                         <Option
                           key={item.value}
                           value={item.value}
@@ -548,14 +545,14 @@ const New: React.FC<NewProps> = ({
                     ]}
                   >
                     <MySelect
-                      onChange={(value) => {
+                      onChange={value => {
                         handleCharsetChange(value, charsetList);
                       }}
                       showSearch={true}
                       optionLabelProp="label"
                       dropdownClassName="select-dropdown-with-description"
                     >
-                      {charsetList.map((item) => (
+                      {charsetList.map(item => (
                         <Option key={item.name} value={item.name} label={item.name}>
                           <span>{item.name}</span>
                         </Option>
@@ -580,7 +577,7 @@ const New: React.FC<NewProps> = ({
                       ]}
                     >
                       <MySelect>
-                        {collations?.map((item) => (
+                        {collations?.map(item => (
                           <Option key={item.name} value={item.name} label={item.name}>
                             <span>{item.name}</span>
                           </Option>
@@ -637,7 +634,7 @@ const New: React.FC<NewProps> = ({
                             defaultMessage:
                               '当前可设最大个数为 {minServerCount} (Zone 中最少 OBServer 数决定 Unit 可设最大个数)',
                           },
-                          { minServerCount: minServerCount },
+                          { minServerCount: minServerCount }
                         )}
                         name="zonesUnitCount"
                         initialValue={1}
@@ -655,10 +652,10 @@ const New: React.FC<NewProps> = ({
                         <InputNumber
                           min={1}
                           max={minServerCount}
-                          onChange={(value) => {
+                          onChange={value => {
                             const currentZones = getFieldValue('zones');
                             setFieldsValue({
-                              zones: currentZones?.map((item) => ({
+                              zones: currentZones?.map(item => ({
                                 ...item,
                                 unitCount: value,
                               })),
@@ -689,7 +686,7 @@ const New: React.FC<NewProps> = ({
                         },
                       ]}
                     >
-                      {(fields, { }) => {
+                      {(fields, {}) => {
                         return (
                           <>
                             {fields.map((field, index: number) => {
@@ -703,7 +700,7 @@ const New: React.FC<NewProps> = ({
                               const zoneData = findBy(
                                 clusterData?.zones || [],
                                 'name',
-                                currentZoneName,
+                                currentZoneName
                               );
 
                               let idleCpuCore, idleMemoryInBytes;
@@ -793,7 +790,7 @@ const New: React.FC<NewProps> = ({
                                           disabled={!currentChecked}
                                           optionLabelProp="label"
                                         >
-                                          {REPLICA_TYPE_LIST.map((item) => (
+                                          {REPLICA_TYPE_LIST.map(item => (
                                             <Option
                                               key={item.value}
                                               value={item.value}
@@ -802,12 +799,8 @@ const New: React.FC<NewProps> = ({
                                               <Tooltip
                                                 placement="right"
                                                 title={item.description}
-                                                color="#fff"
                                                 overlayStyle={{
                                                   maxWidth: 400,
-                                                }}
-                                                overlayInnerStyle={{
-                                                  color: 'rgba(0,0,0,0.65)',
                                                 }}
                                               >
                                                 <div style={{ width: '100%' }}>{item.label}</div>
@@ -840,7 +833,7 @@ const New: React.FC<NewProps> = ({
                                             {
                                               cpuLowerLimit: cpuLowerLimit,
                                               idleCpuCore: idleCpuCore,
-                                            },
+                                            }
                                           )
                                         }
                                         initialValue={
@@ -874,7 +867,7 @@ const New: React.FC<NewProps> = ({
                                               {
                                                 cpuLowerLimit: cpuLowerLimit,
                                                 idleCpuCore: idleCpuCore,
-                                              },
+                                              }
                                             ),
                                           },
                                         ]}
@@ -908,7 +901,7 @@ const New: React.FC<NewProps> = ({
                                             {
                                               memoryLowerLimit: memoryLowerLimit,
                                               idleMemoryInBytes: idleMemoryInBytes,
-                                            },
+                                            }
                                           )
                                         }
                                         initialValue={
@@ -941,7 +934,7 @@ const New: React.FC<NewProps> = ({
                                               {
                                                 memoryLowerLimit: memoryLowerLimit,
                                                 idleMemoryInBytes: idleMemoryInBytes,
-                                              },
+                                              }
                                             ),
                                           },
                                         ]}
@@ -986,8 +979,8 @@ const New: React.FC<NewProps> = ({
                                                       findBy(
                                                         clusterData?.zones || [],
                                                         'name',
-                                                        currentZoneName,
-                                                      ),
+                                                        currentZoneName
+                                                      )
                                                     ),
                                                 },
                                               ]}
@@ -1025,19 +1018,19 @@ const New: React.FC<NewProps> = ({
                 <Form.Item noStyle shouldUpdate={true}>
                   {() => {
                     const currentZones = getFieldValue('zones');
-                    const checkedZones = (currentZones || []).filter((item) => item.checked);
+                    const checkedZones = (currentZones || []).filter(item => item.checked);
                     const uniqueCheckedUnitSpecNameList = uniq(
                       checkedZones
                         // 去掉空值
-                        .filter((item) => !!item.unitSpecName)
-                        .map((item) => item.unitSpecName),
+                        .filter(item => !!item.unitSpecName)
+                        .map(item => item.unitSpecName)
                     );
 
                     const uniqueCheckedUnitCountList = uniq(
                       checkedZones
                         // 去掉空值
-                        .filter((item) => !isNullValue(item.unitCount))
-                        .map((item) => item.unitCount),
+                        .filter(item => !isNullValue(item.unitCount))
+                        .map(item => item.unitCount)
                     );
 
                     // 勾选 Zone 的副本类型或副本数量不同时，展示 alert 提示
@@ -1085,8 +1078,8 @@ const New: React.FC<NewProps> = ({
                         loading={clusterDataLoading}
                         zoneList={(currentZones || [])
                           // 仅勾选的 zone 副本可以设置优先级
-                          .filter((item) => item.checked)
-                          .map((item) => item.name)}
+                          .filter(item => item.checked)
+                          .map(item => item.name)}
                       />
                     </Form.Item>
                   );
@@ -1132,7 +1125,7 @@ const New: React.FC<NewProps> = ({
 
                   <Switch
                     checked={advanceSettingSwitch}
-                    onChange={(checked) => {
+                    onChange={checked => {
                       setAdvanceSettingSwitch(checked);
                     }}
                   />
@@ -1205,7 +1198,7 @@ const New: React.FC<NewProps> = ({
                       })}
                       // initialParameters={initParameters}
                       tenantMode={currentMode}
-                      setCompatibleOracleAlret={(val) => {
+                      setCompatibleOracleAlret={val => {
                         setCompatibleOracleAlret(val);
                       }}
                     />

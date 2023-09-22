@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import * as ObSqlStatController from '@/service/ocp-express/ObSqlStatController';
 import { formatSql } from '@/util';
-import { Spin, Tooltip, Typography } from '@oceanbase/design';
+import { Spin, Tooltip, Typography, token } from '@oceanbase/design';
 import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 
@@ -164,7 +164,7 @@ export const SqlText = ({
             marginLeft: 8,
             display: 'inline-block',
             backgroundColor: '#9254DE',
-            color: '#fff',
+            color: token.colorTextLightSolid,
             width: '18px',
             height: '18px',
             fontSize: '12px',

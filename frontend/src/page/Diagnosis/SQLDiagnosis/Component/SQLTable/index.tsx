@@ -87,7 +87,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
 
   // 用于查询的 SQL ID
   const searchSqlId = jsonParse(queryValues.filterExpressionList, [])?.find(
-    (item) => item.searchAttr === 'sqlId',
+    item => item.searchAttr === 'sqlId'
   )?.searchVal;
 
   const {
@@ -133,7 +133,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
           onceSetActives.current = null;
         }
       },
-    },
+    }
   );
 
   const sqlList = sqlData?.data?.contents || [];
@@ -156,7 +156,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
       ],
 
       ready: !!tenantId,
-    },
+    }
   );
 
   const sqlOutlineList = sqlOutlineData?.data?.contents || [];
@@ -191,7 +191,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
   // 批量创建限流
   const { runAsync: batchCreateOutline } = useRequest(ObOutlineController.batchCreateOutline, {
     manual: true,
-    onSuccess: (res) => {
+    onSuccess: res => {
       if (res.successful) {
         if (res.data?.result) {
           refreshAll();
@@ -200,7 +200,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
             formatMessage({
               id: 'ocp-express.Component.SQLTable.SqlThrottlingIsSet',
               defaultMessage: 'SQL 限流设置成功',
-            }),
+            })
           );
         } else {
           Modal.error({
@@ -221,7 +221,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
   // 批量取消限流
   const { runAsync: batchDropSqlOutline } = useRequest(ObOutlineController.batchDropSqlOutline, {
     manual: true,
-    onSuccess: (res) => {
+    onSuccess: res => {
       if (res.successful) {
         if (res.data?.result) {
           refreshAll();
@@ -230,7 +230,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
             formatMessage({
               id: 'ocp-express.Component.SQLTable.SqlThrottlingCanceled',
               defaultMessage: 'SQL 限流取消成功',
-            }),
+            })
           );
         } else {
           Modal.error({
@@ -250,7 +250,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
 
   // 对内部的值进行比较 , 前端进行排序，筛选， 所以 'filters', 'sorter', 'page', 'size', 'fields' 'filterExpressionList' 的改变不应该重新发起请求
   const deps = useCompare(
-    omit(queryValues, 'filters', 'sorter', 'page', 'size', 'fields', 'filterExpressionList'),
+    omit(queryValues, 'filters', 'sorter', 'page', 'size', 'fields', 'filterExpressionList')
   );
 
   useEffect(() => {
@@ -262,13 +262,13 @@ const SQLTable: React.FC<SQLTableProps> = ({
   const renderSpecialColumn = (
     field: API.SqlAuditStatSummaryAttribute,
     node: any,
-    record: API.SqlAuditStatSummary,
+    record: API.SqlAuditStatSummary
   ) => {
     switch (field.name) {
       // 截断的 SQL 文本: 因为 SQL 文本可能很长，且列表接口不分页，为了避免列表接口数据太大导致响应慢，因此列表中的 SQL 文本会在后端被截断
       case 'sqlTextShort':
         const sqlOutline = sqlOutlineList.find(
-          (item) => item.sqlId === record.sqlId && item.type === 'CONCURRENT_LIMIT',
+          item => item.sqlId === record.sqlId && item.type === 'CONCURRENT_LIMIT'
         );
 
         return (
@@ -289,7 +289,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
       // 平均响应时间和总响应时间，使用长度条 + 数字展示
       case 'avgElapsedTime':
       case 'sumElapsedTime':
-        const maxValue = max(sqlList.map((topSql) => topSql[field.name]));
+        const maxValue = max(sqlList.map(topSql => topSql[field.name]));
         const rate = (record[field.name] || 0) / (maxValue as number);
         return (
           <div>
@@ -331,7 +331,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
     }
   };
 
-  let columns = fields.map((field) => {
+  let columns = fields.map(field => {
     const queryFilter = jsonParse(location?.query?.filters || '', {});
     const querySorter = jsonParse(location?.query?.sorter || '', {});
 
@@ -389,7 +389,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
                     defaultMessage: '{fieldTitle}（{fieldUnit}）',
                   },
 
-                  { fieldTitle: field.title, fieldUnit: field.unit },
+                  { fieldTitle: field.title, fieldUnit: field.unit }
                 )
               : field.title
           }
@@ -404,7 +404,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
       width: realWidth,
       // 关闭排序的额 tooltip，避免与列描述的 tooltip 相互重叠，影响体验
       showSorterTooltip: false,
-      className: actives.find((attr) => attr.name === field.name) ? styles.active : '',
+      className: actives.find(attr => attr.name === field.name) ? styles.active : '',
       className: styles.active,
       ...(field.operation === 'SORT'
         ? {
@@ -414,7 +414,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
       ...defaultSorterItem,
       filters:
         field.operation === 'FILTER'
-          ? Object.keys(groupBy(sqlList, (sql) => sql[field.name as string])).map((key) => ({
+          ? Object.keys(groupBy(sqlList, sql => sql[field.name as string])).map(key => ({
               // 无值时使用 - 来当做默认值
               text:
                 key === 'undefined'
@@ -516,7 +516,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
   const handleChange = (pagination, filters, sorter) => {
     const params = {
       // filters 排除 null 值
-      filters: JSON.stringify(omitBy(filters, (v) => isNullValue(v))),
+      filters: JSON.stringify(omitBy(filters, v => isNullValue(v))),
       sorter: JSON.stringify({ field: sorter.field, order: sorter.order }),
     };
 
@@ -552,23 +552,21 @@ const SQLTable: React.FC<SQLTableProps> = ({
   const expandedRowRender = (record: API.SqlAuditStatSummary) => {
     const id = getRowKey(record);
     return (
-      <div style={{ margin: '12px 0 12px 48px', backgroundColor: '#fff' }}>
-        <PlanTable
-          tenantId={tenantId}
-          startTime={queryValues.startTime}
-          endTime={queryValues.endTime}
-          rangeKey={queryValues.rangeKey}
-          topPlans={planState[id] || []}
-          topPlansLoading={planLoadingState[id] || false}
-        />
-      </div>
+      <PlanTable
+        tenantId={tenantId}
+        startTime={queryValues.startTime}
+        endTime={queryValues.endTime}
+        rangeKey={queryValues.rangeKey}
+        topPlans={planState[id] || []}
+        topPlansLoading={planLoadingState[id] || false}
+      />
     );
   };
   const [outlineForm] = Form.useForm();
 
   // 检索当前设置限流的 sql，原先是否存在过限流
   const sqlOutline = sqlOutlineList.find(
-    (item) => item.sqlId === sqlRecord?.sqlId && item.type === 'CONCURRENT_LIMIT',
+    item => item.sqlId === sqlRecord?.sqlId && item.type === 'CONCURRENT_LIMIT'
   );
 
   const toolOptionsRender = () => {
@@ -603,13 +601,13 @@ const SQLTable: React.FC<SQLTableProps> = ({
           defaultCurrent: toNumber(queryValues.page) || 1,
           showSizeChanger: true,
           onChange: handlePageChange,
-          showTotal: (total) =>
+          showTotal: total =>
             formatMessage(
               {
                 id: 'ocp-express.Component.SQLTable.TotalTotal',
                 defaultMessage: '共 {total} 条',
               },
-              { total: total },
+              { total: total }
             ),
         }}
         toolOptionsRender={toolOptionsRender}
@@ -637,7 +635,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
               startTime,
               endTime,
               dbName,
-            }).then((res) => {
+            }).then(res => {
               setPlanLoadingState({
                 [id]: false,
               });
@@ -709,7 +707,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
           setVisible(false);
         }}
         onOk={() => {
-          outlineForm.validateFields().then((values) => {
+          outlineForm.validateFields().then(values => {
             const { concurrentNum, launchLimit } = values;
             Modal.confirm({
               title: isBatch
@@ -732,7 +730,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
                 }
                 if (launchLimit === 'open') {
                   const sqlListParam = isBatch
-                    ? selectedRows.map((item) => ({
+                    ? selectedRows.map(item => ({
                         dbName: item.dbName,
                         sqlId: item?.sqlId,
                       }))
@@ -753,17 +751,17 @@ const SQLTable: React.FC<SQLTableProps> = ({
                       endTime: range[1].format(RFC3339_DATE_TIME_FORMAT),
                       concurrentNum,
                       sqlList: sqlListParam,
-                    },
+                    }
                   );
                 }
 
                 // 取消限流依赖 sqlOutlineList 中的字段，使用 sqlId 去检索到对应的 sqlOutlineList
                 const dropOutlineList = sqlOutlineList
-                  .filter((item) => {
+                  .filter(item => {
                     const sqlRecordList = isBatch ? selectedRows : [sqlRecord];
-                    return sqlRecordList.some((sql) => sql?.sqlId === item.sqlId);
+                    return sqlRecordList.some(sql => sql?.sqlId === item.sqlId);
                   })
-                  ?.map((item) => ({
+                  ?.map(item => ({
                     dbName: item?.dbName,
                     sqlId: item?.sqlId,
                     // 取消限流所需要的 outlineName 只存在 sqlOutlineList 中
@@ -775,7 +773,7 @@ const SQLTable: React.FC<SQLTableProps> = ({
                     tenantId,
                   },
 
-                  { outlineList: dropOutlineList },
+                  { outlineList: dropOutlineList }
                 );
               },
             });

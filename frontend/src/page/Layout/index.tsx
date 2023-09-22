@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { getLocale, history, useSelector } from 'umi';
 import React, { useEffect } from 'react';
-import { ConfigProvider, theme } from '@oceanbase/design';
+import { ConfigProvider, theme, token } from '@oceanbase/design';
 import { ChartProvider } from '@oceanbase/charts';
 import en_US from 'antd/es/locale/en_US';
 import zh_CN from 'antd/es/locale/zh_CN';
@@ -28,7 +28,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { themeMode } = useSelector((state: DefaultRootState) => state.global);
-  console.log(themeMode);
+  console.log(token);
 
   const locale = getLocale();
   const antdLocaleMap = {

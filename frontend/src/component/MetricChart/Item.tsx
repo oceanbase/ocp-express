@@ -585,7 +585,7 @@ const Item: React.FC<ItemProps> = ({
                         })}{' '}
                         <a
                           target="_blank"
-                          style={{ color: '#ffffff', textDecoration: 'underline' }}
+                          style={{ color: token.colorTextLightSolid, textDecoration: 'underline' }}
                         >
                           {formatMessage({
                             id: 'ocp-express.component.MetricChart.Item.WhatIsDrillDownAnalysis',

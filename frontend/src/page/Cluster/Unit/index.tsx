@@ -25,7 +25,7 @@ import {
   message,
   token,
 } from '@oceanbase/design';
-import { FullscreenBox } from '@oceanbase/ui'
+import { FullscreenBox } from '@oceanbase/ui';
 import React, { useRef, useState } from 'react';
 import { find, flatten, some } from 'lodash';
 import { PageContainer } from '@oceanbase/ui';
@@ -94,7 +94,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
     loading,
   } = useRequest(ObResourceController.clusterUnitView, {
     defaultParams: [{}],
-    onSuccess: (res) => {
+    onSuccess: res => {
       if (res.successful && (res.data?.deletableUnitCount || 0) > 0) {
         setPopconfirmVisible(true);
       }
@@ -105,20 +105,20 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
     ObUnitController.tryDeleteUnusedUnit,
     {
       manual: true,
-      onSuccess: (res) => {
+      onSuccess: res => {
         setPopconfirmVisible(false);
         if (res.successful) {
           message.success(
             formatMessage({
               id: 'ocp-express.Detail.Resource.Unit.TheUnassociatedUnitIsReleased',
               defaultMessage: '未关联的 Unit 释放成功',
-            }),
+            })
           );
 
           refreshUnitView();
         }
       },
-    },
+    }
   );
 
   const unitViewData = data?.data;
@@ -126,26 +126,26 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
 
   // 全部的 Zone 列表
   const allZoneInfos = flatten(
-    (viewData?.regionInfos || []).map((item) => {
-      return (item.zoneInfos || []).map((zoneInfo) => ({
+    (viewData?.regionInfos || []).map(item => {
+      return (item.zoneInfos || []).map(zoneInfo => ({
         ...zoneInfo,
         obRegionName: item.obRegionName,
       }));
-    }),
+    })
   ) as ((API.ClusterUnitViewOfZone | API.ClusterReplicaViewOfZone) & {
     obRegionName?: string;
   })[];
 
   // 全部的 Server 列表
-  const allServerInfos = flatten(allZoneInfos.map((item) => item.serverInfos || []));
+  const allServerInfos = flatten(allZoneInfos.map(item => item.serverInfos || []));
 
   // 查询视图中是否存在运行中的状态，如果存在需要进行轮询
-  const polling = some(allServerInfos, (serverInfo) => {
+  const polling = some(allServerInfos, serverInfo => {
     // Unit 轮询条件: 迁移中
-    const unitPolling = serverInfo?.unitInfos?.some((unitInfo) =>
+    const unitPolling = serverInfo?.unitInfos?.some(unitInfo =>
       ['MIGRATE_IN', 'MIGRATE_OUT', 'ROLLBACK_MIGRATE_IN', 'ROLLBACK_MIGRATE_OUT'].includes(
-        unitInfo.migrateType,
-      ),
+        unitInfo.migrateType
+      )
     );
 
     // Server 轮询条件: 服务停止中、进程停止中、启动中、重启中
@@ -167,40 +167,40 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
     () => {
       lockRefresh();
     },
-    isPolling ? frequency * 1000 : null,
+    isPolling ? frequency * 1000 : null
   );
 
   // 用于筛选的对象列表
-  const tenantFilters = (viewData?.tenantInfos || []).map((item) => ({
+  const tenantFilters = (viewData?.tenantInfos || []).map(item => ({
     value: item.obTenantId,
     label: item.tenantName,
   }));
 
-  const regionFilters = (viewData?.regionInfos || []).map((item) => ({
+  const regionFilters = (viewData?.regionInfos || []).map(item => ({
     value: item.obRegionName,
     label: item.obRegionName,
   }));
 
-  const zoneFilters = allZoneInfos.map((item) => ({
+  const zoneFilters = allZoneInfos.map(item => ({
     value: item.obZoneName,
     label: item.obZoneName,
   }));
 
   // 筛选后的租户列表
   const tenantInfos = (viewData?.tenantInfos || []).filter(
-    (item) =>
-      !obTenantIdList || obTenantIdList.length === 0 || obTenantIdList.includes(item.obTenantId),
+    item =>
+      !obTenantIdList || obTenantIdList.length === 0 || obTenantIdList.includes(item.obTenantId)
   );
 
   // 筛选后的 Zone 列表，实际上 Region 和 Zone 是一对一的，所以也能用于渲染 Region 列表
   const zoneInfos = allZoneInfos
     // 根据 region 进行筛选
     .filter(
-      (item) => !regionList || regionList.length === 0 || regionList.includes(item.obRegionName),
+      item => !regionList || regionList.length === 0 || regionList.includes(item.obRegionName)
     )
     // 根据 zone 进行筛选
     .filter(
-      (zoneInfo) => !zoneList || zoneList.length === 0 || zoneList.includes(zoneInfo.obZoneName),
+      zoneInfo => !zoneList || zoneList.length === 0 || zoneList.includes(zoneInfo.obZoneName)
     );
 
   const routes = [
@@ -265,7 +265,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     placement="bottomLeft"
                     value={obTenantIdList}
                     filters={tenantFilters}
-                    onChange={(value) => {
+                    onChange={value => {
                       setObTenantIdList(value);
                     }}
                     inputProps={{
@@ -289,7 +289,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     placement="bottomLeft"
                     value={regionList}
                     filters={regionFilters}
-                    onChange={(value) => {
+                    onChange={value => {
                       setRegionList(value);
                     }}
                     inputProps={{
@@ -313,7 +313,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     placement="bottomLeft"
                     value={zoneList}
                     filters={zoneFilters}
-                    onChange={(value) => {
+                    onChange={value => {
                       setZoneList(value);
                     }}
                     inputProps={{
@@ -342,7 +342,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                             id: 'ocp-express.Detail.Resource.Unit.TheAutomaticRefreshFrequencyIs',
                             defaultMessage: '自动刷新频率为 {frequency} 秒',
                           },
-                          { frequency: frequency },
+                          { frequency: frequency }
                         ),
                       }}
                     />
@@ -352,7 +352,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     size="small"
                     style={{ marginTop: -4 }}
                     checked={realtime}
-                    onChange={(value) => {
+                    onChange={value => {
                       setRealtime(value);
                       if (value) {
                         refreshUnitView();
@@ -377,7 +377,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                       {
                         unitViewDataDeletableUnitCount: unitViewData.deletableUnitCount,
                         unitViewDataUnusedUnitMaxReserveHour: unitViewData.unusedUnitMaxReserveHour,
-                      },
+                      }
                     )}
                     placement="bottomRight"
                     okButtonProps={{ loading: deleteUnUseUnitLoading }}
@@ -406,8 +406,6 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                   </Popconfirm>
                 ) : (
                   <Tooltip
-                    placement="bottom"
-                    color="#ffffff"
                     title={formatMessage({
                       id: 'ocp-express.Detail.Resource.Unit.NoNotification',
                       defaultMessage: '暂无通知',
@@ -535,7 +533,6 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                   zIndex: 2,
                   // 未开始滚动时，隐藏 box-shadow 的样式，类似于 antd Table 的滚动效果
                   boxShadow: scroll?.left === 0 ? 'none' : '2px 0px 10px rgba(0, 0, 0, 0.12)',
-                  backgroundColor: '#ffffff',
                   padding: '16px 12px 24px 24px',
                   marginBottom: 0,
                   marginTop: 0,
@@ -545,7 +542,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                   borderRadius: token.borderRadius,
                 }}
               >
-                {['region', 'zone', 'server'].map((item) => (
+                {['region', 'zone', 'server'].map(item => (
                   <Col key={item} span={24}>
                     <Block key={item} type={item as BlockType} />
                   </Col>
@@ -558,7 +555,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     </Col>
                     <Col span={14}>
                       <Row gutter={[0, 12]}>
-                        {tenantInfos.map((tenantInfo) => (
+                        {tenantInfos.map(tenantInfo => (
                           <Col key={tenantInfo.tenantName} span={24}>
                             <Block
                               type="tenant"
@@ -573,13 +570,13 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     </Col>
                   </Row>
                 </Col>
-                {['memory', 'cpu', 'disk', 'unit'].map((item) => (
+                {['memory', 'cpu', 'disk', 'unit'].map(item => (
                   <Col key={item} span={24}>
                     <Block key={item} type={item as BlockType} />
                   </Col>
                 ))}
               </Row>
-              {zoneInfos.map((item) => {
+              {zoneInfos.map(item => {
                 const serverInfos = item.serverInfos || [];
                 return (
                   <Row
@@ -607,7 +604,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     <Col span={24}>
                       {/* server */}
                       <Row gutter={12} style={{ flexWrap: 'nowrap' }}>
-                        {serverInfos.map((serverInfo) => {
+                        {serverInfos.map(serverInfo => {
                           const server = `${serverInfo.serverIp}:${serverInfo.serverPort}`;
 
                           return (
@@ -621,14 +618,14 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     {/* Unit */}
                     <Col span={24}>
                       <Row gutter={[0, 12]}>
-                        {tenantInfos.map((tenantInfo) => (
+                        {tenantInfos.map(tenantInfo => (
                           <Col key={tenantInfo.tenantName} span={24}>
                             <Row gutter={12} style={{ flexWrap: 'nowrap' }}>
-                              {serverInfos.map((serverInfo) => {
+                              {serverInfos.map(serverInfo => {
                                 const targetUnitInfo = find(
                                   serverInfo.unitInfos,
                                   // 通过 obTenantId 将所属租户的 Unit 筛选出来，可能为空，表明租户在当前 server 上没有 Unit 分布
-                                  (unitInfo) => unitInfo.obTenantId === tenantInfo.obTenantId,
+                                  unitInfo => unitInfo.obTenantId === tenantInfo.obTenantId
                                 );
 
                                 return (
@@ -658,7 +655,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     <Col span={24}>
                       {/* 内存 */}
                       <Row gutter={12} style={{ flexWrap: 'nowrap' }}>
-                        {serverInfos.map((serverInfo) => (
+                        {serverInfos.map(serverInfo => (
                           <Col key={serverInfo.serverIp}>
                             <Block type="memory" serverInfo={serverInfo} />
                           </Col>
@@ -668,7 +665,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     <Col span={24}>
                       {/* CPU */}
                       <Row gutter={12} style={{ flexWrap: 'nowrap' }}>
-                        {serverInfos.map((serverInfo) => (
+                        {serverInfos.map(serverInfo => (
                           <Col key={serverInfo.serverIp}>
                             <Block type="cpu" serverInfo={serverInfo} />
                           </Col>
@@ -678,7 +675,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     <Col span={24}>
                       {/* 磁盘 */}
                       <Row gutter={12} style={{ flexWrap: 'nowrap' }}>
-                        {serverInfos.map((serverInfo) => (
+                        {serverInfos.map(serverInfo => (
                           <Col key={serverInfo.serverIp}>
                             <Block type="disk" serverInfo={serverInfo} />
                           </Col>
@@ -687,7 +684,7 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                     </Col>
                     <Col span={24}>
                       <Row gutter={12} style={{ flexWrap: 'nowrap' }}>
-                        {serverInfos.map((serverInfo) => (
+                        {serverInfos.map(serverInfo => (
                           <Col key={serverInfo.serverIp}>
                             {/* Unit 数目 */}
                             <Block

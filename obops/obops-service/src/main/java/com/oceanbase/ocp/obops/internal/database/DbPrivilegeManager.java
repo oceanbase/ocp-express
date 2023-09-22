@@ -140,20 +140,6 @@ public class DbPrivilegeManager {
         log.info("grant privilege done, tenantId={}, grantee={}, privileges={}", tenantId, grantee, dbPrivileges);
     }
 
-    public void revokeDbPrivilege(Long tenantId, Grantee grantee, List<DbPrivilege> dbPrivileges) {
-        List<PrivilegeOperation> operations = dbPrivileges.stream()
-                .map(dbPrivilege -> DbPrivilegeOperation.builder()
-                        .tenantId(tenantId)
-                        .grantee(grantee)
-                        .operationType(PrivilegeOperationType.REVOKE)
-                        .dbName(dbPrivilege.getDbName())
-                        .dbPrivileges(dbPrivilege.getPrivileges())
-                        .build())
-                .collect(Collectors.toList());
-        operatePrivilege(operations);
-        log.info("revoke privilege done, tenantId={}, grantee={}, privileges={}", tenantId, grantee, dbPrivileges);
-    }
-
     public void modifyDbPrivilege(Long tenantId, Grantee grantee, List<DbPrivilege> currentDbPrivileges,
             List<DbPrivilege> targetDbPrivileges) {
         Map<String, List<DbPrivType>> currentPrivilegesMap = currentDbPrivileges.stream()
@@ -250,6 +236,7 @@ public class DbPrivilegeManager {
         if (!operation.hasPrivileges()) {
             log.info("Privilege operation skipped: {}, empty privilege list, tenantId={}",
                     operation.getDescription(), operation.getTenantId());
+            return;
         }
 
         Long tenantId = operation.getTenantId();

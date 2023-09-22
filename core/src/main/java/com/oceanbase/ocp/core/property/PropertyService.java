@@ -11,20 +11,19 @@
  */
 package com.oceanbase.ocp.core.property;
 
-import com.oceanbase.ocp.common.util.HostUtils;
-import com.oceanbase.ocp.core.event.SystemParameterNotTakenEffectEvent;
-import com.oceanbase.ocp.core.exception.NotFoundException;
-import com.oceanbase.ocp.core.property.dao.PropertyRepository;
-import com.oceanbase.ocp.core.property.entity.PropertyEntity;
-import com.oceanbase.ocp.core.property.model.PropertyMeta;
-import com.oceanbase.ocp.core.util.ExceptionUtils;
-import lombok.extern.slf4j.Slf4j;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
-import org.springframework.cloud.context.refresh.ContextRefresher;
 import org.springframework.cloud.endpoint.RefreshEndpoint;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.env.Environment;
@@ -33,12 +32,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.oceanbase.ocp.common.util.HostUtils;
+import com.oceanbase.ocp.core.event.SystemParameterNotTakenEffectEvent;
+import com.oceanbase.ocp.core.exception.NotFoundException;
+import com.oceanbase.ocp.core.property.dao.PropertyRepository;
+import com.oceanbase.ocp.core.property.entity.PropertyEntity;
+import com.oceanbase.ocp.core.property.model.PropertyMeta;
+import com.oceanbase.ocp.core.util.ExceptionUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service

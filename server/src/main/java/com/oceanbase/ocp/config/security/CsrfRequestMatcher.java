@@ -12,10 +12,11 @@
 
 package com.oceanbase.ocp.config.security;
 
-import com.oceanbase.ocp.common.util.trace.TraceUtils;
-import com.oceanbase.ocp.core.util.WebRequestUtils;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -24,9 +25,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.regex.Pattern;
+import com.oceanbase.ocp.common.util.trace.TraceUtils;
+import com.oceanbase.ocp.core.util.WebRequestUtils;
+
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Enables CSRF protection with whitelists of headers, http methods, and url

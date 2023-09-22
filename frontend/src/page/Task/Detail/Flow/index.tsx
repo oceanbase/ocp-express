@@ -18,7 +18,7 @@ import { find, isFunction } from 'lodash';
 import SplitPane from 'react-split-pane';
 import { isEnglish } from '@/util';
 import TaskGraph from './TaskGraph';
-import styles from './index.less';
+import useStyles from './index.style';
 
 const { TabPane } = Tabs;
 
@@ -35,8 +35,9 @@ export interface DetailProps {
 const Detail: React.FC<DetailProps> = React.forwardRef(
   (
     { taskData, onOperationSuccess, subtask, log, logLoading, logPolling, onSubtaskChange },
-    ref,
+    ref
   ) => {
+    const { styles } = useStyles();
     const MIN_SIZE = 32;
     // 英文环境下，任务详情会占据两行，需要减去额外的 38px，给流程图留出足够空间
     const DEFAULT_SIZE = isEnglish() ? 240 - 38 : 240;
@@ -84,7 +85,7 @@ const Detail: React.FC<DetailProps> = React.forwardRef(
             lastIndex = i - 1;
           }
         });
-        const newPanes = panes.filter((item) => `${item.id}` !== targetKey);
+        const newPanes = panes.filter(item => `${item.id}` !== targetKey);
         // 关闭当前打开的 tab 页
         if (newPanes.length > 0 && `${subtask?.id}` === targetKey) {
           if (lastIndex >= 0) {
@@ -111,7 +112,7 @@ const Detail: React.FC<DetailProps> = React.forwardRef(
         minSize={collapsed ? MIN_SIZE : 160}
         maxSize={480}
         size={collapsed ? MIN_SIZE : size}
-        onChange={(value) => {
+        onChange={value => {
           setSize(value);
           if (value === MIN_SIZE) {
             // 如果高度等于最小值，则设为收缩状态
@@ -125,13 +126,13 @@ const Detail: React.FC<DetailProps> = React.forwardRef(
       >
         <div style={{ position: 'absolute', width: '100%' }}>
           <TaskGraph
-            onRef={(newTaskGraph) => {
+            onRef={newTaskGraph => {
               setTaskGraph(newTaskGraph);
             }}
             taskData={taskData}
             subtask={subtask}
-            onLogAdd={(newSubtask) => {
-              const isExisted = find(panes, (item) => item.id === newSubtask?.id);
+            onLogAdd={newSubtask => {
+              const isExisted = find(panes, item => item.id === newSubtask?.id);
               // 如果对应子任务日志已在 Tab 中，则选中对应 Tab
               if (isExisted) {
                 onSubtaskChange(newSubtask?.id);
@@ -156,7 +157,7 @@ const Detail: React.FC<DetailProps> = React.forwardRef(
             type="editable-card"
             hideAdd={true}
             activeKey={`${subtask?.id}`}
-            onChange={(key) => {
+            onChange={key => {
               onSubtaskChange(key);
             }}
             onEdit={handleEditLogWindow}
@@ -182,7 +183,7 @@ const Detail: React.FC<DetailProps> = React.forwardRef(
               )
             }
           >
-            {panes.map((item) => (
+            {panes.map(item => (
               <TabPane key={`${item.id}`} tab={`${item.name} (ID: ${item.id})`} />
             ))}
           </Tabs>
@@ -215,7 +216,7 @@ const Detail: React.FC<DetailProps> = React.forwardRef(
         </div>
       </SplitPane>
     );
-  },
+  }
 );
 
 export default Detail;

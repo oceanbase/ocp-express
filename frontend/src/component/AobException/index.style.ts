@@ -34,6 +34,11 @@ const useStyles = createStyles(() => {
         fontSize: '72px',
         lineHeight: '72px',
       },
+      actions: {
+        'button:not(:last-child)': {
+          marginRight: '8px',
+        }
+      }
     },
     desc: {
       marginBottom: '16px',

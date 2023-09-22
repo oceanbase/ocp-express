@@ -27,7 +27,7 @@ import { formatTime } from '@/util/datetime';
 import { downloadLog } from '@/util/log';
 import type { Node, SubtaskOperationKey } from '@/util/task';
 import { getNodes, getLatestNode, getTaskDuration, handleSubtaskOperate } from '@/util/task';
-import styles from './TaskGraph.less';
+import useStyles from './TaskGraph.style';
 
 const { Text } = Typography;
 
@@ -123,6 +123,8 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
       </svg>
     );
 
+    const { styles } = useStyles();
+
     const [canvas, setCanvas] = useState<Canvas>();
     const graphRef = useRef<HTMLDivElement>(null);
     const graphSize = useSize(graphRef);
@@ -132,7 +134,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
     // 子任务是否有分叉
     const hasBranch = some(
       taskData?.subtasks || [],
-      (item) => (item.upstreams?.length || 0) > 1 || (item.downstreams?.length || 0) > 1,
+      item => (item.upstreams?.length || 0) > 1 || (item.downstreams?.length || 0) > 1
     );
 
     // 对任务进行结构化处理，方便绘图
@@ -215,7 +217,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
       }, 16),
       // graphSize 实际没有用到，仅为了触发函数组件的执行
       // 如果直接取 graphRef.current 的宽度，由于组件不会重新渲染，导致宽度不变化，监听逻辑不生效
-      [graphSize?.width, graphSize?.height],
+      [graphSize?.width, graphSize?.height]
     );
 
     // 自定义子任务的状态列表，用于当前任务流程图的渲染
@@ -395,7 +397,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
                     defaultMessage: '开始：{subTaskStartTime}',
                   },
 
-                  { subTaskStartTime },
+                  { subTaskStartTime }
                 )}
               </span>
               <Text
@@ -410,7 +412,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
                     defaultMessage: '耗时：{subTaskDuration}',
                   },
 
-                  { subTaskDuration },
+                  { subTaskDuration }
                 )}
               </Text>
             </Space>
@@ -430,7 +432,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
                         subtaskInstanceId: node?.id,
                       });
 
-                      promise.then((res) => {
+                      promise.then(res => {
                         if (res.successful) {
                           const log = res.data?.log;
                           downloadLog(log, `subtask_${node?.id}.log`);
@@ -442,7 +444,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
                         key as SubtaskOperationKey,
                         taskData,
                         node,
-                        onOperationSuccess,
+                        onOperationSuccess
                       );
                     }
                   }}
@@ -457,7 +459,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
                       copyable={{
                         text: `${node?.id}`,
                       }}
-                      onClick={(e) => {
+                      onClick={e => {
                         // 点击 ID 或者复制 icon 时阻止事件冒泡，避免触发整个节点的 click 事件导致被选中
                         e?.stopPropagation();
                       }}
@@ -465,7 +467,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
                       {`ID: ${node?.id}`}
                     </Text>
                   </div>
-                  {statusItem.operations?.map((item) => {
+                  {statusItem.operations?.map(item => {
                     // 如果属于远程 OCP 发起任务下的子任务，则禁止重试
                     const disabled = taskData?.isRemote && ['retry'].includes(item.value);
                     return (
@@ -530,9 +532,9 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
           [...children]
             // 为了保证顺序靠后的子节点 path 覆盖顺序靠前的子节点 path，需要逆序绘制
             .reverse()
-            .forEach((child) => {
+            .forEach(child => {
               const childDom = document.getElementById(
-                `ocp-subtask-node-${child?.id}`,
+                `ocp-subtask-node-${child?.id}`
               ) as HTMLDivElement;
               const childDomLeftPoint = {
                 x: childDom?.offsetLeft,
@@ -629,7 +631,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
           {nodes.map((item, index) => (
             <div key={item.id}>
               {renderNode(item)}
-              {item.children?.map((child) => renderNode(child, true))}
+              {item.children?.map(child => renderNode(child, true))}
               {/* 存在分支节点，且下一节点不为空，则留出 20px 高度的空间来绘制 path 路径 */}
               {(item.children?.length as number) > 0 && nodes[index + 1] && (
                 <div style={{ height: 20 }} />
@@ -639,7 +641,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
         </div>
       </div>
     );
-  },
+  }
 );
 
 export default TaskGraph;

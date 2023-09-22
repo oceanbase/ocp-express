@@ -15,9 +15,6 @@ const GlobalStyle = createGlobalStyle`
     border-bottom: 1px solid ${(p) => p.theme.colorBorderSecondary} !important;
     box-shadow: none;
   }
-  .ant-table .ant-table-content .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
-    border-bottom: 1px solid ${(p) => p.theme.colorBorder} !important;
-  }
   .ob-layout .ob-layout-content-layout .ob-layout-sider .ob-layout-sider-wrapper .ant-menu-inline .ant-menu-item-selected {
     ${(p) => {
     return p.themeMode === 'dark' ? `background-image: none; background: ${p.theme.controlItemBgActive}` : ''

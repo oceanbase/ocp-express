@@ -30,13 +30,8 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "resolutions": {
-    "nodejieba": "2.5.2",
-    "react-color": "2.18.1"
-  },
   "dependencies": {
     "@ahooksjs/use-url-state": "^3.5.0",
-    "@ant-design/charts": "^1.0.8",
     "@ant-design/compatible": "^1.0.5",
     "@ant-design/icons": "^4.2.2",
     "@ant-design/pro-components": "^2.3.57",

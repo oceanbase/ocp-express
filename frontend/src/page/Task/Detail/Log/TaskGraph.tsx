@@ -16,7 +16,7 @@ import { Dropdown, Menu, Space, Tooltip, Typography, token } from '@oceanbase/de
 import { debounce, some } from 'lodash';
 import Icon, { MoreOutlined } from '@oceanbase/icons';
 import { findByValue, isNullValue } from '@oceanbase/util';
-import { Canvas } from '@antv/g';
+import { Canvas } from '@antv/g-svg';
 import { useSize, useUpdateEffect } from 'ahooks';
 import scrollIntoView from 'scroll-into-view';
 import useDeepCompareEffect from 'use-deep-compare-effect';

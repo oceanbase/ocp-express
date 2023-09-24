@@ -31,7 +31,6 @@
     ]
   },
   "resolutions": {
-    "@antv/g-lite": "^1.0.70",
     "nodejieba": "2.5.2",
     "react-color": "2.18.1"
   },
@@ -44,10 +43,7 @@
     "@ant-design/pro-form": "^2.13.10",
     "@ant-design/pro-table": "^3.7.10",
     "@antv/dom-util": "^2.0.2",
-    "@antv/g": "latest",
-    "@antv/g-canvas": "latest",
-    "@antv/g-lite": "^1.0.70",
-    "@antv/g-svg": "latest",
+    "@antv/g-svg": "^0.5.7",
     "@antv/g6": "3.4.10",
     "@oceanbase/charts": "^0.2.10",
     "@oceanbase/design": "^0.2.17",

@@ -35,7 +35,6 @@
     "@ant-design/compatible": "^1.0.5",
     "@ant-design/icons": "^4.2.2",
     "@ant-design/pro-components": "^2.3.57",
-    "@ant-design/pro-form": "^2.13.10",
     "@ant-design/pro-table": "^3.7.10",
     "@antv/dom-util": "^2.0.2",
     "@antv/g-svg": "^0.5.7",

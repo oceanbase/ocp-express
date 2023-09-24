@@ -16,7 +16,7 @@ import * as ObTenantParameterController from '@/service/ocp-express/ObTenantPara
 import { formatMessage } from '@/util/intl';
 import { Alert, Form, InputNumber, Typography } from '@oceanbase/design';
 import { differenceBy, find, includes, uniqBy, uniqueId } from 'lodash';
-import ProForm from '@ant-design/pro-form';
+import { ProForm } from '@ant-design/pro-components';
 import type { ProColumns } from '@ant-design/pro-table';
 import { EditableProTable } from '@ant-design/pro-table';
 import { useRequest } from 'ahooks';
@@ -225,9 +225,9 @@ const SetParameterEditableProTable: React.FC<SetParameterEditableProTableProps> 
                 const oracleLabel =
                   item?.compatibleType === 'ORACLE'
                     ? formatMessage({
-                      id: 'ocp-express.component.ParameterTemplate.SetParameterEditableProTable.ApplicableOnlyToOracleTenant',
-                      defaultMessage: '仅适用于 Oracle 租户模式',
-                    })
+                        id: 'ocp-express.component.ParameterTemplate.SetParameterEditableProTable.ApplicableOnlyToOracleTenant',
+                        defaultMessage: '仅适用于 Oracle 租户模式',
+                      })
                     : '';
                 return (
                   <Option
@@ -420,8 +420,8 @@ const SetParameterEditableProTable: React.FC<SetParameterEditableProTableProps> 
                       record.id !== selectedParameter?.id
                         ? selectedParameter?.defaultValue
                         : record?.defaultValue
-                          ? record?.defaultValue
-                          : item?.defaultValue,
+                        ? record?.defaultValue
+                        : item?.defaultValue,
                     key: item?.key,
                   });
                 } else {

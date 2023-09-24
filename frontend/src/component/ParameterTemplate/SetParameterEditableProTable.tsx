@@ -17,8 +17,8 @@ import { formatMessage } from '@/util/intl';
 import { Alert, Form, InputNumber, Typography } from '@oceanbase/design';
 import { differenceBy, find, includes, uniqBy, uniqueId } from 'lodash';
 import { ProForm } from '@ant-design/pro-components';
-import type { ProColumns } from '@ant-design/pro-table';
-import { EditableProTable } from '@ant-design/pro-table';
+import type { ProColumns } from '@ant-design/pro-components';
+import { EditableProTable } from '@ant-design/pro-components';
 import { useRequest } from 'ahooks';
 import React, { useEffect, useState } from 'react';
 

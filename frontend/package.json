@@ -59,7 +59,7 @@
     "@umijs/plugin-openapi": "^1.3.3",
     "@umijs/preset-react": "1.x",
     "ahooks": "^3.5.2",
-    "antd": "5.2.2",
+    "antd": "^5.2.2",
     "antd-style": "^3.4.3",
     "bignumber.js": "^9.1.0",
     "classnames": "^2.3.2",
@@ -110,13 +110,13 @@
     "typescript": "^4.1.2",
     "yorkie": "^2.0.0"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
   "engines": {
     "install-node": "v16.14.0"
   },
   "ci": {
     "type": "aci"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   }
 }

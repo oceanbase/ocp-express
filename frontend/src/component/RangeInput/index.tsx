@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { InputNumber } from '@oceanbase/design';
-import type { InputNumberProps } from 'antd/es/input-number';
+import type { InputNumberProps } from '@oceanbase/design/es/input-number';
 import { isNullValue } from '@oceanbase/util';
 import styles from './index.less';
 
@@ -37,28 +37,28 @@ class RangeInput extends React.Component<RangeInputProps> {
         formatMessage({
           id: 'ocp-express.component.RangeInput.PleaseEnterTheMaximumAnd',
           defaultMessage: '请输入最大值和最小值',
-        }),
+        })
       );
     } else if (isNullValue(min)) {
       callback(
         formatMessage({
           id: 'ocp-express.component.RangeInput.PleaseEnterTheMinimumValue',
           defaultMessage: '请输入最小值',
-        }),
+        })
       );
     } else if (isNullValue(max)) {
       callback(
         formatMessage({
           id: 'ocp-express.component.RangeInput.PleaseEnterTheMaximumValue',
           defaultMessage: '请输入最大值',
-        }),
+        })
       );
     } else if ((min as number) > (max as number)) {
       callback(
         formatMessage({
           id: 'ocp-express.component.RangeInput.MinimumNeedLessThanEqual',
           defaultMessage: '最小值需要小于等于最大值',
-        }),
+        })
       );
     }
     callback();

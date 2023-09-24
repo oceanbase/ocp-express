@@ -15,8 +15,8 @@ import type { ReactElement, SyntheticEvent } from 'react';
 import React from 'react';
 import { PlusOutlined } from '@oceanbase/icons';
 import { Button, Table } from '@oceanbase/design';
-import type { ButtonProps } from 'antd/es/button';
-import type { TableProps, ColumnProps } from 'antd/es/table';
+import type { ButtonProps } from '@oceanbase/design/es/button';
+import type { TableProps, ColumnProps } from '@oceanbase/design/es/table';
 import styles from './index.less';
 
 export interface CellValueType<T> extends SyntheticEvent<T> {
@@ -80,7 +80,7 @@ class AobEditFormTable<T> extends React.Component<AobEditFormTableProps<T>, AobE
         ...item,
       },
 
-      index,
+      index
     );
   };
 
@@ -96,7 +96,7 @@ class AobEditFormTable<T> extends React.Component<AobEditFormTableProps<T>, AobE
   public handleAdd = () => {
     const { columns } = this.props;
     const record = {};
-    columns!.forEach((column) => {
+    columns!.forEach(column => {
       if (column) {
         record[column.dataIndex] = '';
       }
@@ -127,7 +127,7 @@ class AobEditFormTable<T> extends React.Component<AobEditFormTableProps<T>, AobE
                 },
 
                 record,
-                index,
+                index
               );
             },
           });
@@ -144,12 +144,12 @@ class AobEditFormTable<T> extends React.Component<AobEditFormTableProps<T>, AobE
                   },
 
                   record,
-                  index,
+                  index
                 );
               },
             },
 
-            text,
+            text
           );
 
           return render ? nodeWithRender : nodeWithoutRender;

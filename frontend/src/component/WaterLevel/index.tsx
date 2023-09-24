@@ -12,7 +12,7 @@
 
 import React from 'react';
 import { Progress } from '@oceanbase/design';
-import type { ProgressProps } from 'antd/es/progress';
+import type { ProgressProps } from '@oceanbase/design/es/progress';
 import useStyles from './index.style';
 import MouseTooltip from '@/component/MouseTooltip';
 

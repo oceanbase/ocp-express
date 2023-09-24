@@ -13,7 +13,7 @@
 import React from 'react';
 import { isObject } from 'lodash';
 import { sortByMoment } from '@oceanbase/util';
-import * as Charts from '@ant-design/charts';
+import * as Charts from '@oceanbase/charts';
 import * as OBCharts from '@oceanbase/charts';
 
 export type ChartType =
@@ -106,8 +106,8 @@ const Chart: React.FC<ChartProps> = ({
       title: false,
       ...(xAxis?.type === 'time'
         ? {
-          nice: false,
-        }
+            nice: false,
+          }
         : {}),
       ...xAxis,
     },
@@ -118,19 +118,19 @@ const Chart: React.FC<ChartProps> = ({
     tooltip: {
       ...(tooltipScroll
         ? {
-          follow: true,
-          shared: true,
-          enterable: true,
-          // 允许鼠标滑入 tooltip 会导致框选很难选中区间，因此加大鼠标和 tooltip 之间的间距，以缓解该问题
-          offset: 40,
-          domStyles: {
-            'g2-tooltip': {
-              maxHeight: '164px',
-              overflow: 'auto',
-              ...(isObject(tooltipScroll) ? (tooltipScroll as TooltipScrollProps) : {}),
+            follow: true,
+            shared: true,
+            enterable: true,
+            // 允许鼠标滑入 tooltip 会导致框选很难选中区间，因此加大鼠标和 tooltip 之间的间距，以缓解该问题
+            offset: 40,
+            domStyles: {
+              'g2-tooltip': {
+                maxHeight: '164px',
+                overflow: 'auto',
+                ...(isObject(tooltipScroll) ? (tooltipScroll as TooltipScrollProps) : {}),
+              },
             },
-          },
-        }
+          }
         : {}),
       ...tooltip,
     },

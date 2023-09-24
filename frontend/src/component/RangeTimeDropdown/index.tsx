@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect } from 'react';
 import { Dropdown, Menu, Space, DatePicker } from '@oceanbase/design';
 import { ClockCircleOutlined, DownOutlined } from '@oceanbase/icons';
-import type { DropDownProps } from 'antd/es/dropdown';
+import type { DropDownProps } from '@oceanbase/design/es/dropdown';
 import type { Moment } from 'moment';
 import moment from 'moment';
 import { findByValue } from '@oceanbase/util';

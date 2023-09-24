@@ -14,9 +14,9 @@ import { Badge, Tooltip } from '@oceanbase/design';
 import React, { isValidElement } from 'react';
 import classNames from 'classnames';
 import Icon from '@oceanbase/icons';
-import type { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
-import type { BadgeProps } from 'antd/es/badge';
-import type { TooltipProps } from 'antd/es/tooltip';
+import type { IconComponentProps } from '@oceanbase/icons/lib/components/Icon';
+import type { BadgeProps } from '@oceanbase/design/es/badge';
+import type { TooltipProps } from '@oceanbase/design/es/tooltip';
 import useStyles from './index.style';
 
 interface IconConfig extends IconComponentProps {

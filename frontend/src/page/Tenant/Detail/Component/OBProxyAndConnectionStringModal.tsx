@@ -13,8 +13,8 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Typography, Table, Button, Modal } from '@oceanbase/design';
-import type { ModalProps } from 'antd/es/modal';
-import type { ColumnProps } from 'antd/es/table';
+import type { ModalProps } from '@oceanbase/design/es/modal';
+import type { ColumnProps } from '@oceanbase/design/es/table';
 
 const { Text } = Typography;
 

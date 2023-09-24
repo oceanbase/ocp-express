@@ -19,7 +19,7 @@ import { Col, Descriptions, Divider, Drawer, Row, Table, Space } from '@oceanbas
 import React, { useEffect, useState } from 'react';
 import { DownOutlined, EyeOutlined, UpOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
-import type { ColumnProps } from 'antd/es/table';
+import type { ColumnProps } from '@oceanbase/design/es/table';
 import useStyles from './index.style';
 
 interface ServerDrawerProps {
@@ -31,7 +31,7 @@ interface ServerDrawerProps {
   endTime: string;
 }
 
-export const ServerDrawer: React.FC<ServerDrawerProps> = (props) => {
+export const ServerDrawer: React.FC<ServerDrawerProps> = props => {
   const { styles } = useStyles();
   const { record, visible, tenantId, onClose, startTime, endTime } = props;
   const [propertyVis, setPropertyVis] = useState(false);
@@ -84,7 +84,7 @@ export const ServerDrawer: React.FC<ServerDrawerProps> = (props) => {
       width: 166,
       dataIndex: 'objectName',
       fixed: 'right',
-      render: (node) => {
+      render: node => {
         // todo 下个版本再支持查看 ddl
         // return <a onClick={() => showDDL(r)}>{node}</a>;
         return node;
@@ -155,13 +155,13 @@ export const ServerDrawer: React.FC<ServerDrawerProps> = (props) => {
 
   const onExpand = (expanded: boolean, r: API.PlanOperation) => {
     const key = getPlanRowKey(r);
-    setExpandedKeys(expanded ? [...expandedKeys, key] : expandedKeys.filter((k) => k !== key));
+    setExpandedKeys(expanded ? [...expandedKeys, key] : expandedKeys.filter(k => k !== key));
   };
 
-  const getKeys = (operations) => {
+  const getKeys = operations => {
     const keys: string[] = [];
     const getTreekey = (records: API.PlanOperation[]) => {
-      records.forEach((r) => {
+      records.forEach(r => {
         // 每个 item 的最后一个 child 并不会有 expand
         if (r.children) {
           keys.push(getPlanRowKey(r));
@@ -278,13 +278,13 @@ export const ServerDrawer: React.FC<ServerDrawerProps> = (props) => {
 
                 {allExpansion
                   ? formatMessage({
-                    id: 'ocp-express.SQLDiagnosis.Component.Plan.FoldAll',
-                    defaultMessage: '全部收起',
-                  })
+                      id: 'ocp-express.SQLDiagnosis.Component.Plan.FoldAll',
+                      defaultMessage: '全部收起',
+                    })
                   : formatMessage({
-                    id: 'ocp-express.SQLDiagnosis.Component.Plan.ExpandAll',
-                    defaultMessage: '全部展开',
-                  })}
+                      id: 'ocp-express.SQLDiagnosis.Component.Plan.ExpandAll',
+                      defaultMessage: '全部展开',
+                    })}
               </a>
             </Col>
           )}

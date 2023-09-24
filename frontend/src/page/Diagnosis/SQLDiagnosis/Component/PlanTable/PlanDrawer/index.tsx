@@ -26,13 +26,8 @@ import {
 import React, { useEffect, useMemo, useState } from 'react';
 import { max } from 'lodash';
 import { findByValue, formatNumber, sortByMoment } from '@oceanbase/util';
-import {
-  DownOutlined,
-  ExclamationCircleOutlined,
-  EyeOutlined,
-  UpOutlined,
-} from '@oceanbase/icons';
-import type { ColumnProps } from 'antd/es/table';
+import { DownOutlined, ExclamationCircleOutlined, EyeOutlined, UpOutlined } from '@oceanbase/icons';
+import type { ColumnProps } from '@oceanbase/design/es/table';
 import { PLAN_TYPE_LIST } from '@/constant/tenant';
 import { formatTime } from '@/util/datetime';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
@@ -51,7 +46,7 @@ interface TopSQLPlanProps {
   rangeKey: string;
 }
 
-const PlanDrawer: React.FC<TopSQLPlanProps> = (props) => {
+const PlanDrawer: React.FC<TopSQLPlanProps> = props => {
   const { styles } = useStyles();
   const { PlanStatGroup, visible, tenantId, onClose, startTime, endTime, rangeKey } = props;
   const [propertyVis, setPropertyVis] = useState(false);
@@ -65,7 +60,7 @@ const PlanDrawer: React.FC<TopSQLPlanProps> = (props) => {
   const plans = PlanStatGroup?.plans;
   /** 响应时间的横条图 */
   const renderLine = (myRecord: API.PlanStatDetail, key: string) => {
-    const maxValue = max(plans?.map((plan) => plan[key]));
+    const maxValue = max(plans?.map(plan => plan[key]));
     const rate = (myRecord[key] || 0) / (maxValue as number);
 
     return (
@@ -180,7 +175,7 @@ const PlanDrawer: React.FC<TopSQLPlanProps> = (props) => {
       dataIndex: 'operator',
       width: operatorWidth,
       ellipsis: true,
-      render: (text) => {
+      render: text => {
         return (
           <Tooltip placement="topLeft" title={text}>
             {text}
@@ -198,7 +193,7 @@ const PlanDrawer: React.FC<TopSQLPlanProps> = (props) => {
       width: 166,
       dataIndex: 'objectName',
       fixed: 'right',
-      render: (node) => {
+      render: node => {
         // todo 下个版本再支持查看 ddl
         // return <a onClick={() => showDDL(r)}>{node}</a>;
         return node;
@@ -268,13 +263,13 @@ const PlanDrawer: React.FC<TopSQLPlanProps> = (props) => {
 
   const onExpand = (expanded: boolean, r: API.PlanOperation) => {
     const key = getPlanRowKey(r);
-    setExpandedKeys(expanded ? [...expandedKeys, key] : expandedKeys.filter((k) => k !== key));
+    setExpandedKeys(expanded ? [...expandedKeys, key] : expandedKeys.filter(k => k !== key));
   };
 
-  const getKeys = (operations) => {
+  const getKeys = operations => {
     const keys: string[] = [];
     const getTreekey = (records: API.PlanOperation[]) => {
-      records.forEach((r) => {
+      records.forEach(r => {
         // 每个 item 的最后一个 child 并不会有 expand
         if (r.children) {
           keys.push(getPlanRowKey(r));
@@ -401,13 +396,13 @@ const PlanDrawer: React.FC<TopSQLPlanProps> = (props) => {
 
                 {allExpansion
                   ? formatMessage({
-                    id: 'ocp-express.SQLDiagnosis.Component.Plan.FoldAll',
-                    defaultMessage: '全部收起',
-                  })
+                      id: 'ocp-express.SQLDiagnosis.Component.Plan.FoldAll',
+                      defaultMessage: '全部收起',
+                    })
                   : formatMessage({
-                    id: 'ocp-express.SQLDiagnosis.Component.Plan.ExpandAll',
-                    defaultMessage: '全部展开',
-                  })}
+                      id: 'ocp-express.SQLDiagnosis.Component.Plan.ExpandAll',
+                      defaultMessage: '全部展开',
+                    })}
               </a>
             </Col>
           )}

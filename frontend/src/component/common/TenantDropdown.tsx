@@ -13,7 +13,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'umi';
 import { Dropdown, Menu } from '@oceanbase/design';
-import type { DropDownProps } from 'antd/es/dropdown';
+import type { DropDownProps } from '@oceanbase/design/es/dropdown';
 import { isNullValue, findBy } from '@oceanbase/util';
 import { DEFAULT_LIST_DATA } from '@/constant';
 

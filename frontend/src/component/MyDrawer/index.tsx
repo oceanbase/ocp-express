@@ -14,8 +14,8 @@ import { formatMessage } from '@/util/intl';
 import type { MouseEvent } from 'react';
 import React from 'react';
 import { Button, Drawer, Space, token } from '@oceanbase/design';
-import type { ButtonProps } from 'antd/es/button';
-import type { DrawerProps } from 'antd/es/drawer';
+import type { ButtonProps } from '@oceanbase/design/es/button';
+import type { DrawerProps } from '@oceanbase/design/es/drawer';
 import { isBoolean } from 'lodash';
 
 export type EventType = MouseEvent<HTMLElement, MouseEvent<Element, MouseEvent>>;

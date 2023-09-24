@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Select } from '@oceanbase/design';
-import type { SelectProps } from 'antd/es/select';
+import type { SelectProps } from '@oceanbase/design/es/select';
 import { useRequest } from 'ahooks';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';
 

@@ -12,7 +12,7 @@
 
 import React from 'react';
 import { Card, Spin } from '@oceanbase/design';
-import type { CardProps } from 'antd/es/card';
+import type { CardProps } from '@oceanbase/design/es/card';
 import useStyles from './index.style';
 
 export interface MyCardProps extends CardProps {

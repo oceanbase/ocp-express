@@ -13,8 +13,8 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Typography, Row, Col, Divider, Checkbox, Space, Popover, token } from '@oceanbase/design';
-import type { PopoverProps } from 'antd/es/popover';
-import type { CheckboxOptionType } from 'antd/es/checkbox';
+import type { PopoverProps } from '@oceanbase/design/es/popover';
+import type { CheckboxOptionType } from '@oceanbase/design/es/checkbox';
 import { groupBy, some, uniq } from 'lodash';
 import { isNullValue } from '@oceanbase/util';
 import { InfoCircleFilled } from '@oceanbase/icons';

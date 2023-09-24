@@ -15,7 +15,7 @@ import { useDispatch } from 'umi';
 import React, { useEffect, useState } from 'react';
 import { Form, InputNumber, Row, Col, Descriptions, Modal } from '@oceanbase/design';
 import { isEqual, minBy } from 'lodash';
-import type { ModalProps } from 'antd/es/modal';
+import type { ModalProps } from '@oceanbase/design/es/modal';
 import { useRequest } from 'ahooks';
 import { taskSuccess } from '@/util/task';
 import { getUnitSpecLimit } from '@/util/cluster';

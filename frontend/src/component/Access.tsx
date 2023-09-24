@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Button, Checkbox, Menu, Switch, Tooltip } from '@oceanbase/design';
 import { isObject } from 'lodash';
-import type { TooltipProps } from 'antd/es/tooltip';
+import type { TooltipProps } from '@oceanbase/design/es/tooltip';
 
 export interface AccessProps {
   /* 是否可访问 */
@@ -23,11 +23,11 @@ export interface AccessProps {
   fallback?: React.ReactNode;
   /* 默认是所见即所得模式，如果想展示为 disabled + Tooltip 模式，则需要设置 tooltip 属性 */
   tooltip?:
-  | boolean
-  | (Omit<TooltipProps, 'title'> & {
-    // 将 title 改为可选属性
-    title?: React.ReactNode;
-  });
+    | boolean
+    | (Omit<TooltipProps, 'title'> & {
+        // 将 title 改为可选属性
+        title?: React.ReactNode;
+      });
   children: React.ReactElement;
 }
 
@@ -45,7 +45,7 @@ export default ({
   const element = React.cloneElement(children, {
     style: {
       ...(disabled &&
-        (children.type === Button || children.type === Checkbox || children.type === Switch)
+      (children.type === Button || children.type === Checkbox || children.type === Switch)
         ? { pointerEvents: 'none' }
         : {}),
       ...childrenProps.style,
@@ -56,9 +56,9 @@ export default ({
       : {}),
     ...(tooltip
       ? {
-        // 根据 accessible 设置 disabled
-        disabled,
-      }
+          // 根据 accessible 设置 disabled
+          disabled,
+        }
       : {}),
   });
   return tooltip ? (

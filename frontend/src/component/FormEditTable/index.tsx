@@ -16,10 +16,10 @@ import { PlusOutlined, DeleteOutlined } from '@oceanbase/icons';
 import { Button, Popconfirm, Space, Table } from '@oceanbase/design';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import type { ButtonProps } from 'antd/es/button';
-import type { GetFieldDecoratorOptions } from 'antd/es/form';
+import type { ButtonProps } from '@oceanbase/design/es/button';
+import type { GetFieldDecoratorOptions } from '@oceanbase/design/es/form';
 import type { WrappedFormUtils } from '@ant-design/compatible/lib/form/Form';
-import type { TableProps, ColumnProps } from 'antd/es/table';
+import type { TableProps, ColumnProps } from '@oceanbase/design/es/table';
 import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 import EditRow, { EditContext } from './EditRow';
@@ -90,7 +90,7 @@ class FormEditTable<T> extends React.Component<FormEditTableProps<T>, FormEditTa
 
   public handleEdit = (record: T) => {
     const { value, onValueChange } = this.props;
-    const newValue = (value || []).map((item) => {
+    const newValue = (value || []).map(item => {
       if (item.key === record.key) {
         return {
           ...item,
@@ -129,7 +129,7 @@ class FormEditTable<T> extends React.Component<FormEditTableProps<T>, FormEditTa
         // 浅拷贝 value 的值
         let newValue = [...(value || [])];
         let currentRecord;
-        const index = newValue.findIndex((item) => key === item.key);
+        const index = newValue.findIndex(item => key === item.key);
         if (index > -1) {
           const item = newValue[index];
           currentRecord = {
@@ -163,7 +163,7 @@ class FormEditTable<T> extends React.Component<FormEditTableProps<T>, FormEditTa
 
   handleDelete = (record: T) => {
     const { value } = this.props;
-    const newValue = value.filter((item) => item.key !== record.key);
+    const newValue = value.filter(item => item.key !== record.key);
     this.handleValueChange(newValue);
   };
 
@@ -195,7 +195,7 @@ class FormEditTable<T> extends React.Component<FormEditTableProps<T>, FormEditTa
     } = this.props;
     const { editingKey } = this.state;
     let newColumns = columns
-      .map((column) => {
+      .map(column => {
         const { title, dataIndex, editable, formItemProps, fieldProps, fieldComponent } = column;
 
         if (!editable) {
@@ -224,7 +224,7 @@ class FormEditTable<T> extends React.Component<FormEditTableProps<T>, FormEditTa
           }),
         };
       })
-      .map((column) => {
+      .map(column => {
         // 兼容默认的 table
         if (column?.dataIndex?.includes('.')) {
           column.dataIndex = column?.dataIndex?.split('.');
@@ -452,7 +452,7 @@ class FormEditTable<T> extends React.Component<FormEditTableProps<T>, FormEditTa
         })}
       >
         {/* 因为 cursor: not-allowed 失效问题, 所以需要单独用 span 包裹 Table */}
-        <Table pagination={false} rowKey={(record) => record.key} {...newProps} />
+        <Table pagination={false} rowKey={record => record.key} {...newProps} />
         {allowAdd && (
           <Button
             // button 上使用自带的 disabled 属性实现

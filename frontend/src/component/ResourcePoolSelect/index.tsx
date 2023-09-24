@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { connect } from 'umi';
 import { InputNumber } from '@oceanbase/design';
-import type { SelectValue } from 'antd/es/select';
+import type { SelectValue } from '@oceanbase/design/es/select';
 import UnitSpecSelect from '@/component/UnitSpecSelect';
 import styles from './index.less';
 
@@ -56,7 +56,7 @@ class ResourcePoolSelect extends React.Component<ResourcePoolSelectProps, Resour
           formatMessage({
             id: 'ocp-express.component.ResourcePoolSelect.PleaseSelectTheUnitSpecification',
             defaultMessage: '请选择 Unit 规格',
-          }),
+          })
         );
       }
       if (!value.unitCount) {
@@ -64,7 +64,7 @@ class ResourcePoolSelect extends React.Component<ResourcePoolSelectProps, Resour
           formatMessage({
             id: 'ocp-express.component.ResourcePoolSelect.PleaseEnterTheUnitQuantity',
             defaultMessage: '请输入 Unit 数量',
-          }),
+          })
         );
       }
       callback();

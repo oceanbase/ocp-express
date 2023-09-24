@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 import { Form } from '@oceanbase/design';
-import type { SelectProps } from 'antd/es/select';
+import type { SelectProps } from '@oceanbase/design/es/select';
 import MyDrawer from '@/component/MyDrawer';
 import MyInput from '@/component/MyInput';
 import MySelect from '@/component/MySelect';

@@ -13,8 +13,8 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Input, Select } from '@oceanbase/design';
-import type { InputProps } from 'antd/es/input';
-import type { SelectProps } from 'antd/es/select';
+import type { InputProps } from '@oceanbase/design/es/input';
+import type { SelectProps } from '@oceanbase/design/es/select';
 
 export interface ValueType {
   key?: string;

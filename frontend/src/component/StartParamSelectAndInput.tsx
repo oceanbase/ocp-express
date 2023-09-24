@@ -18,7 +18,7 @@ import { Button, Col, Form, Row } from '@oceanbase/design';
 import React from 'react';
 import { sortByString } from '@oceanbase/util';
 import { DeleteOutlined, PlusOutlined } from '@oceanbase/icons';
-import type { FormInstance } from 'antd/es/form';
+import type { FormInstance } from '@oceanbase/design/es/form';
 
 const { Option } = MySelect;
 

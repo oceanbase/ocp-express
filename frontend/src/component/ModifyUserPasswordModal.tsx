@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { useDispatch, useSelector } from 'umi';
 import React, { useState } from 'react';
 import { Form, Modal } from '@oceanbase/design';
-import type { ModalProps } from 'antd/es/modal';
+import type { ModalProps } from '@oceanbase/design/es/modal';
 import { noop } from 'lodash';
 import { MODAL_FORM_ITEM_LAYOUT } from '@/constant';
 import { validatePassword } from '@/util';

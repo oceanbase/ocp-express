@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect } from 'react';
 import { Dropdown, Menu } from '@oceanbase/design';
 import { DownOutlined, CaretDownOutlined } from '@oceanbase/icons';
-import type { DropDownProps } from 'antd/es/dropdown';
+import type { DropDownProps } from '@oceanbase/design/es/dropdown';
 import { toString } from 'lodash';
 import { ALL } from '@/constant';
 import ContentWithIcon from '@/component/ContentWithIcon';
@@ -55,18 +55,18 @@ const MyDropdown: React.FC<MyDropdownProps> = ({
 }) => {
   const newMenuList = showAll
     ? [
-      {
-        value: ALL,
-        label:
-          allLabel ||
-          formatMessage({
-            id: 'ocp-express.src.component.MyDropdown.All',
-            defaultMessage: '全部',
-          }),
-      },
+        {
+          value: ALL,
+          label:
+            allLabel ||
+            formatMessage({
+              id: 'ocp-express.src.component.MyDropdown.All',
+              defaultMessage: '全部',
+            }),
+        },
 
-      ...menuList,
-    ]
+        ...menuList,
+      ]
     : menuList;
 
   const firstMenuKey = newMenuList && newMenuList[0] && newMenuList[0].value;

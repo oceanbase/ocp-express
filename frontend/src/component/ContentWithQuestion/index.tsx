@@ -12,7 +12,7 @@
 
 import React from 'react';
 import { token } from '@oceanbase/design';
-import type { TooltipProps } from 'antd/es/tooltip';
+import type { TooltipProps } from '@oceanbase/design/es/tooltip';
 import { QuestionCircleOutlined } from '@oceanbase/icons';
 import ContentWithIcon from '@/component/ContentWithIcon';
 
@@ -33,7 +33,6 @@ const ContentWithQuestion: React.FC<ContentWithQuestionProps> = ({
   inLabel,
   ...restProps
 }) => {
-
   return (
     <ContentWithIcon
       content={content}

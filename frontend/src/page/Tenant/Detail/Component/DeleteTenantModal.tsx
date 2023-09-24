@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
 import { Alert, Descriptions, Modal, message, token } from '@oceanbase/design';
-import type { ModalProps } from 'antd/es/modal';
+import type { ModalProps } from '@oceanbase/design/es/modal';
 import MyInput from '@/component/MyInput';
 import { useRequest } from 'ahooks';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';

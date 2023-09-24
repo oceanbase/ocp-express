@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import { Input } from '@oceanbase/design';
-import type { InputProps } from 'antd/es/input';
+import type { InputProps } from '@oceanbase/design/es/input';
 
 interface MyInputProps extends React.FC<InputProps> {
   Search: typeof Input.Search;

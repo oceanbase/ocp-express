@@ -16,7 +16,7 @@ import React, { useState } from 'react';
 import { PageContainer } from '@oceanbase/ui';
 import { uniq } from 'lodash';
 import { Card, Table, Tooltip } from '@oceanbase/design';
-import type { TablePaginationConfig } from 'antd/es/table';
+import type { TablePaginationConfig } from '@oceanbase/design/es/table';
 import { getBooleanLabel, isEnglish } from '@/util';
 import {
   breadcrumbItemRender,
@@ -32,9 +32,9 @@ import MyDrawer from '@/component/MyDrawer';
 import MyInput from '@/component/MyInput';
 import { BOOLEAN_LIST } from '@/constant';
 
-export interface ListProps { }
+export interface ListProps {}
 
-const List: React.FC<ListProps> = ({ }) => {
+const List: React.FC<ListProps> = ({}) => {
   const { clusterData } = useSelector((state: DefaultRootState) => state.cluster);
 
   const [pagination, setPagination] = useState<TablePaginationConfig>({
@@ -151,7 +151,7 @@ const List: React.FC<ListProps> = ({ }) => {
           title={getSimpleComponentByClusterParameterValue(
             text,
             record?.parameterType,
-            () => { },
+            () => {},
             'text'
           )}
         >

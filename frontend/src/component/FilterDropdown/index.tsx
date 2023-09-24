@@ -13,8 +13,8 @@
 import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
 import { Card, Divider, Dropdown, Input, Typography } from '@oceanbase/design';
-import type { DropDownProps } from 'antd/es/dropdown';
-import type { InputProps } from 'antd/es/input';
+import type { DropDownProps } from '@oceanbase/design/es/dropdown';
+import type { InputProps } from '@oceanbase/design/es/input';
 import { CheckOutlined, FilterOutlined, SearchOutlined } from '@oceanbase/icons';
 import { findByValue } from '@oceanbase/util';
 import useStyles from './index.style';
@@ -75,7 +75,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
           {showSearch && (
             <div
               className={styles.searchWrapper}
-              onClick={(e) => {
+              onClick={e => {
                 // 阻止事件冒泡，避免点击后隐藏下拉菜单
                 e.stopPropagation();
               }}
@@ -83,7 +83,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
               <Input
                 allowClear={true}
                 value={keyword}
-                onChange={(e) => {
+                onChange={e => {
                   setKeyword(e.target.value);
                 }}
                 prefix={<SearchOutlined className={styles.searchIcon} />}
@@ -94,17 +94,17 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
 
           <ul style={{ maxHeight: 320, overflow: 'auto', width: '100%' }}>
             {filters
-              .filter((item) => !keyword || (item.label && item.label.includes(keyword)))
-              .map((item) => (
+              .filter(item => !keyword || (item.label && item.label.includes(keyword)))
+              .map(item => (
                 <li
                   key={item.value}
-                  onClick={(e) => {
+                  onClick={e => {
                     if (mode === 'multiple') {
                       // 阻止事件冒泡，避免点击后隐藏下拉菜单
                       e.stopPropagation();
                     }
                     const newValue = value.includes(item.value)
-                      ? value.filter((valueItem) => valueItem !== item.value)
+                      ? value.filter(valueItem => valueItem !== item.value)
                       : [...value, item.value];
                     if (onChange) {
                       onChange(newValue);
@@ -160,7 +160,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
                 backgroundColor: 'rgba(0,0,0,.04)',
               }}
             >
-              {value.map((item) => findByValue(filters, item).label).join(',')}
+              {value.map(item => findByValue(filters, item).label).join(',')}
             </span>
           ) : (
             children
@@ -168,15 +168,17 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         ) : children ? (
           React.cloneElement(children, {
             // 筛选项不为空时用主色调标记筛选 icon
-            className: `pointable ${value && value.length > 0 ? styles.filterIconFiltered : ''
-              } ${className}`,
+            className: `pointable ${
+              value && value.length > 0 ? styles.filterIconFiltered : ''
+            } ${className}`,
             style,
           })
         ) : (
           <FilterOutlined
             // 筛选项不为空时用主色调标记筛选 icon
-            className={`pointable ${value && value.length > 0 ? styles.filterIconFiltered : ''
-              } ${className}`}
+            className={`pointable ${
+              value && value.length > 0 ? styles.filterIconFiltered : ''
+            } ${className}`}
             style={style}
           />
         )}

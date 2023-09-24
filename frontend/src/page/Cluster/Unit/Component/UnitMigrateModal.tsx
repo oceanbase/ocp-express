@@ -21,7 +21,7 @@ import React, { useEffect } from 'react';
 import { find } from 'lodash';
 import { byte2GB, findBy, findByValue, formatNumber, isNullValue } from '@oceanbase/util';
 import { useRequest } from 'ahooks';
-import type { ModalProps } from 'antd/es/modal';
+import type { ModalProps } from '@oceanbase/design/es/modal';
 
 const { Option } = MySelect;
 
@@ -178,13 +178,13 @@ const UnitMigrateModal: React.FC<UnitMigrateModalProps> = ({
         layout="horizontal"
         {...(isEnglish()
           ? {
-            labelCol: {
-              span: 9,
-            },
-            wrapperCol: {
-              span: 15,
-            },
-          }
+              labelCol: {
+                span: 9,
+              },
+              wrapperCol: {
+                span: 15,
+              },
+            }
           : MODAL_HORIZONTAL_FORM_ITEM_LAYOUT)}
       >
         <Form.Item label="Unit ID">{unitInfo?.obUnitId}</Form.Item>
@@ -254,7 +254,7 @@ const UnitMigrateModal: React.FC<UnitMigrateModalProps> = ({
               // 内存
               const currentMemory = formatNumber(
                 byte2GB(serverInfo.totalMemorySizeByte || 0) -
-                byte2GB(serverInfo.memorySizeAssignedByte || 0)
+                  byte2GB(serverInfo.memorySizeAssignedByte || 0)
               );
 
               // const minMemory = formatNumber(

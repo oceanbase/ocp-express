@@ -14,7 +14,7 @@ import type { SyntheticEvent } from 'react';
 import React from 'react';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import type { GetFieldDecoratorOptions, FormItemProps } from 'antd/es/form';
+import type { GetFieldDecoratorOptions, FormItemProps } from '@oceanbase/design/es/form';
 import type { WrappedFormUtils } from '@ant-design/compatible/lib/form/Form';
 import { EditContext } from './EditRow';
 

@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { connect } from 'umi';
 import React from 'react';
 import { Alert, Descriptions, Modal } from '@oceanbase/design';
-import type { ModalProps } from 'antd/es/modal';
+import type { ModalProps } from '@oceanbase/design/es/modal';
 import { useRequest } from 'ahooks';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';
 // import { REPLICA_TYPE_LIST } from '@/constant/oceanbase';

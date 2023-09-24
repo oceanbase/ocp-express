@@ -14,7 +14,7 @@ import { formatMessage } from '@/util/intl';
 import { connect } from 'umi';
 import React, { useEffect } from 'react';
 import { Select } from '@oceanbase/design';
-import type { SelectProps } from 'antd/es/select';
+import type { SelectProps } from '@oceanbase/design/es/select';
 import { isNullValue } from '@oceanbase/util';
 import { flatten } from 'lodash';
 import { DEFAULT_LIST_DATA } from '@/constant';

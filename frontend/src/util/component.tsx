@@ -35,10 +35,10 @@ import React from 'react';
 import { noop } from 'lodash';
 import moment from 'moment';
 import { EllipsisOutlined, SearchOutlined } from '@oceanbase/icons';
-import type { ButtonProps } from 'antd/es/button';
-import type { PopconfirmProps } from 'antd/es/popconfirm';
-import type { FilterDropdownProps } from 'antd/es/table/interface';
-import type { TooltipProps } from 'antd/es/tooltip';
+import type { ButtonProps } from '@oceanbase/design/es/button';
+import type { PopconfirmProps } from '@oceanbase/design/es/popconfirm';
+import type { FilterDropdownProps } from '@oceanbase/design/es/table/interface';
+import type { TooltipProps } from '@oceanbase/design/es/tooltip';
 
 export interface getConfirmModalProps extends ModalFuncProps {
   operationType: 'confirm' | 'delete';

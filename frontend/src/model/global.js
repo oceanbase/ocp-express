@@ -19,6 +19,8 @@ export const namespace = 'global';
 const model = {
   namespace,
   state: {
+    // theme mode
+    themeMode: localStorage.getItem('themeMode'),
     // RSA 加密用的公钥
     publicKey: '',
     // 应用信息
@@ -30,6 +32,16 @@ const model = {
     tenantAdminPasswordErrorData: {},
   },
   effects: {
+    *setThemeMode({ payload }, { put }) {
+      const themeMode = payload.themeMode || 'light';
+      localStorage.setItem('themeMode', themeMode);
+      yield put({
+        type: 'update',
+        payload: {
+          themeMode,
+        },
+      });
+    },
     *getPublicKey(_, { call, put }) {
       const res = yield call(IamController.getLoginKey);
       yield put({

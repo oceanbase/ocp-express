@@ -46,7 +46,7 @@ import type { FormInstance } from 'antd/es/form';
 import type { ColumnProps } from 'antd/es/table';
 import PlanTable from '../PlanTable';
 import { SqlText } from '../SqlText';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface SQLTableProps {
   location: {
@@ -69,8 +69,9 @@ const SQLTable: React.FC<SQLTableProps> = ({
   sqlType,
   actives,
   fields,
-  setActives = () => { },
+  setActives = () => {},
 }) => {
+  const { styles } = useStyles();
   const tenantId = location?.query?.tenantId;
   const [showTable, setShowTable] = useState(false);
   const [selectedRows, setSelectedRows] = useState<API.SqlAuditStatSummary[]>([]);
@@ -309,13 +310,13 @@ const SQLTable: React.FC<SQLTableProps> = ({
         if (field.dataType === 'BOOLEAN') {
           return node
             ? formatMessage({
-              id: 'ocp-express.SQLDiagnosis.Component.SQLTable.Is',
-              defaultMessage: '是',
-            })
+                id: 'ocp-express.SQLDiagnosis.Component.SQLTable.Is',
+                defaultMessage: '是',
+              })
             : formatMessage({
-              id: 'ocp-express.SQLDiagnosis.Component.SQLTable.No',
-              defaultMessage: '否',
-            });
+                id: 'ocp-express.SQLDiagnosis.Component.SQLTable.No',
+                defaultMessage: '否',
+              });
         }
         if (field.dataType === 'FLOAT' || field.dataType === 'INTEGER') {
           return formatterNumber(node as number);
@@ -338,14 +339,14 @@ const SQLTable: React.FC<SQLTableProps> = ({
       // 从 queryValues 中回填 filter 的值
       ...(queryFilter?.[field.name as string]
         ? {
-          defaultFilteredValue: queryFilter?.[field.name as string],
-        }
+            defaultFilteredValue: queryFilter?.[field.name as string],
+          }
         : {}),
       ...(querySorter?.field === field.name && querySorter?.order
         ? {
-          // 排序和 query 强绑定
-          sortOrder: querySorter?.order,
-        }
+            // 排序和 query 强绑定
+            sortOrder: querySorter?.order,
+          }
         : {}),
     };
 
@@ -383,13 +384,13 @@ const SQLTable: React.FC<SQLTableProps> = ({
           content={
             field.unit
               ? formatMessage(
-                {
-                  id: 'ocp-express.Component.SQLTable.FieldtitleFieldunit',
-                  defaultMessage: '{fieldTitle}（{fieldUnit}）',
-                },
+                  {
+                    id: 'ocp-express.Component.SQLTable.FieldtitleFieldunit',
+                    defaultMessage: '{fieldTitle}（{fieldUnit}）',
+                  },
 
-                { fieldTitle: field.title, fieldUnit: field.unit }
-              )
+                  { fieldTitle: field.title, fieldUnit: field.unit }
+                )
               : field.title
           }
           tooltip={{ arrowPointAtCenter: true, title: field.tooltip }}
@@ -407,23 +408,23 @@ const SQLTable: React.FC<SQLTableProps> = ({
       className: styles.active,
       ...(field.operation === 'SORT'
         ? {
-          sorter: (a, b) => a[field.name as string] - b[field.name as string],
-        }
+            sorter: (a, b) => a[field.name as string] - b[field.name as string],
+          }
         : {}),
       ...defaultSorterItem,
       filters:
         field.operation === 'FILTER'
           ? Object.keys(groupBy(sqlList, sql => sql[field.name as string])).map(key => ({
-            // 无值时使用 - 来当做默认值
-            text:
-              key === 'undefined'
-                ? formatMessage({
-                  id: 'ocp-express.SQLDiagnosis.Component.SQLTable.No.1',
-                  defaultMessage: '无',
-                })
-                : key,
-            value: key === 'undefined' ? '-' : key,
-          }))
+              // 无值时使用 - 来当做默认值
+              text:
+                key === 'undefined'
+                  ? formatMessage({
+                      id: 'ocp-express.SQLDiagnosis.Component.SQLTable.No.1',
+                      defaultMessage: '无',
+                    })
+                  : key,
+              value: key === 'undefined' ? '-' : key,
+            }))
           : undefined,
       ...filterWithSortParams,
       // - 默认值时，使用 undefined 去判断
@@ -551,16 +552,14 @@ const SQLTable: React.FC<SQLTableProps> = ({
   const expandedRowRender = (record: API.SqlAuditStatSummary) => {
     const id = getRowKey(record);
     return (
-      <div style={{ margin: '12px 0 12px 48px', backgroundColor: '#fff' }}>
-        <PlanTable
-          tenantId={tenantId}
-          startTime={queryValues.startTime}
-          endTime={queryValues.endTime}
-          rangeKey={queryValues.rangeKey}
-          topPlans={planState[id] || []}
-          topPlansLoading={planLoadingState[id] || false}
-        />
-      </div>
+      <PlanTable
+        tenantId={tenantId}
+        startTime={queryValues.startTime}
+        endTime={queryValues.endTime}
+        rangeKey={queryValues.rangeKey}
+        topPlans={planState[id] || []}
+        topPlansLoading={planLoadingState[id] || false}
+      />
     );
   };
   const [outlineForm] = Form.useForm();
@@ -657,35 +656,35 @@ const SQLTable: React.FC<SQLTableProps> = ({
           // 引导到链路查询的条件: 链路查询可用 + 有链路查询的权限 + 根据 SQL ID 查询到的 SlowSQL 数据为空
           traceEnabled && sqlType === 'slowSql' && searchSqlId
             ? {
-              emptyText: (
-                <Empty
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
-                  description={
-                    <div>
-                      {formatMessage({
-                        id: 'ocp-express.Component.SQLTable.TheCorrespondingSlowsqlIsNotFoundGo',
-                        defaultMessage: '没有找到对应的 SlowSQL，去',
-                      })}
-
-                      <a
-                        href={`/log/trace?${stringify({
-                          tenantId,
-                          sqlId: searchSqlId,
-                          startTime: moment(queryValues.startTime).format(DATE_TIME_FORMAT),
-                          endTime: moment(queryValues.endTime).format(DATE_TIME_FORMAT),
-                        })}`}
-                        target="_blank"
-                      >
+                emptyText: (
+                  <Empty
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                    description={
+                      <div>
                         {formatMessage({
-                          id: 'ocp-express.Component.SQLTable.LinkQuery',
-                          defaultMessage: '链路查询',
+                          id: 'ocp-express.Component.SQLTable.TheCorrespondingSlowsqlIsNotFoundGo',
+                          defaultMessage: '没有找到对应的 SlowSQL，去',
                         })}
-                      </a>
-                    </div>
-                  }
-                />
-              ),
-            }
+
+                        <a
+                          href={`/log/trace?${stringify({
+                            tenantId,
+                            sqlId: searchSqlId,
+                            startTime: moment(queryValues.startTime).format(DATE_TIME_FORMAT),
+                            endTime: moment(queryValues.endTime).format(DATE_TIME_FORMAT),
+                          })}`}
+                          target="_blank"
+                        >
+                          {formatMessage({
+                            id: 'ocp-express.Component.SQLTable.LinkQuery',
+                            defaultMessage: '链路查询',
+                          })}
+                        </a>
+                      </div>
+                    }
+                  />
+                ),
+              }
             : {}
         }
       />
@@ -694,13 +693,13 @@ const SQLTable: React.FC<SQLTableProps> = ({
         title={
           isBatch
             ? formatMessage({
-              id: 'ocp-express.Component.SQLTable.SetThrottling.2',
-              defaultMessage: '批量设置限流',
-            })
+                id: 'ocp-express.Component.SQLTable.SetThrottling.2',
+                defaultMessage: '批量设置限流',
+              })
             : formatMessage({
-              id: 'ocp-express.Component.SQLTable.SetThrottling',
-              defaultMessage: '设置限流',
-            })
+                id: 'ocp-express.Component.SQLTable.SetThrottling',
+                defaultMessage: '设置限流',
+              })
         }
         visible={visible}
         destroyOnClose={true}
@@ -713,13 +712,13 @@ const SQLTable: React.FC<SQLTableProps> = ({
             Modal.confirm({
               title: isBatch
                 ? formatMessage({
-                  id: 'ocp-express.Component.SQLTable.AreYouSureYouWant',
-                  defaultMessage: '确定要批量修改限流吗？',
-                })
+                    id: 'ocp-express.Component.SQLTable.AreYouSureYouWant',
+                    defaultMessage: '确定要批量修改限流吗？',
+                  })
                 : formatMessage({
-                  id: 'ocp-express.Component.SQLTable.AreYouSureYouWant.1',
-                  defaultMessage: '确定要修改限流吗？',
-                }),
+                    id: 'ocp-express.Component.SQLTable.AreYouSureYouWant.1',
+                    defaultMessage: '确定要修改限流吗？',
+                  }),
 
               okButtonProps: { danger: true, type: 'default' },
               onOk: () => {
@@ -732,15 +731,15 @@ const SQLTable: React.FC<SQLTableProps> = ({
                 if (launchLimit === 'open') {
                   const sqlListParam = isBatch
                     ? selectedRows.map(item => ({
-                      dbName: item.dbName,
-                      sqlId: item?.sqlId,
-                    }))
+                        dbName: item.dbName,
+                        sqlId: item?.sqlId,
+                      }))
                     : [
-                      {
-                        dbName: sqlRecord?.dbName,
-                        sqlId: sqlRecord?.sqlId,
-                      },
-                    ];
+                        {
+                          dbName: sqlRecord?.dbName,
+                          sqlId: sqlRecord?.sqlId,
+                        },
+                      ];
 
                   return batchCreateOutline(
                     {

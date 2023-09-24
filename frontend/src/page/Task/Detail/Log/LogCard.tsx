@@ -23,7 +23,7 @@ import {
   Typography,
   token,
 } from '@oceanbase/design';
-import { FullscreenBox } from '@oceanbase/ui'
+import { FullscreenBox } from '@oceanbase/ui';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   CarryOutOutlined,
@@ -39,7 +39,7 @@ import { isEnglish } from '@/util';
 import { downloadLog } from '@/util/log';
 import { handleSubtaskOperate, splitTaskLog } from '@/util/task';
 import HighlightWithLineNumbers from '@/component/HighlightWithLineNumbers';
-import styles from './LogCard.less';
+import useStyles from './LogCard.style';
 
 const { Text, Paragraph } = Typography;
 
@@ -61,6 +61,7 @@ const LogCard: React.FC<LogCardProps> = ({
   logLoading,
   logPolling,
 }) => {
+  const { styles } = useStyles();
   // 是否全屏展示
   const [fullscreen, setFullscreen] = useState(false);
   const boxRef = useRef<FullscreenBox>();
@@ -173,9 +174,9 @@ const LogCard: React.FC<LogCardProps> = ({
                     fullscreen
                       ? false
                       : {
-                        rows: 1,
-                        tooltip: subtask?.name,
-                      }
+                          rows: 1,
+                          tooltip: subtask?.name,
+                        }
                   }
                   className={styles.subtaskName}
                   style={
@@ -183,9 +184,9 @@ const LogCard: React.FC<LogCardProps> = ({
                     fullscreen
                       ? {}
                       : {
-                        // 只能设置最大宽度，如果设置宽度，则子任务名称较短的情况下，与 ID 之间的距离就会比较大
-                        maxWidth: `calc(${boxRef.current?.containerRef?.current?.clientWidth}px - 440px)`,
-                      }
+                          // 只能设置最大宽度，如果设置宽度，则子任务名称较短的情况下，与 ID 之间的距离就会比较大
+                          maxWidth: `calc(${boxRef.current?.containerRef?.current?.clientWidth}px - 440px)`,
+                        }
                   }
                 >
                   {subtask?.name}
@@ -243,7 +244,10 @@ const LogCard: React.FC<LogCardProps> = ({
                           style={
                             // 设置 active 样式
                             item === logNode
-                              ? { backgroundColor: token.colorPrimary, color: '#ffffff' }
+                              ? {
+                                  backgroundColor: token.colorPrimary,
+                                  color: token.colorTextLightSolid,
+                                }
                               : {}
                           }
                         >
@@ -255,8 +259,9 @@ const LogCard: React.FC<LogCardProps> = ({
                 >
                   <span
                     // 只要当前查看的日志节点收起，则高亮 EllipsisOutlined
-                    className={`${styles.logNode} ${collapsedLogNodeList.includes(logNode) ? styles.active : ''
-                      }`}
+                    className={`${styles.logNode} ${
+                      collapsedLogNodeList.includes(logNode) ? styles.active : ''
+                    }`}
                   >
                     <EllipsisOutlined />
                   </span>
@@ -360,9 +365,9 @@ const LogCard: React.FC<LogCardProps> = ({
             // 当滚动到日志底部，才允许自动滚动
             if (
               scrollTop +
-              clientHeight +
-              // 12 为 Spin 距卡片底部的距离
-              12 >=
+                clientHeight +
+                // 12 为 Spin 距卡片底部的距离
+                12 >=
               scrollHeight
             ) {
               setAllowScroll(true);
@@ -403,6 +408,7 @@ const LogCard: React.FC<LogCardProps> = ({
               ) : (
                 <HighlightWithLineNumbers language="javaLog" content={displayLog} />
               )}
+
               {logNode === firstLogNode && <Spin spinning={logPolling} />}
             </>
           ) : (

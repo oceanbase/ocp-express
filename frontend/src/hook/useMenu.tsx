@@ -28,7 +28,7 @@ export const useBasicMenu = (): MenuItem[] => {
         defaultMessage: '集群总览',
       }),
       icon: <IconFont type="overview" />,
-      selectedIcon: <Lottie path="/lottie/overview.json" mode="icon" speed={3} />,
+      selectedIcon: <Lottie path="/lottie/overview.json" mode="icon" speed={3} loop={false} />,
     },
 
     {
@@ -38,7 +38,7 @@ export const useBasicMenu = (): MenuItem[] => {
         defaultMessage: '租户管理',
       }),
       icon: <IconFont type="tenant" />,
-      selectedIcon: <Lottie path="/lottie/tenant.json" mode="icon" speed={3} />,
+      selectedIcon: <Lottie path="/lottie/tenant.json" mode="icon" speed={3} loop={false} />,
     },
 
     {
@@ -48,7 +48,7 @@ export const useBasicMenu = (): MenuItem[] => {
         defaultMessage: '集群监控',
       }),
       icon: <Icon component={MonitorSvg} />,
-      selectedIcon: <Lottie path="/lottie/monitor.json" mode="icon" speed={3} />,
+      selectedIcon: <Lottie path="/lottie/monitor.json" mode="icon" speed={3} loop={false} />,
     },
 
     {
@@ -58,7 +58,7 @@ export const useBasicMenu = (): MenuItem[] => {
         defaultMessage: '诊断分析',
       }),
       icon: <Icon component={DiagnosisSvg} />,
-      selectedIcon: <Lottie path="/lottie/diagnosis.json" mode="icon" speed={3} />,
+      selectedIcon: <Lottie path="/lottie/diagnosis.json" mode="icon" speed={3} loop={false} />,
       children: [
         {
           link: `/diagnosis/session`,
@@ -84,7 +84,7 @@ export const useBasicMenu = (): MenuItem[] => {
         defaultMessage: '日志查询',
       }),
       icon: <IconFont type="log" />,
-      selectedIcon: <Lottie path="/lottie/log.json" mode="icon" speed={3} />,
+      selectedIcon: <Lottie path="/lottie/log.json" mode="icon" speed={3} loop={false} />,
       divider: true,
     },
 
@@ -95,7 +95,7 @@ export const useBasicMenu = (): MenuItem[] => {
         defaultMessage: '系统配置',
       }),
       icon: <IconFont type="property" />,
-      selectedIcon: <Lottie path="/lottie/property.json" mode="icon" speed={3} />,
+      selectedIcon: <Lottie path="/lottie/property.json" mode="icon" speed={3} loop={false} />,
     },
   ];
 };

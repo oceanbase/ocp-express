@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 import classNames from 'classnames';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface BatchOperationBarProps {
   className?: string;
@@ -38,6 +38,7 @@ const BatchOperationBar: React.FC<BatchOperationBarProps> = ({
   onCancel,
   size = 'default',
 }) => {
+  const { styles } = useStyles();
   const realVisible = visible === undefined ? selectedCount > 0 : visible;
   return (
     <div
@@ -54,7 +55,7 @@ const BatchOperationBar: React.FC<BatchOperationBarProps> = ({
               id: 'ocp-express.component.BatchOperationBar.SelectedcountSelected',
               defaultMessage: '已选 {selectedCount} 项',
             },
-            { selectedCount }
+            { selectedCount },
           )}
           {onCancel && (
             <span className={styles.cancel} onClick={onCancel}>

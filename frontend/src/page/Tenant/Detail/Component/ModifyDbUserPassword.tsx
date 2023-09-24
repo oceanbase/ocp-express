@@ -21,8 +21,7 @@ import MyInput from '@/component/MyInput';
 import encrypt from '@/util/encrypt';
 import { useRequest } from 'ahooks';
 import * as IamController from '@/service/ocp-express/IamController';
-
-import './ModifyPasswordModal.less';
+import useStyles from './ModifyPasswordModal.style';
 
 export interface ModifyDbUserPasswordProps {
   dispatch: any;
@@ -43,6 +42,7 @@ const ModifyDbUserPassword: React.FC<ModifyDbUserPasswordProps> = ({
   loading,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   const [passed, setPassed] = useState(true);
 
   const [form] = Form.useForm();

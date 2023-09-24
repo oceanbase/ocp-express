@@ -11,9 +11,10 @@
  */
 
 import React from 'react';
-import { Progress, theme } from '@oceanbase/design';
+import { Progress } from '@oceanbase/design';
 import type { ProgressProps } from 'antd/es/progress';
-import styles from './index.less';
+import { useTheme } from '@oceanbase/charts';
+import useStyles from './index.style';
 
 export interface MyProgressProps extends ProgressProps {
   /* 外层容器的类型 */
@@ -29,7 +30,7 @@ export interface MyProgressProps extends ProgressProps {
 
 const MyProgress: React.FC<MyProgressProps> = ({
   wrapperClassName,
-  strokeColor = theme.defaultColor,
+  strokeColor,
   strokeLinecap = 'square',
   prefix,
   prefixWidth = 40,
@@ -37,22 +38,31 @@ const MyProgress: React.FC<MyProgressProps> = ({
   affixWidth = 40,
   prefixStyle,
   ...restProps
-}: MyProgressProps) => (
-  <span className={`${styles.progress} ${wrapperClassName}`}>
-    {prefix && (
-      <span className={prefixStyle ? null : styles.prefix} style={{ width: prefixWidth }}>
-        {prefix}
+}: MyProgressProps) => {
+  const { styles } = useStyles();
+  const theme = useTheme();
+  return (
+    <span className={`${styles.progress} ${wrapperClassName}`}>
+      {prefix && (
+        <span className={prefixStyle ? null : styles.prefix} style={{ width: prefixWidth }}>
+          {prefix}
+        </span>
+      )}
+
+      <span className={styles.wrapper}>
+        <Progress
+          strokeColor={strokeColor || theme.defaultColor}
+          strokeLinecap={strokeLinecap}
+          {...restProps}
+        />
       </span>
-    )}
-    <span className={styles.wrapper}>
-      <Progress strokeColor={strokeColor} strokeLinecap={strokeLinecap} {...restProps} />
+      {affix && (
+        <span className={styles.affix} style={{ width: affixWidth }}>
+          {affix}
+        </span>
+      )}
     </span>
-    {affix && (
-      <span className={styles.affix} style={{ width: affixWidth }}>
-        {affix}
-      </span>
-    )}
-  </span>
-);
+  );
+};
 
 export default MyProgress;

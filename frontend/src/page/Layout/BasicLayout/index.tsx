@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { getLocale, history, useDispatch, useSelector } from 'umi';
 import React, { useEffect, useState } from 'react';
-import { Alert, Badge, Menu, Modal, Space, token, Tooltip } from '@oceanbase/design';
+import { Alert, Badge, Dropdown, Menu, Modal, Space, Tooltip, token } from '@oceanbase/design';
 import { BasicLayout as OBUIBasicLayout } from '@oceanbase/ui';
 import type { BasicLayoutProps as OBUIBasicLayoutProps } from '@oceanbase/ui/es/BasicLayout';
 import { find } from 'lodash';
@@ -29,7 +29,8 @@ import { formatTime } from '@/util/datetime';
 import tracert from '@/util/tracert';
 import ModifyUserPasswordModal from '@/component/ModifyUserPasswordModal';
 import TenantAdminPasswordModal from '@/component/TenantAdminPasswordModal';
-import styles from './index.less';
+import useStyles from './index.style';
+
 interface BasicLayoutProps extends OBUIBasicLayoutProps {
   children: React.ReactNode;
   location: {
@@ -38,8 +39,10 @@ interface BasicLayoutProps extends OBUIBasicLayoutProps {
 }
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
+  const { styles } = useStyles();
   const dispatch = useDispatch();
   const {
+    themeMode,
     appInfo,
     systemInfo: { monitorInfo: { collectInterval } = {} },
     showTenantAdminPasswordModal,
@@ -65,6 +68,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     : '/assets/logo/ocp_express_logo_zh.svg';
   const simpleLogoUrl = isEnglish()
     ? '/assets/logo/ocp_express_simple_logo_en.svg'
+    : themeMode === 'dark'
+    ? '/assets/logo/ocp_express_simple_logo_zh_dark.svg'
     : '/assets/logo/ocp_express_simple_logo_zh.svg';
 
   useEffect(() => {
@@ -119,6 +124,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           status: 'FAILED',
         },
       ],
+
       pollingInterval: 10000,
     }
   );
@@ -133,6 +139,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           status: 'RUNNING',
         },
       ],
+
       pollingInterval: 10000,
     }
   );
@@ -142,22 +149,22 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const overThreshold = Math.abs(offsetSeconds) >= 60;
   const message = overThreshold
     ? formatMessage(
-      {
-        id: 'ocp-express.Layout.BasicLayout.TheTimeDifferenceBetweenThe',
-        defaultMessage:
-          '客户端与服务器时间差过大，时间差为 {offsetSeconds} 秒。请矫正客户端或服务器时间，时间差需小于 60 秒',
-      },
+        {
+          id: 'ocp-express.Layout.BasicLayout.TheTimeDifferenceBetweenThe',
+          defaultMessage:
+            '客户端与服务器时间差过大，时间差为 {offsetSeconds} 秒。请矫正客户端或服务器时间，时间差需小于 60 秒',
+        },
 
-      { offsetSeconds }
-    )
+        { offsetSeconds }
+      )
     : formatMessage(
-      {
-        id: 'ocp-express.Layout.BasicLayout.TheTimeBetweenTheClient',
-        defaultMessage: '客户端与服务器时间已同步，时间差为 {offsetSeconds} 秒，OCP 可正常使用',
-      },
+        {
+          id: 'ocp-express.Layout.BasicLayout.TheTimeBetweenTheClient',
+          defaultMessage: '客户端与服务器时间已同步，时间差为 {offsetSeconds} 秒，OCP 可正常使用',
+        },
 
-      { offsetSeconds }
-    );
+        { offsetSeconds }
+      );
 
   const handleUserMenuClick = (key: string) => {
     if (key === 'profile') {
@@ -229,7 +236,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         // OCP 监控采集间隔
         ocpMonitorCollectInterval: collectInterval,
       })}
-      {...restProps}
       location={location}
       banner={
         offsetAlertVisible && (
@@ -278,19 +284,53 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       topHeader={{
         title: (
           <div style={{ float: 'right' }}>
+            <Dropdown
+              overlay={
+                <Menu
+                  onClick={({ key }) => {
+                    dispatch({
+                      type: 'global/setThemeMode',
+                      payload: {
+                        themeMode: key,
+                      },
+                    });
+                  }}
+                >
+                  <Menu.Item key="light">浅色主题</Menu.Item>
+                  <Menu.Item key="dark">暗黑主题</Menu.Item>
+                </Menu>
+              }
+            >
+              <span
+                style={{
+                  marginRight: 28,
+                  fontSize: 12,
+                  cursor: 'pointer',
+                }}
+              >
+                🎉
+                <span
+                  style={{
+                    marginLeft: 8,
+                  }}
+                >
+                  {themeMode === 'light' ? '浅色主题' : '暗黑主题'}
+                </span>
+              </span>
+            </Dropdown>
             <Tooltip
               title={
                 failedTaskList.length > 0
                   ? formatMessage(
-                    {
-                      id: 'ocp-express.Layout.BasicLayout.FailedTaskCount',
-                      defaultMessage: '有 {failedTaskCount} 条失败任务',
-                    },
+                      {
+                        id: 'ocp-express.Layout.BasicLayout.FailedTaskCount',
+                        defaultMessage: '有 {failedTaskCount} 条失败任务',
+                      },
 
-                    { failedTaskCount: failedTaskList.length }
-                  )
+                      { failedTaskCount: failedTaskList.length }
+                    )
                   : runningTaskList.length > 0
-                    ? formatMessage(
+                  ? formatMessage(
                       {
                         id: 'ocp-express.Layout.BasicLayout.RunningTaskCount',
                         defaultMessage: '有 {runningTaskCount} 条正在运行中的任务',
@@ -298,7 +338,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
                       { runningTaskCount: runningTaskList.length }
                     )
-                    : formatMessage({
+                  : formatMessage({
                       id: 'ocp-express.Layout.BasicLayout.TaskCenter',
                       defaultMessage: '任务中心',
                     })
@@ -321,7 +361,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                 <Badge
                   size="small"
                   offset={[4, 0]}
-                  count={failedTaskList.length || runningTaskList.length}
+                  // count={failedTaskList.length || runningTaskList.length}
                   style={{
                     backgroundColor:
                       // 失败任务，展示红色圆点
@@ -329,26 +369,26 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                         ? token.colorError
                         : // 存在执行中的任务，展示蓝色圆点
                         runningTaskList.length > 0
-                          ? token.colorPrimary
-                          : undefined,
+                        ? token.colorPrimary
+                        : undefined,
                   }}
                 >
                   <Space>
                     <UnorderedListOutlined
-                      style={{
-                        color: '#5c6b8a',
-                      }}
+                      style={
+                        {
+                          // color: '#5c6b8a',
+                        }
+                      }
                     />
+
                     <span
                       style={{
-                        color: token.colorTextTertiary,
+                        // color: token.colorTextTertiary,
                         fontSize: 12,
                       }}
                     >
-                      {formatMessage({
-                        id: 'ocp-express.Layout.BasicLayout.Task',
-                        defaultMessage: '任务',
-                      })}
+                      任务
                     </span>
                   </Space>
                 </Badge>
@@ -367,7 +407,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           releaseTime: formatTime(appInfo.buildTime, DATE_FORMAT_DISPLAY),
         },
       }}
-
+      {...restProps}
     >
       {children}
 
@@ -407,7 +447,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           });
         }}
       />
-    </OBUIBasicLayout >
+    </OBUIBasicLayout>
   );
 };
 

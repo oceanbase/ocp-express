@@ -16,8 +16,8 @@ import { Card, Divider, Dropdown, Input, Typography } from '@oceanbase/design';
 import type { DropDownProps } from 'antd/es/dropdown';
 import type { InputProps } from 'antd/es/input';
 import { CheckOutlined, FilterOutlined, SearchOutlined } from '@oceanbase/icons';
-import styles from './index.less';
 import { findByValue } from '@oceanbase/util';
+import useStyles from './index.style';
 
 const { Text } = Typography;
 
@@ -60,6 +60,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   cardBodyStyle,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   const [keyword, setKeyword] = useState('');
   return (
     <Dropdown
@@ -74,7 +75,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
           {showSearch && (
             <div
               className={styles.searchWrapper}
-              onClick={e => {
+              onClick={(e) => {
                 // 阻止事件冒泡，避免点击后隐藏下拉菜单
                 e.stopPropagation();
               }}
@@ -82,7 +83,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
               <Input
                 allowClear={true}
                 value={keyword}
-                onChange={e => {
+                onChange={(e) => {
                   setKeyword(e.target.value);
                 }}
                 prefix={<SearchOutlined className={styles.searchIcon} />}
@@ -90,19 +91,20 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
               />
             </div>
           )}
+
           <ul style={{ maxHeight: 320, overflow: 'auto', width: '100%' }}>
             {filters
-              .filter(item => !keyword || (item.label && item.label.includes(keyword)))
-              .map(item => (
+              .filter((item) => !keyword || (item.label && item.label.includes(keyword)))
+              .map((item) => (
                 <li
                   key={item.value}
-                  onClick={e => {
+                  onClick={(e) => {
                     if (mode === 'multiple') {
                       // 阻止事件冒泡，避免点击后隐藏下拉菜单
                       e.stopPropagation();
                     }
                     const newValue = value.includes(item.value)
-                      ? value.filter(valueItem => valueItem !== item.value)
+                      ? value.filter((valueItem) => valueItem !== item.value)
                       : [...value, item.value];
                     if (onChange) {
                       onChange(newValue);
@@ -158,7 +160,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
                 backgroundColor: 'rgba(0,0,0,.04)',
               }}
             >
-              {value.map(item => findByValue(filters, item).label).join(',')}
+              {value.map((item) => findByValue(filters, item).label).join(',')}
             </span>
           ) : (
             children

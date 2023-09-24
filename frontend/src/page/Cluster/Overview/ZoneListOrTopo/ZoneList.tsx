@@ -19,7 +19,7 @@ import { byte2GB, findByValue } from '@oceanbase/util';
 import { isEnglish } from '@/util';
 import MyProgress from '@/component/MyProgress';
 import { ZONE_STATUS_LIST, OB_SERVER_STATUS_LIST } from '@/constant/oceanbase';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface ZoneListRef {
   expandAll: () => void;
@@ -31,6 +31,7 @@ export interface ZoneListProps {
 }
 
 const ZoneList = React.forwardRef<ZoneListRef, ZoneListProps>(({ clusterData }, ref) => {
+  const { styles } = useStyles();
   const dataSource = clusterData?.zones || [];
   const expandable =
     clusterData?.zones?.filter(item => (item?.servers?.length || 0) > 0).length > 0;

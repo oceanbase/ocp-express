@@ -10,7 +10,7 @@
  * See the Mulan PSL v2 for more details.
  */
 
-import { theme, token } from '@oceanbase/design';
+import { token } from '@oceanbase/design';
 import { formatMessage } from '@/util/intl';
 
 // 任务状态列表

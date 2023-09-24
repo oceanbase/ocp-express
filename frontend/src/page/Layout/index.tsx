@@ -11,19 +11,25 @@
  */
 
 import { formatMessage } from '@/util/intl';
-import { getLocale, history } from 'umi';
+import { getLocale, history, useSelector } from 'umi';
 import React, { useEffect } from 'react';
-import { ConfigProvider, theme } from '@oceanbase/design';
+import { ConfigProvider, theme, token } from '@oceanbase/design';
+import { ChartProvider } from '@oceanbase/charts';
 import en_US from 'antd/es/locale/en_US';
 import zh_CN from 'antd/es/locale/zh_CN';
+import { ThemeProvider } from 'antd-style';
 import BlankLayout from './BlankLayout';
 import ErrorBoundary from '@/component/ErrorBoundary';
+import GlobalStyle from './GlobalStyle';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { themeMode } = useSelector((state: DefaultRootState) => state.global);
+  console.log(token);
+
   const locale = getLocale();
   const antdLocaleMap = {
     'en-US': en_US,
@@ -39,10 +45,22 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <ConfigProvider navigate={history.push} theme={theme} locale={antdLocaleMap[locale] || zh_CN}>
-      <ErrorBoundary>
-        <BlankLayout>{children}</BlankLayout>
-      </ErrorBoundary>
+    <ConfigProvider
+      navigate={history.push}
+      locale={antdLocaleMap[locale] || zh_CN}
+      theme={{
+        isDark: themeMode === 'dark',
+        algorithm: themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+      }}
+    >
+      <ThemeProvider appearance={themeMode}>
+        <ChartProvider theme={themeMode}>
+          <GlobalStyle themeMode={themeMode} />
+          <ErrorBoundary>
+            <BlankLayout>{children}</BlankLayout>
+          </ErrorBoundary>
+        </ChartProvider>
+      </ThemeProvider>
     </ConfigProvider>
   );
 };

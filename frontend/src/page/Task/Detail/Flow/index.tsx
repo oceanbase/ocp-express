@@ -18,7 +18,7 @@ import { find, isFunction } from 'lodash';
 import SplitPane from 'react-split-pane';
 import { isEnglish } from '@/util';
 import TaskGraph from './TaskGraph';
-import styles from './index.less';
+import useStyles from './index.style';
 
 const { TabPane } = Tabs;
 
@@ -37,6 +37,7 @@ const Detail: React.FC<DetailProps> = React.forwardRef(
     { taskData, onOperationSuccess, subtask, log, logLoading, logPolling, onSubtaskChange },
     ref
   ) => {
+    const { styles } = useStyles();
     const MIN_SIZE = 32;
     // 英文环境下，任务详情会占据两行，需要减去额外的 38px，给流程图留出足够空间
     const DEFAULT_SIZE = isEnglish() ? 240 - 38 : 240;

@@ -15,7 +15,7 @@ import { Empty } from '@oceanbase/design';
 import type { EmptyProps as AntdEmptyProps } from 'antd/es/empty';
 import { PageContainer } from '@oceanbase/ui';
 import PageCard from '@/component/PageCard';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface EmptyProps extends AntdEmptyProps {
   image?: React.ReactNode;
@@ -39,6 +39,7 @@ export default ({
   style,
   ...restProps
 }: EmptyProps) => {
+  const { styles } = useStyles();
   const empty = (
     <Empty
       className={`${styles.empty} ${size === 'small' ? styles.small : ''}`}
@@ -54,6 +55,7 @@ export default ({
       {children}
     </Empty>
   );
+
   const pageCard = (
     <PageCard
       className={`${mode === 'page' ? styles.page : styles.component} ${className}`}
@@ -62,6 +64,7 @@ export default ({
       {empty}
     </PageCard>
   );
+
   if (mode === 'page') {
     return <PageContainer>{pageCard}</PageContainer>;
   }

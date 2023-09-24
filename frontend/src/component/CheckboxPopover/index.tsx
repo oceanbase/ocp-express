@@ -12,23 +12,14 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import {
-  Typography,
-  Row,
-  Col,
-  Divider,
-  Checkbox,
-  Space,
-  Popover,
-  token,
-} from '@oceanbase/design';
+import { Typography, Row, Col, Divider, Checkbox, Space, Popover, token } from '@oceanbase/design';
 import type { PopoverProps } from 'antd/es/popover';
 import type { CheckboxOptionType } from 'antd/es/checkbox';
 import { groupBy, some, uniq } from 'lodash';
 import { isNullValue } from '@oceanbase/util';
 import { InfoCircleFilled } from '@oceanbase/icons';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface OptionType extends CheckboxOptionType {
   description?: string;
@@ -61,6 +52,7 @@ const CheckboxPopover = ({
   overlayClassName,
   ...restProps
 }: CheckboxPopoverProps) => {
+  const { styles } = useStyles();
 
   // 分组列表
   const groupList = uniq(options?.map(item => item.group));
@@ -150,8 +142,8 @@ const CheckboxPopover = ({
                                 tooltip={
                                   item.description
                                     ? {
-                                      title: item.description,
-                                    }
+                                        title: item.description,
+                                      }
                                     : false
                                 }
                               />

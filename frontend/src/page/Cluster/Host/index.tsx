@@ -44,7 +44,7 @@ import { formatSize, isEnglish } from '@/util';
 import { breadcrumbItemRender } from '@/util/component';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
 import MyCard from '@/component/MyCard';
-import styles from './index.less';
+import useStyles from './index.style';
 
 const { Text } = Typography;
 
@@ -66,6 +66,7 @@ interface DataItem {
 }
 
 const Index: React.FC<BasicProps> = ({ match }) => {
+  const { styles } = useStyles();
 
   const ip = match?.params?.ip;
   const obSvrPort = match?.params?.serverPort;
@@ -145,13 +146,13 @@ const Index: React.FC<BasicProps> = ({ match }) => {
     {
       mount_point?: string;
     }[] = (data?.data?.contents || []).map(item => {
-      // 取最后一个数据点，作为磁盘当前的数据展示
-      const last = item?.data?.[item?.data?.length - 1];
-      return {
-        ...item,
-        ...last,
-      };
-    });
+    // 取最后一个数据点，作为磁盘当前的数据展示
+    const last = item?.data?.[item?.data?.length - 1];
+    return {
+      ...item,
+      ...last,
+    };
+  });
 
   const dataSource = Object.entries(groupBy(metricDataList, 'device')).map(([key, value]) => {
     const dataItem: DataItem & {
@@ -175,7 +176,7 @@ const Index: React.FC<BasicProps> = ({ match }) => {
     // 磁盘使用率，不直接使用接口返回的 (因为有多个挂载目录，接口返回的是按挂载目录计算的使用率)，而是手动计算
     dataItem.host_disk_used_percent = dataItem.host_disk_total
       ? // 对除法结果做数据处理
-      formatNumber((dataItem.host_disk_used || 0) / dataItem.host_disk_total, 2)
+        formatNumber((dataItem.host_disk_used || 0) / dataItem.host_disk_total, 2)
       : 0;
     return dataItem;
   });
@@ -185,67 +186,67 @@ const Index: React.FC<BasicProps> = ({ match }) => {
       mount_point_list?: string[];
     }
   >[] = [
-      {
-        title: formatMessage({ id: 'ocp-express.Host.Detail.Basic.Path', defaultMessage: '路径' }),
-        dataIndex: 'device',
-      },
+    {
+      title: formatMessage({ id: 'ocp-express.Host.Detail.Basic.Path', defaultMessage: '路径' }),
+      dataIndex: 'device',
+    },
 
-      {
-        title: formatMessage({
-          id: 'ocp-express.Host.Detail.Basic.PartitionDiskGb',
-          defaultMessage: '分区磁盘（GB）',
-        }),
+    {
+      title: formatMessage({
+        id: 'ocp-express.Host.Detail.Basic.PartitionDiskGb',
+        defaultMessage: '分区磁盘（GB）',
+      }),
 
-        dataIndex: 'host_disk_total',
-      },
+      dataIndex: 'host_disk_total',
+    },
 
-      {
-        title: formatMessage({
-          id: 'ocp-express.Host.Detail.Basic.DiskUsedGb',
-          defaultMessage: '磁盘已使用（GB）',
-        }),
+    {
+      title: formatMessage({
+        id: 'ocp-express.Host.Detail.Basic.DiskUsedGb',
+        defaultMessage: '磁盘已使用（GB）',
+      }),
 
-        sorter: (a, b) => sortByNumber(a, b, 'host_disk_used'),
-        dataIndex: 'host_disk_used',
-      },
+      sorter: (a, b) => sortByNumber(a, b, 'host_disk_used'),
+      dataIndex: 'host_disk_used',
+    },
 
-      {
-        title: formatMessage({
-          id: 'ocp-express.Host.Detail.Basic.AvailableSizeGb',
-          defaultMessage: '可用大小（GB）',
-        }),
+    {
+      title: formatMessage({
+        id: 'ocp-express.Host.Detail.Basic.AvailableSizeGb',
+        defaultMessage: '可用大小（GB）',
+      }),
 
-        sorter: (a, b) => sortByNumber(a, b, 'host_disk_free'),
-        dataIndex: 'host_disk_free',
-      },
+      sorter: (a, b) => sortByNumber(a, b, 'host_disk_free'),
+      dataIndex: 'host_disk_free',
+    },
 
-      {
-        title: formatMessage({ id: 'ocp-express.Host.Detail.Basic.Usage', defaultMessage: '使用率' }),
-        dataIndex: 'host_disk_used_percent',
-        sorter: (a, b) => sortByNumber(a, b, 'host_disk_used_percent'),
-        defaultSortOrder: 'descend',
-        width: '18%',
-        render: (text = 0) => (
-          <Progress
-            // 对乘法结果做数据处理
-            percent={formatNumber(text * 100, 2)}
-            // percent 大于 97 显示红色线段
-            strokeColor={text * 100 >= 97 ? token.colorError : undefined}
-            status="normal"
-          />
-        ),
-      },
+    {
+      title: formatMessage({ id: 'ocp-express.Host.Detail.Basic.Usage', defaultMessage: '使用率' }),
+      dataIndex: 'host_disk_used_percent',
+      sorter: (a, b) => sortByNumber(a, b, 'host_disk_used_percent'),
+      defaultSortOrder: 'descend',
+      width: '18%',
+      render: (text = 0) => (
+        <Progress
+          // 对乘法结果做数据处理
+          percent={formatNumber(text * 100, 2)}
+          // percent 大于 97 显示红色线段
+          strokeColor={text * 100 >= 97 ? token.colorError : undefined}
+          status="normal"
+        />
+      ),
+    },
 
-      {
-        title: formatMessage({
-          id: 'ocp-express.Host.Detail.Basic.MountDirectory',
-          defaultMessage: '挂载目录',
-        }),
+    {
+      title: formatMessage({
+        id: 'ocp-express.Host.Detail.Basic.MountDirectory',
+        defaultMessage: '挂载目录',
+      }),
 
-        dataIndex: 'mount_point_list',
-        render: (text?: string[]) => text?.map(item => <div>{item}</div>),
-      },
-    ];
+      dataIndex: 'mount_point_list',
+      render: (text?: string[]) => text?.map(item => <div>{item}</div>),
+    },
+  ];
 
   const OBAgentColumns = [
     {
@@ -467,9 +468,9 @@ const Index: React.FC<BasicProps> = ({ match }) => {
                     {isEnglish()
                       ? null
                       : formatMessage({
-                        id: 'ocp-express.Cluster.Host.Version',
-                        defaultMessage: '版本',
-                      })}
+                          id: 'ocp-express.Cluster.Host.Version',
+                          defaultMessage: '版本',
+                        })}
                   </Tag>
                 </Space>
               }

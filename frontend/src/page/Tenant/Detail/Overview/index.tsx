@@ -404,7 +404,7 @@ const Detail: React.FC<NewProps> = ({
       (resourcePool.unitConfig?.maxCpuCoreCount ===
         currentModifyTenantZone?.resourcePool?.unitConfig?.maxCpuCoreCount &&
         resourcePool.unitConfig?.maxMemorySize ===
-        currentModifyTenantZone?.resourcePool?.unitConfig?.maxMemorySize)
+          currentModifyTenantZone?.resourcePool?.unitConfig?.maxMemorySize)
     ) {
       return message.info(
         formatMessage({
@@ -619,13 +619,13 @@ const Detail: React.FC<NewProps> = ({
                   >
                     {tenantData?.locked
                       ? formatMessage({
-                        id: 'ocp-express.Detail.Overview.Locked',
-                        defaultMessage: '已锁定',
-                      })
+                          id: 'ocp-express.Detail.Overview.Locked',
+                          defaultMessage: '已锁定',
+                        })
                       : formatMessage({
-                        id: 'ocp-express.Detail.Overview.Unlocked',
-                        defaultMessage: '未锁定',
-                      })}
+                          id: 'ocp-express.Detail.Overview.Unlocked',
+                          defaultMessage: '未锁定',
+                        })}
                   </Text>
                 </Descriptions.Item>
                 <Descriptions.Item
@@ -839,8 +839,6 @@ const Detail: React.FC<NewProps> = ({
 
                 {statusItem.value === 'ERROR' && (
                   <Tooltip
-                    color="#fff"
-                    overlayInnerStyle={{ color: 'rgba(0, 0, 0, 0.85)' }}
                     title={formatMessage({
                       id: 'ocp-express.Detail.Overview.TheFollowingTenantMergeHasAnExceptionAfter',
                       defaultMessage:

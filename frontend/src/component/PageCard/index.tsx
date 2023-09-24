@@ -12,7 +12,7 @@
 
 import React from 'react';
 import { Card, Spin } from '@oceanbase/design';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface TaskSuccessProps {
   children: React.ReactNode;
@@ -26,10 +26,13 @@ const PageCard: React.FC<TaskSuccessProps> = ({
   loading = false,
   className,
   ...restProps
-}) => (
-  <Card bordered={false} className={`${styles.card} ${className}`} {...restProps}>
-    <Spin spinning={loading}>{children}</Spin>
-  </Card>
-);
+}) => {
+  const { styles } = useStyles();
+  return (
+    <Card bordered={false} className={`${styles.card} ${className}`} {...restProps}>
+      <Spin spinning={loading}>{children}</Spin>
+    </Card>
+  );
+};
 
 export default PageCard;

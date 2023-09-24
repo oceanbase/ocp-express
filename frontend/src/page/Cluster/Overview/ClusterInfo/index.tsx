@@ -37,7 +37,7 @@ import ObClusterDeployMode from '@/component/ObClusterDeployMode';
 import MyCard from '@/component/MyCard';
 import { OB_CLUSTER_STATUS_LIST } from '@/constant/oceanbase';
 import MouseTooltip from '@/component/MouseTooltip';
-import styles from './index.less';
+import useStyles from './index.style';
 
 const { Text } = Typography;
 
@@ -46,6 +46,7 @@ export interface DetailProps {
 }
 
 const Detail: React.FC<DetailProps> = ({ clusterData }) => {
+  const { styles } = useStyles();
 
   const statusItem = findByValue(OB_CLUSTER_STATUS_LIST, clusterData.status);
   // 将 badge 状态映射为 color
@@ -368,8 +369,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
                         {isNullValue(item.totalValue)
                           ? '-'
                           : item.key === 'cpu'
-                            ? `${item.totalValue} C`
-                            : // 内存和磁盘需要进行单位换算
+                          ? `${item.totalValue} C`
+                          : // 内存和磁盘需要进行单位换算
                             formatSize(item.totalValue)}
                       </Descriptions.Item>
                       <Descriptions.Item label={item.description}>
@@ -387,8 +388,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
                         {isNullValue(item.leftValue)
                           ? '-'
                           : item.key === 'cpu'
-                            ? `${item.leftValue} C`
-                            : // 内存和磁盘需要进行单位换算
+                          ? `${item.leftValue} C`
+                          : // 内存和磁盘需要进行单位换算
                             formatSize(item.leftValue)}
                       </Descriptions.Item>
                     </Descriptions>

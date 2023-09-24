@@ -18,7 +18,7 @@ import { debounce } from 'lodash';
 import { toPercent } from '@oceanbase/util';
 import type { Graph } from '@antv/g6';
 import { getCenterPointByGraph } from '@/util/graph';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface GraphToolbarProps {
   // 模式: 悬浮模式 | 嵌入模式
@@ -40,6 +40,7 @@ const GraphToolbar: React.FC<GraphToolbarProps> = ({
   onFullscreen,
   className,
 }) => {
+  const { styles } = useStyles();
   const [zoom, setZoom] = useState(0);
   useEffect(() => {
     const initialZoom = graph.getZoom() > 2 ? 2 : graph.getZoom();
@@ -53,7 +54,7 @@ const GraphToolbar: React.FC<GraphToolbarProps> = ({
       // 设置延时时间为 16ms，为渲染一帧所需时间
       debounce(() => {
         setZoom(graph.getZoom());
-      }, 16)
+      }, 16),
     );
   }, []);
 

@@ -39,7 +39,7 @@ import ContentWithQuestion from '@/component/ContentWithQuestion';
 import type { MonitorServer } from '@/component/MonitorSearch';
 import { ReactComponent as DrilldownSvg } from '@/asset/drilldown.svg';
 import DrilldownDrawer from './DrilldownDrawer';
-import styles from './Item.less';
+import useStyles from './Item.style';
 import { MAX_POINTS } from '@/constant/monitor';
 
 export interface MetricGroupWithChartConfig extends API.MetricGroup {
@@ -129,6 +129,7 @@ const Item: React.FC<ItemProps> = ({
   maxPoints = MAX_POINTS,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   const { userData } = useSelector((state: DefaultRootState) => state.profile);
   // const { tenantData } = useSelector((state: DefaultRootState) => state.tenant);
 
@@ -227,11 +228,11 @@ const Item: React.FC<ItemProps> = ({
       },
       ...(isSingleMetric
         ? {
-          metric: {
-            // range 数据类型，且指标组只包含一个指标，使用指标组名代替指标名
-            alias: name,
-          },
-        }
+            metric: {
+              // range 数据类型，且指标组只包含一个指标，使用指标组名代替指标名
+              alias: name,
+            },
+          }
         : {}),
       ...meta,
     },
@@ -584,7 +585,7 @@ const Item: React.FC<ItemProps> = ({
                         })}{' '}
                         <a
                           target="_blank"
-                          style={{ color: '#ffffff', textDecoration: 'underline' }}
+                          style={{ color: token.colorTextLightSolid, textDecoration: 'underline' }}
                         >
                           {formatMessage({
                             id: 'ocp-express.component.MetricChart.Item.WhatIsDrillDownAnalysis',
@@ -644,16 +645,16 @@ const Item: React.FC<ItemProps> = ({
             data={
               isDualAxes
                 ? [
-                  chartData.filter(item => !isNullValue(item.value1)),
-                  chartData.filter(item => !isNullValue(item.value2)),
-                ]
+                    chartData.filter(item => !isNullValue(item.value1)),
+                    chartData.filter(item => !isNullValue(item.value2)),
+                  ]
                 : chartData
             }
             tooltipScroll={
               tooltipScroll
                 ? {
-                  maxHeight: '180px',
-                }
+                    maxHeight: '180px',
+                  }
                 : false
             }
             {...config}
@@ -700,16 +701,16 @@ const Item: React.FC<ItemProps> = ({
                 data={
                   isDualAxes
                     ? [
-                      modalChartData.filter(item => !isNullValue(item.value1)),
-                      modalChartData.filter(item => !isNullValue(item.value2)),
-                    ]
+                        modalChartData.filter(item => !isNullValue(item.value1)),
+                        modalChartData.filter(item => !isNullValue(item.value2)),
+                      ]
                     : modalChartData
                 }
                 tooltipScroll={
                   tooltipScroll
                     ? {
-                      maxHeight: '350px',
-                    }
+                        maxHeight: '350px',
+                      }
                     : false
                 }
                 {...config}

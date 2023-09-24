@@ -24,7 +24,7 @@ import ContentWithInfo from '@/component/ContentWithInfo';
 import UserList from './UserList';
 import RoleList from './RoleList';
 import AddOracleUserOrRoleDrawer from './Component/AddOracleUserOrRoleDrawer';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface IndexProps {
   pathname?: string;
@@ -32,6 +32,7 @@ export interface IndexProps {
 }
 
 const Index: React.FC<IndexProps> = ({ pathname, tenantId }) => {
+  const { styles } = useStyles();
   const { tenantData } = useSelector((state: DefaultRootState) => state.tenant);
 
   const [keyword, setKeyword] = useState('');
@@ -126,6 +127,7 @@ const Index: React.FC<IndexProps> = ({ pathname, tenantId }) => {
             />
           </Space>
         ),
+
         extra: (
           <Space>
             <Button
@@ -167,7 +169,7 @@ const Index: React.FC<IndexProps> = ({ pathname, tenantId }) => {
         bordered={false}
         className={`card-without-padding ${styles.card}`}
         activeTabKey={tab}
-        onTabChange={key => {
+        onTabChange={(key) => {
           setTab(key);
           history.push({
             pathname: `/tenant/${tenantId}/user${key === 'role' ? '/role' : ''}`,
@@ -194,7 +196,7 @@ const Index: React.FC<IndexProps> = ({ pathname, tenantId }) => {
           <MyInput.Search
             allowClear={true}
             onSearch={(value: string) => setKeyword(value)}
-            onChange={e => setKeyword(e.target.value)}
+            onChange={(e) => setKeyword(e.target.value)}
             placeholder={formatMessage({
               id: 'ocp-express.User.Oracle.EnterAUsernameAndRole',
               defaultMessage: '请输入用户名、角色名',
@@ -208,10 +210,11 @@ const Index: React.FC<IndexProps> = ({ pathname, tenantId }) => {
             dbUserLoading={dbUserLoading}
             refreshDbUser={refreshDbUser}
             dbUserList={dbUserList?.filter(
-              item =>
+              (item) =>
                 !keyword ||
                 (item.username && item.username.includes(keyword)) ||
-                (item.grantedRoles && item.grantedRoles.filter(o => o.includes(keyword)).length > 0)
+                (item.grantedRoles &&
+                  item.grantedRoles.filter((o) => o.includes(keyword)).length > 0),
             )}
             tenantId={tenantId}
           />
@@ -223,10 +226,11 @@ const Index: React.FC<IndexProps> = ({ pathname, tenantId }) => {
             dbRoleLoading={dbRoleLoading}
             refreshDbRole={refreshDbRole}
             dbRoleList={dbRoleList?.filter(
-              item =>
+              (item) =>
                 !keyword ||
                 (item.name && item.name.includes(keyword)) ||
-                (item.grantedRoles && item.grantedRoles.filter(o => o.includes(keyword)).length > 0)
+                (item.grantedRoles &&
+                  item.grantedRoles.filter((o) => o.includes(keyword)).length > 0),
             )}
           />
         )}

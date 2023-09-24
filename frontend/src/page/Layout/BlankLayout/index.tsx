@@ -12,12 +12,15 @@
 
 import React from 'react';
 import { Layout } from '@oceanbase/design';
-import styles from './index.less';
+import useStyles from './index.style';
 
-const BlankLayout: React.FC = ({ children, ...restProps }) => (
-  <div className={styles.main} {...restProps}>
-    <Layout className={styles.layout}>{children}</Layout>
-  </div>
-);
+const BlankLayout: React.FC = ({ children, ...restProps }) => {
+  const { styles } = useStyles();
+  return (
+    <div className={styles.main} {...restProps}>
+      <Layout className={styles.layout}>{children}</Layout>
+    </div>
+  );
+};
 
 export default BlankLayout;

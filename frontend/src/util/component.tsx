@@ -128,13 +128,13 @@ export const getColumnSearchProps = ({
   // 前端搜索，需要定义 onFilter 函数
   ...(frontEndSearch
     ? {
-      onFilter: (value, record) =>
-        record[dataIndex] &&
-        record[dataIndex]
-          .toString()
-          .toLowerCase()
-          .includes(value && value.toLowerCase()),
-    }
+        onFilter: (value, record) =>
+          record[dataIndex] &&
+          record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value && value.toLowerCase()),
+      }
     : {}),
 });
 
@@ -149,9 +149,9 @@ export function breadcrumbItemRender(route, params, routes) {
         history.push(
           route.query
             ? {
-              pathname: route.path,
-              query: route.query,
-            }
+                pathname: route.path,
+                query: route.query,
+              }
             : route.path
         );
       }}
@@ -175,20 +175,20 @@ export function getSimpleComponentByClusterParameterValue(
     <span>
       {parameterType === 'OB_TENANT_PARAMETER'
         ? formatMessage(
-          {
-            id: 'ocp-express.src.util.component.ValuesstringAllTenants',
-            defaultMessage: '{valuesString}（全部租户）',
-          },
-          { valuesString: valuesString }
-        )
+            {
+              id: 'ocp-express.src.util.component.ValuesstringAllTenants',
+              defaultMessage: '{valuesString}（全部租户）',
+            },
+            { valuesString: valuesString }
+          )
         : formatMessage(
-          {
-            id: 'ocp-express.src.util.component.ValuesstringCluster',
-            defaultMessage: '{valuesString}（集群）',
-          },
+            {
+              id: 'ocp-express.src.util.component.ValuesstringCluster',
+              defaultMessage: '{valuesString}（集群）',
+            },
 
-          { valuesString }
-        )}
+            { valuesString }
+          )}
     </span>
   ) : mode === 'link' ? (
     <a onClick={onClick}>
@@ -333,8 +333,8 @@ export function getOperationComponent<T>({
     mode === 'link'
       ? operations.slice(0, displayCount)
       : // button 模式的操作优先级与 link 模式正好相反，且只针对 operations1 生效
-      // 由于 reverse 会改变原数组，因此这里采用解构浅拷贝一份数据进行操作
-      [...operations.slice(0, displayCount)].reverse();
+        // 由于 reverse 会改变原数组，因此这里采用解构浅拷贝一份数据进行操作
+        [...operations.slice(0, displayCount)].reverse();
   const operations2 = operations.slice(displayCount, operations.length);
 
   return (
@@ -593,30 +593,30 @@ export function getLatestBackupRangeTime(
     <span>
       {logList.length > 0
         ? logList
-          // 展示最后一项
-          .slice(logList.length - 1, logList.length)
-          .map(item => (
-            <span key={item.logRecoverableTimeInterval?.startTime}>
-              {`${formatTimeWithMicroseconds(
-                item.logRecoverableTimeInterval?.startTime,
-                format
-              )} ~${formatTimeWithMicroseconds(
-                item.logRecoverableTimeInterval?.endTime,
-                format
-              )}`}
-            </span>
-          ))
+            // 展示最后一项
+            .slice(logList.length - 1, logList.length)
+            .map(item => (
+              <span key={item.logRecoverableTimeInterval?.startTime}>
+                {`${formatTimeWithMicroseconds(
+                  item.logRecoverableTimeInterval?.startTime,
+                  format
+                )} ~${formatTimeWithMicroseconds(
+                  item.logRecoverableTimeInterval?.endTime,
+                  format
+                )}`}
+              </span>
+            ))
         : dataList
-          // 展示最后一项
-          .slice(dataList.length - 1, dataList.length)
-          .map(item => (
-            <span key={item.dataBackupRecoverableInfo?.recoverableTime}>
-              {`${formatTimeWithMicroseconds(
-                item.dataBackupRecoverableInfo?.recoverableTime,
-                format
-              )}`}
-            </span>
-          ))}
+            // 展示最后一项
+            .slice(dataList.length - 1, dataList.length)
+            .map(item => (
+              <span key={item.dataBackupRecoverableInfo?.recoverableTime}>
+                {`${formatTimeWithMicroseconds(
+                  item.dataBackupRecoverableInfo?.recoverableTime,
+                  format
+                )}`}
+              </span>
+            ))}
     </span>
   );
 }

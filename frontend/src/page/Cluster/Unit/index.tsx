@@ -25,7 +25,7 @@ import {
   message,
   token,
 } from '@oceanbase/design';
-import { FullscreenBox } from '@oceanbase/ui'
+import { FullscreenBox } from '@oceanbase/ui';
 import React, { useRef, useState } from 'react';
 import { find, flatten, some } from 'lodash';
 import { PageContainer } from '@oceanbase/ui';
@@ -42,7 +42,7 @@ import type { BlockType } from './Component/Block';
 import Block from './Component/Block';
 import UnitBlock from './Component/UnitBlock';
 // import UnitMigrateModal from './Component/UnitMigrateModal';
-import styles from './index.less';
+import useStyles from './index.style';
 import { breadcrumbItemRender } from '@/util/component';
 
 export interface UnitProps {
@@ -50,6 +50,7 @@ export interface UnitProps {
 }
 
 const Unit: React.FC<UnitProps> = ({ clusterId }) => {
+  const { styles } = useStyles();
   const [obTenantIdList, setObTenantIdList] = useState<FilterValue[]>([]);
   const [regionList, setRegionList] = useState<FilterValue[]>([]);
   const [zoneList, setZoneList] = useState<FilterValue[]>([]);
@@ -247,8 +248,8 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
           onBack: fullscreen
             ? undefined
             : () => {
-              history.push('/overview');
-            },
+                history.push('/overview');
+              },
           extra: (
             <div
               style={{
@@ -405,8 +406,6 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                   </Popconfirm>
                 ) : (
                   <Tooltip
-                    placement="bottom"
-                    color="#ffffff"
                     title={formatMessage({
                       id: 'ocp-express.Detail.Resource.Unit.NoNotification',
                       defaultMessage: '暂无通知',
@@ -433,13 +432,13 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                   title={
                     fullscreen
                       ? formatMessage({
-                        id: 'ocp-express.Detail.Resource.Unit.ExitFullScreen',
-                        defaultMessage: '退出全屏',
-                      })
+                          id: 'ocp-express.Detail.Resource.Unit.ExitFullScreen',
+                          defaultMessage: '退出全屏',
+                        })
                       : formatMessage({
-                        id: 'ocp-express.Detail.Resource.Unit.FullScreen',
-                        defaultMessage: '全屏',
-                      })
+                          id: 'ocp-express.Detail.Resource.Unit.FullScreen',
+                          defaultMessage: '全屏',
+                        })
                   }
                 >
                   <FullscreenOutlined
@@ -534,7 +533,6 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                   zIndex: 2,
                   // 未开始滚动时，隐藏 box-shadow 的样式，类似于 antd Table 的滚动效果
                   boxShadow: scroll?.left === 0 ? 'none' : '2px 0px 10px rgba(0, 0, 0, 0.12)',
-                  backgroundColor: '#ffffff',
                   padding: '16px 12px 24px 24px',
                   marginBottom: 0,
                   marginTop: 0,

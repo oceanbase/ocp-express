@@ -28,7 +28,7 @@ import {
   NEAR_30_MINUTES,
   NEAR_5_MINUTES,
 } from './constant';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export type RangeDateKey = 'customize' | string;
 
@@ -49,6 +49,7 @@ interface IProps {
 }
 
 export const OCPRangePicker = (props: IProps) => {
+  const { styles } = useStyles();
   const {
     selects = [
       NEAR_5_MINUTES,
@@ -59,6 +60,7 @@ export const OCPRangePicker = (props: IProps) => {
       NEAR_3_HOURS,
       NEAR_6_HOURS,
     ],
+
     defaultValue = { key: NEAR_1_HOURS.name, range: NEAR_1_HOURS.range() },
     value,
     mode = 'normal',
@@ -76,7 +78,7 @@ export const OCPRangePicker = (props: IProps) => {
     } else {
       setInnerValue({
         key,
-        range: selects.find(e => e.name === key)?.range() as [Moment, Moment],
+        range: selects.find((e) => e.name === key)?.range() as [Moment, Moment],
       });
     }
   };
@@ -109,7 +111,7 @@ export const OCPRangePicker = (props: IProps) => {
           onSelect={handleSelect}
           value={innerValue?.key}
         >
-          {selects.map(e => (
+          {selects.map((e) => (
             <Select.Option key={e.name} value={e.name}>
               {e.name}
             </Select.Option>

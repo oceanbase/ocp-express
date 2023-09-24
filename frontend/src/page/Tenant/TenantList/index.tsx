@@ -34,13 +34,14 @@ import * as ObTenantController from '@/service/ocp-express/ObTenantController';
 import tracert from '@/util/tracert';
 import RenderConnectionString from '@/component/RenderConnectionString';
 
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface TenantListProps {
   statusList: API.TenantStatus[];
 }
 
 const TenantList: React.FC<TenantListProps> = ({ statusList: initialStatusList }) => {
+  const { styles } = useStyles();
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState('');
 
@@ -76,7 +77,7 @@ const TenantList: React.FC<TenantListProps> = ({ statusList: initialStatusList }
           defaultMessage: '确定要锁定租户 {recordName} 吗？',
         },
 
-        { recordName: record.name }
+        { recordName: record.name },
       ),
 
       content: formatMessage({
@@ -115,7 +116,7 @@ const TenantList: React.FC<TenantListProps> = ({ statusList: initialStatusList }
           defaultMessage: '确定要解锁租户 {recordName} 吗？',
         },
 
-        { recordName: record.name }
+        { recordName: record.name },
       ),
 
       content: formatMessage({
@@ -181,7 +182,7 @@ const TenantList: React.FC<TenantListProps> = ({ statusList: initialStatusList }
       }),
 
       dataIndex: 'mode',
-      filters: TENANT_MODE_LIST.map(item => ({
+      filters: TENANT_MODE_LIST.map((item) => ({
         text: item.label,
         value: item.value,
       })),
@@ -234,7 +235,7 @@ const TenantList: React.FC<TenantListProps> = ({ statusList: initialStatusList }
         defaultMessage: '状态',
       }),
       dataIndex: 'status',
-      filters: TENANT_STATUS_LIST.map(item => ({
+      filters: TENANT_STATUS_LIST.map((item) => ({
         text: item.label,
         value: item.value,
       })),

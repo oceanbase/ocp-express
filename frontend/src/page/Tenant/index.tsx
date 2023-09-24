@@ -22,7 +22,7 @@ import useDocumentTitle from '@/hook/useDocumentTitle';
 import ContentWithReload from '@/component/ContentWithReload';
 import Empty from '@/component/Empty';
 import TenantList from './TenantList';
-import styles from './index.less';
+import useStyles from './index.style';
 
 interface TenantProps {
   location: {
@@ -37,13 +37,14 @@ const Tenant: React.FC<TenantProps> = ({
     query: { status },
   },
 }: TenantProps) => {
+  const { styles } = useStyles();
   const statusList = status?.split(',') || [];
 
   useDocumentTitle(
     formatMessage({
       id: 'ocp-express.Detail.Tenant.TenantManagement',
       defaultMessage: '租户管理',
-    })
+    }),
   );
 
   // 预先获取租户列表
@@ -127,6 +128,7 @@ const Tenant: React.FC<TenantProps> = ({
             }}
           />
         ),
+
         extra: (
           <>
             <Button

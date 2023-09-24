@@ -93,8 +93,7 @@ G6.registerNode(
 
       if (cfg?.status === 'RUNNING') {
         // TODO: 图片旋转动画
-      }
-      // 任务状态
+      } // 任务状态
       group?.addShape('text', {
         name: 'statusName',
         attrs: {
@@ -182,8 +181,9 @@ G6.registerEdge(
         path,
         // 自定义结束箭头，箭头的边长为 10，夹角为 60 度
         endArrow: {
-          path: `M${10 * Math.cos(Math.PI / 6)},${10 * Math.sin(Math.PI / 6)} L0,0 L${10 * Math.cos(Math.PI / 6)
-            },-${10 * Math.sin(Math.PI / 6)}`,
+          path: `M${10 * Math.cos(Math.PI / 6)},${10 * Math.sin(Math.PI / 6)} L0,0 L${
+            10 * Math.cos(Math.PI / 6)
+          },-${10 * Math.sin(Math.PI / 6)}`,
           fill: statusItem.color,
         },
 

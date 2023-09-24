@@ -24,7 +24,7 @@ import { formatTime } from '@/util/datetime';
 import { getTaskPercent } from '@/util/task';
 import MyCard from '@/component/MyCard';
 import MyProgress from '@/component/MyProgress';
-import styles from './index.less';
+import useStyles from './index.style';
 
 export interface TaskBubbleProps {
   dispatch: any;
@@ -47,6 +47,7 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
   className,
   ...restProps
 }) => {
+  const { styles } = useStyles();
   const [visible, setVisible] = useState(false);
   const total = runningTaskList.length;
   // 当前如果还有正在执行中的任务，则发起轮询
@@ -196,15 +197,15 @@ const TaskBubble: React.FC<TaskBubbleProps> = ({
         tooltip={
           loading && !polling
             ? {
-              title: formatMessage({
-                id: 'ocp-express.component.TaskBubble.InTheTaskRequest',
-                defaultMessage: '任务请求中',
-              }),
-              placement: 'left',
-            }
+                title: formatMessage({
+                  id: 'ocp-express.component.TaskBubble.InTheTaskRequest',
+                  defaultMessage: '任务请求中',
+                }),
+                placement: 'left',
+              }
             : total > 0
-              ? undefined
-              : {
+            ? undefined
+            : {
                 title: formatMessage({
                   id: 'ocp-express.component.TaskBubble.NoOngoingTasks',
                   defaultMessage: '没有正在进行的任务',

@@ -17,7 +17,7 @@ import { groupBy } from 'lodash';
 import { InfoCircleFilled } from '@oceanbase/icons';
 import { isEnglish } from '@/util';
 import ContentWithQuestion from '@/component/ContentWithQuestion';
-import styles from './index.less';
+import useStyles from './index.style';
 
 interface IProps {
   onChange: (picked: API.SqlAuditStatSampleAttribute[]) => void;
@@ -27,6 +27,7 @@ interface IProps {
 }
 
 const SampleStatisticCard = ({ onChange, picked, attributes, onReset, ...restProps }: IProps) => {
+  const { styles } = useStyles();
 
   const handleChange = (keys: string[]) => {
     const next = attributes.filter(f => keys.includes(f.name as string));

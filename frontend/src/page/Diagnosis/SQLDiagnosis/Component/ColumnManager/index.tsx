@@ -18,7 +18,7 @@ import { Button, Checkbox, Col, Divider, Drawer, Input, Row } from '@oceanbase/d
 import React, { useEffect, useState } from 'react';
 import { groupBy, isNumber, uniqBy } from 'lodash';
 import { FilterOutlined } from '@oceanbase/icons';
-import styles from './index.less';
+import useStyles from './index.style';
 
 interface IProps {
   sqlType: SQLDiagnosis.SqlType;
@@ -42,6 +42,7 @@ const ColumnManager = ({
   attributes,
   defaultFields,
 }: IProps) => {
+  const { styles } = useStyles();
   const [visible, setVisible] = useState(false);
 
   // 筛选后的 attributes
@@ -71,21 +72,21 @@ const ColumnManager = ({
     setSelected(
       checked
         ? // 选中当前组
-        attributes.filter(
-          attr =>
-            uniqBy(
-              [...selected, ...filterContents.filter(item => item.group === group)],
-              i => i.name
-            ).indexOf(attr) !== -1
-        )
+          attributes.filter(
+            attr =>
+              uniqBy(
+                [...selected, ...filterContents.filter(item => item.group === group)],
+                i => i.name
+              ).indexOf(attr) !== -1
+          )
         : // 取消选中当前组
-        selected.filter(item => {
-          // displayAlways 表示常驻项，不可取消
-          if (item.displayAlways === true) {
-            return true;
-          }
-          return item.group !== group || !filterContents.map(i => i.name).includes(item.name);
-        })
+          selected.filter(item => {
+            // displayAlways 表示常驻项，不可取消
+            if (item.displayAlways === true) {
+              return true;
+            }
+            return item.group !== group || !filterContents.map(i => i.name).includes(item.name);
+          })
     );
   };
 

@@ -23,7 +23,7 @@ import useDocumentTitle from '@/hook/useDocumentTitle';
 import BasicLayout from '@/page/Layout/BasicLayout';
 import TaskBubble from '@/component/TaskBubble';
 import TenantSelect from '@/component/common/TenantSelect';
-import styles from './index.less';
+import useStyles from './index.style';
 
 interface DetailProps {
   location: {
@@ -38,6 +38,7 @@ interface DetailProps {
 }
 
 const Detail: React.FC<DetailProps> = (props: DetailProps) => {
+  const { styles } = useStyles();
   const {
     children,
     match: {

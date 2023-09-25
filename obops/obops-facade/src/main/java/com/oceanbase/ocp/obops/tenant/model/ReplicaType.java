@@ -23,7 +23,6 @@ import lombok.Getter;
 public enum ReplicaType {
 
     FULL("FULL", "F"),
-    LOGONLY("LOGONLY", "L"),
     READONLY("READONLY", "R"),
     ;
 

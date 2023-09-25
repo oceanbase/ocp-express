@@ -84,8 +84,9 @@ public enum ErrorCodes implements ErrorCode {
     OB_CLUSTER_PASSWORD_EMPTY(50000, Kind.ILLEGAL_ARGUMENT, "error.ob.cluster.password.empty"),
     OB_CLUSTER_PRIMARY_ZONE_INVALID(50001, "error.ob.cluster.primary.zone.invalid"),
     OB_CLUSTER_OPS_NOT_ALLOWED(50002, "error.ob.cluster.ops.not.allowed"),
-    OB_CLUSTER_IS_NOT_INIT(50003, Kind.UNDEFINED, "error.ob.cluster.is.not.init"),
+    OB_CLUSTER_IS_NOT_INIT(50003, Kind.UNEXPECTED, "error.ob.cluster.is.not.init"),
     OB_ZONE_NAME_NOT_FOUND(50004, "error.ob.zone.name.not.found"),
+    OB_PARAMETER_VALUE_UNIT_REQUIRED(50005, Kind.ILLEGAL_ARGUMENT, "error.ob.parameter.value.unit.required"),
 
     // tenant, range: [60000, 60999]
     OB_TENANT_NAME_EXIST(60000, "error.ob.tenant.name.exist"),
@@ -179,7 +180,7 @@ public enum ErrorCodes implements ErrorCode {
     final Kind kind;
 
     ErrorCodes(int code, String key) {
-        this(code, Kind.UNDEFINED, key);
+        this(code, Kind.UNEXPECTED, key);
     }
 
     ErrorCodes(int code, Kind kind, String key) {
@@ -189,14 +190,14 @@ public enum ErrorCodes implements ErrorCode {
     }
 
     public OcpException exception() {
-        if (kind == null || kind == Kind.UNDEFINED) {
+        if (kind == null) {
             throw new IllegalStateException("Kind undefined: " + this.name());
         }
         return kind.exception(this);
     }
 
     public OcpException exception(Object... arguments) {
-        if (kind == null || kind == Kind.UNDEFINED) {
+        if (kind == null) {
             throw new IllegalStateException("Kind undefined: " + this.name());
         }
         return kind.exception(this, arguments);
@@ -295,19 +296,6 @@ public enum ErrorCodes implements ErrorCode {
             @Override
             public OcpException exception(ErrorCodes code, Object... args) {
                 return new UnexpectedException(code, args);
-            }
-        },
-
-        UNDEFINED {
-
-            @Override
-            public OcpException exception(ErrorCodes code) {
-                throw new IllegalStateException("Unreachable");
-            }
-
-            @Override
-            public OcpException exception(ErrorCodes code, Object... args) {
-                throw new IllegalStateException("Unreachable");
             }
         },
 

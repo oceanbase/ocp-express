@@ -98,6 +98,9 @@ public class TenantParameterServiceImpl implements TenantParameterService {
         boolean allParamAllowed = paramList.stream()
                 .allMatch(p -> SqlParamCheckUtils.check(p.getName(), propertyManager.getSqlParamPattern()));
         ExceptionUtils.illegalArgs(allParamAllowed, "tenantParameterKey");
+
+        paramList.forEach(this::validateUpdateTenantParameterParam);
+
         ObAccessor accessor = obAccessorFactory.createObAccessor(obTenantId);
 
         List<TenantParameterParam> systemVariableParams = paramList.stream()
@@ -121,6 +124,10 @@ public class TenantParameterServiceImpl implements TenantParameterService {
                 accessor.parameter().setParameter(input);
             }
         }
+    }
+
+    private void validateUpdateTenantParameterParam(TenantParameterParam param) {
+        obParameterService.validateCapacityValue(param.getName(), param.getValue());
     }
 
     private SetObParameter buildSetObParameter(TenantParameterParam param) {

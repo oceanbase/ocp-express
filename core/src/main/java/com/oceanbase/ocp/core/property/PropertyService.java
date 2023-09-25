@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
-import org.springframework.cloud.endpoint.RefreshEndpoint;
+import org.springframework.cloud.context.refresh.ContextRefresher;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -55,7 +55,7 @@ public class PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
     @Autowired
-    private RefreshEndpoint refreshEndpoint;
+    private ContextRefresher contextRefresher;
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
@@ -128,7 +128,7 @@ public class PropertyService {
 
     public void refresh() {
         log.info("Refresh config properties");
-        refreshEndpoint.refresh();
+        contextRefresher.refresh();
 
         List<PropertyEntity> propertyEntities = propertyRepository.findAll();
 

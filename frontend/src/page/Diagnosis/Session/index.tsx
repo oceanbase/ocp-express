@@ -14,7 +14,7 @@ import React, { useState, useRef } from 'react';
 import { formatMessage } from '@/util/intl';
 import { history, connect } from 'umi';
 import { Button, Card, Checkbox, Tooltip, Space } from '@oceanbase/design';
-import { SyncOutlined } from '@ant-design/icons';
+import { SyncOutlined } from '@oceanbase/icons';
 import { PageContainer } from '@oceanbase/ui';
 import { useRequest } from 'ahooks';
 import useDocumentTitle from '@/hook/useDocumentTitle';

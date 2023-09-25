@@ -52,7 +52,7 @@ export const SqlText = ({
   canJump = true,
   isLimit = false,
 }: IProps) => {
-  const [sqlText, setSqlText] = useState('');
+  const [sqlText, setSqlText] = useState(record?.isCompleted ? record?.sqlTextShort : '');
 
   const { run: getSqlText } = useRequest(ObSqlStatController.sqlText, {
     manual: true,

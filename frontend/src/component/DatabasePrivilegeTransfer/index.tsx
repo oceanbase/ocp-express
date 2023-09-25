@@ -12,8 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Modal } from '@oceanbase/design';
-import { Card, Checkbox, Col, Row, Spin, Button, Empty } from '@oceanbase/design';
+import { Modal, Card, Checkbox, Col, Row, Spin, Button, Empty } from '@oceanbase/design';
 import { RightOutlined } from '@oceanbase/icons';
 import classNames from 'classnames';
 import MyInput from '@/component/MyInput';
@@ -82,7 +81,7 @@ class DatabasePrivilegeTransfer extends React.PureComponent<
   handleTransfer = () => {
     const { checkedList, privilegedList, unPrivilegedList } = this.state;
     if (checkedList.length > 0) {
-      const checkedDbList = checkedList.map((item) => {
+      const checkedDbList = checkedList.map(item => {
         return {
           dbName: item.dbName,
           privileges: [],
@@ -147,16 +146,16 @@ class DatabasePrivilegeTransfer extends React.PureComponent<
     const { dbPrivilegedList, dbUserList, onChange } = this.props;
     const { checkedList, unPrivilegedList, privilegedList, dbPrivilegeData } = this.state;
     const privilegedListFilter: API.DbPrivilege[] = privilegedList.filter(
-      (item) => item.dbName !== dbName,
+      item => item.dbName !== dbName
     );
 
     // 收集到当前授权的数据库
     const dbPrivilegesData: API.DbPrivilege[] = dbPrivilegeData?.filter(
-      (item) => item.dbName !== dbName,
+      item => item.dbName !== dbName
     );
 
-    const index = findIndex(dbPrivilegedList, (o) => o.dbName === dbName);
-    const count = findIndex(dbUserList, (o) => o.dbName === dbName);
+    const index = findIndex(dbPrivilegedList, o => o.dbName === dbName);
+    const count = findIndex(dbUserList, o => o.dbName === dbName);
     const deleteDbPrivilegeParam = [];
     // 匹配查找到移除的权限，整理后放入待添加的数据库列表
     if (index !== -1) {
@@ -180,20 +179,20 @@ class DatabasePrivilegeTransfer extends React.PureComponent<
 
     if (onChange) {
       onChange(
-        dbPrivilegeData?.map((item) => ({
+        dbPrivilegeData?.map(item => ({
           dbName: item?.dbName,
           privileges: item.dbName === dbName ? [] : item.privileges,
-        })),
+        }))
       );
     }
   };
 
   public updateDbPrivilege = (dbPrivilege: API.DbPrivilege) => {
     const { dbPrivilegeData, privilegedList } = this.state;
-    const privilegedIndex = findIndex(privilegedList, (o) => o.dbName === dbPrivilege.dbName);
+    const privilegedIndex = findIndex(privilegedList, o => o.dbName === dbPrivilege.dbName);
     if (privilegedIndex !== -1) {
       this.setState({
-        privilegedList: privilegedList?.map((item) => ({
+        privilegedList: privilegedList?.map(item => ({
           dbName: item?.dbName,
           privileges:
             item?.dbName === dbPrivilege?.dbName ? dbPrivilege.privileges : item.privileges,
@@ -205,9 +204,9 @@ class DatabasePrivilegeTransfer extends React.PureComponent<
       });
     }
     // 收集到当前授权的数据库
-    const dbPrivilegeIndex = findIndex(dbPrivilegeData, (o) => o.dbName === dbPrivilege.dbName);
+    const dbPrivilegeIndex = findIndex(dbPrivilegeData, o => o.dbName === dbPrivilege.dbName);
     if (dbPrivilegeIndex !== -1) {
-      const dbPrivileges = dbPrivilegeData?.map((item) => ({
+      const dbPrivileges = dbPrivilegeData?.map(item => ({
         dbName: item?.dbName,
         privileges: item?.dbName === dbPrivilege?.dbName ? dbPrivilege.privileges : item.privileges,
       }));
@@ -292,8 +291,8 @@ class DatabasePrivilegeTransfer extends React.PureComponent<
             >
               <Row style={{ display: 'block' }}>
                 {unPrivilegedList
-                  ?.filter((o) => includes(o.dbName, searchLeftKey))
-                  ?.map((item) => {
+                  ?.filter(o => includes(o.dbName, searchLeftKey))
+                  ?.map(item => {
                     if (item.dbName !== 'information_schema') {
                       return (
                         <Col key={item.dbName} span={24} style={{ lineHeight: '24px' }}>
@@ -373,8 +372,8 @@ class DatabasePrivilegeTransfer extends React.PureComponent<
 
               <div className={styles.privilegedList}>
                 {privilegedList
-                  .filter((o) => o.dbName.indexOf(searchRightKey) > -1)
-                  ?.map((item) => (
+                  .filter(o => o.dbName.indexOf(searchRightKey) > -1)
+                  ?.map(item => (
                     <PrivilegesCheckbox
                       key={item.dbName}
                       dbPrivilegeParam={item}

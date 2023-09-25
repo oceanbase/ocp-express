@@ -14,7 +14,7 @@ import React, { useState, useRef } from 'react';
 import { formatMessage } from '@/util/intl';
 import { history, connect } from 'umi';
 import { Button, Card, Checkbox, Tooltip, Space } from '@oceanbase/design';
-import { SyncOutlined } from '@oceanbase/icons';
+import { SyncOutlined } from '@ant-design/icons';
 import { PageContainer } from '@oceanbase/ui';
 import { useRequest } from 'ahooks';
 import useDocumentTitle from '@/hook/useDocumentTitle';
@@ -55,6 +55,7 @@ const Index: React.FC<IndexProps> = ({ location, tenantData }: IndexProps) => {
   });
 
   const tenants = data?.data?.contents || [];
+  // const tenants = (data?.data?.contents || []).filter(tenant => tenant.status !== 'CREATING');
   const tenantId = (propTenantId && Number(propTenantId)) || tenants[0]?.obTenantId;
 
   return (
@@ -76,7 +77,6 @@ const Index: React.FC<IndexProps> = ({ location, tenantData }: IndexProps) => {
             {!listTenantsLoading && (
               <MyDropdown
                 menuList={tenants
-                  .filter(tenant => tenant.status !== 'CREATING')
                   .map(item => {
                     return {
                       value: item.obTenantId,

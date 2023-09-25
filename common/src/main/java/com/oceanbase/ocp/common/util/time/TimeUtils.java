@@ -15,6 +15,7 @@ package com.oceanbase.ocp.common.util.time;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -156,6 +157,13 @@ public class TimeUtils {
 
     public static OffsetDateTime toUtc(Instant instant) {
         return usToUtc(toUs(instant));
+    }
+
+    public static String getCurrentDate(String format) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern(format);
+        String date = dataFormat.format(now);
+        return date;
     }
 
 }

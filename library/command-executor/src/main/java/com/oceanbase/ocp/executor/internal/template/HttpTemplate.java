@@ -15,6 +15,7 @@ package com.oceanbase.ocp.executor.internal.template;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 import java.util.function.Supplier;
 
 import org.glassfish.jersey.client.ClientProperties;
@@ -22,6 +23,9 @@ import org.glassfish.jersey.client.ClientProperties;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.reflect.TypeToken;
 
+import com.oceanbase.ocp.common.util.time.TimeUtils;
+import com.oceanbase.ocp.executor.internal.auth.http.DigestAuthConfig;
+import com.oceanbase.ocp.executor.internal.util.DigestSignature;
 import com.oceanbase.ocp.executor.config.Configuration;
 import com.oceanbase.ocp.executor.exception.HttpRequestFailedException;
 import com.oceanbase.ocp.executor.internal.connector.ConnectProperties;
@@ -50,10 +54,17 @@ public class HttpTemplate {
      */
     private final String domain;
 
+    private final ConnectProperties connectProperties;
+
     private final Connector<Client> agentConnector;
+
+    private static final String HMAC_SHA1_ALGORITHM = "HmacSHA1";
+    /** OCP Trace ID */
+    private static final String TRACE_ID_HEADER = "X-OCP-Trace-ID";
 
     @SuppressWarnings("unchecked")
     public HttpTemplate(ConnectProperties connectProperties, Configuration configuration) {
+        this.connectProperties = connectProperties;
         this.agentConnector = (Connector<Client>) Connectors.getAgentConnector(connectProperties, configuration);
         HttpAuthType authType = connectProperties.getAuthentication().getHttpAuth().getAuthType();
         domain = String.format("%s://%s:%d", getProtocol(authType), connectProperties.getHostAddress(),
@@ -75,7 +86,8 @@ public class HttpTemplate {
     private <T> AgentResponse<T> doGet(String apiPath, Class<T> responseClass) {
         log.info("GET request to agent, url:{} ", domain + apiPath);
         WebTarget target = getClient().target(domain + apiPath);
-        Builder invoker = target.request(APPLICATION_JSON);
+        Builder invoker =
+                decorateHeaders(target.request(APPLICATION_JSON), "GET", apiPath);
         Type type = getResponseDataType(responseClass);
         AgentResponse<T> response = safeExecute(() -> (invoker.get(new GenericType<>(type))));
         checkSuccess(response);
@@ -85,7 +97,8 @@ public class HttpTemplate {
     private <T> AgentResponse<T> doPost(String apiPath, Class<T> responseClass, Object requestBody) {
         log.info("POST request to agent, url:{}, request body:{}", domain + apiPath, safeToString(requestBody));
         WebTarget target = getClient().target(domain + apiPath);
-        Builder invoker = target.request(APPLICATION_JSON);
+        Builder invoker =
+                decorateHeaders(target.request(APPLICATION_JSON), "POST", apiPath);
         Type type = getResponseDataType(responseClass);
         AgentResponse<T> response =
                 safeExecute(() -> invoker.post(Entity.entity(requestBody, APPLICATION_JSON), new GenericType<>(type)));
@@ -96,7 +109,8 @@ public class HttpTemplate {
     private Response doPostRaw(String apiPath, Object requestBody, HttpConfig config) {
         log.info("POST request to agent, url:{}, request body:{}", domain + apiPath, safeToString(requestBody));
         WebTarget target = getClient().target(domain + apiPath);
-        Builder invoker = target.request(APPLICATION_JSON);
+        Builder invoker =
+                decorateHeaders(target.request(APPLICATION_JSON), "POST", apiPath);
         if (config != null) {
             if (config.getConnectTimeout() != null && config.getConnectTimeout() > 0) {
                 invoker.property(ClientProperties.CONNECT_TIMEOUT, config.getConnectTimeout());
@@ -110,6 +124,26 @@ public class HttpTemplate {
 
     private Client getClient() {
         return agentConnector.connector();
+    }
+
+    private Builder decorateHeaders(Builder invokeBuilder, String method, String url) {
+        Map<String, Object> extHttpHeaders = connectProperties.getExtHttpHeaders();
+        if (extHttpHeaders != null && !extHttpHeaders.isEmpty()) {
+            extHttpHeaders.forEach(invokeBuilder::header);
+        }
+        if (connectProperties.getAuthentication().getHttpAuth().getAuthType().equals(HttpAuthType.DIGEST)) {
+            String date = TimeUtils.getCurrentDate("yyyy/MM/dd HH:mm:ss");
+            String traceId = connectProperties.getExtHttpHeaders().get(TRACE_ID_HEADER).toString();
+            String username = connectProperties.getAuthentication().getHttpAuth().getDigestAuthConfig().getUsername();
+            String password = connectProperties.getAuthentication().getHttpAuth().getDigestAuthConfig().getPassword();
+            DigestAuthConfig digestAuth = DigestAuthConfig.builder().username(username).password(password).build();
+            DigestSignature digestSignature = DigestSignature.builder().method(method).url(url)
+                    .contentType(APPLICATION_JSON).traceId(traceId).authConfig(digestAuth).date(date).build();
+            String authorization = digestSignature.getAuthorizationHeader();
+            invokeBuilder.header("Date", date).header("Authorization", authorization).header("Content-Type",
+                    APPLICATION_JSON);
+        }
+        return invokeBuilder;
     }
 
     private static <T> Type getResponseDataType(Class<T> dataClass) {

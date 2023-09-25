@@ -11,11 +11,16 @@
  */
 package com.oceanbase.ocp.core.executor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.oceanbase.ocp.common.util.HostUtils;
+import com.oceanbase.ocp.common.util.trace.TraceUtils;
 import com.oceanbase.ocp.executor.config.Configuration;
 import com.oceanbase.ocp.executor.executor.AgentExecutor;
 import com.oceanbase.ocp.executor.internal.auth.Authentication;
@@ -58,6 +63,10 @@ public class AgentExecutorFactory {
     @Value("${ocp.operation.executor.connector.cache.max-idle-seconds:3600}")
     private int connectorCacheMaxIdleSeconds;
 
+    private static final String OCP_SERVER_IP_HEADER = "X-OCP-Server-IP";
+
+    private static final String TRACE_ID_HEADER = "X-OCP-Trace-ID";
+
     private String username;
 
     private String password;
@@ -86,6 +95,13 @@ public class AgentExecutorFactory {
         this.password = password;
     }
 
+    private static Map<String, Object> defaultHeaders() {
+        Map<String, Object> headers = new HashMap<>(2);
+        headers.put(OCP_SERVER_IP_HEADER, HostUtils.getLocalIp());
+        headers.put(TRACE_ID_HEADER, TraceUtils.getTraceId());
+        return headers;
+    }
+
     public AgentExecutor create(String hostAddress, int port) {
         if (username == null) {
             throw new RuntimeException("Agent username not specified.");
@@ -93,8 +109,9 @@ public class AgentExecutorFactory {
         ConnectProperties properties = ConnectProperties.builder()
                 .hostAddress(hostAddress)
                 .httpPort(port)
+                .extHttpHeaders(defaultHeaders())
                 .authentication(Authentication.builder()
-                        .httpAuth(HttpAuthentication.basic(username, password))
+                        .httpAuth(HttpAuthentication.digest(username, password))
                         .build())
                 .build();
         return new AgentExecutor(properties, configuration);

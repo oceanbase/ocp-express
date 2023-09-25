@@ -98,6 +98,8 @@ public class ClusterParameterServiceImpl implements ClusterParameterService {
             ExceptionUtils.require(param.getTenants() == null || param.getAllTenants() == null,
                     ErrorCodes.COMMON_ILLEGAL_ARGUMENT, "tenants, allTenants");
         }
+
+        obParameterService.validateCapacityValue(param.getName(), param.getValue());
     }
 
     private void updateParameterInternal(UpdateClusterParameterParam param) {

@@ -41,6 +41,7 @@ import com.oceanbase.ocp.core.security.AuthenticationFacade;
 import com.oceanbase.ocp.core.util.ExceptionUtils;
 import com.oceanbase.ocp.obops.database.DbUserService;
 import com.oceanbase.ocp.obops.database.param.ModifyDbUserPasswordParam;
+import com.oceanbase.ocp.obops.internal.parameter.ObParameterService;
 import com.oceanbase.ocp.obops.internal.tenant.task.CreateTenantTask;
 import com.oceanbase.ocp.obops.internal.tenant.task.PrepareCreateTenantTask;
 import com.oceanbase.ocp.obops.internal.tenant.task.SetObTenantParametersTask;
@@ -118,6 +119,9 @@ public class TenantOperationServiceImpl implements TenantOperationService {
 
     @Autowired
     private DbUserService dbUserService;
+
+    @Autowired
+    private ObParameterService obParameterService;
 
     @Autowired
     private ObCredentialOperator obCredentialOperator;
@@ -304,7 +308,11 @@ public class TenantOperationServiceImpl implements TenantOperationService {
         ExceptionUtils.illegalArgs(tenantDaoManager.isTenantNotExist(param.getName()),
                 ErrorCodes.OB_TENANT_NAME_EXIST, managedCluster.clusterName(), param.getName());
 
-        // TODO more checks
+        param.getParameters().forEach(this::validateTenantParameterParam);
+    }
+
+    private void validateTenantParameterParam(TenantParameterParam param) {
+        obParameterService.validateCapacityValue(param.getName(), param.getValue());
     }
 
     private void validatePrimaryZone(String primaryZone, List<String> zoneList) {

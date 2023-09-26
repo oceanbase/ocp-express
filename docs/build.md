@@ -31,6 +31,13 @@ cnpm run build
 ```
 4. 编译成功后会在项目的 `frontend/dist` 目录生成前端资源文件。
 
+5. 将前端资源文件 copy 到后端代码 resources 目录.
+
+```bash
+  rm -rf server/src/main/resources/static
+  mkdir -p server/src/main/resources/static
+  cp -r frontend/dist/* server/src/main/resources/static
+```
 # 2. 后端
 
 1. 安装最新的稳定版 [OpenJDK 8](https://openjdk.org/install/)

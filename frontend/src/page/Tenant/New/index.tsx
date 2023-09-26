@@ -76,7 +76,6 @@ const New: React.FC<NewProps> = ({
     query: { tenantId: defaultTenantId },
   },
 }) => {
-  const { styles } = useStyles();
   // const { clusterData } = useSelector((state: DefaultRootState) => state.cluster);
 
   const [form] = Form.useForm();
@@ -193,15 +192,15 @@ const New: React.FC<NewProps> = ({
               memorySize: replicaZone?.unitConfig?.maxMemorySize,
               ...(replicaZone
                 ? {
-                    // 已分布副本的 Zone，已勾选
-                    checked: true,
-                    ...replicaZone,
-                  }
+                  // 已分布副本的 Zone，已勾选
+                  checked: true,
+                  ...replicaZone,
+                }
                 : {
-                    // 未分布副本的 Zone，未勾选
-                    checked: false,
-                    replicaType: 'FULL',
-                  }),
+                  // 未分布副本的 Zone，未勾选
+                  checked: false,
+                  replicaType: 'FULL',
+                }),
             };
           }),
           mode: sourceTenantData.mode,
@@ -282,6 +281,7 @@ const New: React.FC<NewProps> = ({
   };
 
   const replicaTypeTooltipConfig = {
+    color: '#fff',
     overlayStyle: {
       maxWidth: 400,
     },
@@ -357,9 +357,9 @@ const New: React.FC<NewProps> = ({
       header={{
         title: isClone
           ? formatMessage({
-              id: 'ocp-express.Tenant.New.ReplicationTenant',
-              defaultMessage: '复制租户',
-            })
+            id: 'ocp-express.Tenant.New.ReplicationTenant',
+            defaultMessage: '复制租户',
+          })
           : formatMessage({ id: 'ocp-express.Tenant.New.NewTenant', defaultMessage: '新建租户' }),
         breadcrumb: { routes, itemRender: breadcrumbItemRender },
         onBack: () => {
@@ -686,7 +686,7 @@ const New: React.FC<NewProps> = ({
                         },
                       ]}
                     >
-                      {(fields, {}) => {
+                      {(fields, { }) => {
                         return (
                           <>
                             {fields.map((field, index: number) => {

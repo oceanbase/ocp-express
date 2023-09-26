@@ -17,8 +17,7 @@ import { Alert, Descriptions, Modal } from '@oceanbase/design';
 import type { ModalProps } from '@oceanbase/design/es/modal';
 import { useRequest } from 'ahooks';
 import * as ObTenantController from '@/service/ocp-express/ObTenantController';
-// import { REPLICA_TYPE_LIST } from '@/constant/oceanbase';
-import { taskSuccess } from '@/util/task';
+import { taskSuccess } from '@/util/task'
 
 export interface DeleteReplicaModalProps extends ModalProps {
   dispatch: any;

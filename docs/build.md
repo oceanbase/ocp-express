@@ -38,7 +38,6 @@ cnpm run build
   mkdir -p server/src/main/resources/static
   cp -r frontend/dist/* server/src/main/resources/static
 ```
-
 # 2. 后端
 
 1. 安装最新的稳定版 [OpenJDK 8](https://openjdk.org/install/)
@@ -68,3 +67,4 @@ mvn clean package -Dmaven.test.skip=true
 5. 打包 RPM
 
 可以使用内置导报脚本来实现一键打包 rpm，`sh build/scripts/package.sh rpm`
+ 

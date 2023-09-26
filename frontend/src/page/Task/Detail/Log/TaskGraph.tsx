@@ -27,7 +27,7 @@ import { formatTime } from '@/util/datetime';
 import { downloadLog } from '@/util/log';
 import type { Node, SubtaskOperationKey } from '@/util/task';
 import { getNodes, getLatestNode, getTaskDuration, handleSubtaskOperate } from '@/util/task';
-import useStyles from './TaskGraph.style';
+import styles from './TaskGraph.less';
 
 const { Text } = Typography;
 
@@ -122,8 +122,6 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
         </g>
       </svg>
     );
-
-    const { styles } = useStyles();
 
     const [canvas, setCanvas] = useState<Canvas>();
     const graphRef = useRef<HTMLDivElement>(null);
@@ -355,12 +353,12 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
             // 设置选中节点的样式
             ...(node?.id === subtask?.id
               ? {
-                  border: `1px solid ${statusItem.color}`,
-                  borderRight: `4px solid ${statusItem.color}`,
-                  backgroundColor: statusItem.backgroundColor,
-                  // 节点的右侧 padding 为 16px，需要将选中节点的右侧 padding 减小为 11px，以抵消左右两侧 5px 的 border 影响
-                  paddingRight: 11,
-                }
+                border: `1px solid ${statusItem.color}`,
+                borderRight: `4px solid ${statusItem.color}`,
+                backgroundColor: statusItem.backgroundColor,
+                // 节点的右侧 padding 为 16px，需要将选中节点的右侧 padding 减小为 11px，以抵消左右两侧 5px 的 border 影响
+                paddingRight: 11,
+              }
               : {}),
           }}
         >

@@ -19,8 +19,9 @@ export const namespace = 'global';
 const model = {
   namespace,
   state: {
-    // theme mode
-    themeMode: localStorage.getItem('themeMode'),
+    // theme mode     
+    // 设置一个默认的主题，默认主题为 light
+    themeMode: localStorage.getItem('themeMode') || 'light',
     // RSA 加密用的公钥
     publicKey: '',
     // 应用信息

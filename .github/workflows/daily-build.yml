@@ -11,12 +11,6 @@ run-name: Daily build triggered by ${{ github.actor }} 🎉
 
 on:
   workflow_dispatch:
-    inputs:
-      rpm_release:
-        description: "Rpm release number"
-        required: false
-        default: ''
-        type: string
 
 jobs:
   build-jar:
@@ -37,26 +31,26 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-      - name: Build front static resources
-        run: |
-          echo "Current directory: "`pwd`
-          echo "Start build front static resources"
-          pushd frontend
-          echo "Run npm install"
-          npm install
-          echo "Run npm build"
-          npm run build
-          echo "Build front static resources success"
-          echo "Start copy resources files"
-          popd
-          static_resources_path="server/src/main/resources/static"
-          if [ ! -d "${static_resources_path}" ]; then
-            echo "mkdir -p ${static_resources_path}"
-            mkdir -p "${static_resources_path}"
-          fi
-          rm --force --recursive --verbose ${static_resources_path}/*
-          cp --force --recursive --verbose frontend/dist/* ${static_resources_path}
-          echo "Copy resources files success"
+      # - name: Build front static resources
+      #   run: |
+      #     echo "Current directory: "`pwd`
+      #     echo "Start build front static resources"
+      #     pushd frontend
+      #     echo "Run npm install"
+      #     npm install
+      #     echo "Run npm build"
+      #     npm run build
+      #     echo "Build front static resources success"
+      #     echo "Start copy resources files"
+      #     popd
+      #     static_resources_path="server/src/main/resources/static"
+      #     if [ ! -d "${static_resources_path}" ]; then
+      #       echo "mkdir -p ${static_resources_path}"
+      #       mkdir -p "${static_resources_path}"
+      #     fi
+      #     rm --force --recursive --verbose ${static_resources_path}/*
+      #     cp --force --recursive --verbose frontend/dist/* ${static_resources_path}
+      #     echo "Copy resources files success"
       - name: Build jar & rpm (x86_64)
         run: |
           echo "Start build jar"

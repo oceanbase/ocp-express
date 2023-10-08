@@ -11,6 +11,12 @@ run-name: Daily build triggered by ${{ github.actor }} 🎉
 
 on:
   workflow_dispatch:
+    inputs:
+      rpm_release:
+        description: "Rpm release number"
+        required: false
+        default: $(date +%Y%m%d)
+        type: string
 
 jobs:
   build-jar:

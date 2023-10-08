@@ -73,7 +73,7 @@ jobs:
       - name: Upload jar
         uses: actions/upload-artifact@v3
         with:
-          name: odc-artifact-jar
+          name: ocp-express-artifact-jar
           path: server/target/*.jar
       - name: Upload rpm (x86_64)
         uses: actions/upload-artifact@v3

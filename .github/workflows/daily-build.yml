@@ -15,7 +15,7 @@ on:
       rpm_release:
         description: "Rpm release number"
         required: false
-        default: $(date +%Y%m%d)
+        default: ''
         type: string
 
 jobs:
@@ -61,9 +61,12 @@ jobs:
         run: |
           echo "Start build jar"
           mvn help:system
-          mvn clean install -Dmaven.test.skip=true
+          mvn -q clean install -Dmaven.test.skip=true
           echo "Jar path: $(find server/target -name '*.jar')"
           echo "Start build rpm"
+          rpm_release_number=$(date +%Y%m%d)
+          if [[ -n "${{ inputs.rpm_release }}" ]]; then rpm_release_number="${{ inputs.rpm_release }}"; fi
+          export RELEASE=${rpm_release_number}
           mkdir -p rpmbuild/BUILD rpmbuild/BUILDROOT rpmbuild/RPMS rpmbuild/SRPMS rpmbuild/SOURCES rpmbuild/SOURCES
           rpmbuild --define "_topdir $(pwd)/rpmbuild" --define "_workspace $(pwd)" -bb --quiet "$(pwd)"/rpm/ocp-express.spec
           echo "RPM path: $(find $(pwd)/rpmbuild/RPMS -name '*.rpm')"

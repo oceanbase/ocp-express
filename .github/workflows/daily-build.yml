@@ -40,16 +40,15 @@ jobs:
       - name: Build front static resources
         run: |
           echo "Current directory: "`pwd`
-          basedir = `pwd`
           echo "Start build front static resources"
-          cd frontend
+          pushd frontend
           echo "Run npm install"
           npm install
           echo "Run npm build"
           npm run build
           echo "Build front static resources success"
           echo "Start copy resources files"
-          cd "$basedir"
+          popd
           static_resources_path="server/src/main/resources/static"
           if [ ! -d "${static_resources_path}" ]; then
             echo "mkdir -p ${static_resources_path}"
@@ -66,9 +65,8 @@ jobs:
           echo "Jar path: $(find server/target -name '*.jar')"
           echo "Start build rpm"
           mkdir -p rpmbuild/BUILD rpmbuild/BUILDROOT rpmbuild/RPMS rpmbuild/SRPMS rpmbuild/SOURCES rpmbuild/SOURCES
-          basedir = `pwd`
-          rpmbuild --define "_topdir $basedir/rpmbuild" --define "_workspace $basedir" -bb --quiet "$basedir"/rpm/ocp-express.spec
-          echo "RPM path: $(find "$BASEDIR"/rpmbuild/RPMS -name '*.rpm')"
+          rpmbuild --define "_topdir $(pwd)/rpmbuild" --define "_workspace $(pwd)" -bb --quiet "$(pwd)"/rpm/ocp-express.spec
+          echo "RPM path: $(find $(pwd)/rpmbuild/RPMS -name '*.rpm')"
       - name: Upload jar
         uses: actions/upload-artifact@v3
         with:

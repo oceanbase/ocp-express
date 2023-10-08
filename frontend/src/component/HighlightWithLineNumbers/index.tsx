@@ -11,8 +11,10 @@
  */
 
 import React from 'react';
+import { useSelector } from 'umi';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import theme from 'prism-react-renderer/themes/vsLight';
+import vsLightTheme from 'prism-react-renderer/themes/vsLight';
+import vsDarkTheme from 'prism-react-renderer/themes/vsDark';
 import Prism from 'prism-react-renderer/prism/index';
 import javaLog from './languages/javaLog';
 
@@ -64,12 +66,14 @@ const HighlightWithLineNumbers: React.FC<HighlightWithLineNumbersProps> = ({
   showLineNumber = true,
   language = 'javaLog',
 }) => {
+  const { themeMode } = useSelector((state: DefaultRootState) => state.global);
+
   return (
     <Highlight
       {...defaultProps}
       // 自定义 Prism，默认的 Prism 不支持 log 语言，主要是在原先的 Prism 上增加了 log 语言的支持
       Prism={Prism as any}
-      theme={theme}
+      theme={themeMode === 'light' ? vsLightTheme : vsDarkTheme}
       code={content}
       language={language as any}
     >
@@ -82,7 +86,7 @@ const HighlightWithLineNumbers: React.FC<HighlightWithLineNumbersProps> = ({
               textAlign: 'left',
               margin: '1em 0',
               padding: 16, //'0.5em',
-              backgroundColor: '#F8FAFE',
+              backgroundColor: themeMode === 'light' ? '#F8FAFE' : 'rgb(42, 39, 52)',
             }}
           >
             {tokens.map((line, i) => {

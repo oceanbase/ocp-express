@@ -77,6 +77,7 @@ const New: React.FC<NewProps> = ({
   },
 }) => {
   // const { clusterData } = useSelector((state: DefaultRootState) => state.cluster);
+  const { styles } = useStyles();
 
   const [form] = Form.useForm();
   const { getFieldValue, validateFields, setFieldsValue } = form;

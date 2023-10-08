@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect, useImperativeHandle } from 'react';
-import { Empty, Spin, Tabs } from '@oceanbase/design';
+import { Empty, Spin, Tabs, token } from '@oceanbase/design';
 import { DownOutlined, UpOutlined } from '@oceanbase/icons';
 import { find, isFunction } from 'lodash';
 import SplitPane from 'react-split-pane';
@@ -192,7 +192,7 @@ const Detail: React.FC<DetailProps> = React.forwardRef(
             style={{
               overflow: 'auto',
               height: 'calc(100% - 32px)',
-              backgroundColor: '#f7f8fc',
+              backgroundColor: token.colorBgContainer,
             }}
           >
             {/* 不使用 Spin 对日志进行包裹，否则 loading 图标会出现在滚动区域的中间，切换 tab 时会看不到，而只能看到蒙层 */}

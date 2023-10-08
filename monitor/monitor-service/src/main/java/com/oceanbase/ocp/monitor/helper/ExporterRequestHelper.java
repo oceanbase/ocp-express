@@ -24,8 +24,12 @@ import org.asynchttpclient.ListenableFuture;
 import org.asynchttpclient.Response;
 import org.springframework.stereotype.Component;
 
+import com.oceanbase.ocp.common.util.time.TimeUtils;
 import com.oceanbase.ocp.common.util.trace.TraceUtils;
+import com.oceanbase.ocp.executor.internal.auth.http.DigestAuthConfig;
+import com.oceanbase.ocp.executor.internal.util.DigestSignature;
 import com.oceanbase.ocp.monitor.config.AsyncHttpConfig;
+import com.oceanbase.ocp.monitor.util.ExporterAddressUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,7 +46,7 @@ public class ExporterRequestHelper {
     private static final long SLOW_THRESHOLD = 100L;
 
     private final AsyncHttpClient client;
-    private String authVal;
+    private DigestAuthConfig digestAuthConfig;
 
     public ExporterRequestHelper() {
         HttpContext context = new HttpContext(1000, 1000, 2000);
@@ -55,10 +59,9 @@ public class ExporterRequestHelper {
         client = newHttpClient(config);
     }
 
-    public void setBasicAuth(String username, String password) {
+    public void setDigestAuth(String username, String password) {
         if (username != null && password != null) {
-            this.authVal =
-                    Base64.getEncoder().encodeToString((username + ":" + password).getBytes(StandardCharsets.UTF_8));
+            this.digestAuthConfig = DigestAuthConfig.builder().username(username).password(password).build();
         }
     }
 
@@ -74,10 +77,18 @@ public class ExporterRequestHelper {
     }
 
     private BoundRequestBuilder buildRequest(String exporterUrl) {
+        String date = TimeUtils.getCurrentDate("yyyy/MM/dd HH:mm:ss");
+        String traceId = TraceUtils.getTraceId();
+        String url = "/metrics" + ExporterAddressUtils.getPath(exporterUrl);
+        DigestSignature digestSignature = DigestSignature.builder().method("GET").url(url)
+                .contentType("").traceId(traceId).authConfig(digestAuthConfig).date(date).build();
+        String authVal = digestSignature.getAuthorizationHeader();
+
         return client
                 .prepareGet(exporterUrl)
-                .addHeader("Authorization", "Basic " + authVal)
-                .addHeader(TRACE_ID_HEADER, TraceUtils.getTraceId());
+                .addHeader("Authorization", authVal)
+                .addHeader("Date", date)
+                .addHeader(TRACE_ID_HEADER, traceId);
     }
 
     private AsyncHttpClient newHttpClient(AsyncHttpConfig config) {

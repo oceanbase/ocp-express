@@ -12,6 +12,8 @@
 
 package com.oceanbase.ocp.executor.internal.connector;
 
+import java.util.Map;
+
 import com.oceanbase.ocp.executor.internal.auth.Authentication;
 import com.oceanbase.ocp.executor.internal.util.ValidateUtils;
 
@@ -42,6 +44,8 @@ public class ConnectProperties {
      * Agent auth info.
      */
     private Authentication authentication;
+
+    private Map<String, Object> extHttpHeaders;
 
     public void validate() {
         ValidateUtils.requireNotNull(authentication, "authentication");

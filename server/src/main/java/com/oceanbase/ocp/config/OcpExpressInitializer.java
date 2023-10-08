@@ -168,7 +168,7 @@ public class OcpExpressInitializer {
         // Save global agent password to vault
         agentCredentialOperator.saveAgentCredential(initProperties.getAgentUsername(),
                 initProperties.getAgentPassword());
-        exporterRequestHelper.setBasicAuth(initProperties.getAgentUsername(), initProperties.getAgentPassword());
+        exporterRequestHelper.setDigestAuth(initProperties.getAgentUsername(), initProperties.getAgentPassword());
         agentExecutorFactory.setAuthInfo(initProperties.getAgentUsername(), initProperties.getAgentPassword());
         obAgentService.initAgent(initAgentParams);
     }

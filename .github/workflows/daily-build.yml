@@ -43,7 +43,7 @@ jobs:
           echo "Start build front static resources"
           pushd frontend
           echo "Run npm install"
-          npm install
+          npm install --legacy-peer-deps
           echo "Run npm build"
           npm run build
           echo "Build front static resources success"

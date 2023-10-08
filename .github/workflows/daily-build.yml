@@ -37,26 +37,28 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-      # - name: Build front static resources
-      #   run: |
-      #     echo "Current directory: "`pwd`
-      #     echo "Start build front static resources"
-      #     pushd frontend
-      #     echo "Run npm install"
-      #     npm install
-      #     echo "Run npm build"
-      #     npm run build
-      #     echo "Build front static resources success"
-      #     echo "Start copy resources files"
-      #     popd
-      #     static_resources_path="server/src/main/resources/static"
-      #     if [ ! -d "${static_resources_path}" ]; then
-      #       echo "mkdir -p ${static_resources_path}"
-      #       mkdir -p "${static_resources_path}"
-      #     fi
-      #     rm --force --recursive --verbose ${static_resources_path}/*
-      #     cp --force --recursive --verbose frontend/dist/* ${static_resources_path}
-      #     echo "Copy resources files success"
+      - name: Build front static resources
+        run: |
+          echo "Current directory: "`pwd`
+          echo "Start build front static resources"
+          pushd frontend
+          echo "Run npm install cnpm -g"
+          npm install cnpm -g
+          echo "Run cnpm install"
+          cnpm install
+          echo "Run cnpm build"
+          cnpm run build
+          echo "Build front static resources success"
+          echo "Start copy resources files"
+          popd
+          static_resources_path="server/src/main/resources/static"
+          if [ ! -d "${static_resources_path}" ]; then
+            echo "mkdir -p ${static_resources_path}"
+            mkdir -p "${static_resources_path}"
+          fi
+          rm --force --recursive --verbose ${static_resources_path}/*
+          cp --force --recursive --verbose frontend/dist/* ${static_resources_path}
+          echo "Copy resources files success"
       - name: Build jar & rpm (x86_64)
         run: |
           echo "Start build jar"
@@ -73,10 +75,8 @@ jobs:
       - name: Upload jar
         uses: actions/upload-artifact@v3
         with:
-          name: ocp-express-artifact-jar
           path: server/target/*.jar
       - name: Upload rpm (x86_64)
         uses: actions/upload-artifact@v3
         with:
-          name: ocp-express.rpm
           path: rpmbuild/RPMS/x86_64/ocp-express-*.rpm

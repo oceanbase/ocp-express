@@ -16,7 +16,7 @@
 
     <groupId>com.oceanbase</groupId>
     <artifactId>ocp-express-bom</artifactId>
-    <version>4.1.0-20230726</version>
+    <version>4.2.0-SNAPSHOT</version>
 
     <modelVersion>4.0.0</modelVersion>
 

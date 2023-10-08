@@ -36,18 +36,16 @@ jobs:
       - name: Setup node 16
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "16.20.0"
       - name: Build front static resources
         run: |
           echo "Current directory: "`pwd`
           echo "Start build front static resources"
           pushd frontend
-          echo "Run npm install cnpm -g"
-          npm install cnpm -g
-          echo "Run cnpm install"
-          cnpm install
-          echo "Run cnpm build"
-          cnpm run build
+          echo "Run npm install"
+          npm install
+          echo "Run npm build"
+          npm run build
           echo "Build front static resources success"
           echo "Start copy resources files"
           popd

@@ -64,7 +64,9 @@ export default defineConfig({
   mfsu: {},
   locale: {
     default: 'zh-CN',
-    antd: true,
+    // disable antd locale import in umi plugin-locale to avoid build error
+    // issue: https://github.com/oceanbase/ocp-express/pull/22
+    antd: false,
     title: false,
   },
   // esbuild: {},

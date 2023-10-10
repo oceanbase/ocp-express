@@ -13,9 +13,6 @@ const useStyles = createStyles(({ token }) => {
       backgroundColor: token.colorBorderSecondary,
       content: "''",
     },
-    mouseTooltip: {
-      backgroundColor: token.colorBorderSecondary
-    }
   };
 });
 

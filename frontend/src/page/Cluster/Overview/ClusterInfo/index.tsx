@@ -340,7 +340,6 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
         })}
       >
         <MouseTooltip
-          className={styles.mouseTooltip}
           style={{
             maxWidth: isEnglish() ? 600 : 500,
             padding: 16,

@@ -9,14 +9,15 @@
  * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  * See the Mulan PSL v2 for more details.
  */
-
+import { useSelector } from 'umi';
 import javaLog from '@/component/HighlightWithLineNumbers/languages/javaLog';
 import { LOG_LEVEL } from '@/constant/log';
 import React, { useMemo } from 'react';
 import { flatten, omit, trim } from 'lodash';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import Prism from 'prism-react-renderer/prism/index';
-import theme from 'prism-react-renderer/themes/vsLight';
+import vsLightTheme from 'prism-react-renderer/themes/vsLight';
+import vsDarkTheme from 'prism-react-renderer/themes/vsDark';
 import MyParagraph from './MyParagraph';
 
 Prism.languages.javaLog = javaLog;
@@ -32,6 +33,8 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
   content = '',
   language = 'javaLog',
 }) => {
+  const { themeMode } = useSelector((state: DefaultRootState) => state.global);
+
   const renderLogLevelStytle = (logLevel?: API.LogLevel) => {
     let color;
     switch (trim(logLevel)) {
@@ -102,7 +105,7 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
         {...defaultProps}
         // 自定义 Prism，默认的 Prism 不支持 log 语言，主要是在原先的 Prism 上增加了 log 语言的支持
         Prism={Prism as any}
-        theme={theme}
+        theme={themeMode === 'light' ? vsLightTheme : vsDarkTheme}
         code={content}
         language={language as any}
       >

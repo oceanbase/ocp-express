@@ -24,8 +24,8 @@ echo "[BUILD] args: PROJECT_DIR=${PROJECT_DIR} PROJECT_NAME=${PROJECT_NAME} VERS
 
 # build frontend
 cd "${PROJECT_DIR}"/frontend || exist
-tnpm install
-tnpm run build
+cnpm install
+cnpm run build
 
 # copy static resources
 cd "${PROJECT_DIR}" || exist

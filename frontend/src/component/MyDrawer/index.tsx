@@ -72,7 +72,7 @@ const MyDrawer: React.FC<MyDrawerProps> = ({
             width: 'calc(100% - 32px)',
             borderTop: '1px solid #e9e9e9',
             padding: '10px 16px',
-            background: token.colorBgContainer,
+            // background: token.colorBgContainer,
             zIndex: 10,
             display: 'flex',
             justifyContent: 'space-between',

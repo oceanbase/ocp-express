@@ -14,12 +14,46 @@ const useStyles = createStyles(({ token }) => {
     },
     node: {
       marginLeft: "8px",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: '4px',
+      padding: '10px 16px',
+      fontSize: '12px',
+      lineHeight: '20px',
+      backgroundColor: token.colorBgContainer,
+      borderRadius: '8px',
+      cursor: 'pointer',
     },
     subNode: {
       marginLeft: "32px",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: '4px',
+      padding: '10px 16px',
+      fontSize: '12px',
+      lineHeight: '20px',
+      backgroundColor: token.colorBgContainer,
+      borderRadius: '8px',
+      cursor: 'pointer',
     },
     icon: {
-      left: "24px",
+      position: 'absolute',
+      fontSize: '16px'
+    },
+    nodeIcon: {
+      left: '0px',
+    },
+    subNodeIcon: {
+      left: '24px',
+    },
+    active: {
+      border: `1px solid ${token.colorSuccess}`,
+      borderRight: `4px solid ${token.colorSuccess}`,
+      backgroundColor: token.colorSuccessBg,
+      // 节点的右侧 padding 为 16px，需要将选中节点的右侧 padding 减小为 11px，以抵消左右两侧 5px 的 border 影响
+      paddingRight: '11px',
     },
     left: {
       width: "calc(100% - 250px)",
@@ -35,8 +69,10 @@ const useStyles = createStyles(({ token }) => {
     },
     description: {
       display: "inline-block",
+      width: 'calc(100% - 90px)',
       color: token.colorTextSecondary,
     },
+
     right: {
       display: "flex",
       alignItems: "center",
@@ -51,9 +87,10 @@ const useStyles = createStyles(({ token }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        color: "rgba(0, 0, 0, 0.45)",
+        color: token.colorTextSecondary,
         ".ant-typography-copy": {
-          color: "rgba(0, 0, 0, 0.45)",
+          color: token.colorTextSecondary,
+
         },
       },
     },

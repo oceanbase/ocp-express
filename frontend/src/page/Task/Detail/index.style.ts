@@ -9,6 +9,10 @@ const useStyles = createStyles(() => {
         padding: '0 24px',
       },
     },
+    descriptions: {
+      zIndex: 1,
+      position: 'relative'
+    }
   };
 });
 export default useStyles;

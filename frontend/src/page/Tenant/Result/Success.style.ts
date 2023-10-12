@@ -1,12 +1,12 @@
 import { createStyles } from 'antd-style';
 
-const useStyles = createStyles(() => {
+const useStyles = createStyles(({ token }) => {
   return {
     newOBProxyInfo: {
       padding: '32px',
     },
     detail: {
-      backgroundColor: '#f8fafe',
+      backgroundColor: token.colorInfoBg,
     },
   };
 });

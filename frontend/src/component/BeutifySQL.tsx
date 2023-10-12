@@ -11,7 +11,7 @@
  */
 
 import React, { useState, useRef, useEffect, useImperativeHandle } from 'react';
-import { Highlight } from '@oceanbase/design';
+import { Highlight } from '@oceanbase/ui';
 import { useUpdate } from 'ahooks';
 import { reduce } from 'lodash';
 import { formatSql } from '@/util';

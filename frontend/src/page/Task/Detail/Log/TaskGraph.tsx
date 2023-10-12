@@ -27,7 +27,7 @@ import { formatTime } from '@/util/datetime';
 import { downloadLog } from '@/util/log';
 import type { Node, SubtaskOperationKey } from '@/util/task';
 import { getNodes, getLatestNode, getTaskDuration, handleSubtaskOperate } from '@/util/task';
-import styles from './TaskGraph.less';
+import useStyles from './TaskGraph.style';
 
 const { Text } = Typography;
 
@@ -135,6 +135,8 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
 
     // 对任务进行结构化处理，方便绘图
     const nodes = getNodes(taskData);
+
+    const { styles } = useStyles();
 
     // 定位到目标节点
     const setTargetSubtask = (targetSubtaskId?: number) => {
@@ -348,21 +350,10 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
           onClick={() => {
             onSubtaskChange(node?.id);
           }}
-          className={isSubNode ? styles.subNode : styles.node}
-          style={{
-            // 设置选中节点的样式
-            ...(node?.id === subtask?.id
-              ? {
-                border: `1px solid ${statusItem.color}`,
-                borderRight: `4px solid ${statusItem.color}`,
-                backgroundColor: statusItem.backgroundColor,
-                // 节点的右侧 padding 为 16px，需要将选中节点的右侧 padding 减小为 11px，以抵消左右两侧 5px 的 border 影响
-                paddingRight: 11,
-              }
-              : {}),
-          }}
+          // 设置选中节点的样式
+          className={`${isSubNode ? styles.subNode : styles.node} ${node?.id === subtask?.id ? styles.active : null}`}
         >
-          <div className={styles.icon}>{statusItem.icon}</div>
+          <div className={`${styles.icon} ${isSubNode ? styles.subNodeIcon : styles.nodeIcon}`}>{statusItem.icon}</div>
           <div className={styles.left}>
             <Text
               ellipsis={{

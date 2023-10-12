@@ -11,8 +11,6 @@
  */
 package com.oceanbase.ocp.monitor.helper;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 

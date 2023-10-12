@@ -28,6 +28,7 @@ import com.oceanbase.ocp.executor.internal.auth.Authentication;
 import com.oceanbase.ocp.executor.internal.auth.ExecutorAuthorizer;
 import com.oceanbase.ocp.executor.internal.connector.ConnectProperties;
 import com.oceanbase.ocp.executor.internal.connector.ConnectorKey;
+import com.oceanbase.ocp.executor.internal.constant.enums.HttpAuthType;
 
 import jakarta.ws.rs.client.Client;
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +72,8 @@ public class DefaultAgentConnector extends AbstractConnector<Client> {
         JerseyClient client = JerseyClientBuilder.createClient(clientConfig);
 
         Authentication authentication = getConnectProperties().getAuthentication();
-        if (authentication != null && authentication.getHttpAuth() != null) {
+        if (authentication != null && authentication.getHttpAuth() != null
+                && authentication.getHttpAuth().getAuthType() != HttpAuthType.OCP_DIGEST) {
             ExecutorAuthorizer.authorize(client, getConnectProperties().getAuthentication().getHttpAuth());
         }
         this.jerseyClient = client;

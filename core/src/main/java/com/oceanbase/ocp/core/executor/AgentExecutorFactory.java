@@ -26,6 +26,7 @@ import com.oceanbase.ocp.executor.executor.AgentExecutor;
 import com.oceanbase.ocp.executor.internal.auth.Authentication;
 import com.oceanbase.ocp.executor.internal.auth.http.HttpAuthentication;
 import com.oceanbase.ocp.executor.internal.connector.ConnectProperties;
+import com.oceanbase.ocp.executor.internal.constant.enums.HttpAuthType;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -71,6 +72,8 @@ public class AgentExecutorFactory {
 
     private String password;
 
+    private HttpAuthType authType;
+
     private Configuration configuration;
 
     @PostConstruct
@@ -89,10 +92,11 @@ public class AgentExecutorFactory {
                 .build();
     }
 
-    public void setAuthInfo(String username, String password) {
-        log.info("Init agent executor, username={}", username);
+    public void setAuthInfo(String username, String password, HttpAuthType authType) {
+        log.info("Init agent executor, username={}, authType={}", username, authType);
         this.username = username;
         this.password = password;
+        this.authType = authType;
     }
 
     private static Map<String, Object> defaultHeaders() {
@@ -106,12 +110,25 @@ public class AgentExecutorFactory {
         if (username == null) {
             throw new RuntimeException("Agent username not specified.");
         }
+
+        HttpAuthentication authentication;
+        switch (authType) {
+            case BASIC:
+                authentication = HttpAuthentication.basic(username, password);
+                break;
+            case OCP_DIGEST:
+                authentication = HttpAuthentication.ocpDigest(username, password);
+                break;
+            case SSL:
+            default:
+                throw new RuntimeException("Unsupported http auth type. type=" + authType);
+        }
         ConnectProperties properties = ConnectProperties.builder()
                 .hostAddress(hostAddress)
                 .httpPort(port)
                 .extHttpHeaders(defaultHeaders())
                 .authentication(Authentication.builder()
-                        .httpAuth(HttpAuthentication.digest(username, password))
+                        .httpAuth(authentication)
                         .build())
                 .build();
         return new AgentExecutor(properties, configuration);

@@ -37,17 +37,11 @@ public class HttpAuthentication {
         return authentication;
     }
 
-    public static HttpAuthentication digest(String username, String password) {
+    public static HttpAuthentication ocpDigest(String username, String password) {
         ValidateUtils.requireNotBlank(username, "username");
         HttpAuthentication authentication = new HttpAuthentication();
-        authentication.setAuthType(HttpAuthType.DIGEST);
+        authentication.setAuthType(HttpAuthType.OCP_DIGEST);
         authentication.setDigestAuthConfig(DigestAuthConfig.builder().username(username).password(password).build());
-        return authentication;
-    }
-
-    public static HttpAuthentication digest() {
-        HttpAuthentication authentication = new HttpAuthentication();
-        authentication.setAuthType(HttpAuthType.DIGEST);
         return authentication;
     }
 

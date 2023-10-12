@@ -24,14 +24,14 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.reflect.TypeToken;
 
 import com.oceanbase.ocp.common.util.time.TimeUtils;
-import com.oceanbase.ocp.executor.internal.auth.http.DigestAuthConfig;
-import com.oceanbase.ocp.executor.internal.util.DigestSignature;
 import com.oceanbase.ocp.executor.config.Configuration;
 import com.oceanbase.ocp.executor.exception.HttpRequestFailedException;
+import com.oceanbase.ocp.executor.internal.auth.http.DigestAuthConfig;
 import com.oceanbase.ocp.executor.internal.connector.ConnectProperties;
 import com.oceanbase.ocp.executor.internal.connector.Connector;
 import com.oceanbase.ocp.executor.internal.connector.Connectors;
 import com.oceanbase.ocp.executor.internal.constant.enums.HttpAuthType;
+import com.oceanbase.ocp.executor.internal.util.DigestSignature;
 import com.oceanbase.ocp.executor.internal.util.LogMaskUtils;
 import com.oceanbase.ocp.executor.model.monitor.HttpConfig;
 import com.oceanbase.ocp.executor.model.response.AgentResponse;
@@ -131,7 +131,7 @@ public class HttpTemplate {
         if (extHttpHeaders != null && !extHttpHeaders.isEmpty()) {
             extHttpHeaders.forEach(invokeBuilder::header);
         }
-        if (connectProperties.getAuthentication().getHttpAuth().getAuthType().equals(HttpAuthType.DIGEST)) {
+        if (connectProperties.getAuthentication().getHttpAuth().getAuthType().equals(HttpAuthType.OCP_DIGEST)) {
             String date = TimeUtils.getCurrentDate("yyyy/MM/dd HH:mm:ss");
             String traceId = connectProperties.getExtHttpHeaders().get(TRACE_ID_HEADER).toString();
             String username = connectProperties.getAuthentication().getHttpAuth().getDigestAuthConfig().getUsername();

@@ -1,6 +1,6 @@
 import { createStyles } from 'antd-style';
 
-const useStyles = createStyles(() => {
+const useStyles = createStyles(({ token }) => {
   return {
     parameterName: {
       marginLeft: '24px',
@@ -73,7 +73,7 @@ const useStyles = createStyles(() => {
     newValue: {
       paddingLeft: '5px',
       lineHeight: '30px',
-      backgroundColor: '#fef6e7',
+      backgroundColor: token.colorBgTextActive
     },
     treeNewValue: {
       width: '205px',

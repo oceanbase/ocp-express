@@ -21,8 +21,8 @@ import {
   Table,
   Modal,
   message,
-  Highlight,
 } from '@oceanbase/design';
+import { Highlight } from '@oceanbase/ui'
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { CheckOutlined, CopyOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
@@ -443,7 +443,7 @@ const List = React.forwardRef<
 
           { currentSessionId }
         )}
-        visible={visible}
+        open={visible}
         footer={
           <Space>
             <Text

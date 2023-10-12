@@ -3,10 +3,10 @@ import { createStyles } from "antd-style";
 const useStyles = createStyles(({ token }) => {
   return {
     splitPane: {
-      top: "auto",
-      width: "calc(100% - 208px)",
-      height: "calc(100% - 187px)",
-      minHeight: "calc(100% - 187px)",
+      top: "auto !important",
+      // width: "calc(100% - 208px) !important",
+      height: "calc(100% - 187px) !important",
+      minHeight: "calc(100% - 187px) !important",
       backgroundColor: "#fff",
       borderRadius: "6px",
       ".ant-tabs": {

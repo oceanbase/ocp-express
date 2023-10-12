@@ -11,7 +11,7 @@
  */
 
 import { formatMessage } from '@/util/intl';
-import { Badge, Space, Modal, message } from '@oceanbase/design';
+import { Badge, Space, Modal, message, token } from '@oceanbase/design';
 import React from 'react';
 import { flatten, isEqual, toLower } from 'lodash';
 import { directTo, findByValue } from '@oceanbase/util';
@@ -274,23 +274,23 @@ G6.registerEdge(
         group.addShape('path', {
           attrs: {
             // 与背景色相同
-            stroke: '#fff',
+            stroke: token.colorBgContainer,
             // 线宽需要大于连线的宽度 1.5，才能完全覆盖
             lineWidth: 2,
             path:
               childrenLength > 1
                 ? // 多集群 (主备集群) 只需要将 root 节点凸出的连线覆盖掉即可
-                  [
-                    ['M', startPoint.x, startPoint.y],
-                    ['L', startPoint.x, (startPoint.y + endPoint.y) / 2],
-                  ]
+                [
+                  ['M', startPoint.x, startPoint.y],
+                  ['L', startPoint.x, (startPoint.y + endPoint.y) / 2],
+                ]
                 : // 单集群需要将 root 节点的连线全部覆盖掉
-                  [
-                    ['M', startPoint.x, startPoint.y],
-                    ['L', startPoint.x, (startPoint.y + endPoint.y) / 2],
-                    ['L', endPoint.x, (startPoint.y + endPoint.y) / 2],
-                    ['L', endPoint.x, endPoint.y],
-                  ],
+                [
+                  ['M', startPoint.x, startPoint.y],
+                  ['L', startPoint.x, (startPoint.y + endPoint.y) / 2],
+                  ['L', endPoint.x, (startPoint.y + endPoint.y) / 2],
+                  ['L', endPoint.x, endPoint.y],
+                ],
           },
         });
       }
@@ -559,8 +559,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
           (item) => item.hostId,
         );
         directTo(
-          `/log/query?hostIds=${hostIds.toString()}&defaultOCPType=CLUSTER&id=${
-            currentNode?.obClusterId
+          `/log/query?hostIds=${hostIds.toString()}&defaultOCPType=CLUSTER&id=${currentNode?.obClusterId
           }`,
         );
       }
@@ -690,23 +689,21 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
                 const portInfo =
                   model.nodeType === 'server'
                     ? formatMessage(
-                        {
-                          id: 'ocp-express.Topo.TopoGraph.LtLiGtPortModelPort',
-                          defaultMessage: '端口：{modelPort}',
-                        },
+                      {
+                        id: 'ocp-express.Topo.TopoGraph.LtLiGtPortModelPort',
+                        defaultMessage: '端口：{modelPort}',
+                      },
 
-                        { modelPort: model.port },
-                      )
+                      { modelPort: model.port },
+                    )
                     : '';
                 return `
                 <ul>
                   <li>QPS: ${(model.performanceStats && model.performanceStats.qps) || 0}</li>
-                  <li>${sessionCountLabel}: ${
-                  (model.performanceStats && model.performanceStats.active_session) || 0
-                }</li>
-                    <li>Unit: ${
-                      (model.performanceStats && model.performanceStats.unit_num) || 0
-                    }</li>
+                  <li>${sessionCountLabel}: ${(model.performanceStats && model.performanceStats.active_session) || 0
+                  }</li>
+                    <li>Unit: ${(model.performanceStats && model.performanceStats.unit_num) || 0
+                  }</li>
                     ${portInfo ? `<li>${portInfo}</li>` : ''}
                 </ul>`;
               },

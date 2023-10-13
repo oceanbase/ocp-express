@@ -28,7 +28,6 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { themeMode } = useSelector((state: DefaultRootState) => state.global);
-  console.log(token);
 
   const locale = getLocale();
   const antdLocaleMap = {

@@ -34,7 +34,6 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
   language = 'javaLog',
 }) => {
   const { themeMode } = useSelector((state: DefaultRootState) => state.global);
-  console.log('themeMode', themeMode)
   const renderLogLevelStytle = (logLevel?: API.LogLevel) => {
     let color;
     switch (trim(logLevel)) {
@@ -137,10 +136,7 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
                       padding: '8px 0',
                     }}
                   >
-
-                    <MyParagraph
-                      style={{ marginBottom: 0 }}
-                    >
+                    <MyParagraph style={{ marginBottom: 0 }}>
                       {line.map((token, key) => {
                         if (token.content === '\n') {
                           return;
@@ -165,14 +161,14 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
                               style={
                                 isLogLevel
                                   ? {
-                                    ...logLevelStyle,
-                                    ...tokenStyle,
-                                    ...defaultStyle,
-                                  }
+                                      ...logLevelStyle,
+                                      ...tokenStyle,
+                                      ...defaultStyle,
+                                    }
                                   : {
-                                    ...tokenStyle,
-                                    ...defaultStyle,
-                                  }
+                                      ...tokenStyle,
+                                      ...defaultStyle,
+                                    }
                               }
                             >
                               <span style={keywordStyle}>{token?.content}</span>
@@ -186,17 +182,17 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
                               style={
                                 highlight
                                   ? {
-                                    ...tokenStyle,
-                                    ...keywordStyle,
-                                    ...defaultStyle,
-                                  }
+                                      ...tokenStyle,
+                                      ...keywordStyle,
+                                      ...defaultStyle,
+                                    }
                                   : isLogLevel
-                                    ? {
+                                  ? {
                                       ...logLevelStyle,
                                       ...tokenStyle,
                                       ...defaultStyle,
                                     }
-                                    : { ...tokenStyle, ...defaultStyle }
+                                  : { ...tokenStyle, ...defaultStyle }
                               }
                             >
                               {token?.content}

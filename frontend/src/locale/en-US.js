@@ -1,15 +1,3 @@
-/*
- * Copyright (c) 2023 OceanBase
- * OCP Express is licensed under Mulan PSL v2.
- * You can use this software according to the terms and conditions of the Mulan PSL v2.
- * You may obtain a copy of Mulan PSL v2 at:
- *          http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
- * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
- * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
- * See the Mulan PSL v2 for more details.
- */
-
 export default {
   "ocp-express.src.constant.oceanbase.LogTypeCopyContainsOnly": "Log replica: contains only the replica of the log, without MemTable and SSTable. It participates in log voting and provides Log service to the public. It can participate in the recovery of other copies, but it cannot be changed to provide database service.",
   "ocp-express.Cluster.Import.ImportClusterResults.YouCanSelectRelatedActions": "You can perform operations or preview task information on the current page.",
@@ -4592,7 +4580,7 @@ export default {
   "ocp-express.Transaction.Detail.StartTime": "Start Time",
   "ocp-express.Transaction.Detail.TransactionType": "Transaction Type",
   "ocp-express.Task.Detail.FlowView": "Flow View",
-  "ocp-express.Tenant.New.OracleTenantModeIsSupported": "The Oracle tenant mode is supported only when the OceanBase version of the selected cluster is 2.1 and later.",
+  "ocp-express.Tenant.New.OracleTenantModeIsSupported": "The community version of OceanBase does not support Oracle tenant mode.",
   "ocp-express.src.constant.sqlDiagnosis.SuspiciousSqlDiagnosisItemsIf": "Suspicious SQL diagnostic item. If multiple problems are diagnosed during the specified period of time, the SQL statements are aggregated for display.",
   "ocp-express.src.constant.compute.Delete": "Delete",
   "ocp-express.src.constant.backup.Copy": "Copy",
@@ -6003,10 +5991,14 @@ export default {
   "ocp-express.src.constant.credential.ConnectionFailed": "Connection failed.",
   "ocp-express.Detail.Session.Deadlock.RequestSessionId": "Request Session ID",
   "ocp-express.Resource.Component.UnitBlock.CancelMigration": "Cancel Migration",
-  "ocp-express.Tenant.Result.Success.NewTenantTaskSubmittedSuccessfully": "New Tenant Task submitted successfully"
-  ,  //2/7/2023, 3:48:13 PM 新增文案
+  "ocp-express.Tenant.Result.Success.NewTenantTaskSubmittedSuccessfully": "New Tenant Task submitted successfully",
   "ocp-express.component.TenantList.MetadbTenantsDoNotSupportUnlocking": "metadb tenants do not support unlocking.",
   "ocp-express.component.TenantList.MetadbTenantsDoNotSupportLocking": "metadb tenants do not support locking",
   "ocp-express.Component.SQLTable.TotalTotal": "total {total}",
-  "ocp-express.Detail.Overview.ZoneInformationHasNotChanged": "Zone information has not changed"
+  "ocp-express.Detail.Overview.ZoneInformationHasNotChanged": "Zone information has not changed",
+  "ocp-express.Layout.BasicLayout.LightThemText": "Light Theme",
+  "ocp-express.Layout.BasicLayout.DarkThemText": "Dark Theme",
+  "ocp-express.Layout.BasicLayout.Task": "Task",
+  "ocp-express.Detail.Component.ModifyTenantPasswordModal.TheRootPasswordOfTheCurrentTenantIs": "The root password of the current tenant is empty. There are security risks. Please modify the root password.",
+  "ocp-express.Tenant.New.CommunityEditionOceanbaseDoesNotSupportOracleTenants": "Community Edition OceanBase does not support Oracle tenants."
 }

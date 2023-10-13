@@ -38,6 +38,31 @@ const GlobalStyle = createGlobalStyle`
     return p.themeMode === 'dark' ? 'border-image: none;' : ''
   }}
   }
+  .ob-login-container .ob-login-card .ob-login-content .ob-login-form .ant-input-affix-wrapper .ant-input {
+    ${(p) => {
+    return p.themeMode === 'dark' ? 'box-shadow: none !important;' : ''
+  }}
+  }
+  .ob-login-container .ob-login-card {
+    ${(p) => {
+    return p.themeMode === 'dark' ? `background-color: ${p.theme.colorBgLayout};` : ''
+  }}
+  }
+  .ob-layout-header-about-wrapper .ob-layout-header-about .ob-layout-header-release-info .ob-layout-header-version {
+    ${(p) => {
+    return p.themeMode === 'dark' ? `color: ${p.theme.colorText};` : ''
+  }}
+  }
+  .ob-layout-header-about-wrapper .ob-layout-header-about .ob-layout-header-release-info .ob-layout-header-date {
+    ${(p) => {
+    return p.themeMode === 'dark' ? `color: ${p.theme.colorTextTertiary}; opacity: 1;` : ''
+  }}
+  }
+  .ob-layout-header-about-wrapper .ob-layout-header-about .ob-layout-header-copyright {
+    ${(p) => {
+    return p.themeMode === 'dark' ? `color: ${p.theme.colorTextTertiary}; opacity: 1;` : ''
+  }}
+  }
 `;
 
 export default GlobalStyle;

@@ -11,7 +11,7 @@
  */
 
 import React, { useState } from 'react';
-import { DownSquareOutlined, UpSquareOutlined } from '@oceanbase/icons';
+// import { DownSquareOutlined } from '@oceanbase/icons';
 import { Typography, TypographyProps } from '@oceanbase/design';
 
 const { Paragraph } = Typography;
@@ -31,9 +31,9 @@ const MyParagraph: React.FC<MyParagraphProps> = ({
     <Paragraph
       style={style}
       ellipsis={ellipsis ? {
-        rows: 2,
+        rows: 10,
         expandable: true,
-        symbol: <></>,
+        // symbol: <DownSquareOutlined />,
       } : false}
     >
       {children}
@@ -46,8 +46,6 @@ const MyParagraph: React.FC<MyParagraphProps> = ({
       onClick={() => {
         setEllipsis(!ellipsis)
       }}>
-      {ellipsis ? <DownSquareOutlined
-      /> : <UpSquareOutlined />}
     </span>
   </div>
   );

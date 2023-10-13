@@ -1,15 +1,3 @@
-/*
- * Copyright (c) 2023 OceanBase
- * OCP Express is licensed under Mulan PSL v2.
- * You can use this software according to the terms and conditions of the Mulan PSL v2.
- * You may obtain a copy of Mulan PSL v2 at:
- *          http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
- * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
- * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
- * See the Mulan PSL v2 for more details.
- */
-
 export default {
   "ocp-express.SQLDiagnosis.Component.SQLDetailTabs.Operator": "操作人",
   "ocp-express.Detail.SQLDiagnosis.Outline.EnterAnSqlKeyword": "请输入 SQL 关键词",
@@ -1762,7 +1750,7 @@ export default {
   "ocp-express.Detail.Session.List.Item": "项",
   "ocp-express.Service.Component.HostTable.TheTaskForStartingThe": "启动节点服务的任务提交成功",
   "ocp-express.SQLDiagnosis.attributes.topSqlAttributes.TheTotalNumberOfUnknown": "指定时间段内 SQL 发生未知列错误（5217）的总次数",
-  "ocp-express.Tenant.New.OracleTenantModeIsSupported": "所选集群的 OB 版本在 2.1 及以上时才支持 Oracle 租户模式",
+  "ocp-express.Tenant.New.OracleTenantModeIsSupported": "社区版 OceanBase 不支持 Oracle 租户模式",
   "ocp-express.src.model.tenant.TheTenantPasswordHasBeen": "租户密码修改成功",
   "ocp-express.Task.Detail.ThisWillRollBackAll": "这将从失败处开始回滚所有已执行过的任务",
   "ocp-express.Resource.Component.UnitMigrateModal.MemoryGbCurrentmemory": "内存（GB）：{currentMemory} ",
@@ -7572,8 +7560,7 @@ export default {
   "ocp-express.Compaction.Detail.MiniCompactionChart.TimeConsumptionDurationlabel": "耗时：{durationLabel}",
   "ocp-express.Compaction.Detail.MiniCompactionChart.DataVolumeSize": "数据量：{size}",
   "ocp-express.Compaction.Detail.MiniCompactionChart.TotalNumberOfRowsTotalrows": "总行数：{totalRows}",
-  "ocp-express.Tenant.New.TheMaximumNumberOfCurrentKesheIsMinservercount": "当前可设最大个数为 {minServerCount} (Zone 中最少 OBServer 数决定 Unit 可设最大个数)"
-  ,  //2023/1/12 21:44:54 新增文案
+  "ocp-express.Tenant.New.TheMaximumNumberOfCurrentKesheIsMinservercount": "当前可设最大个数为 {minServerCount} (Zone 中最少 OBServer 数决定 Unit 可设最大个数)",
   "ocp-express.src.app.DvaErrorErrmessage": "dva error：{errMessage}",
   "ocp-express.src.component.AddUnitSpecModal.MustBeAnIntegerMultipleOf": "需要是 0.5 的整数倍",
   "ocp-express.src.component.AddUnitSpecModal.PleaseEnterCpuCore": "请输入CPU（核）",
@@ -7852,24 +7839,26 @@ export default {
   "ocp-express.src.util.Minutes": "分钟",
   "ocp-express.src.util.Seconds": "秒",
   "ocp-express.src.util.tenant.OnlyUnitSpecificationsWithAMemoryOfNo": "仅可选择内存不小于 {memoryLowerLimit}G 的 Unit 规格",
-  "ocp-express.src.util.tenant.OnlyUnitSpecificationsWithCpuNoLessThan": "仅可选择 CPU 不小于 {cpuLowerLimit}C 的 Unit 规格"
-  ,  //2023/1/12 22:10:18 新增文案
+  "ocp-express.src.util.tenant.OnlyUnitSpecificationsWithCpuNoLessThan": "仅可选择 CPU 不小于 {cpuLowerLimit}C 的 Unit 规格",
   "ocp-express.Component.ClusterInfo.ClusterClustername": "集群 {clusterName}",
   "ocp-express.Cluster.Overview.Obversion": "{obVersion} 版本",
   "ocp-express.Detail.Component.BatchModifyUnitModal.TheMaximumNumberOfCurrentKesheIsMinservercount": "当前可设最大个数为 {minServerCount} (Zone 中最少 OBServer 数决定 Unit 可设最大个数)",
   "ocp-express.Detail.Overview.ModifyTheLockedStateOfTenantTenantdataname": "修改租户 {tenantDataName} 锁定状态",
-  "ocp-express.src.util.oceanbase.ObserverOfTheResourcesInTheZoneAre": "Zone 中的 OBServer 资源不足，请选择 {minOBServersStatsIdleCpuCoreTotal}C{minOBServersStatsIdleMemoryInBytesTotal}G 以下的 Unit 规格"
-  ,  //2023/1/17 21:41:24 新增文案
+  "ocp-express.src.util.oceanbase.ObserverOfTheResourcesInTheZoneAre": "Zone 中的 OBServer 资源不足，请选择 {minOBServersStatsIdleCpuCoreTotal}C{minOBServersStatsIdleMemoryInBytesTotal}G 以下的 Unit 规格",
   "ocp-express.src.constant.log.ObagentLogs": "OBAgent 日志",
   "ocp-express.Component.SlowSQLTop3.SortBySlowsqlInTheLastHours": "按最近 6 小时内 SlowSQL 数排序",
   "ocp-express.Cluster.Host.HostInformation": "主机信息",
   "ocp-express.Cluster.Host.DataDirectory": "数据目录",
   "ocp-express.Cluster.Host.LogDirectory": "日志目录",
   "ocp-express.Log.Query.SelectATimeRangeAndLogTypeFirst": "请先选择时间范围、日志类型",
-  "ocp-express.Detail.Parameter.AreYouSureYouWantToModifyThe": "确定修改当前值吗？"
-  ,  //2/7/2023, 3:48:13 PM 新增文案
+  "ocp-express.Detail.Parameter.AreYouSureYouWantToModifyThe": "确定修改当前值吗？",
   "ocp-express.component.TenantList.MetadbTenantsDoNotSupportUnlocking": "metadb 租户不支持解锁",
   "ocp-express.component.TenantList.MetadbTenantsDoNotSupportLocking": "metadb 租户不支持锁定",
   "ocp-express.Component.SQLTable.TotalTotal": "共 {total} 条",
-  "ocp-express.Detail.Overview.ZoneInformationHasNotChanged": "Zone 的信息没有变更"
+  "ocp-express.Detail.Overview.ZoneInformationHasNotChanged": "Zone 的信息没有变更",
+  "ocp-express.Layout.BasicLayout.LightThemText": "浅色主题",
+  "ocp-express.Layout.BasicLayout.DarkThemText": "暗黑主题",
+  "ocp-express.Layout.BasicLayout.Task": "任务",
+  "ocp-express.Detail.Component.ModifyTenantPasswordModal.TheRootPasswordOfTheCurrentTenantIs": "当前租户 root 密码为空，存在安全隐患，请修改 root 密码",
+  "ocp-express.Tenant.New.CommunityEditionOceanbaseDoesNotSupportOracleTenants": "社区版 OceanBase 暂不支持 Oracle 租户"
 }

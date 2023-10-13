@@ -41,7 +41,7 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({
   match: {
-    params: {},
+    params: { },
   },
   loading,
   clusterData,
@@ -300,13 +300,14 @@ const Detail: React.FC<DetailProps> = ({
                     top: -4,
                   }}
                 >
-                  {formatMessage(
-                    {
-                      id: 'ocp-express.Cluster.Overview.Obversion',
-                      defaultMessage: '{obVersion} 版本',
-                    },
-                    { obVersion: obVersion }
-                  )}
+                  {
+                    formatMessage(
+                      {
+                        id: 'ocp-express.Cluster.Overview.Obversion',
+                        defaultMessage: '{obVersion} 版本',
+                      },
+                      { obVersion: obVersion }
+                    )}
                 </Tag>
               }
               spin={loading || reloading}

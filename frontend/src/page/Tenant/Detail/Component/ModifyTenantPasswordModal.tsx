@@ -103,13 +103,17 @@ const ModifyTenantPasswordModal: React.FC<TenantAdminPasswordModalProps> = ({
     >
       <Alert
         icon={<ExclamationCircleFilled />}
-        message="当前租户 root 密码为空，存在安全隐患，请修改 root 密码"
+        message={formatMessage({
+          id: 'ocp-express.Detail.Component.ModifyTenantPasswordModal.TheRootPasswordOfTheCurrentTenantIs',
+          defaultMessage: '当前租户 root 密码为空，存在安全隐患，请修改 root 密码',
+        })}
         type="error"
         showIcon
         style={{
           marginBottom: 24,
         }}
       />
+
       <Form
         form={form}
         layout="vertical"

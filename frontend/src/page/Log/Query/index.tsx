@@ -224,7 +224,6 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {}, cont
   const [inViewport] = useInViewport(containerRef);
 
   useEffect(() => {
-    debugger
     if (
       !loading &&
       !loadingMore &&

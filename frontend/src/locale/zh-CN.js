@@ -1762,7 +1762,7 @@ export default {
   "ocp-express.Detail.Session.List.Item": "项",
   "ocp-express.Service.Component.HostTable.TheTaskForStartingThe": "启动节点服务的任务提交成功",
   "ocp-express.SQLDiagnosis.attributes.topSqlAttributes.TheTotalNumberOfUnknown": "指定时间段内 SQL 发生未知列错误（5217）的总次数",
-  "ocp-express.Tenant.New.OracleTenantModeIsSupported": "所选集群的 OB 版本在 2.1 及以上时才支持 Oracle 租户模式",
+  "ocp-express.Tenant.New.OracleTenantModeIsSupported": "社区版 OceanBase 不支持 Oracle 租户模式；商业版 OceanBase 在 2.1 及以上版本时支持 Oracle 租户模式",
   "ocp-express.src.model.tenant.TheTenantPasswordHasBeen": "租户密码修改成功",
   "ocp-express.Task.Detail.ThisWillRollBackAll": "这将从失败处开始回滚所有已执行过的任务",
   "ocp-express.Resource.Component.UnitMigrateModal.MemoryGbCurrentmemory": "内存（GB）：{currentMemory} ",

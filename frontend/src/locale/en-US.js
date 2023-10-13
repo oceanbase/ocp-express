@@ -4592,7 +4592,7 @@ export default {
   "ocp-express.Transaction.Detail.StartTime": "Start Time",
   "ocp-express.Transaction.Detail.TransactionType": "Transaction Type",
   "ocp-express.Task.Detail.FlowView": "Flow View",
-  "ocp-express.Tenant.New.OracleTenantModeIsSupported": "The Oracle tenant mode is supported only when the OceanBase version of the selected cluster is 2.1 and later.",
+  "ocp-express.Tenant.New.OracleTenantModeIsSupported": "The community version of OceanBase does not support Oracle tenant mode; the commercial version of OceanBase supports Oracle tenant mode in version 2.1 and above.",
   "ocp-express.src.constant.sqlDiagnosis.SuspiciousSqlDiagnosisItemsIf": "Suspicious SQL diagnostic item. If multiple problems are diagnosed during the specified period of time, the SQL statements are aggregated for display.",
   "ocp-express.src.constant.compute.Delete": "Delete",
   "ocp-express.src.constant.backup.Copy": "Copy",

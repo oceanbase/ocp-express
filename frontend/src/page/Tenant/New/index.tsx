@@ -420,7 +420,7 @@ const New: React.FC<NewProps> = ({
                     tooltip={{
                       title: formatMessage({
                         id: 'ocp-express.Tenant.New.OracleTenantModeIsSupported',
-                        defaultMessage: '所选集群的 OB 版本在 2.1 及以上时才支持 Oracle 租户模式',
+                        defaultMessage: '社区版 OceanBase 不支持 Oracle 租户模式；商业版 OceanBase 在 2.1 及以上版本时支持 Oracle 租户模式',
                       }),
                     }}
                     name="mode"

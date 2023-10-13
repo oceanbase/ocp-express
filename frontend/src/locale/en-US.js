@@ -6008,5 +6008,7 @@ export default {
   "ocp-express.component.TenantList.MetadbTenantsDoNotSupportUnlocking": "metadb tenants do not support unlocking.",
   "ocp-express.component.TenantList.MetadbTenantsDoNotSupportLocking": "metadb tenants do not support locking",
   "ocp-express.Component.SQLTable.TotalTotal": "total {total}",
-  "ocp-express.Detail.Overview.ZoneInformationHasNotChanged": "Zone information has not changed"
+  "ocp-express.Detail.Overview.ZoneInformationHasNotChanged": "Zone information has not changed",
+  "ocp-express.Layout.BasicLayout.LightThemText": "Light Theme",
+  "ocp-express.Layout.BasicLayout.DarkThemText": "Dark Theme"
 }

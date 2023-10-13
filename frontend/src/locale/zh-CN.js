@@ -7871,5 +7871,7 @@ export default {
   "ocp-express.component.TenantList.MetadbTenantsDoNotSupportUnlocking": "metadb 租户不支持解锁",
   "ocp-express.component.TenantList.MetadbTenantsDoNotSupportLocking": "metadb 租户不支持锁定",
   "ocp-express.Component.SQLTable.TotalTotal": "共 {total} 条",
-  "ocp-express.Detail.Overview.ZoneInformationHasNotChanged": "Zone 的信息没有变更"
+  "ocp-express.Detail.Overview.ZoneInformationHasNotChanged": "Zone 的信息没有变更",
+  "ocp-express.Layout.BasicLayout.LightThemText": "浅色主题",
+  "ocp-express.Layout.BasicLayout.DarkThemText": "暗黑主题"
 }

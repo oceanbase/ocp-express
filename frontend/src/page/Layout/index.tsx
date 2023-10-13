@@ -13,10 +13,10 @@
 import { formatMessage } from '@/util/intl';
 import { getLocale, history, useSelector } from 'umi';
 import React, { useEffect } from 'react';
-import { ConfigProvider, theme, token } from '@oceanbase/design';
+import { ConfigProvider, theme } from '@oceanbase/design';
 import { ChartProvider } from '@oceanbase/charts';
-import en_US from '@oceanbase/design/es/locale/en-US';
-import zh_CN from '@oceanbase/design/es/locale/zh-CN';
+import en_US from '@oceanbase/ui/es/locale/en-US';
+import zh_CN from '@oceanbase/ui/es/locale/zh-CN';
 import { ThemeProvider } from 'antd-style';
 import BlankLayout from './BlankLayout';
 import ErrorBoundary from '@/component/ErrorBoundary';

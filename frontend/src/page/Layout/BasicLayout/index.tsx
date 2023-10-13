@@ -64,10 +64,16 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const logoUrl = isEnglish()
-    ? '/assets/logo/ocp_express_logo_en.svg'
+    ? themeMode === 'dark'
+      ? '/assets/logo/ocp_express_logo_en_dark.svg'
+      : '/assets/logo/ocp_express_logo_en.svg'
+    : themeMode === 'dark'
+    ? '/assets/logo/ocp_express_logo_zh_dark.svg'
     : '/assets/logo/ocp_express_logo_zh.svg';
   const simpleLogoUrl = isEnglish()
-    ? '/assets/logo/ocp_express_simple_logo_en.svg'
+    ? themeMode === 'dark'
+      ? '/assets/logo/ocp_express_simple_logo_en_dark.svg'
+      : '/assets/logo/ocp_express_simple_logo_en.svg'
     : themeMode === 'dark'
     ? '/assets/logo/ocp_express_simple_logo_zh_dark.svg'
     : '/assets/logo/ocp_express_simple_logo_zh.svg';

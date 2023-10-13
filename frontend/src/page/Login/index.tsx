@@ -41,6 +41,8 @@ const LoginPage: React.FC<LoginPageProps> = ({
     query: { callback },
   },
 }) => {
+  const { themeMode } = useSelector((state: DefaultRootState) => state.global);
+
   const [alertMessage, setAlertMessage] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [showActivate, setShowActivate] = useState(false);
@@ -163,10 +165,22 @@ const LoginPage: React.FC<LoginPageProps> = ({
     });
   };
 
+  const logoUrl = isEnglish()
+    ? themeMode === 'dark'
+      ? '/assets/logo/ocp_express_logo_en_dark.svg'
+      : '/assets/logo/ocp_express_logo_en.svg'
+    : themeMode === 'dark'
+    ? '/assets/logo/ocp_express_logo_zh_dark.svg'
+    : '/assets/logo/ocp_express_logo_zh.svg';
+
   return (
     <Login
-      logo={`/assets/logo/${isEnglish() ? 'ocp_express_logo_en.svg' : 'ocp_express_logo_zh.svg'}`}
-      bgImage="/assets/login/background_img.svg"
+      logo={logoUrl}
+      bgImage={
+        themeMode === 'dark'
+          ? '/assets/login/background_img_dark.svg'
+          : '/assets/login/background_img.svg'
+      }
       title={
         <div>
           Welcome to <div>OCP Express !</div>

@@ -462,7 +462,10 @@ const New: React.FC<NewProps> = ({
                           {clusterData?.communityEdition && item.value === 'ORACLE' ? (
                             <Tooltip
                               placement="topLeft"
-                              title="社区版 OceanBase 暂不支持 Oracle 租户"
+                              title={formatMessage({
+                                id: 'ocp-express.Tenant.New.CommunityEditionOceanbaseDoesNotSupportOracleTenants',
+                                defaultMessage: '社区版 OceanBase 暂不支持 Oracle 租户',
+                              })}
                             >
                               <div style={{ width: '100%' }}>{item.label}</div>
                             </Tooltip>
@@ -1167,16 +1170,16 @@ const New: React.FC<NewProps> = ({
                         </span>
                         {/* 一期暂不开放此功能 */}
                         {/* <ParameterTemplateDropdown
-                     type="tenant"
-                     tenantMode={getFieldValue('mode')}
-                     parameters={getFieldValue('parameters')}
-                     onSetParameter={value => {
-                       setFieldsValue({
-                         parameters: value,
-                       });
-                        setInitParameters(value);
-                     }}
-                    /> */}
+                      type="tenant"
+                      tenantMode={getFieldValue('mode')}
+                      parameters={getFieldValue('parameters')}
+                      onSetParameter={value => {
+                      setFieldsValue({
+                      parameters: value,
+                      });
+                      setInitParameters(value);
+                      }}
+                      /> */}
                       </div>
                     }
                     name="parameters"

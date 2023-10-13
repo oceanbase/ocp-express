@@ -16,6 +16,8 @@ import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import com.oceanbase.ocp.executor.internal.constant.enums.HttpAuthType;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,12 +33,16 @@ public class InitProperties {
 
     private String agentPassword;
 
+    private HttpAuthType agentAuthType = HttpAuthType.BASIC;
+
     @Override
     public String toString() {
         return "InitProperties{" +
                 "cluster=" + cluster +
-                ", agentUsername=" + agentUsername +
-                ", agentPassword=***}";
+                ", agentUsername='" + agentUsername + '\'' +
+                ", agentPassword='" + agentPassword + '\'' +
+                ", agentAuthType=" + agentAuthType +
+                '}';
     }
 
     @Getter

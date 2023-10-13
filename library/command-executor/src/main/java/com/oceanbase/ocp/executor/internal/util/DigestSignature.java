@@ -8,12 +8,13 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.lang3.Validate;
+
 import com.oceanbase.ocp.executor.internal.auth.http.DigestAuthConfig;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.Validate;
 
 @Data
 @Builder

@@ -25,6 +25,11 @@ public enum HttpAuthType {
 
     DIGEST("digest"),
 
+    /**
+     * Ocp self-defined encryption.
+     */
+    OCP_DIGEST("ocp_digest"),
+
     SSL("ssl");
 
     @Getter
@@ -42,7 +47,7 @@ public enum HttpAuthType {
     @JsonCreator
     public static HttpAuthType fromValue(String value) {
         for (HttpAuthType type : HttpAuthType.values()) {
-            if (String.valueOf(type.value).equals(value)) {
+            if (String.valueOf(type.value).equalsIgnoreCase(value)) {
                 return type;
             }
         }

@@ -169,7 +169,8 @@ public class OcpExpressInitializer {
         agentCredentialOperator.saveAgentCredential(initProperties.getAgentUsername(),
                 initProperties.getAgentPassword());
         exporterRequestHelper.setDigestAuth(initProperties.getAgentUsername(), initProperties.getAgentPassword());
-        agentExecutorFactory.setAuthInfo(initProperties.getAgentUsername(), initProperties.getAgentPassword());
+        agentExecutorFactory.setAuthInfo(initProperties.getAgentUsername(), initProperties.getAgentPassword(),
+                initProperties.getAgentAuthType());
         obAgentService.initAgent(initAgentParams);
     }
 

@@ -2,7 +2,7 @@
 %define __jar_repack 0
 
 Name: ocp-express
-Version: 4.1.0
+Version: 4.2.1
 Release: %(echo $RELEASE)
 Summary: OCP Express
 License: Mulan PubL v2

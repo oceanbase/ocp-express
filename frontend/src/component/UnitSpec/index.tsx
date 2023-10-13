@@ -50,6 +50,8 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
   const { cpuLowerLimit, memoryLowerLimit } = unitSpecLimit;
   const { idleCpuCore, idleMemoryInBytes } = idleUnitSpec;
 
+  // 修改 unit 时，CUP可配置范围上限，当前 unit 已分配CUP + 剩余空闲CUP
+  const currentMaxCpuCoreCount = idleCpuCore + defaultUnitSpec?.maxCpuCoreCount;
   // 修改 unit 时，可配置范围上限，当前 unit 已分配内存 + 剩余空闲内存 
   const currentMaxMemorySize = idleMemoryInBytes + defaultUnitSpec?.maxMemorySize;
 
@@ -64,7 +66,7 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
       <Col span={12}>
         <InputNumber
           min={cpuLowerLimit || 0.5}
-          max={idleCpuCore}
+          max={currentMaxCpuCoreCount}
           step={0.5}
           addonAfter={formatMessage({
             id: 'ocp-express.component.UnitSpec.Nuclear',
@@ -77,14 +79,14 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
           }}
         />
 
-        {cpuLowerLimit && idleCpuCore && (
+        {cpuLowerLimit && currentMaxCpuCoreCount && (
           <div style={extraStyle}>
             {formatMessage(
               {
                 id: 'ocp-express.component.UnitSpec.CurrentConfigurableRangeValueCpulowerlimitIdlecpucore',
                 defaultMessage: '当前可配置范围值 {cpuLowerLimit}~{idleCpuCore}',
               },
-              { cpuLowerLimit: cpuLowerLimit, idleCpuCore: idleCpuCore }
+              { cpuLowerLimit: cpuLowerLimit, idleCpuCore: currentMaxCpuCoreCount }
             )}
           </div>
         )}

@@ -49,7 +49,7 @@ const CompactionTimeTop3: React.FC<CompactionTimeTop3Props> = () => {
   topCompactionList = orderBy(
     topCompactionList.map(item => ({
       ...item,
-      costTime: maxBy(item.compactionList, 'costTime').costTime,
+      costTime: maxBy(item.compactionList, 'costTime')?.costTime,
     })),
     ['costTime'],
     ['desc']
@@ -202,7 +202,7 @@ const CompactionTimeTop3: React.FC<CompactionTimeTop3Props> = () => {
                             const currentDurationData = formatDuration(data.y);
                             // return `<div style="padding: 4px">${currentDurationData.value} ${currentDurationData.unitLabel}</div>`;
                             return `<div style="padding: 4px"><div></div>合并开始时间：${
-                              topCompactionList[0]?.compactionList[0]?.startTime
+                              topCompactionList[0]?.compactionList?.[0]?.startTime
                                 ? formatTime(topCompactionList[0]?.compactionList[0]?.startTime)
                                 : '-'
                             }<div>合并耗时：${currentDurationData.value} ${

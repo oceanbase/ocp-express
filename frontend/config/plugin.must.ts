@@ -145,7 +145,7 @@ export default (api: IApi) => {
         },
       };
 
-      // 实现初版，通过时候拼接文件实现 增量 + 兼容旧版 Bigfish 国际化
+      // 实现初版，通过时候拼接文件实现 增量 + 兼容旧版国际化
       // 后续优化可以在 must 中进行这些操作
       (async () => {
         let extract;

@@ -67,7 +67,7 @@ moment.updateLocale('zh-cn', {
   },
 });
 
-// 将 Bigfish/Umi 的 locale 格式映射为 moment 的 locale 格式
+// 将 Umi 的 locale 格式映射为 moment 的 locale 格式
 const momentLocaleMap = {
   'en-US': 'en',
   'zh-CN': 'zh-cn',

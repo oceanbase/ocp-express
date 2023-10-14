@@ -17,6 +17,7 @@
  */
 import { setLocale, getLocale } from 'umi';
 import moment from 'moment';
+import tracert from '@/util/tracert';
 
 const validLocalMap = {
   // 英文
@@ -73,3 +74,14 @@ const momentLocaleMap = {
 };
 
 moment.locale(momentLocaleMap[locale] || 'en');
+
+tracert.set({
+  // 埋点 a 位
+  spmAPos: 'a3647',
+  bizType: 'common',
+  // 开启后会监听路由变化，并触发页面访问埋点上报
+  ifRouterNeedPv: true,
+  // 开启曝光上报
+  autoExpo: true,
+  autoLogPv: true,
+});

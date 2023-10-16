@@ -20,6 +20,7 @@ import * as TenantSessionService from '@/service/ocp-express/ObTenantSessionCont
 import { getColumnSearchProps } from '@/util/component';
 import MyDrawer from '@/component/MyDrawer';
 import List from './List';
+import useStyles from './index.style';
 
 export interface StatisticsProps {
   tenantId: number;
@@ -32,6 +33,8 @@ const Statistics: React.FC<StatisticsProps> = ({ tenantId }) => {
     dbName: '',
     clientIp: '',
   });
+
+  const { styles } = useStyles();
 
   // 获取租户的会话信息
   const { data, loading } = useRequest(
@@ -204,9 +207,9 @@ const Statistics: React.FC<StatisticsProps> = ({ tenantId }) => {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <StatisticCard.Group style={{ backgroundColor: token.colorBgLayout }}>
+        <StatisticCard.Group>
           <StatisticCard
-            style={{ backgroundColor: token.colorBgLayout }}
+            className={styles.sessionsInfo}
             statistic={{
               title: formatMessage({
                 id: 'ocp-express.Detail.Session.Statistics.TotalNumberOfSessions',
@@ -216,7 +219,7 @@ const Statistics: React.FC<StatisticsProps> = ({ tenantId }) => {
             }}
           />
           <StatisticCard
-            style={{ backgroundColor: token.colorBgLayout }}
+            className={styles.sessionsInfo}
             statistic={{
               title: formatMessage({
                 id: 'ocp-express.Detail.Session.Statistics.NumberOfActiveSessions',
@@ -226,7 +229,7 @@ const Statistics: React.FC<StatisticsProps> = ({ tenantId }) => {
             }}
           />
           <StatisticCard
-            style={{ backgroundColor: token.colorBgLayout }}
+            className={styles.sessionsInfo}
             statistic={{
               title: formatMessage({
                 id: 'ocp-express.Detail.Session.Statistics.MaximumActiveSessionTimeIn',

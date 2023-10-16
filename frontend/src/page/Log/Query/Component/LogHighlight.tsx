@@ -9,14 +9,15 @@
  * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  * See the Mulan PSL v2 for more details.
  */
-
-import javaLog from '@/component/HighlightWithLineNumbers/languages/javaLog';
+import { useSelector } from 'umi';
 import { LOG_LEVEL } from '@/constant/log';
 import React, { useMemo } from 'react';
 import { flatten, omit, trim } from 'lodash';
 import Highlight, { defaultProps } from 'prism-react-renderer';
+import vsLightTheme from 'prism-react-renderer/themes/vsLight';
+import vsDarkTheme from 'prism-react-renderer/themes/vsDark';
 import Prism from 'prism-react-renderer/prism/index';
-import theme from 'prism-react-renderer/themes/vsLight';
+import javaLog from '@/component/HighlightWithLineNumbers/languages/javaLog';
 import MyParagraph from './MyParagraph';
 
 Prism.languages.javaLog = javaLog;
@@ -32,6 +33,7 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
   content = '',
   language = 'javaLog',
 }) => {
+  const { themeMode } = useSelector((state: DefaultRootState) => state.global);
   const renderLogLevelStytle = (logLevel?: API.LogLevel) => {
     let color;
     switch (trim(logLevel)) {
@@ -102,7 +104,7 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
         {...defaultProps}
         // 自定义 Prism，默认的 Prism 不支持 log 语言，主要是在原先的 Prism 上增加了 log 语言的支持
         Prism={Prism as any}
-        theme={theme}
+        theme={themeMode === 'light' ? vsLightTheme : vsDarkTheme}
         code={content}
         language={language as any}
       >
@@ -134,10 +136,7 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
                       padding: '8px 0',
                     }}
                   >
-
-                    <MyParagraph
-                      style={{ marginBottom: 0 }}
-                    >
+                    <MyParagraph style={{ marginBottom: 0 }}>
                       {line.map((token, key) => {
                         if (token.content === '\n') {
                           return;
@@ -162,14 +161,14 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
                               style={
                                 isLogLevel
                                   ? {
-                                    ...logLevelStyle,
-                                    ...tokenStyle,
-                                    ...defaultStyle,
-                                  }
+                                      ...logLevelStyle,
+                                      ...tokenStyle,
+                                      ...defaultStyle,
+                                    }
                                   : {
-                                    ...tokenStyle,
-                                    ...defaultStyle,
-                                  }
+                                      ...tokenStyle,
+                                      ...defaultStyle,
+                                    }
                               }
                             >
                               <span style={keywordStyle}>{token?.content}</span>
@@ -183,17 +182,17 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
                               style={
                                 highlight
                                   ? {
-                                    ...tokenStyle,
-                                    ...keywordStyle,
-                                    ...defaultStyle,
-                                  }
+                                      ...tokenStyle,
+                                      ...keywordStyle,
+                                      ...defaultStyle,
+                                    }
                                   : isLogLevel
-                                    ? {
+                                  ? {
                                       ...logLevelStyle,
                                       ...tokenStyle,
                                       ...defaultStyle,
                                     }
-                                    : { ...tokenStyle, ...defaultStyle }
+                                  : { ...tokenStyle, ...defaultStyle }
                               }
                             >
                               {token?.content}
@@ -210,7 +209,7 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
         }}
       </Highlight>
     ),
-    [content, keywordList]
+    [content, keywordList, themeMode]
   );
 };
 

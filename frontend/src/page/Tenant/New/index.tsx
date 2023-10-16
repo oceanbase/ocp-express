@@ -77,6 +77,7 @@ const New: React.FC<NewProps> = ({
   },
 }) => {
   // const { clusterData } = useSelector((state: DefaultRootState) => state.cluster);
+  const { styles } = useStyles();
 
   const [form] = Form.useForm();
   const { getFieldValue, validateFields, setFieldsValue } = form;
@@ -192,15 +193,15 @@ const New: React.FC<NewProps> = ({
               memorySize: replicaZone?.unitConfig?.maxMemorySize,
               ...(replicaZone
                 ? {
-                  // 已分布副本的 Zone，已勾选
-                  checked: true,
-                  ...replicaZone,
-                }
+                    // 已分布副本的 Zone，已勾选
+                    checked: true,
+                    ...replicaZone,
+                  }
                 : {
-                  // 未分布副本的 Zone，未勾选
-                  checked: false,
-                  replicaType: 'FULL',
-                }),
+                    // 未分布副本的 Zone，未勾选
+                    checked: false,
+                    replicaType: 'FULL',
+                  }),
             };
           }),
           mode: sourceTenantData.mode,
@@ -357,9 +358,9 @@ const New: React.FC<NewProps> = ({
       header={{
         title: isClone
           ? formatMessage({
-            id: 'ocp-express.Tenant.New.ReplicationTenant',
-            defaultMessage: '复制租户',
-          })
+              id: 'ocp-express.Tenant.New.ReplicationTenant',
+              defaultMessage: '复制租户',
+            })
           : formatMessage({ id: 'ocp-express.Tenant.New.NewTenant', defaultMessage: '新建租户' }),
         breadcrumb: { routes, itemRender: breadcrumbItemRender },
         onBack: () => {
@@ -419,7 +420,7 @@ const New: React.FC<NewProps> = ({
                     tooltip={{
                       title: formatMessage({
                         id: 'ocp-express.Tenant.New.OracleTenantModeIsSupported',
-                        defaultMessage: '所选集群的 OB 版本在 2.1 及以上时才支持 Oracle 租户模式',
+                        defaultMessage: '社区版 OceanBase 不支持 Oracle 租户模式',
                       }),
                     }}
                     name="mode"
@@ -461,7 +462,10 @@ const New: React.FC<NewProps> = ({
                           {clusterData?.communityEdition && item.value === 'ORACLE' ? (
                             <Tooltip
                               placement="topLeft"
-                              title="社区版 OceanBase 暂不支持 Oracle 租户"
+                              title={formatMessage({
+                                id: 'ocp-express.Tenant.New.CommunityEditionOceanbaseDoesNotSupportOracleTenants',
+                                defaultMessage: '社区版 OceanBase 暂不支持 Oracle 租户',
+                              })}
                             >
                               <div style={{ width: '100%' }}>{item.label}</div>
                             </Tooltip>
@@ -686,7 +690,7 @@ const New: React.FC<NewProps> = ({
                         },
                       ]}
                     >
-                      {(fields, { }) => {
+                      {(fields, {}) => {
                         return (
                           <>
                             {fields.map((field, index: number) => {
@@ -1166,16 +1170,16 @@ const New: React.FC<NewProps> = ({
                         </span>
                         {/* 一期暂不开放此功能 */}
                         {/* <ParameterTemplateDropdown
-                     type="tenant"
-                     tenantMode={getFieldValue('mode')}
-                     parameters={getFieldValue('parameters')}
-                     onSetParameter={value => {
-                       setFieldsValue({
-                         parameters: value,
-                       });
-                        setInitParameters(value);
-                     }}
-                    /> */}
+                      type="tenant"
+                      tenantMode={getFieldValue('mode')}
+                      parameters={getFieldValue('parameters')}
+                      onSetParameter={value => {
+                      setFieldsValue({
+                      parameters: value,
+                      });
+                      setInitParameters(value);
+                      }}
+                      /> */}
                       </div>
                     }
                     name="parameters"

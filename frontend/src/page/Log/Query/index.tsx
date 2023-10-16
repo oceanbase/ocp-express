@@ -24,13 +24,14 @@ import {
   Space,
   Spin,
   message,
+  token,
 } from '@oceanbase/design';
-import { Ranger, FullscreenBox } from '@oceanbase/ui'
+import { Ranger } from '@oceanbase/ui'
 import { LoadingOutlined } from '@oceanbase/icons';
 import { flatten, find } from 'lodash';
 import type { Moment } from 'moment';
 import moment from 'moment';
-import { useRequest, useKeyPress, useInViewport } from 'ahooks';
+import { useRequest, useInViewport } from 'ahooks';
 import * as ComputeController from '@/service/ocp-express/HostController';
 import { FORM_ITEM_LAYOUT, SELECT_TOKEN_SPEARATORS } from '@/constant';
 import { DATE_TIME_FORMAT_DISPLAY, RFC3339_DATE_TIME_FORMAT } from '@/constant/datetime';
@@ -52,9 +53,10 @@ export interface QueryLogProps {
       defaultOCPType?: string;
     };
   };
+  containerRef: React.RefObject<HTMLDivElement>;
 }
 
-const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {} }) => {
+const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {}, containerRef }) => {
   useDocumentTitle(
     formatMessage({ id: 'ocp-express.page.QueryLog.LogQuery', defaultMessage: '日志查询' })
   );
@@ -79,29 +81,14 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {} }) =>
   const [logData, setLogData] = useState(null);
   const [isNoData, setIsNoData] = useState(false);
   // 是否全屏展示
-  const [fullscreen, setFullscreen] = useState(false);
-  const boxRef = useRef<FullscreenBox>();
+  // const [fullscreen, setFullscreen] = useState(false);
+  // const boxRef = useRef<FullscreenBox>();
   const [loadingMore, setLoadingMore] = useState(false);
 
   const [defaultCOPLogType, serDefaultCOPLogType] = useState<string | undefined>('CLUSTER');
   const [fileType, setFileType] = useState<string>();
   const limitHours = fileType === 'CLUSTER' ? 1 : 24;
   const notAllowDownload = moment(endTime).diff(moment(startTime), 'hours') > limitHours;
-
-  const handleFullscreenChange = fs => {
-    setFullscreen(fs);
-  };
-  const toggleFullscreen = () => {
-    if (boxRef.current && boxRef.current.changeFullscreen) {
-      boxRef.current.changeFullscreen(!fullscreen);
-    }
-  };
-  // 全屏状态按下 ESC 退出全屏
-  useKeyPress(27, () => {
-    if (fullscreen) {
-      toggleFullscreen();
-    }
-  });
 
   const { run: queryLogFn, loading } = useRequest(ComputeController.queryLog, {
     manual: true,
@@ -233,9 +220,8 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {} }) =>
     });
   };
 
-  const loadingMoreContainerRef = useRef<HTMLDivElement>(null);
 
-  const [inViewport] = useInViewport(loadingMoreContainerRef);
+  const [inViewport] = useInViewport(containerRef);
 
   useEffect(() => {
     if (
@@ -510,7 +496,7 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {} }) =>
       <Col span={24}>
         {!logData ? (
           <Empty
-            style={{ height: 'calc(100vh - 352px)' }}
+            style={{ height: 'calc(100vh - 362px)' }}
             mode="pageCard"
             image="/assets/common/guide.svg"
             title={formatMessage({
@@ -523,59 +509,55 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {} }) =>
             })}
           />
         ) : (
-          <FullscreenBox
-            ref={boxRef}
-            defaultMode="viewport"
-            header={false}
-            style={{ overflowY: 'auto' }}
-            onChange={handleFullscreenChange}
-          >
-            <Card
-              bordered={false}
-              style={{ minHeight: 'calc(100vh - 352px)' }}
-              tabBarExtraContent={
-                <Space size={16}>
-                  <Tooltip
-                    placement="topRight"
-                    title={
-                      (notAllowDownload &&
-                        formatMessage(
-                          {
-                            id: 'ocp-express.page.QueryLog.TheCurrentQueryTimeRange',
-                            defaultMessage:
-                              '当前查询时间范围超过 {limitHours} 小时，不支持下载。请将查询时间范围调整到 {limitHours} 小时以内',
-                          },
-
-                          { limitHours: limitHours }
-                        )) ||
+          <Card
+            bordered={false}
+            style={{ height: 'calc(100vh - 362px)', minHeight: 300 }}
+            bodyStyle={{
+              height: '100%',
+            }}
+            tabBarExtraContent={
+              <Space size={16}>
+                <Tooltip
+                  placement="topRight"
+                  title={
+                    (notAllowDownload &&
                       formatMessage(
                         {
-                          id: 'ocp-express.page.QueryLog.DownloadOnlyLogsOnHost',
-                          defaultMessage: '仅下载主机 {address} 上的日志',
+                          id: 'ocp-express.page.QueryLog.TheCurrentQueryTimeRange',
+                          defaultMessage:
+                            '当前查询时间范围超过 {limitHours} 小时，不支持下载。请将查询时间范围调整到 {limitHours} 小时以内',
                         },
-                        { address: address }
-                      )
-                    }
+
+                        { limitHours: limitHours }
+                      )) ||
+                    formatMessage(
+                      {
+                        id: 'ocp-express.page.QueryLog.DownloadOnlyLogsOnHost',
+                        defaultMessage: '仅下载主机 {address} 上的日志',
+                      },
+                      { address: address }
+                    )
+                  }
+                >
+                  <Button
+                    data-aspm-click="c304250.d308747"
+                    data-aspm-desc="日志查询-日志下载"
+                    data-aspm-param={``}
+                    data-aspm-expo
+                    // disabled={notAllowDownload}
+                    loading={downloadLoading}
+                    onClick={downloadAllLog}
                   >
-                    <Button
-                      data-aspm-click="c304250.d308747"
-                      data-aspm-desc="日志查询-日志下载"
-                      data-aspm-param={``}
-                      data-aspm-expo
-                      // disabled={notAllowDownload}
-                      loading={downloadLoading}
-                      onClick={downloadAllLog}
-                    >
-                      {formatMessage({
-                        id: 'ocp-express.page.QueryLog.DownloadAllLogs',
-                        defaultMessage: '下载日志',
-                      })}
-                    </Button>
-                  </Tooltip>
-                  {/*
+                    {formatMessage({
+                      id: 'ocp-express.page.QueryLog.DownloadAllLogs',
+                      defaultMessage: '下载日志',
+                    })}
+                  </Button>
+                </Tooltip>
+                {/*
               以现有的方式，暂时支持不了 全屏下的滚动，先暂时隐藏全屏入口，待实现全屏滚动后放开
               */}
-                  {/* {fullscreen ? (
+                {/* {fullscreen ? (
               <FullscreenExitOutlined
               onClick={() => {
               toggleFullscreen();
@@ -588,58 +570,64 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {} }) =>
               }}
               />
               )} */}
-                </Space>
-              }
-              tabList={realHostIps?.map(item => ({
-                key: item.value,
-                tab: item.label,
-              }))}
-              activeTabKey={
-                hostId?.toString() || (realHostIps && realHostIps[0]?.value?.toString())
-              }
-              onTabChange={key => {
-                setHostId(key);
-                getLog(key, logType);
-              }}
-            >
-              {/* 切换对象范围，未选择主机查询前，不展示日志类型 */}
-              {COPLogType?.length > 1 && realHostIps?.length !== 0 ? (
-                <Radio.Group
-                  // 查询时禁止点击，避免发送错误请求
-                  disabled={loading}
-                  style={{ marginBottom: 10 }}
-                  options={COPLogType}
-                  value={logType || COPLogType[0]}
-                  optionType="button"
-                  onChange={e => {
-                    setLogType(e.target.value);
-                    renderLanguage(e.target.value);
-                    getLog(hostId, e.target.value);
-                  }}
-                />
-              ) : null}
+              </Space>
+            }
+            tabList={realHostIps?.map(item => ({
+              key: item.value,
+              tab: item.label,
+            }))}
+            activeTabKey={
+              hostId?.toString() || (realHostIps && realHostIps[0]?.value?.toString())
+            }
+            onTabChange={key => {
+              setHostId(key);
+              getLog(key, logType);
+            }}
+          >
+            {/* 切换对象范围，未选择主机查询前，不展示日志类型 */}
+            {COPLogType?.length > 1 && realHostIps?.length !== 0 ? (
+              <Radio.Group
+                // 查询时禁止点击，避免发送错误请求
+                disabled={loading}
+                style={{ marginBottom: 10 }}
+                options={COPLogType}
+                value={logType || COPLogType[0]}
+                optionType="button"
+                onChange={e => {
+                  setLogType(e.target.value);
+                  renderLanguage(e.target.value);
+                  getLog(hostId, e.target.value);
+                }}
+              />
+            ) : null}
 
-              {loading && !loadingMore ? (
-                <Spin
-                  spinning={loading}
-                  tip={formatMessage({
-                    id: 'ocp-express.page.QueryLog.Searching',
-                    defaultMessage: '正在搜索中',
-                  })}
-                >
-                  <div style={{ height: 'calc(100vh - 600px)' }} />
-                </Spin>
-              ) : flatten(logData?.logEntries || [])?.length === 0 ? (
-                <Empty
-                  mode="pageCard"
-                  style={{ height: 'calc(100vh - 600px)' }}
-                  description={formatMessage({
-                    id: 'ocp-express.page.QueryLog.NoDataIsFound',
-                    defaultMessage: '未查到符合条件的数据',
-                  })}
-                />
-              ) : (
-                <>
+            {loading && !loadingMore ? (
+              <Spin
+                spinning={loading}
+                tip={formatMessage({
+                  id: 'ocp-express.page.QueryLog.Searching',
+                  defaultMessage: '正在搜索中',
+                })}
+              >
+                <div style={{ height: 'calc(100vh - 600px)' }} />
+              </Spin>
+            ) : flatten(logData?.logEntries || [])?.length === 0 ? (
+              <Empty
+                mode="pageCard"
+                style={{ height: 'calc(100vh - 600px)' }}
+                description={formatMessage({
+                  id: 'ocp-express.page.QueryLog.NoDataIsFound',
+                  defaultMessage: '未查到符合条件的数据',
+                })}
+              />
+            ) : (
+              <div
+                style={{
+                  height: 'calc(100% - 98px)',
+                  overflowY: 'scroll',
+                }}
+              >
+                <div>
                   {/* observer obproxy 都是 cpp
                 ocp-agent 是 go
                 主机日志是操作系统生成的
@@ -656,7 +644,9 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {} }) =>
                     />
                   ))}
 
-                  <div style={{ textAlign: 'center', marginTop: 16, color: 'rgba(0, 0, 0, 0.45)' }}>
+                  <div
+                    style={{ textAlign: 'center', marginTop: 16, color: token.colorTextTertiary }}
+                  >
                     {isNoData ? (
                       <div>
                         {formatMessage({
@@ -665,7 +655,7 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {} }) =>
                         })}
                       </div>
                     ) : (
-                      <div ref={loadingMoreContainerRef}>
+                      <div ref={containerRef}>
                         {inViewport ? (
                           <div>
                             <LoadingOutlined style={{ marginRight: 8 }} />
@@ -678,10 +668,11 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {} }) =>
                       </div>
                     )}
                   </div>
-                </>
-              )}
-            </Card>
-          </FullscreenBox>
+                </div>
+              </div>
+            )}
+          </Card>
+          // </FullscreenBox>
         )}
       </Col>
     </Row>

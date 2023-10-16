@@ -78,4 +78,5 @@ jobs:
       - name: Upload rpm (x86_64)
         uses: actions/upload-artifact@v3
         with:
+          name: ocp-express-rpm
           path: rpmbuild/RPMS/x86_64/ocp-express-*.rpm

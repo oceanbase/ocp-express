@@ -11,7 +11,7 @@
  */
 
 import { formatMessage } from '@/util/intl';
-import React from 'react';
+import React, { useRef } from 'react';
 import { PageContainer } from '@oceanbase/ui';
 import useDocumentTitle from '@/hook/useDocumentTitle';
 import useReload from '@/hook/useReload';
@@ -32,25 +32,31 @@ export default (props: Props) => {
 
   const [reloading, reload] = useReload(false);
 
+  // 为了实现页面滚动到底部时，日志查询页能自动加载更多，因此需要获取上层父容器的 ref 用于滚动监听
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
-    <PageContainer
-      loading={reloading}
-      ghost={true}
-      style={{ minHeight: '102vh' }}
-      header={{
-        title: (
-          <ContentWithReload
-            content={formatMessage({
-              id: 'ocp-express.page.Log.LogQuery',
-              defaultMessage: '日志查询',
-            })}
-            spin={reloading}
-            onClick={reload}
-          />
-        ),
-      }}
-    >
-      <Query {...props} />
-    </PageContainer>
+    <div ref={containerRef} style={{ height: 'calc(100% - 48px)' }}>
+      <PageContainer
+        loading={reloading}
+        ghost={true}
+        header={{
+          title: (
+            <ContentWithReload
+              content={formatMessage({
+                id: 'ocp-express.page.Log.LogQuery',
+                defaultMessage: '日志查询',
+              })}
+              spin={reloading}
+              onClick={reload}
+            />
+          ),
+        }}
+      >
+        <Query
+          containerRef={containerRef}
+          {...props} />
+      </PageContainer>
+    </div>
   );
 };

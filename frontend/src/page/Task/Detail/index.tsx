@@ -319,7 +319,7 @@ const Detail: React.FC<DetailProps> = ({
                   defaultMessage: '日志视图',
                 })}
               >
-                <Radio.Button value="log">
+                <Radio.Button value="log" style={{ zIndex: 1 }}>
                   <Icon
                     component={LogSvg}
                     style={mode === 'log' ? { color: token.colorInfo } : {}}

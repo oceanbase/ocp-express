@@ -64,10 +64,16 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const logoUrl = isEnglish()
-    ? '/assets/logo/ocp_express_logo_en.svg'
+    ? themeMode === 'dark'
+      ? '/assets/logo/ocp_express_logo_en_dark.svg'
+      : '/assets/logo/ocp_express_logo_en.svg'
+    : themeMode === 'dark'
+    ? '/assets/logo/ocp_express_logo_zh_dark.svg'
     : '/assets/logo/ocp_express_logo_zh.svg';
   const simpleLogoUrl = isEnglish()
-    ? '/assets/logo/ocp_express_simple_logo_en.svg'
+    ? themeMode === 'dark'
+      ? '/assets/logo/ocp_express_simple_logo_en_dark.svg'
+      : '/assets/logo/ocp_express_simple_logo_en.svg'
     : themeMode === 'dark'
     ? '/assets/logo/ocp_express_simple_logo_zh_dark.svg'
     : '/assets/logo/ocp_express_simple_logo_zh.svg';
@@ -217,6 +223,14 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     (item.children || []).map(child => child.link).includes(pathname)
   )?.link;
 
+  const lightThemText = formatMessage({
+    id: 'ocp-express.Layout.BasicLayout.LightThemText',
+    defaultMessage: '浅色主题',
+  });
+  const darkThemText = formatMessage({
+    id: 'ocp-express.Layout.BasicLayout.DarkThemText',
+    defaultMessage: '暗黑主题',
+  });
   return (
     <OBUIBasicLayout
       className={styles.container}
@@ -296,8 +310,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                     });
                   }}
                 >
-                  <Menu.Item key="light">浅色主题</Menu.Item>
-                  <Menu.Item key="dark">暗黑主题</Menu.Item>
+                  <Menu.Item key="light">{lightThemText}</Menu.Item>
+                  <Menu.Item key="dark">{darkThemText}</Menu.Item>
                 </Menu>
               }
             >
@@ -314,7 +328,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                     marginLeft: 8,
                   }}
                 >
-                  {themeMode === 'light' ? '浅色主题' : '暗黑主题'}
+                  {themeMode === 'light' ? lightThemText : darkThemText}
                 </span>
               </span>
             </Dropdown>
@@ -388,7 +402,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                         fontSize: 12,
                       }}
                     >
-                      任务
+                      {formatMessage({
+                        id: 'ocp-express.Layout.BasicLayout.Task',
+                        defaultMessage: '任务',
+                      })}
                     </span>
                   </Space>
                 </Badge>

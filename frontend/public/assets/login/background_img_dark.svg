@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="540px" height="900px" viewBox="0 0 540 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>background_img</title>
+    <defs>
+        <linearGradient x1="68%" y1="100%" x2="32%" y2="3.63683077e-14%" id="linearGradient-1">
+            <stop stop-color="#000D4D" offset="0%"></stop>
+            <stop stop-color="#002448" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="540" height="900"></rect>
+        <linearGradient x1="50%" y1="-3.46944695e-14%" x2="50%" y2="85.6512794%" id="linearGradient-4">
+            <stop stop-color="#32D79D" stop-opacity="0.776059878" offset="0%"></stop>
+            <stop stop-color="#43B4BA" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-5" x="0" y="0" width="540" height="900"></rect>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="77.2939104%" id="linearGradient-7">
+            <stop stop-color="#26B3FF" offset="0%"></stop>
+            <stop stop-color="#26B3FF" offset="0%"></stop>
+            <stop stop-color="#158DFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="background_img">
+            <g id="矩形" fill="url(#linearGradient-1)" fill-rule="nonzero">
+                <rect id="path-2" x="0" y="0" width="540" height="900"></rect>
+            </g>
+            <g id="路径-Clipped">
+                <mask id="mask-3" fill="white">
+                    <use xlink:href="#path-2"></use>
+                </mask>
+                <g id="path-2"></g>
+                <path d="M160.318314,624 C287.844246,624 369.591983,684.999102 500.994732,695 C632.397481,705.000898 703.214424,695 799.769772,673 C800.076743,706.59561 800.076743,782.262276 799.769772,900 L0,900 L0,651 C21.8615883,633 75.3010264,624 160.318314,624 Z" id="路径" fill="url(#linearGradient-4)" fill-rule="nonzero" mask="url(#mask-3)"></path>
+            </g>
+            <g id="路径备份-Clipped">
+                <mask id="mask-6" fill="white">
+                    <use xlink:href="#path-5"></use>
+                </mask>
+                <g id="path-2"></g>
+                <path d="M210.318314,510 C337.844246,510 419.591983,570.999102 550.994732,581 C682.397481,591.000898 753.214424,581 849.769772,559 C850.076743,592.59561 850.076743,668.262276 849.769772,786 L50,786 L50,537 C71.8615883,519 125.301026,510 210.318314,510 Z" id="路径备份" fill="url(#linearGradient-7)" fill-rule="nonzero" opacity="0.552269345" mask="url(#mask-6)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

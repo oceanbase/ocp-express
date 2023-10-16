@@ -248,7 +248,7 @@ class DatabasePrivilegeTransfer extends React.PureComponent<
             <span>
               <Checkbox
                 checked={checkAll}
-                style={{ color: '#000', fontWeight: 400 }}
+                style={{ fontWeight: 400 }}
                 indeterminate={indeterminate}
                 onChange={this.handleCheckAllChange}
               >
@@ -324,7 +324,7 @@ class DatabasePrivilegeTransfer extends React.PureComponent<
           type="inner"
           title={
             <span>
-              <span style={{ marginRight: 8, color: '#000', fontWeight: 400 }}>
+              <span style={{ marginRight: 8, fontWeight: 400 }}>
                 {formatMessage({
                   id: 'ocp-express.component.DatabasePrivilegeTransfer.Authorized',
                   defaultMessage: '已授权',

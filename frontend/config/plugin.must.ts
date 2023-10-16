@@ -20,14 +20,17 @@ type path = { parentPath: path };
 
 export const matchText = (text: string, path: path) => {
   const isConsoleLog = /^console\.log\(/gi.test(path.parentPath.toString());
+  const isSpm = /^spm\=/g.test(path.parentPath.toString());
+  const isDataSpm = /^data\-aspm\-desc\=/g.test(path.parentPath.toString());
+
   let isFormattedMessage = false;
   // 识别 <FormatMessage> 标签的文字层级
   try {
     isFormattedMessage = /^\<FormattedMessage/g.test(
       path.parentPath.parentPath.parentPath.parentPath.parentPath.toString()
     );
-  } catch (e) {}
-  return /[^\x00-\xff]/.test(text) && !isConsoleLog && !isFormattedMessage; // ^\x00-\xff 表示匹配中文字符
+  } catch (e) { }
+  return /[^\x00-\xff]/.test(text) && !isConsoleLog && !isFormattedMessage && !isDataSpm && !isSpm; // ^\x00-\xff 表示匹配中文字符
 };
 
 export const getContent = (content: string) => {
@@ -142,7 +145,7 @@ export default (api: IApi) => {
         },
       };
 
-      // 实现初版，通过时候拼接文件实现 增量 + 兼容旧版 Bigfish 国际化
+      // 实现初版，通过时候拼接文件实现 增量 + 兼容旧版国际化
       // 后续优化可以在 must 中进行这些操作
       (async () => {
         let extract;
@@ -183,7 +186,7 @@ export default (api: IApi) => {
           // 尝试删除 生成的 index.js
           try {
             unlinkSync(join(api.cwd, outputPath, fileType === 'js' ? 'index.js' : 'index.ts'));
-          } catch {}
+          } catch { }
           return;
         }
 
@@ -214,12 +217,10 @@ export default (api: IApi) => {
           en_US = `export default {${en_US_source}}`;
         } else {
           // 增量插入翻译
-          zh_CN = `export default {${
-            zh_CN + ',  //' + new Date().toLocaleString() + ' 新增文案' + zh_CN_source
-          }}`;
-          en_US = `export default {${
-            en_US + ',  //' + new Date().toLocaleString() + ' 新增文案' + en_US_source
-          }}`;
+          zh_CN = `export default {${zh_CN + ',  //' + new Date().toLocaleString() + ' 新增文案' + zh_CN_source
+            }}`;
+          en_US = `export default {${en_US + ',  //' + new Date().toLocaleString() + ' 新增文案' + en_US_source
+            }}`;
         }
 
         try {

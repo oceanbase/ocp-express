@@ -11,7 +11,7 @@
  */
 
 import { formatMessage } from '@/util/intl';
-import { connect, history, useDispatch } from 'umi';
+import { connect, history, useDispatch, useSelector } from 'umi';
 import React, { useEffect, useRef } from 'react';
 import { Space, Tag, Col, Row, Badge, Button, token } from '@oceanbase/design';
 import { flatten, reduce } from 'lodash';
@@ -28,6 +28,7 @@ import TenantResourceTop3 from './TenantResourceTop3';
 import type { ZoneListOrTopoRef } from './ZoneListOrTopo';
 import ZoneListOrTopo from './ZoneListOrTopo';
 import { OB_SERVER_STATUS_LIST } from '@/constant/oceanbase';
+import tracert from '@/util/tracert';
 
 export interface DetailProps {
   match: {
@@ -41,13 +42,13 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({
   match: {
-    params: { },
+    params: {},
   },
   loading,
   clusterData,
 }) => {
   const dispatch = useDispatch();
-
+  const { themeMode } = useSelector((state: DefaultRootState) => state.global);
   useDocumentTitle(
     formatMessage({
       id: 'ocp-express.Cluster.Unit.ClusterOverview',
@@ -300,14 +301,13 @@ const Detail: React.FC<DetailProps> = ({
                     top: -4,
                   }}
                 >
-                  {
-                    formatMessage(
-                      {
-                        id: 'ocp-express.Cluster.Overview.Obversion',
-                        defaultMessage: '{obVersion} 版本',
-                      },
-                      { obVersion: obVersion }
-                    )}
+                  {formatMessage(
+                    {
+                      id: 'ocp-express.Cluster.Overview.Obversion',
+                      defaultMessage: '{obVersion} 版本',
+                    },
+                    { obVersion: obVersion }
+                  )}
                 </Tag>
               }
               spin={loading || reloading}

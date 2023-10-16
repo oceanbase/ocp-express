@@ -249,6 +249,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         ocpHost: window.location.host,
         // OCP 监控采集间隔
         ocpMonitorCollectInterval: collectInterval,
+        // 主题
+        themeMode,
       })}
       location={location}
       banner={
@@ -301,6 +303,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
             <Dropdown
               overlay={
                 <Menu
+                  data-aspm-click="c304248.d382690"
+                  data-aspm-desc="顶部导航-主题切换功能"
+                  data-aspm-expo
                   onClick={({ key }) => {
                     dispatch({
                       type: 'global/setThemeMode',

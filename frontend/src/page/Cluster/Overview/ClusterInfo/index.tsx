@@ -11,6 +11,7 @@
  */
 
 import { formatMessage } from '@/util/intl';
+import { useSelector } from 'umi';
 import React from 'react';
 import moment from 'moment';
 import {
@@ -47,7 +48,9 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({ clusterData }) => {
   const { styles } = useStyles();
-
+  const {
+    themeMode,
+  } = useSelector((state: DefaultRootState) => state.global);
   const statusItem = findByValue(OB_CLUSTER_STATUS_LIST, clusterData.status);
   // 将 badge 状态映射为 color
   const colorMap = {
@@ -337,6 +340,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
           clusterObserverCount: getObServerCountByObCluster(clusterData),
           // 集群租户数
           clusterTenantCount: clusterData.tenants?.length || 0,
+          // 主题参数
+          theme: themeMode,
         })}
       >
         <MouseTooltip

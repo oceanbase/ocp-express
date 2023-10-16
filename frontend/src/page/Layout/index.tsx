@@ -30,7 +30,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { themeMode } = useSelector((state: DefaultRootState) => state.global);
 
   const locale = getLocale();
-  const antdLocaleMap = {
+  const localeMap = {
     'en-US': en_US,
     'zh-CN': zh_CN,
   };
@@ -46,7 +46,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <ConfigProvider
       navigate={history.push}
-      locale={antdLocaleMap[locale] || zh_CN}
+      locale={localeMap[locale] || zh_CN}
       theme={{
         isDark: themeMode === 'dark',
         algorithm: themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,

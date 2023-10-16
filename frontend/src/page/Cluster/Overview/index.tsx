@@ -42,15 +42,13 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({
   match: {
-    params: { },
+    params: {},
   },
   loading,
   clusterData,
 }) => {
   const dispatch = useDispatch();
-  const {
-    themeMode,
-  } = useSelector((state: DefaultRootState) => state.global);
+  const { themeMode } = useSelector((state: DefaultRootState) => state.global);
   useDocumentTitle(
     formatMessage({
       id: 'ocp-express.Cluster.Unit.ClusterOverview',
@@ -303,14 +301,13 @@ const Detail: React.FC<DetailProps> = ({
                     top: -4,
                   }}
                 >
-                  {
-                    formatMessage(
-                      {
-                        id: 'ocp-express.Cluster.Overview.Obversion',
-                        defaultMessage: '{obVersion} 版本',
-                      },
-                      { obVersion: obVersion }
-                    )}
+                  {formatMessage(
+                    {
+                      id: 'ocp-express.Cluster.Overview.Obversion',
+                      defaultMessage: '{obVersion} 版本',
+                    },
+                    { obVersion: obVersion }
+                  )}
                 </Tag>
               }
               spin={loading || reloading}
@@ -356,65 +353,55 @@ const Detail: React.FC<DetailProps> = ({
         ),
       }}
     >
-      <div
-        data-aspm-click="c304248.d382690"
-        data-aspm-desc="顶部导航-主题切换功能"
-        data-aspm-expo
-        // 扩展参数
-        data-aspm-param={tracert.stringify({
-          theme: themeMode,
-        })}
-      >
-        <Row gutter={[16, 16]}>
-          <Col span={12}>
-            <ClusterInfo clusterData={clusterData} />
-          </Col>
-          {overviewStatusType.map(item => {
-            return (
-              <Col key={item.key} span={6}>
-                <MyCard
-                  title={
-                    <div style={{ backgroundImage: item.img }}>
-                      <span>{item.title}</span>
-                    </div>
-                  }
-                  headStyle={{
-                    marginBottom: 16,
-                  }}
-                  bodyStyle={{
-                    padding: '16px 24px',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div
-                      style={{
-                        fontSize: '28px',
-                        fontFamily: 'Avenir-Heavy',
-                        lineHeight: '66px',
-                      }}
-                    >
-                      {item.totalCount}
-                    </div>
-                    {item.content}
+      <Row gutter={[16, 16]}>
+        <Col span={12}>
+          <ClusterInfo clusterData={clusterData} />
+        </Col>
+        {overviewStatusType.map(item => {
+          return (
+            <Col key={item.key} span={6}>
+              <MyCard
+                title={
+                  <div style={{ backgroundImage: item.img }}>
+                    <span>{item.title}</span>
                   </div>
-                </MyCard>
-              </Col>
-            );
-          })}
-          <Col span={12}>
-            <CompactionTimeTop3 />
-          </Col>
-          <Col span={12}>
-            <SlowSQLTop3 />
-          </Col>
-          <Col span={24}>
-            <TenantResourceTop3 />
-          </Col>
-          <Col span={24}>
-            <ZoneListOrTopo ref={zoneListOrTopoRef} clusterData={clusterData} />
-          </Col>
-        </Row>
-      </div>
+                }
+                headStyle={{
+                  marginBottom: 16,
+                }}
+                bodyStyle={{
+                  padding: '16px 24px',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div
+                    style={{
+                      fontSize: '28px',
+                      fontFamily: 'Avenir-Heavy',
+                      lineHeight: '66px',
+                    }}
+                  >
+                    {item.totalCount}
+                  </div>
+                  {item.content}
+                </div>
+              </MyCard>
+            </Col>
+          );
+        })}
+        <Col span={12}>
+          <CompactionTimeTop3 />
+        </Col>
+        <Col span={12}>
+          <SlowSQLTop3 />
+        </Col>
+        <Col span={24}>
+          <TenantResourceTop3 />
+        </Col>
+        <Col span={24}>
+          <ZoneListOrTopo ref={zoneListOrTopoRef} clusterData={clusterData} />
+        </Col>
+      </Row>
     </PageContainer>
   );
 };

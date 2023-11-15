@@ -38,22 +38,22 @@ public class DigestSignature {
         String password = authConfig.getPassword();
         String signature = method + "\n" + url + "\n" + contentType + "\n" + date + "\n" + traceId;
         String sign = Base64.getEncoder().encodeToString(
-                hmacSha1(password, signature.getBytes(StandardCharsets.UTF_8)));
-        String authorization = "OCP-HMACSHA1 " + username + ":" + sign;
+                hmacSha256(password, signature.getBytes(StandardCharsets.UTF_8)));
+        String authorization = "OCP-HMACSHA256 " + username + ":" + sign;
         return authorization;
     }
 
-    public static byte[] hmacSha1(String key, byte[] content) {
+    public static byte[] hmacSha256(String key, byte[] content) {
         try {
             Validate.notEmpty(key, "cannot be null or empty.");
             Validate.notNull(content, "content");
             Validate.isTrue(content.length != 0, "content cannot be empty.");
 
-            Mac mac = Mac.getInstance("HmacSHA1");
-            mac.init(new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA1"));
+            Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
             return mac.doFinal(content);
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Not supported signature method HmacSHA1", e);
+            throw new RuntimeException("Not supported signature method HmacSHA256", e);
         } catch (InvalidKeyException e) {
             throw new RuntimeException("Failed to calculate the signature", e);
         }

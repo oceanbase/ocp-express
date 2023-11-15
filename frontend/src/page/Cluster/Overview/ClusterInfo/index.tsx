@@ -47,7 +47,6 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({ clusterData }) => {
   const { styles } = useStyles();
-
   const statusItem = findByValue(OB_CLUSTER_STATUS_LIST, clusterData.status);
   // 将 badge 状态映射为 color
   const colorMap = {
@@ -230,114 +229,116 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
   const clusterName = clusterData.clusterName || '';
 
   return (
-    <MyCard
-      loading={cpuAssignedPercentLoading || memoryAssignedPercentLoading || diskUsedPercentLoading}
-      title={
-        <div>
-          <span
-            style={{
-              marginRight: 16,
-            }}
-          >
-            {formatMessage(
-              {
-                id: 'ocp-express.Component.ClusterInfo.ClusterClustername',
-                defaultMessage: '集群 {clusterName}',
-              },
-              { clusterName: clusterName }
-            )}
-          </span>
-          <Badge
-            status={statusItem.badgeStatus}
-            text={
-              <span
-                style={{
-                  color: colorMap[statusItem.badgeStatus as string],
-                }}
-              >
-                {statusItem.label}
-              </span>
-            }
-          />
-        </div>
-      }
-      extra={
-        <Popover
-          placement="bottomRight"
-          arrowPointAtCenter={true}
-          overlayStyle={{
-            maxWidth: 200,
-          }}
-          content={
-            <Descriptions colon={false} column={1}>
-              <Descriptions.Item
-                label={formatMessage({
-                  id: 'ocp-express.Component.ClusterInfo.ClusterName',
-                  defaultMessage: '集群名称',
-                })}
-                className="descriptions-item-with-ellipsis"
-              >
-                <Text
-                  ellipsis={{
-                    tooltip: clusterData.clusterName,
+    <div
+      data-aspm="c304183"
+      data-aspm-desc="集群信息"
+      data-aspm-expo
+      // 扩展参数
+      data-aspm-param={tracert.stringify({
+        // 集群 OB 版本
+        clusterObVersion: clusterData.obVersion,
+        // 集群部署模式
+        clusterDeployMode: deployModeString,
+        // 集群机房数
+        clusterIdcCount: getIdcCountByObCluster(clusterData),
+        // 集群 OBServer 数
+        clusterObserverCount: getObServerCountByObCluster(clusterData),
+        // 集群租户数
+        clusterTenantCount: clusterData.tenants?.length || 0,
+      })}
+    >
+      <MyCard
+        loading={
+          cpuAssignedPercentLoading || memoryAssignedPercentLoading || diskUsedPercentLoading
+        }
+        title={
+          <div>
+            <span
+              style={{
+                marginRight: 16,
+              }}
+            >
+              {formatMessage(
+                {
+                  id: 'ocp-express.Component.ClusterInfo.ClusterClustername',
+                  defaultMessage: '集群 {clusterName}',
+                },
+                { clusterName: clusterName }
+              )}
+            </span>
+            <Badge
+              status={statusItem.badgeStatus}
+              text={
+                <span
+                  style={{
+                    color: colorMap[statusItem.badgeStatus as string],
                   }}
                 >
-                  {clusterData.clusterName}
-                </Text>
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={formatMessage({
-                  id: 'ocp-express.Detail.Overview.DeploymentMode',
-                  defaultMessage: '部署模式',
-                })}
-                style={{
-                  paddingBottom: 0,
-                }}
-              >
-                {clusterData.zones?.length > 0 ? (
-                  <Tooltip title={<ObClusterDeployMode clusterData={clusterData} />}>
-                    <ObClusterDeployMode clusterData={clusterData} mode="text" />
-                  </Tooltip>
-                ) : (
-                  '-'
-                )}
-              </Descriptions.Item>
-            </Descriptions>
-          }
-          bodyStyle={{
-            padding: '16px 24px',
-          }}
-        >
-          <EllipsisOutlined
-            data-aspm-click="c304183.d308772"
-            data-aspm-desc="集群信息-查看更多"
-            data-aspm-param={``}
-            data-aspm-expo
-            className="pointable"
-            style={{
-              fontSize: 20,
+                  {statusItem.label}
+                </span>
+              }
+            />
+          </div>
+        }
+        extra={
+          <Popover
+            placement="bottomRight"
+            arrowPointAtCenter={true}
+            overlayStyle={{
+              maxWidth: 200,
             }}
-          />
-        </Popover>
-      }
-    >
-      <div
-        data-aspm="c304183"
-        data-aspm-desc="集群信息"
-        data-aspm-expo
-        // 扩展参数
-        data-aspm-param={tracert.stringify({
-          // 集群 OB 版本
-          clusterObVersion: clusterData.obVersion,
-          // 集群部署模式
-          clusterDeployMode: deployModeString,
-          // 集群机房数
-          clusterIdcCount: getIdcCountByObCluster(clusterData),
-          // 集群 OBServer 数
-          clusterObserverCount: getObServerCountByObCluster(clusterData),
-          // 集群租户数
-          clusterTenantCount: clusterData.tenants?.length || 0,
-        })}
+            content={
+              <Descriptions colon={false} column={1}>
+                <Descriptions.Item
+                  label={formatMessage({
+                    id: 'ocp-express.Component.ClusterInfo.ClusterName',
+                    defaultMessage: '集群名称',
+                  })}
+                  className="descriptions-item-with-ellipsis"
+                >
+                  <Text
+                    ellipsis={{
+                      tooltip: clusterData.clusterName,
+                    }}
+                  >
+                    {clusterData.clusterName}
+                  </Text>
+                </Descriptions.Item>
+                <Descriptions.Item
+                  label={formatMessage({
+                    id: 'ocp-express.Detail.Overview.DeploymentMode',
+                    defaultMessage: '部署模式',
+                  })}
+                  style={{
+                    paddingBottom: 0,
+                  }}
+                >
+                  {clusterData.zones?.length > 0 ? (
+                    <Tooltip title={<ObClusterDeployMode clusterData={clusterData} />}>
+                      <ObClusterDeployMode clusterData={clusterData} mode="text" />
+                    </Tooltip>
+                  ) : (
+                    '-'
+                  )}
+                </Descriptions.Item>
+              </Descriptions>
+            }
+            bodyStyle={{
+              padding: '16px 24px',
+            }}
+          >
+            <EllipsisOutlined
+              data-aspm-click="c304183.d308772"
+              data-aspm-desc="集群信息-查看更多"
+              data-aspm-expo
+              data-aspm-param={``}
+              className="pointable"
+              style={{
+                fontSize: 20,
+              }}
+            />
+          </Popover>
+        }
       >
         <MouseTooltip
           style={{
@@ -369,8 +370,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
                         {isNullValue(item.totalValue)
                           ? '-'
                           : item.key === 'cpu'
-                            ? `${item.totalValue} C`
-                            : // 内存和磁盘需要进行单位换算
+                          ? `${item.totalValue} C`
+                          : // 内存和磁盘需要进行单位换算
                             formatSize(item.totalValue)}
                       </Descriptions.Item>
                       <Descriptions.Item label={item.description}>
@@ -388,8 +389,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
                         {isNullValue(item.leftValue)
                           ? '-'
                           : item.key === 'cpu'
-                            ? `${item.leftValue} C`
-                            : // 内存和磁盘需要进行单位换算
+                          ? `${item.leftValue} C`
+                          : // 内存和磁盘需要进行单位换算
                             formatSize(item.leftValue)}
                       </Descriptions.Item>
                     </Descriptions>
@@ -424,8 +425,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
             ))}
           </Row>
         </MouseTooltip>
-      </div>
-    </MyCard>
+      </MyCard>
+    </div>
   );
 };
 

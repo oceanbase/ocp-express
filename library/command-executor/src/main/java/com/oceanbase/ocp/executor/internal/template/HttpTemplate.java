@@ -58,7 +58,7 @@ public class HttpTemplate {
 
     private final Connector<Client> agentConnector;
 
-    private static final String HMAC_SHA1_ALGORITHM = "HmacSHA1";
+    private static final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
     /** OCP Trace ID */
     private static final String TRACE_ID_HEADER = "X-OCP-Trace-ID";
 

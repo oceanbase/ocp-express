@@ -1,5 +1,6 @@
 package com.oceanbase.ocp.obsdk.accessor.object;
 
+import static com.oceanbase.ocp.obsdk.accessor.object.MysqlObjectAccessor.FindRangePartitionName;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -9,8 +10,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +39,57 @@ public class MysqlObjectAccessorTest {
 
         ConnectProperties connectProperties = ConnectProperties.builder().build();
         when(template.getConnectProperties()).thenReturn(connectProperties);
+    }
+
+    @Test
+    public void test() {
+        String createTableSql = "CREATE TABLE `metric_data_second` (\n"
+                + "  `series_id` bigint(20) NOT NULL,\n"
+                + "  `timestamp` bigint(20) NOT NULL,\n"
+                + "  `data` varbinary(65535) NOT NULL,\n"
+                + "  `interval` tinyint(4) DEFAULT '1' COMMENT '秒级别监控采集间隔',\n"
+                + "  PRIMARY KEY (`series_id`, `timestamp`)\n"
+                + ") DEFAULT CHARSET = utf8mb4 ROW_FORMAT = DYNAMIC COMPRESSION = 'zstd_1.3.8' REPLICA_NUM = 1 BLOCK_SIZE"
+                + " = 16384 USE_BLOOM_FILTER = FALSE TABLET_SIZE = 134217728 PCTFREE = 0\n"
+                + " partition by range columns(`timestamp`) subpartition by hash(series_id) subpartition template (\n"
+                + "subpartition p0,\n"
+                + "subpartition p1,\n"
+                + "subpartition p2,\n"
+                + "subpartition p3,\n"
+                + "subpartition p4,\n"
+                + "subpartition p5,\n"
+                + "subpartition p6,\n"
+                + "subpartition p7,\n"
+                + "subpartition p8,\n"
+                + "subpartition p9,\n"
+                + "subpartition p10,\n"
+                + "subpartition p11,\n"
+                + "subpartition p12,\n"
+                + "subpartition p13,\n"
+                + "subpartition p14,\n"
+                + "subpartition p15,\n"
+                + "subpartition p16,\n"
+                + "subpartition p17,\n"
+                + "subpartition p18,\n"
+                + "subpartition p19,\n"
+                + "subpartition p20,\n"
+                + "subpartition p21,\n"
+                + "subpartition p22,\n"
+                + "subpartition p23,\n"
+                + "subpartition p24,\n"
+                + "subpartition p25,\n"
+                + "subpartition p26,\n"
+                + "subpartition p27,\n"
+                + "subpartition p28,\n"
+                + "subpartition p29)\n"
+                + "(partition `DUMMY` values less than (0))";
+        Matcher matcher = FindRangePartitionName.matcher(createTableSql);
+        List<ObTablePartition> partitions = new ArrayList<>();
+        while (matcher.find()) {
+            String partitionName = matcher.group(1);
+            partitions.add(new ObTablePartition(partitionName));
+        }
+        System.out.println(partitions);
     }
 
     @Test

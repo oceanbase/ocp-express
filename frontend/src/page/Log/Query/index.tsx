@@ -24,7 +24,7 @@ import {
   Space,
   Spin,
   message,
-  token,
+  theme,
 } from '@oceanbase/design';
 import { Ranger } from '@oceanbase/ui'
 import { LoadingOutlined } from '@oceanbase/icons';
@@ -60,6 +60,7 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {}, cont
   useDocumentTitle(
     formatMessage({ id: 'ocp-express.page.QueryLog.LogQuery', defaultMessage: '日志查询' })
   );
+  const { token } = theme.useToken();
 
   const [form] = Form.useForm();
   const { validateFields, getFieldsValue, resetFields } = form;

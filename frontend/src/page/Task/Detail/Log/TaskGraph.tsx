@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
-import { Dropdown, Menu, Space, Tooltip, Typography, token } from '@oceanbase/design';
+import { Dropdown, Menu, Space, Tooltip, Typography, theme } from '@oceanbase/design';
 import { debounce, some } from 'lodash';
 import Icon, { MoreOutlined } from '@oceanbase/icons';
 import { findByValue, isNullValue } from '@oceanbase/util';
@@ -137,6 +137,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
     const nodes = getNodes(taskData);
 
     const { styles } = useStyles();
+    const { token } = theme.useToken();
 
     // 定位到目标节点
     const setTargetSubtask = (targetSubtaskId?: number) => {

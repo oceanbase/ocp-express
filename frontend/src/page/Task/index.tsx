@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
 import React, { useState } from 'react';
-import { Badge, Card, Radio, Space, Table, token } from '@oceanbase/design';
+import { Badge, Card, Radio, Space, Table, theme } from '@oceanbase/design';
 import { omitBy, some, toNumber } from 'lodash';
 import moment from 'moment';
 import { PageContainer } from '@oceanbase/ui';
@@ -56,6 +56,7 @@ const Task: React.FC<TaskProps> = ({
   hostId,
 }) => {
   useDocumentTitle(formatMessage({ id: 'ocp-express.page.Task.Task', defaultMessage: '任务' }));
+  const { token } = theme.useToken();
 
   const initialPage = query.page ? toNumber(query.page) : 1;
   const [status, setStatus] = useState(query.status || '');

@@ -14,7 +14,7 @@ import ContentWithQuestion from '@/component/ContentWithQuestion';
 import { ATTRIBUTE_GROUPS } from '@/constant/sqlDiagnosis';
 import { isEnglish } from '@/util';
 import { formatMessage } from '@/util/intl';
-import { Button, Checkbox, Col, Divider, Drawer, Input, Row } from '@oceanbase/design';
+import { Button, Checkbox, Col, Divider, Drawer, Input, Row, theme } from '@oceanbase/design';
 import React, { useEffect, useState } from 'react';
 import { groupBy, isNumber, uniqBy } from 'lodash';
 import { FilterOutlined } from '@oceanbase/icons';
@@ -45,6 +45,8 @@ const ColumnManager = ({
   const { styles } = useStyles();
   const [visible, setVisible] = useState(false);
 
+  const { token } = theme.useToken();
+
   // 筛选后的 attributes
   const [filterContents, setFilterContents] = useState<SQLDiagnosis.SqlAuditStatDetailAttribute[]>(
     []
@@ -72,21 +74,21 @@ const ColumnManager = ({
     setSelected(
       checked
         ? // 选中当前组
-          attributes.filter(
-            attr =>
-              uniqBy(
-                [...selected, ...filterContents.filter(item => item.group === group)],
-                i => i.name
-              ).indexOf(attr) !== -1
-          )
+        attributes.filter(
+          attr =>
+            uniqBy(
+              [...selected, ...filterContents.filter(item => item.group === group)],
+              i => i.name
+            ).indexOf(attr) !== -1
+        )
         : // 取消选中当前组
-          selected.filter(item => {
-            // displayAlways 表示常驻项，不可取消
-            if (item.displayAlways === true) {
-              return true;
-            }
-            return item.group !== group || !filterContents.map(i => i.name).includes(item.name);
-          })
+        selected.filter(item => {
+          // displayAlways 表示常驻项，不可取消
+          if (item.displayAlways === true) {
+            return true;
+          }
+          return item.group !== group || !filterContents.map(i => i.name).includes(item.name);
+        })
     );
   };
 
@@ -147,7 +149,7 @@ const ColumnManager = ({
           id: 'ocp-express.SQLDiagnosis.Component.ColumnManager.ColumnManagement',
           defaultMessage: '列管理',
         })}
-        visible={visible}
+        open={visible}
         onClose={() => {
           setVisible(false);
         }}
@@ -213,7 +215,7 @@ const ColumnManager = ({
                         >
                           <ContentWithQuestion
                             content={
-                              <span style={{ color: 'rgba(0, 0, 0, .65)' }}>{item.title}</span>
+                              <span style={{ color: token.colorText }}>{item.title}</span>
                             }
                             tooltip={{
                               title: item.tooltip,

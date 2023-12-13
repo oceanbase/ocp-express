@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect, useImperativeHandle } from 'react';
-import { Empty, Spin, Tabs, token } from '@oceanbase/design';
+import { Empty, Spin, Tabs, theme } from '@oceanbase/design';
 import { DownOutlined, UpOutlined } from '@oceanbase/icons';
 import { find, isFunction } from 'lodash';
 import SplitPane from 'react-split-pane';
@@ -38,6 +38,8 @@ const Detail: React.FC<DetailProps> = React.forwardRef(
     ref
   ) => {
     const { styles } = useStyles();
+    const { token } = theme.useToken();
+
     const MIN_SIZE = 32;
     // 英文环境下，任务详情会占据两行，需要减去额外的 38px，给流程图留出足够空间
     const DEFAULT_SIZE = isEnglish() ? 240 - 38 : 240;

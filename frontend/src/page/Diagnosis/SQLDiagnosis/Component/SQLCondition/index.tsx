@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useEffect } from 'react';
-import { Button, Col, Form, Input, Modal, Row, Tag, token } from '@oceanbase/design';
+import { Button, Col, Form, Input, Modal, Row, Tag, theme } from '@oceanbase/design';
 import { find, flatMap, uniqueId } from 'lodash';
 import { PlusOutlined, DeleteOutlined } from '@oceanbase/icons';
 import MySelect from '@/component/MySelect';
@@ -32,6 +32,8 @@ const SQLCondition: React.FC<SQLConditionProps> = ({
   value: propValue,
 }) => {
   const { styles } = useStyles();
+  const { token } = theme.useToken();
+
   const [list, setList] = React.useState<SQLDiagnosis.FilterExpressionList>(
     generateTagValue(propValue),
   );

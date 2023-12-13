@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import type { MouseEvent } from 'react';
 import React from 'react';
-import { Button, Drawer, Space, token } from '@oceanbase/design';
+import { Button, Drawer, Space, theme } from '@oceanbase/design';
 import type { ButtonProps } from '@oceanbase/design/es/button';
 import type { DrawerProps } from '@oceanbase/design/es/drawer';
 import { isBoolean } from 'lodash';
@@ -51,6 +51,8 @@ const MyDrawer: React.FC<MyDrawerProps> = ({
   bodyStyle = {},
   ...restProps
 }) => {
+  const { token } = theme.useToken();
+
   return (
     <Drawer
       destroyOnClose={true}

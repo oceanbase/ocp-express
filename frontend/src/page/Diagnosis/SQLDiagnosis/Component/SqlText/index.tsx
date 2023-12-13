@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import * as ObSqlStatController from '@/service/ocp-express/ObSqlStatController';
 import { formatSql } from '@/util';
-import { Spin, Tooltip, Typography, token } from '@oceanbase/design';
+import { Spin, Tooltip, Typography, theme } from '@oceanbase/design';
 import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 
@@ -52,6 +52,8 @@ export const SqlText = ({
   canJump = true,
   isLimit = false,
 }: IProps) => {
+  const { token } = theme.useToken();
+
   const [sqlText, setSqlText] = useState(record?.isCompleted ? record?.sqlTextShort : '');
 
   const { run: getSqlText } = useRequest(ObSqlStatController.sqlText, {

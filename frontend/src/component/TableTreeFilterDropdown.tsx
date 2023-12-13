@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import React, { useEffect, useRef } from 'react';
 import type { FilterDropdownProps } from '@oceanbase/design/es/table/interface';
-import { token, Button, Space } from '@oceanbase/design';
+import { theme, Button, Space } from '@oceanbase/design';
 import { TreeSearch } from '@oceanbase/ui';
 import type { TreeSearchRef, Node } from '@oceanbase/ui/es/TreeSearch';
 
@@ -37,6 +37,7 @@ const TableTreeFilterDropdown: React.FC<TableTreeFilterDropdownProps> = ({
   ...restProps
 }) => {
   const ref = useRef<TreeSearchRef>(null);
+  const { token } = theme.useToken();
 
   const confirmFilter = () => {
     confirm();

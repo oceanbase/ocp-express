@@ -23,7 +23,6 @@ import {
   Switch,
   Tooltip,
   message,
-  token,
 } from '@oceanbase/design';
 import { FullscreenBox } from '@oceanbase/ui';
 import React, { useRef, useState } from 'react';

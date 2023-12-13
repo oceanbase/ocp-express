@@ -1,16 +1,20 @@
 package com.oceanbase.ocp.obsdk.accessor.object;
 
+import static com.oceanbase.ocp.obsdk.accessor.object.MysqlObjectAccessor.FindRangePartitionName;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +40,30 @@ public class MysqlObjectAccessorTest {
 
         ConnectProperties connectProperties = ConnectProperties.builder().build();
         when(template.getConnectProperties()).thenReturn(connectProperties);
+    }
+
+    @Test
+    public void test() {
+        String createTableSql = "CREATE TABLE `metric_data_second` (\n"
+                + "  `series_id` bigint(20) NOT NULL,\n"
+                + "  `timestamp` bigint(20) NOT NULL,\n"
+                + "  `data` varbinary(65535) NOT NULL,\n"
+                + "  `interval` tinyint(4) DEFAULT '1' COMMENT '秒级别监控采集间隔',\n"
+                + "  PRIMARY KEY (`series_id`, `timestamp`)\n"
+                + ") DEFAULT CHARSET = utf8mb4 ROW_FORMAT = DYNAMIC COMPRESSION = 'zstd_1.3.8' REPLICA_NUM = 1 BLOCK_SIZE"
+                + " = 16384 USE_BLOOM_FILTER = FALSE TABLET_SIZE = 134217728 PCTFREE = 0\n"
+                + " partition by range columns(`timestamp`) subpartition by hash(series_id) subpartition template (\n"
+                + "subpartition p0,\n"
+                + "subpartition p1)\n"
+                + "(partition `DUMMY` values less than (0))";
+        Matcher matcher = FindRangePartitionName.matcher(createTableSql);
+        List<ObTablePartition> partitions = new ArrayList<>();
+        while (matcher.find()) {
+            String partitionName = matcher.group(1);
+            partitions.add(new ObTablePartition(partitionName));
+        }
+        assertNotNull(partitions);
+        assertEquals("DUMMY", partitions.get(0).getName());
     }
 
     @Test

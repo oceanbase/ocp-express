@@ -373,15 +373,15 @@ public class OBTableParser implements TableParser {
     }
 
     private static final Pattern HASH_PARTITION_PATTERN = Pattern.compile(
-            "(\\(\\s*partition\\s+\\w+(?:\\s*,\\s*partition\\s+\\w+\\s*)*\\))",
+            "(\\(\\s*partition\\s+(?:\\w+|`\\w+`)(?:\\s*,\\s*partition\\s+(?:\\w+|`\\w+`)\\s*)*\\))",
             Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 
     private static final Pattern HASH_SUB_PARTITION_TEMPLATE_PATTERN = Pattern.compile(
-            "(subpartition\\s+template\\s*\\(\\s*subpartition\\s+\\w+(?:\\s*,\\s*subpartition\\s+\\w+\\s*)*\\))",
+            "(subpartition\\s+template\\s*\\(\\s*subpartition\\s+(?:\\w+|`\\w+`)(?:\\s*,\\s*subpartition\\s+(?:\\w+|`\\w+`)\\s*)*\\))",
             Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 
     private static final Pattern EXTRA_HASH_SUB_PARTITION = Pattern.compile(
-            "\\(\\s*partition \\w+ values less than \\([^)]+\\) \\((\\s*subpartition \\w+(?:\\s*,\\s*subpartition \\w+)*)\\s*\\)",
+            "\\(\\s*partition (?:\\w+|`\\w+`) values less than \\([^)]+\\) \\((\\s*subpartition (?:\\w+|`\\w+`)(?:\\s*,\\s*subpartition (?:\\w+|`\\w+`))*)\\s*\\)",
             Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 
     static String preprocessHashPartition(String sql) {

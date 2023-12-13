@@ -39,7 +39,7 @@ public class MysqlObjectAccessor implements ObjectAccessor {
     private static final String ALTER_TABLE_ADD_PARTITION_PART = "partition %s values less than (%s)";
 
     static Pattern FindRangePartitionName =
-            Pattern.compile(".*partition\\s([a-z0-9]{1,60})\\svalues\\sless\\sthan.*", Pattern.CASE_INSENSITIVE);
+            Pattern.compile(".*partition\\s`?([a-z0-9]{1,60})`?\\svalues\\sless\\sthan.*", Pattern.CASE_INSENSITIVE);
 
     private final ObConnectTemplate connectTemplate;
 

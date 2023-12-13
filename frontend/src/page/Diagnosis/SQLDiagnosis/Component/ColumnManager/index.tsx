@@ -157,6 +157,47 @@ const ColumnManager = ({
         bodyStyle={{
           marginBottom: 56,
         }}
+        footer={
+          <div className={styles.listFooter}>
+            <Button
+              onClick={() => {
+                setVisible(false);
+              }}
+            >
+              {formatMessage({
+                id: 'ocp-express.SQLDiagnosis.Component.FieldListDrawer.Cancel',
+                defaultMessage: '取消',
+              })}
+            </Button>
+            <Button onClick={reset}>
+              {formatMessage({
+                id: 'ocp-express.SQLDiagnosis.Component.FieldListDrawer.Reset',
+                defaultMessage: '重置',
+              })}
+            </Button>
+            <Button
+              onClick={() => {
+                // 新增的元数据
+                const increment = selected.filter(
+                  attr => !fields.find(field => field.name === attr.name)
+                );
+                if (setQueryValues) {
+                  setQueryValues({ ...queryValues, fields: selected.map(attr => attr.name) });
+                }
+
+                // increment 用来做 table 新增列的动画渲染
+                onOk(selected, increment);
+                setVisible(false);
+              }}
+              type="primary"
+            >
+              {formatMessage({
+                id: 'ocp-express.SQLDiagnosis.Component.FieldListDrawer.Determine',
+                defaultMessage: '确定',
+              })}
+            </Button>
+          </div>
+        }
       >
         <div className={styles.fieldSearch}>
           <Input.Search
@@ -231,45 +272,7 @@ const ColumnManager = ({
             </div>
           );
         })}
-        <div className={styles.listFooter}>
-          <Button
-            onClick={() => {
-              setVisible(false);
-            }}
-          >
-            {formatMessage({
-              id: 'ocp-express.SQLDiagnosis.Component.FieldListDrawer.Cancel',
-              defaultMessage: '取消',
-            })}
-          </Button>
-          <Button onClick={reset}>
-            {formatMessage({
-              id: 'ocp-express.SQLDiagnosis.Component.FieldListDrawer.Reset',
-              defaultMessage: '重置',
-            })}
-          </Button>
-          <Button
-            onClick={() => {
-              // 新增的元数据
-              const increment = selected.filter(
-                attr => !fields.find(field => field.name === attr.name)
-              );
-              if (setQueryValues) {
-                setQueryValues({ ...queryValues, fields: selected.map(attr => attr.name) });
-              }
 
-              // increment 用来做 table 新增列的动画渲染
-              onOk(selected, increment);
-              setVisible(false);
-            }}
-            type="primary"
-          >
-            {formatMessage({
-              id: 'ocp-express.SQLDiagnosis.Component.FieldListDrawer.Determine',
-              defaultMessage: '确定',
-            })}
-          </Button>
-        </div>
       </Drawer>
     </>
   );

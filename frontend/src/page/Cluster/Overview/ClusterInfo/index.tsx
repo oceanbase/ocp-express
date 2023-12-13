@@ -21,7 +21,7 @@ import {
   Typography,
   Badge,
   Popover,
-  token,
+  theme,
 } from '@oceanbase/design';
 import { EllipsisOutlined } from '@oceanbase/icons';
 import { findByValue, isNullValue } from '@oceanbase/util';
@@ -47,6 +47,8 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({ clusterData }) => {
   const { styles } = useStyles();
+  const { token } = theme.useToken();
+
   const statusItem = findByValue(OB_CLUSTER_STATUS_LIST, clusterData.status);
   // 将 badge 状态映射为 color
   const colorMap = {
@@ -370,8 +372,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
                         {isNullValue(item.totalValue)
                           ? '-'
                           : item.key === 'cpu'
-                          ? `${item.totalValue} C`
-                          : // 内存和磁盘需要进行单位换算
+                            ? `${item.totalValue} C`
+                            : // 内存和磁盘需要进行单位换算
                             formatSize(item.totalValue)}
                       </Descriptions.Item>
                       <Descriptions.Item label={item.description}>
@@ -389,8 +391,8 @@ const Detail: React.FC<DetailProps> = ({ clusterData }) => {
                         {isNullValue(item.leftValue)
                           ? '-'
                           : item.key === 'cpu'
-                          ? `${item.leftValue} C`
-                          : // 内存和磁盘需要进行单位换算
+                            ? `${item.leftValue} C`
+                            : // 内存和磁盘需要进行单位换算
                             formatSize(item.leftValue)}
                       </Descriptions.Item>
                     </Descriptions>

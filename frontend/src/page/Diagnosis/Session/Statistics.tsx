@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
-import { Card, Col, Row, Table, Tooltip, token } from '@oceanbase/design';
+import { Card, Col, Row, Table, Tooltip } from '@oceanbase/design';
 import { StatisticCard } from '@ant-design/pro-components';
 import { sortByNumber } from '@oceanbase/util';
 import { useRequest } from 'ahooks';

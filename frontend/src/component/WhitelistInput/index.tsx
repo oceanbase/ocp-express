@@ -131,7 +131,7 @@ class WhitelistInput extends React.Component<WhitelistInputProps, WhitelistInput
             id: 'ocp-express.component.WhitelistInput.IpAddressWhitelist',
             defaultMessage: 'IP 地址白名单',
           })}
-          style={{ marginBottom: 24 }}
+          style={{ marginBottom: 24, color: token.colorText }}
           extra={
             type === '%' && (
               <ContentWithIcon

@@ -1,3 +1,4 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
@@ -37,12 +38,12 @@ const useStyles = createStyles(() => {
       actions: {
         'button:not(:last-child)': {
           marginRight: '8px',
-        }
-      }
+        },
+      },
     },
     desc: {
       marginBottom: '16px',
-      color: 'rgba(0, 0, 0, 0.45)',
+      color: token.colorTextTertiary,
       fontSize: '20px',
       lineHeight: '28px',
     },

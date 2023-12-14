@@ -34,7 +34,7 @@ export function getTaskPercent(task: API.TaskInstance, withUnit = true) {
   return withUnit
     ? toPercent(finishedCount / total, 0)
     : // 四舍五入，不保留小数位
-    Math.round((finishedCount / total) * 10000) / 100;
+      Math.round((finishedCount / total) * 10000) / 100;
 }
 
 /* 获取任务或子任务的执行耗时 = 最近一次执行的结束时间 - 第一次执行的开始时间。时间单位会通过 secondToTime 自适应转换 */
@@ -54,13 +54,13 @@ export function getTaskDuration(task?: API.TaskInstance | API.SubtaskInstance) {
 
     return milliseconds > 0
       ? secondToTime(
-        formatNumber(
-          milliseconds / 1000,
-          // 秒数 >= 1 仅保留整数
-          // 秒数 < 1 的最多保留两位小数
-          milliseconds >= 1000 ? 0 : 2
+          formatNumber(
+            milliseconds / 1000,
+            // 秒数 >= 1 仅保留整数
+            // 秒数 < 1 的最多保留两位小数
+            milliseconds >= 1000 ? 0 : 2
+          )
         )
-      )
       : '-';
   }
   return '-';
@@ -116,9 +116,9 @@ export function taskSuccess({
     okText: isMultipleTask
       ? formatMessage({ id: 'ocp-express.src.util.task.ISee', defaultMessage: '我知道了' })
       : formatMessage({
-        id: 'ocp-express.src.util.component.ViewTasks',
-        defaultMessage: '查看任务',
-      }),
+          id: 'ocp-express.src.util.component.ViewTasks',
+          defaultMessage: '查看任务',
+        }),
     okButtonProps: {
       // 关闭 loading，避免 onOk 返回 promise 时出现短暂的 loading 效果 (实际不应该 loading)
       loading: false,
@@ -147,8 +147,8 @@ export function taskSuccessOfInspection({
     id: 'ocp-express.src.util.component.ViewTasks',
     defaultMessage: '查看任务',
   }),
-  onOk = () => { },
-  onCancel = () => { },
+  onOk = () => {},
+  onCancel = () => {},
 }: {
   taskId: number | undefined | (number | undefined)[];
   onOk: () => void;
@@ -338,8 +338,8 @@ export function splitTaskLog(log?: string) {
 
 export type Node =
   | (API.SubtaskInstance & {
-    children?: Node[];
-  })
+      children?: Node[];
+    })
   | undefined;
 
 /**
@@ -364,10 +364,10 @@ export function getNodes(taskData?: API.TaskInstance) {
     // 如果起始节点数大于 1，则新建一个空节点作为当前节点，并将起始节点列表都作为其下游节点
     firstNodeList.length > 1
       ? {
-        downstreams: firstNodeList.map(item => item.id),
-      }
+          downstreams: firstNodeList.map(item => item.id),
+        }
       : // 否则，直接将起始节点作为当前节点
-      firstNodeList[0];
+        firstNodeList[0];
   let nextNode: Node;
   while (currentNode) {
     // 下游任务数大于 1，则说明存在分叉

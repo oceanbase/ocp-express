@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { useSelector } from 'umi';
 import React, { useState, useEffect } from 'react';
-import { Alert, Card, Col, Empty, Menu, Row, Space } from '@oceanbase/design';
+import { Alert, Card, Col, Empty, Menu, Row, Space, theme } from '@oceanbase/design';
 import { LinkOutlined } from '@oceanbase/icons';
 import { directTo, findByValue } from '@oceanbase/util';
 import { find, flatten } from 'lodash';
@@ -80,6 +80,7 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
   tenantList,
   ...restProps
 }) => {
+  const { token } = theme.useToken();
   // 默认的 MonitorSearch 查询参数
   const defaultSearchValues = {
     isRealtime: defaultIsRealtime,
@@ -341,7 +342,7 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
       destroyOnClose={true}
       footer={false}
       bodyStyle={{
-        backgroundColor: '#f0f2f5',
+        backgroundColor: token.colorBgLayout,
         height: '100%',
       }}
       {...restProps}
@@ -397,7 +398,7 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
                       fontSize: 16,
                       fontFamily: 'PingFangSC-Medium',
                       padding: '20px 24px',
-                      borderRight: '1px solid #f0f0f0',
+                      borderRight: `1px solid ${token.colorBorder}`,
                     }}
                   >
                     {formatMessage(
@@ -418,7 +419,7 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
                     style={{
                       // 菜单高度需要撑满整个卡片，以保证左侧菜单导航与右侧图表等高
                       height: 'calc(100% - 65px)',
-                      color: 'rgba(0, 0, 0, 0.65)',
+                      color: token.colorTextSecondary,
                     }}
                   >
                     {metricGroup.metrics?.map(item => (
@@ -443,7 +444,7 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
                       showIcon={true}
                       closable={true}
                       message={alertMessageMap[drilldownScope]}
-                      style={{ color: 'rgba(0, 0, 0, 0.65)', margin: '24px 24px 0px 24px' }}
+                      style={{ color: token.colorTextSecondary, margin: '24px 24px 0px 24px' }}
                     />
                   )}
                 </div>
@@ -476,7 +477,7 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
                         }}
                         extra={
                           sqlDirlldownItem?.name === metricItem?.name &&
-                            drilldownScope === 'tenant_name' ? (
+                          drilldownScope === 'tenant_name' ? (
                             <a
                               onClick={() => {
                                 if (sqlDirlldownItem?.customColumnName) {
@@ -492,7 +493,8 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
                                   );
                                 }
                                 directTo(
-                                  `/cluster/${tenantData?.clusterId}/tenant/${tenantData?.id
+                                  `/cluster/${tenantData?.clusterId}/tenant/${
+                                    tenantData?.id
                                   }/sqlDiagnosis/topSql?${stringify({
                                     startTime,
                                     endTime,
@@ -501,10 +503,10 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
                                     customColumnName: sqlDirlldownItem?.customColumnName,
                                     ...(sqlDirlldownItem?.customColumns
                                       ? {
-                                        customColumns: JSON.stringify(
-                                          sqlDirlldownItem?.customColumns
-                                        ),
-                                      }
+                                          customColumns: JSON.stringify(
+                                            sqlDirlldownItem?.customColumns
+                                          ),
+                                        }
                                       : {}),
                                   })}`
                                 );
@@ -537,21 +539,21 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
                           title={
                             drilldownScope === 'ob_cluster_id'
                               ? formatMessage(
-                                {
-                                  id: 'ocp-express.MetricChart.DrilldownDrawer.TenantMetriclabel',
-                                  defaultMessage: '租户的{metricLabel}',
-                                },
+                                  {
+                                    id: 'ocp-express.MetricChart.DrilldownDrawer.TenantMetriclabel',
+                                    defaultMessage: '租户的{metricLabel}',
+                                  },
 
-                                { metricLabel: metricLabel }
-                              )
+                                  { metricLabel: metricLabel }
+                                )
                               : formatMessage(
-                                {
-                                  id: 'ocp-express.MetricChart.DrilldownDrawer.MetriclabelOfDifferentTenantsOn',
-                                  defaultMessage: '在该 OBServer 上不同租户的{metricLabel}',
-                                },
+                                  {
+                                    id: 'ocp-express.MetricChart.DrilldownDrawer.MetriclabelOfDifferentTenantsOn',
+                                    defaultMessage: '在该 OBServer 上不同租户的{metricLabel}',
+                                  },
 
-                                { metricLabel: metricLabel }
-                              )
+                                  { metricLabel: metricLabel }
+                                )
                           }
                           metricClass={metricClass}
                           metricGroup={metricGroup}
@@ -580,7 +582,7 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
                           // 二级下钻链路: 集群监控 + 非主机指标 -> OBServer -> 租户
                           drilldownable={
                             drilldownScope === 'ob_cluster_id' &&
-                              metricClass?.key !== 'host_metrics'
+                            metricClass?.key !== 'host_metrics'
                               ? true
                               : false
                           }
@@ -588,21 +590,21 @@ const DrilldownDrawer: React.FC<DrilldownDrawerProps> = ({
                           title={
                             drilldownScope === 'ob_cluster_id'
                               ? formatMessage(
-                                {
-                                  id: 'ocp-express.MetricChart.DrilldownDrawer.Metriclabel',
-                                  defaultMessage: 'OBServer 的{metricLabel}',
-                                },
+                                  {
+                                    id: 'ocp-express.MetricChart.DrilldownDrawer.Metriclabel',
+                                    defaultMessage: 'OBServer 的{metricLabel}',
+                                  },
 
-                                { metricLabel: metricLabel }
-                              )
+                                  { metricLabel: metricLabel }
+                                )
                               : formatMessage(
-                                {
-                                  id: 'ocp-express.MetricChart.DrilldownDrawer.TenantInDifferentHostsOn',
-                                  defaultMessage: '租户在不同 OBServer 上的{metricLabel}',
-                                },
+                                  {
+                                    id: 'ocp-express.MetricChart.DrilldownDrawer.TenantInDifferentHostsOn',
+                                    defaultMessage: '租户在不同 OBServer 上的{metricLabel}',
+                                  },
 
-                                { metricLabel: metricLabel }
-                              )
+                                  { metricLabel: metricLabel }
+                                )
                           }
                           metricClass={metricClass}
                           metricGroup={metricGroup}

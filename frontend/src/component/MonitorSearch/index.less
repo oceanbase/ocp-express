@@ -1,3 +1,5 @@
+@import '~@oceanbase/design/es/theme/index.less';
+
 /*
  * Copyright (c) 2023 OceanBase
  * OCP Express is licensed under Mulan PSL v2.
@@ -12,14 +14,14 @@
 
 .container {
   .updateTime {
-    color: rgba(0, 0, 0, 0.45);
+    color: @colorTextTertiary;
 
     :global {
       .ant-form-item-label > label {
-        color: rgba(0, 0, 0, 0.45);
+        color: @colorTextTertiary;
 
         &::after {
-          color: rgba(0, 0, 0, 0.45);
+          color: @colorTextTertiary;
         }
       }
     }

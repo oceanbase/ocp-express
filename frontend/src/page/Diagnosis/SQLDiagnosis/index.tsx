@@ -12,7 +12,19 @@
 
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
-import { Button, Card, Checkbox, Col, Form, Input, Row, Space, message, Alert } from '@oceanbase/design';
+import {
+  Alert,
+  Button,
+  Card,
+  Checkbox,
+  Col,
+  Form,
+  Input,
+  message,
+  Row,
+  Space,
+  theme,
+} from '@oceanbase/design';
 import { PageContainer } from '@oceanbase/ui';
 import React, { Fragment, useEffect, useState } from 'react';
 import { flatten, isArray, isEqual, isObject, omit } from 'lodash';
@@ -87,6 +99,7 @@ const DEFAULT_SEARCH = {
 };
 
 const SQLDiagnosis: React.FC<IProps> = ({ location }) => {
+  const { token } = theme.useToken();
   useDocumentTitle(
     formatMessage({
       id: 'ocp-express.Diagnosis.SQLDiagnosis.SqlDiagnosis',
@@ -303,7 +316,14 @@ const SQLDiagnosis: React.FC<IProps> = ({ location }) => {
           defaultMessage: 'SQL 诊断',
         }),
         subTitle: (
-          <Space style={{ fontWeight: 500, fontSize: 16, marginLeft: 12, color: '#364563' }}>
+          <Space
+            style={{
+              fontWeight: 500,
+              fontSize: 16,
+              marginLeft: 12,
+              color: token.colorTextSecondary,
+            }}
+          >
             <span>
               {formatMessage({
                 id: 'ocp-express.Diagnosis.SQLDiagnosis.Tenant',
@@ -361,9 +381,9 @@ const SQLDiagnosis: React.FC<IProps> = ({ location }) => {
                     {...(isEnglish()
                       ? { labelCol: { span: 6 }, wrapperCol: { span: 18 } }
                       : {
-                        labelCol: { span: 4 },
-                        wrapperCol: { span: 20 },
-                      })}
+                          labelCol: { span: 4 },
+                          wrapperCol: { span: 20 },
+                        })}
                   >
                     <Row>
                       {/* 收缩情况下也不展示 OBServer */}

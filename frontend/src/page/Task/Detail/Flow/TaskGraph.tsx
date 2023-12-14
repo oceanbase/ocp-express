@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Dropdown, Menu, Tooltip, Typography, theme } from '@oceanbase/design';
+import { Dropdown, Menu, token, Tooltip, Typography } from '@oceanbase/design';
 import { find, isEqual, toLower, toNumber } from 'lodash';
 import { sortByNumber, findByValue, isNullValue } from '@oceanbase/util';
 import type { Graph } from '@antv/g6';
@@ -25,7 +25,6 @@ import GraphToolbar from '@/component/GraphToolbar';
 import styles from './TaskGraph.less';
 
 const { Text } = Typography;
-const { token } = theme.useToken();
 
 G6.registerNode(
   'subtaskNode',
@@ -44,7 +43,7 @@ G6.registerNode(
             text: ellipsisName,
             x: -30,
             y: -5,
-            fill: 'rgba(0, 0, 0, 0.85)',
+            fill: token.colorText,
             fontSize: 14,
             fontFamily: 'SFProText-Medium',
           },
@@ -70,7 +69,7 @@ G6.registerNode(
           width: nodeWidth,
           height: 62,
           radius: 30,
-          fill: '#fff',
+          fill: token.colorBgContainer,
           lineWidth: 3,
           shadowColor: '#e1e3e6',
           shadowBlur: 10,
@@ -101,7 +100,7 @@ G6.registerNode(
           text: findByValue(SUBTASK_STATUS_LIST, cfg?.status).labelInGraph,
           x: -30 + offsetX,
           y: 15,
-          fill: 'rgba(0, 0, 0, 0.45)',
+          fill: token.colorTextTertiary,
           fontSize: 12,
           fontFamily: 'PingFangSC-Regular',
         },
@@ -491,7 +490,9 @@ class TaskGraph extends React.PureComponent<TaskGraphProps, TaskGraphState> {
             <div
               className={styles.taskIdWrapper}
               // 下拉菜单数 > 1 时才有下边框
-              style={operations.length > 1 ? { borderBottom: '1px solid #e8e8e8' } : {}}
+              style={
+                operations.length > 1 ? { borderBottom: `1px solid ${token.colorBorder}` } : {}
+              }
             >
               <Text
                 copyable={{

@@ -78,7 +78,7 @@ export const OCPRangePicker = (props: IProps) => {
     } else {
       setInnerValue({
         key,
-        range: selects.find((e) => e.name === key)?.range() as [Moment, Moment],
+        range: selects.find(e => e.name === key)?.range() as [Moment, Moment],
       });
     }
   };
@@ -111,7 +111,7 @@ export const OCPRangePicker = (props: IProps) => {
           onSelect={handleSelect}
           value={innerValue?.key}
         >
-          {selects.map((e) => (
+          {selects.map(e => (
             <Select.Option key={e.name} value={e.name}>
               {e.name}
             </Select.Option>

@@ -15,6 +15,7 @@ import { history } from 'umi';
 import {
   Alert,
   Button,
+  Card,
   Checkbox,
   Col,
   Form,
@@ -22,9 +23,9 @@ import {
   Row,
   Space,
   Spin,
-  Card,
   Switch,
   Table,
+  theme,
   Tooltip,
 } from '@oceanbase/design';
 import type { Route } from '@oceanbase/design/es/breadcrumb/Breadcrumb';
@@ -76,6 +77,7 @@ const New: React.FC<NewProps> = ({
     query: { tenantId: defaultTenantId },
   },
 }) => {
+  const { token } = theme.useToken();
   // const { clusterData } = useSelector((state: DefaultRootState) => state.cluster);
   const { styles } = useStyles();
 
@@ -282,7 +284,7 @@ const New: React.FC<NewProps> = ({
   };
 
   const replicaTypeTooltipConfig = {
-    color: '#fff',
+    color: token.colorBgContainer,
     overlayStyle: {
       maxWidth: 400,
     },

@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Checkbox, Col, Row, Spin, Typography, Card, Tooltip } from '@oceanbase/design';
+import { Card, Checkbox, Col, Row, Spin, token, Tooltip, Typography } from '@oceanbase/design';
 import classNames from 'classnames';
 import { flatten, isEqual, uniq } from 'lodash';
 import { sortByEnum } from '@oceanbase/util';
@@ -62,26 +62,26 @@ class FormPrimaryZone extends React.Component<FormPrimaryZoneProps, FormPrimaryZ
     const { value, zoneList } = props;
     if ('value' in props) {
       const nestPriorityList =
-        (value && value.split(';') && value.split(';').map((item) => item.split(','))) || [];
+        (value && value.split(';') && value.split(';').map(item => item.split(','))) || [];
       const priorityList = nestPriorityList
         // 将不在 zone 列表中的优先级去除
-        .map((item) => (item || []).filter((subItem) => zoneList.indexOf(subItem) !== -1))
+        .map(item => (item || []).filter(subItem => zoneList.indexOf(subItem) !== -1))
         // 筛选掉空数组
-        .filter((item) => item && item.length > 0)
+        .filter(item => item && item.length > 0)
         // 以逗号连接优先级相同的 zone
-        .map((item) => item.join(','));
+        .map(item => item.join(','));
       // 更新右侧的优先级列表
       newState.priorityList = priorityList;
       // 已经设置了优先级的 zone 列表
-      const zoneListInPriority = flatten(priorityList.map((item) => item.split(',')));
+      const zoneListInPriority = flatten(priorityList.map(item => item.split(',')));
       // 更新左侧的 zone 列表
       // 最后需要做去重，否则在某些交互条件下，会出现预期外的重复 zone
       // TODO: 可能是 zone 相同时，会触发 Checkbox 的相关 bug，具体原因待排查
       newState.zoneList = uniq(
         zoneList
           // 筛掉空值
-          .filter((item) => item)
-          .filter((item) => zoneListInPriority.indexOf(item) === -1),
+          .filter(item => item)
+          .filter(item => zoneListInPriority.indexOf(item) === -1)
       );
     }
     return newState;
@@ -147,16 +147,16 @@ class FormPrimaryZone extends React.Component<FormPrimaryZoneProps, FormPrimaryZ
         // 更新组件值
         () => {
           this.handleChange(
-            [...priorityList, this.sortByZoneList(checkedList).join(',')].join(';'),
+            [...priorityList, this.sortByZoneList(checkedList).join(',')].join(';')
           );
-        },
+        }
       );
     }
   };
 
   public getItemStyle = (isDragging, draggableStyle) => ({
     userSelect: 'none',
-    backgroundColor: isDragging ? '#fafafa' : 'transparent',
+    backgroundColor: isDragging ? token.colorBgLayout : 'transparent',
     // 需要应用的拖拽样式
     ...draggableStyle,
   });
@@ -191,8 +191,8 @@ class FormPrimaryZone extends React.Component<FormPrimaryZoneProps, FormPrimaryZ
 
       // 更新组件值
       () => {
-        this.handleChange(priorityList.filter((item) => item !== priority).join(';'));
-      },
+        this.handleChange(priorityList.filter(item => item !== priority).join(';'));
+      }
     );
   };
 
@@ -205,7 +205,7 @@ class FormPrimaryZone extends React.Component<FormPrimaryZoneProps, FormPrimaryZ
 
       () => {
         this.handleChange('');
-      },
+      }
     );
   };
 
@@ -242,7 +242,7 @@ class FormPrimaryZone extends React.Component<FormPrimaryZoneProps, FormPrimaryZ
                * 栅格布局在内容为空时，高度会出现异常
                * **/}
               <Row gutter={[16, 16]} style={{ height: zoneList?.length > 0 ? 'auto' : 0 }}>
-                {zoneList.map((item) => (
+                {zoneList.map(item => (
                   <Col key={item} span={24}>
                     <Checkbox key={item} value={item}>
                       {item}
@@ -314,7 +314,7 @@ class FormPrimaryZone extends React.Component<FormPrimaryZoneProps, FormPrimaryZ
                     <Draggable key={item} draggableId={item} index={index}>
                       {(
                         { draggableProps, dragHandleProps, innerRef: subInnerRef },
-                        { isDragging },
+                        { isDragging }
                       ) => (
                         <div
                           {...draggableProps}

@@ -1,24 +1,24 @@
-import { createStyles } from "antd-style";
+import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(({ token }) => {
   return {
     container: {
-      padding: "12px",
-      boxShadow: "none",
-      transition: "all 0.3s",
-      "&:hover": {
+      padding: '12px',
+      boxShadow: 'none',
+      transition: 'all 0.3s',
+      '&:hover': {
         background: token.colorFillQuaternary,
         fullscreen: {
-          visibility: "visible",
+          visibility: 'visible',
         },
       },
     },
     fullscreen: {
-      visibility: "hidden",
-      cursor: "pointer",
+      visibility: 'hidden',
+      cursor: 'pointer',
     },
     title: {
-      fontSize: "16px",
+      fontSize: '16px',
     },
   };
 });

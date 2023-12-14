@@ -191,13 +191,13 @@ const PropertyPage: React.FC<PropertyProps> = ({
                 title={
                   record.needRestart
                     ? formatMessage({
-                      id: 'ocp-express.page.Property.RestartRequiredToTakeEffect',
-                      defaultMessage: '需要重启生效',
-                    })
+                        id: 'ocp-express.page.Property.RestartRequiredToTakeEffect',
+                        defaultMessage: '需要重启生效',
+                      })
                     : formatMessage({
-                      id: 'ocp-express.page.Property.EffectiveWithinMinutes',
-                      defaultMessage: '3分钟内生效',
-                    })
+                        id: 'ocp-express.page.Property.EffectiveWithinMinutes',
+                        defaultMessage: '3分钟内生效',
+                      })
                 }
               >
                 <Tag
@@ -210,9 +210,9 @@ const PropertyPage: React.FC<PropertyProps> = ({
                     right: 32,
                     ...(isEnglish()
                       ? {
-                        whiteSpace: 'break-spaces',
-                        wordBreak: 'break-all',
-                      }
+                          whiteSpace: 'break-spaces',
+                          wordBreak: 'break-all',
+                        }
                       : {}),
                   }}
                 >
@@ -374,10 +374,10 @@ const PropertyPage: React.FC<PropertyProps> = ({
             rules={
               currentRecord?.key === 'ocp.site.url'
                 ? [
-                  {
-                    validator: validateOcpSiteUrl,
-                  },
-                ]
+                    {
+                      validator: validateOcpSiteUrl,
+                    },
+                  ]
                 : []
             }
           >

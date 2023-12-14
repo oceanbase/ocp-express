@@ -17,7 +17,7 @@
   width: calc(100% - 48px) !important;
   height: calc(100% - 140px) !important;
   min-height: calc(100% - 140px) !important;
-  background-color: #fff;
+  background-color: @colorBgContainer;
   border-radius: 6px;
 
   .tabsWrapper {
@@ -27,7 +27,7 @@
   }
   .log {
     padding: 12px 16px;
-    color: rgba(0, 0, 0, 0.65);
+    color: @colorTextSecondary;
     font-size: 12px;
     line-height: 22px;
     white-space: pre-wrap;
@@ -37,7 +37,7 @@
     .ant-tabs {
       .ant-tabs-nav {
         margin-bottom: 0;
-        background-color: #fff;
+        background-color: @colorBgContainer;
       }
       .ant-tabs-nav-list {
         margin-top: 4px;
@@ -50,13 +50,13 @@
         padding: 0;
         font-size: 12px;
         line-height: 28px;
-        background-color: #fff;
+        background-color: @colorBgContainer;
         border: none;
-        border-bottom: 1px solid #e8e8e8;
+        border-bottom: 1px solid @colorBorder;
         border-radius: 0;
         transition: none;
         &:hover {
-          color: rgba(0, 0, 0, 0.65);
+          color: @colorTextSecondary;
         }
         div {
           display: flex;
@@ -65,7 +65,7 @@
           height: 20px;
           margin-top: 4px;
           padding: 0 8px;
-          border-left: 1px solid #e8e8e8;
+          border-left: 1px solid @colorBorder;
         }
         .ant-tabs-tab-remove {
           margin-top: 4px;
@@ -81,12 +81,12 @@
         }
       }
       .ant-tabs-tab-active {
-        background-color: #f7f8fc;
+        background-color: @colorBgLayout;
         border-bottom: none;
         border-left: 1px solid transparent;
         border-radius: 2px;
         .ant-tabs-tab-btn {
-          color: rgba(0, 0, 0, 0.85);
+          color: @colorText;
           font-weight: normal;
         }
         div {
@@ -122,7 +122,7 @@
 
     .log {
       padding: 12px 16px;
-      color: rgba(0, 0, 0, 0.65);
+      color: @colorTextSecondary;
       font-size: 12px;
       line-height: 22px;
       white-space: pre-wrap;
@@ -133,7 +133,7 @@
       .ant-tabs {
         .ant-tabs-nav {
           margin-bottom: 0;
-          background-color: #fff;
+          background-color: @colorBgContainer;
         }
 
         .ant-tabs-nav-list {
@@ -148,14 +148,14 @@
           padding: 0;
           font-size: 12px;
           line-height: 28px;
-          background-color: #fff;
+          background-color: @colorBgContainer;
           border: none;
-          border-bottom: 1px solid #e8e8e8;
+          border-bottom: 1px solid @colorBorder;
           border-radius: 0;
           transition: none;
 
           &:hover {
-            color: rgba(0, 0, 0, 0.65);
+            color: @colorTextSecondary;
           }
 
           div {
@@ -165,7 +165,7 @@
             height: 20px;
             margin-top: 4px;
             padding: 0 8px;
-            border-left: 1px solid #e8e8e8;
+            border-left: 1px solid @colorBorder;
           }
 
           .ant-tabs-tab-remove {
@@ -184,13 +184,13 @@
         }
 
         .ant-tabs-tab-active {
-          background-color: #f7f8fc;
+          background-color: @colorBgLayout;
           border-bottom: none;
           border-left: 1px solid transparent;
           border-radius: 2px;
 
           .ant-tabs-tab-btn {
-            color: rgba(0, 0, 0, 0.85);
+            color: @colorText;
             font-weight: normal;
           }
 

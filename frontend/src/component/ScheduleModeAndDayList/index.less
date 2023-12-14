@@ -17,7 +17,7 @@
     width: 268px;
     margin-top: 8px;
     padding: 12px 8px;
-    background-color: #f0f0f0;
+    background-color: @colorBorder;
     border-radius: 2px;
     li {
       display: inline-flex;
@@ -34,15 +34,15 @@
       }
     }
     .selected {
-      color: #fff;
+      color: @colorBgContainer;
       background-color: @colorPrimary;
       &:hover {
-        color: #fff;
+        color: @colorBgContainer;
       }
     }
 
     .disabled {
-      color: #bfbfbf;
+      color: @colorBorder;
       background-color: #f7f7f7;
       cursor: not-allowed;
       pointer-events: none;

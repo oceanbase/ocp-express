@@ -53,9 +53,7 @@ export default (props: Props) => {
           ),
         }}
       >
-        <Query
-          containerRef={containerRef}
-          {...props} />
+        <Query containerRef={containerRef} {...props} />
       </PageContainer>
     </div>
   );

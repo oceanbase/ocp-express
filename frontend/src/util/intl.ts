@@ -21,10 +21,7 @@ const messages = {
 };
 
 export const getLocale = () => {
-  const lang =
-    typeof localStorage !== 'undefined'
-      ? window.localStorage.getItem('umi_locale')
-      : '';
+  const lang = typeof localStorage !== 'undefined' ? window.localStorage.getItem('umi_locale') : '';
   return lang || 'zh-CN';
 };
 export const locale = getLocale();

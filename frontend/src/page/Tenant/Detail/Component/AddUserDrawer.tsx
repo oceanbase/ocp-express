@@ -225,13 +225,13 @@ const AddUserDrawer: React.FC<AddOrEditUserDrawerProps> = ({
       title={
         dbUser
           ? formatMessage({
-            id: 'ocp-express.Detail.Component.AddUserDrawer.ModifyDatabaseUserPermissions',
-            defaultMessage: '修改数据库用户的权限',
-          })
+              id: 'ocp-express.Detail.Component.AddUserDrawer.ModifyDatabaseUserPermissions',
+              defaultMessage: '修改数据库用户的权限',
+            })
           : formatMessage({
-            id: 'ocp-express.Detail.Component.AddUserDrawer.CreateADatabaseUser',
-            defaultMessage: '新建数据库用户',
-          })
+              id: 'ocp-express.Detail.Component.AddUserDrawer.CreateADatabaseUser',
+              defaultMessage: '新建数据库用户',
+            })
       }
       destroyOnClose={true}
       okText={formatMessage({

@@ -1,13 +1,14 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
   return {
     updateTime: {
-      color: 'rgba(0, 0, 0, 0.45)',
+      color: token.colorTextTertiary,
       '.ant-form-item-label > label': {
-        color: 'rgba(0, 0, 0, 0.45)',
+        color: token.colorTextTertiary,
         '&::after': {
-          color: 'rgba(0, 0, 0, 0.45)',
+          color: token.colorTextTertiary,
         },
       },
     },

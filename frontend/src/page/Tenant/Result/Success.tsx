@@ -68,7 +68,7 @@ const TaskSuccess: React.FC<TaskSuccessProps> = ({ match, taskId }) => {
       refresh();
     },
     // 任务处于运行态，则轮询任务进度
-    taskData?.status === 'RUNNING' ? 1000 : null,
+    taskData?.status === 'RUNNING' ? 1000 : null
   );
 
   return (

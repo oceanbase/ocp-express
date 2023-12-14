@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
-import { Empty, Space, Tooltip } from '@oceanbase/design';
+import { Empty, Space, theme, Tooltip } from '@oceanbase/design';
 import { find, isString } from 'lodash';
 import moment from 'moment';
 import { directTo, findByValue } from '@oceanbase/util';
@@ -60,11 +60,11 @@ export interface DrilldownChartProps extends Omit<MyCardProps, 'children'> {
   serverList?: MonitorServer[];
   tenantList?: API.TenantInfo[];
   options?: OptionType &
-  {
-    clusterId: number;
-    tenantId: number;
-    hostId: number;
-  }[];
+    {
+      clusterId: number;
+      tenantId: number;
+      hostId: number;
+    }[];
 
   // 当前组件包含 FilterDropdown、Tooltip 和 CheckboxPopover 等弹窗层组件，并会在抽屉中使用到 (滚动时容器不是 body)，需要支持定制 getPopupContainer
   getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
@@ -93,6 +93,7 @@ const DrilldownChart: React.FC<DrilldownChartProps> = ({
   title,
   ...restProps
 }) => {
+  const { token } = theme.useToken();
   const [visible, setVisible] = useState(false);
   // 默认选中的对象列表，用于 CheckboxPopover 组件内部的重置功能
   const [defaultSelectedList, setDefaultSelectedList] = useState<OptionValue[]>([]);
@@ -138,8 +139,8 @@ const DrilldownChart: React.FC<DrilldownChartProps> = ({
               scope === 'device'
                 ? true
                 : scope === 'svr_ip'
-                  ? serverList?.map(server => server.ip).includes(item)
-                  : tenantList?.map(tenant => tenant.name).includes(item)
+                ? serverList?.map(server => server.ip).includes(item)
+                : tenantList?.map(tenant => tenant.name).includes(item)
             );
           setDefaultSelectedList(newDefaultSelectedList);
           setSelectedList(newDefaultSelectedList);
@@ -278,7 +279,7 @@ const DrilldownChart: React.FC<DrilldownChartProps> = ({
                 onClick={() => {
                   setVisible(true);
                 }}
-                style={{ color: 'rgba(0, 0, 0, 0.45)' }}
+                style={{ color: token.colorTextTertiary }}
                 className="pointable"
               />
             </Tooltip>
@@ -322,7 +323,7 @@ const DrilldownChart: React.FC<DrilldownChartProps> = ({
                 )}
                 getPopupContainer={getPopupContainer}
               >
-                <FilterOutlined style={{ color: 'rgba(0, 0, 0, 0.45)' }} className="pointable" />
+                <FilterOutlined style={{ color: token.colorTextTertiary }} className="pointable" />
               </Tooltip>
             </CheckboxPopover>
           )}
@@ -338,8 +339,8 @@ const DrilldownChart: React.FC<DrilldownChartProps> = ({
             // 如果聚合维度是 device，则 Top 对象数可能较多，允许鼠标进入并滚动查看 tooltip
             scope === 'device'
               ? {
-                maxHeight: '200px',
-              }
+                  maxHeight: '200px',
+                }
               : false
           }
           {...chartConfig}
@@ -347,7 +348,6 @@ const DrilldownChart: React.FC<DrilldownChartProps> = ({
       ) : (
         <Empty style={{ height: 160 + 18 }} imageStyle={{ marginTop: 64 }} />
       )}
-
       <SubDrilldownDrawer
         visible={visible}
         onCancel={() => {

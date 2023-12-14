@@ -1,9 +1,10 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
   return {
     option: {
-      '&:hover': { background: '#f5f5f5' },
+      '&:hover': { background: token.colorFillQuaternary },
     },
   };
 });

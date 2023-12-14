@@ -6,7 +6,7 @@ const useStyles = createStyles(() => {
       width: '100%',
       '.ant-space-item:nth-child(1) .ant-select-selector': {
         borderTopRightRadius: 0,
-        borderBottomRightRadius: 0
+        borderBottomRightRadius: 0,
       },
       '.ant-space-item:nth-child(2)': {
         width: '100%',
@@ -20,9 +20,8 @@ const useStyles = createStyles(() => {
         },
         '.ant-select': {
           width: '100%',
-        }
+        },
       },
-
     },
   };
 });

@@ -1,3 +1,4 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
@@ -12,17 +13,17 @@ const useStyles = createStyles(() => {
       justifyContent: 'center',
       height: '200px',
       textAlign: 'center',
-      borderLeft: '1px solid #e8e8e8',
+      borderLeft: `1px solid ${token.colorBorder}`,
     },
     textWrapper: {
       textAlign: 'left',
     },
     name: {
       display: 'block',
-      color: 'rgba(0, 0, 0, 0.85)',
+      color: token.colorText,
     },
     value: {
-      color: 'rgba(0, 0, 0, 0.85)',
+      color: token.colorText,
       fontSize: '30px',
       fontFamily: 'SFProText-Medium',
     },

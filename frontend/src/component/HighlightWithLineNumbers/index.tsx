@@ -10,6 +10,7 @@
  * See the Mulan PSL v2 for more details.
  */
 
+import { theme } from '@oceanbase/design';
 import React from 'react';
 import { useSelector } from 'umi';
 import Highlight, { defaultProps } from 'prism-react-renderer';
@@ -66,6 +67,7 @@ const HighlightWithLineNumbers: React.FC<HighlightWithLineNumbersProps> = ({
   showLineNumber = true,
   language = 'javaLog',
 }) => {
+  const { token } = theme.useToken();
   const { themeMode } = useSelector((state: DefaultRootState) => state.global);
 
   return (
@@ -86,7 +88,8 @@ const HighlightWithLineNumbers: React.FC<HighlightWithLineNumbersProps> = ({
               textAlign: 'left',
               margin: '1em 0',
               padding: 16, //'0.5em',
-              backgroundColor: themeMode === 'light' ? '#F8FAFE' : 'rgb(42, 39, 52)',
+              backgroundColor:
+                themeMode === 'light' ? token.colorFillQuaternary : 'rgb(42, 39, 52)',
             }}
           >
             {tokens.map((line, i) => {

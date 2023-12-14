@@ -14,7 +14,7 @@ import MyInput from '@/component/MyInput';
 import MySelect from '@/component/MySelect';
 import { isEnglish } from '@/util';
 import { formatMessage } from '@/util/intl';
-import { Button, Col, Form, Row } from '@oceanbase/design';
+import { Button, Col, Form, Row, theme } from '@oceanbase/design';
 import React from 'react';
 import { sortByString } from '@oceanbase/util';
 import { DeleteOutlined, PlusOutlined } from '@oceanbase/icons';
@@ -39,6 +39,7 @@ const StartParamSelectAndInput: React.FC<StartParamSelectAndInputProps> = ({
   addText,
   lableText,
 }) => {
+  const { token } = theme.useToken();
   return (
     <Form.List name={parameType} initialValue={[{}]}>
       {(fields, { add, remove }) => {
@@ -101,7 +102,7 @@ const StartParamSelectAndInput: React.FC<StartParamSelectAndInputProps> = ({
                                         <span
                                           style={{
                                             fontSize: 12,
-                                            color: 'rgba(0, 0, 0, 0.45)',
+                                            color: token.colorTextTertiary,
                                             opacity: 1,
                                             float: 'right',
                                           }}
@@ -152,7 +153,7 @@ const StartParamSelectAndInput: React.FC<StartParamSelectAndInputProps> = ({
                     <Col span={1}>
                       <Form.Item label={index === 0 && ' '} style={{ marginBottom: 8 }}>
                         <DeleteOutlined
-                          style={{ color: 'rgba(0, 0, 0, .45)' }}
+                          style={{ color: token.colorTextTertiary }}
                           onClick={() => {
                             remove(field.name);
                           }}

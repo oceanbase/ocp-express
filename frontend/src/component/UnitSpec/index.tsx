@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState } from 'react';
-import { Col, Row, InputNumber } from '@oceanbase/design';
+import { Col, InputNumber, Row, theme } from '@oceanbase/design';
 
 export interface unitSpec {
   cpuCore: number;
@@ -32,6 +32,7 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
   defaultUnitSpec,
   onChange,
 }) => {
+  const { token } = theme.useToken();
   const [cpuCoreValue, setCpuCoreValue] = useState(defaultUnitSpec?.maxCpuCoreCount);
   const [memorySizeValue, setMemorySizeValue] = useState(defaultUnitSpec?.maxMemorySize);
 
@@ -43,7 +44,7 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
   const extraStyle = {
     height: 22,
     fontSize: 14,
-    color: '#8592AD',
+    color: token.colorTextTertiary,
     lineHeight: '22px',
   };
 
@@ -52,7 +53,7 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
 
   // 修改 unit 时，CUP可配置范围上限，当前 unit 已分配CUP + 剩余空闲CUP
   const currentMaxCpuCoreCount = idleCpuCore + defaultUnitSpec?.maxCpuCoreCount;
-  // 修改 unit 时，可配置范围上限，当前 unit 已分配内存 + 剩余空闲内存 
+  // 修改 unit 时，可配置范围上限，当前 unit 已分配内存 + 剩余空闲内存
   const currentMaxMemorySize = idleMemoryInBytes + defaultUnitSpec?.maxMemorySize;
 
   return (
@@ -105,19 +106,18 @@ const UnitSpec: React.FC<UnitSpecProps> = ({
 
         {memoryLowerLimit !== undefined && currentMaxMemorySize !== undefined && (
           <div style={extraStyle}>
-
-            {memoryLowerLimit < currentMaxMemorySize ? formatMessage(
-              {
-                id: 'ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes',
-                defaultMessage: '当前可配置范围值 {memoryLowerLimit}~{idleMemoryInBytes}',
-              },
-              { memoryLowerLimit, idleMemoryInBytes: currentMaxMemorySize }
-            ) : formatMessage(
-              {
-                id: 'ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes2',
-                defaultMessage: '当前可配置资源不足',
-              }
-            )}
+            {memoryLowerLimit < currentMaxMemorySize
+              ? formatMessage(
+                  {
+                    id: 'ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes',
+                    defaultMessage: '当前可配置范围值 {memoryLowerLimit}~{idleMemoryInBytes}',
+                  },
+                  { memoryLowerLimit, idleMemoryInBytes: currentMaxMemorySize }
+                )
+              : formatMessage({
+                  id: 'ocp-express.component.UnitSpec.CurrentConfigurableRangeValueMemorylowerlimitIdlememoryinbytes2',
+                  defaultMessage: '当前可配置资源不足',
+                })}
           </div>
         )}
       </Col>

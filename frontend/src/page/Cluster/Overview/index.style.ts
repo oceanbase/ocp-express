@@ -1,3 +1,4 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
@@ -9,10 +10,10 @@ const useStyles = createStyles(() => {
       fontSize: "'16px'",
     },
     title: {
-      color: 'rgba(0, 0, 0, 0.65)',
+      color: token.colorTextSecondary,
     },
     'content:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+      backgroundColor: token.colorBgLayout,
     },
     text: {
       cursor: 'text',

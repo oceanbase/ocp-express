@@ -27,17 +27,15 @@ const ObClusterDeployMode: React.FC<ObClusterDeployModeProps> = ({
   className,
 }: ObClusterDeployModeProps) => {
   const { styles } = useStyles();
-  const deployMode = (clusterData.zones || []).map((item) => ({
+  const deployMode = (clusterData.zones || []).map(item => ({
     regionName: item.regionName,
     serverCount: (item.servers || []).length,
   }));
   return (
     <span className={`${styles.container} ${className}`}>
       {mode === 'tag'
-        ? deployMode.map((item) => (
-            <Tag color="blue">{`${item.regionName} ${item.serverCount}`}</Tag>
-          ))
-        : deployMode.map((item) => item.serverCount).join('-')}
+        ? deployMode.map(item => <Tag color="blue">{`${item.regionName} ${item.serverCount}`}</Tag>)
+        : deployMode.map(item => item.serverCount).join('-')}
     </span>
   );
 };

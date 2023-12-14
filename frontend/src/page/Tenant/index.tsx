@@ -44,7 +44,7 @@ const Tenant: React.FC<TenantProps> = ({
     formatMessage({
       id: 'ocp-express.Detail.Tenant.TenantManagement',
       defaultMessage: '租户管理',
-    }),
+    })
   );
 
   // 预先获取租户列表

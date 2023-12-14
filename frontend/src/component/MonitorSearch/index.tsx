@@ -102,7 +102,7 @@ const MonitorSearch: React.FC<MonitorSearchProps> = ({
   const defaultIsRealtime = queryData.isRealtime || false;
 
   const handleSearch = (mergeDefault?: boolean) => {
-    validateFields().then((values) => {
+    validateFields().then(values => {
       const {
         range = defaultRange,
         isRealtime = defaultIsRealtime,
@@ -131,7 +131,7 @@ const MonitorSearch: React.FC<MonitorSearchProps> = ({
             ? moment().format(RFC3339_DATE_TIME_FORMAT)
             : range && range[1] && range[1].format(RFC3339_DATE_TIME_FORMAT),
         },
-        (value) => isNullValue(value),
+        value => isNullValue(value)
       );
 
       // pathname 可能为空，此时查询条件不会与 URL 进行同步
@@ -171,12 +171,12 @@ const MonitorSearch: React.FC<MonitorSearchProps> = ({
     () => {
       handleSearch();
     },
-    isRealtime ? collectInterval * 1000 : undefined,
+    isRealtime ? collectInterval * 1000 : undefined
   );
 
   const realServerList = serverList?.filter(
     // 根据选中的 zone 对 server 进行筛选
-    (item) => !zoneName || item.zoneName === zoneName,
+    item => !zoneName || item.zoneName === zoneName
   );
 
   const formItemLayout = {
@@ -258,7 +258,7 @@ const MonitorSearch: React.FC<MonitorSearchProps> = ({
                     id: 'ocp-express.component.MonitorSearch.FrequencySeconds',
                     defaultMessage: '{FREQUENCY} 秒',
                   },
-                  { FREQUENCY: collectInterval },
+                  { FREQUENCY: collectInterval }
                 )}
               </FormItem>
             </Col>
@@ -308,7 +308,7 @@ const MonitorSearch: React.FC<MonitorSearchProps> = ({
                   defaultMessage: '全部',
                 })}
               >
-                {zoneNameList?.map((item) => (
+                {zoneNameList?.map(item => (
                   <Option key={item} value={item}>
                     {item}
                   </Option>
@@ -332,7 +332,7 @@ const MonitorSearch: React.FC<MonitorSearchProps> = ({
                 })}
                 style={{ width: '100%' }}
               >
-                {realServerList?.map((item) => (
+                {realServerList?.map(item => (
                   <Option key={item.ip} value={item.ip}>
                     {item.ip}
                   </Option>

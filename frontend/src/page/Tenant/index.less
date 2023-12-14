@@ -1,3 +1,5 @@
+@import '~@oceanbase/design/es/theme/index.less';
+
 /*
  * Copyright (c) 2023 OceanBase
  * OCP Express is licensed under Mulan PSL v2.
@@ -23,18 +25,18 @@
       justify-content: center;
       height: 200px;
       text-align: center;
-      border-left: 1px solid #e8e8e8;
+      border-left: 1px solid @colorBorder;
 
       .textWrapper {
         text-align: left;
 
         .name {
           display: block;
-          color: rgba(0, 0, 0, 0.85);
+          color: @colorText;
         }
 
         .value {
-          color: rgba(0, 0, 0, 0.85);
+          color: @colorText;
           font-size: 30px;
           font-family: SFProText-Medium;
         }

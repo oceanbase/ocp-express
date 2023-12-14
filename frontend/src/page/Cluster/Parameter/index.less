@@ -1,3 +1,5 @@
+@import '~@oceanbase/design/es/theme/index.less';
+
 /*
  * Copyright (c) 2023 OceanBase
  * OCP Express is licensed under Mulan PSL v2.
@@ -28,11 +30,11 @@
       }
       .description {
         margin-left: 8px;
-        color: rgba(0, 0, 0, 0.45);
+        color: @colorTextTertiary;
         font-size: 12px;
       }
       .selectedRow {
-        background-color: #fafafa;
+        background-color: @colorBgLayout;
       }
       :global {
         .ant-table-thead > tr > th:first-child,
@@ -48,7 +50,7 @@
     .middle {
       height: 100%;
       padding: 24px 0 24px 24px;
-      background-color: #fafafa;
+      background-color: @colorBgLayout;
       .title {
         margin-bottom: 16px;
         padding: 4px 0;
@@ -63,13 +65,13 @@
         cursor: pointer;
       }
       .selectedZone {
-        background-color: #edeff2;
+        background-color: @colorBgLayout;
       }
     }
     .right {
       height: 100%;
       padding: 72px 0 24px 24px;
-      background-color: #edeff2;
+      background-color: @colorBgLayout;
     }
   }
 }

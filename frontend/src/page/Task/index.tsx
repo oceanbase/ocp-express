@@ -121,8 +121,8 @@ const Task: React.FC<TaskProps> = ({
             ...(query.size
               ? {}
               : {
-                size: 10,
-              }),
+                  size: 10,
+                }),
           },
 
           value => isNullValue(value)
@@ -279,26 +279,26 @@ const Task: React.FC<TaskProps> = ({
         loading={loading && !polling}
         {...(mode === 'page'
           ? {
-            pagination: {
-              ...tableProps.pagination,
-              current: page,
-            },
+              pagination: {
+                ...tableProps.pagination,
+                current: page,
+              },
 
-            onChange: (pagination, filters, sorter) => {
-              if (tableProps.onChange) {
-                tableProps.onChange(pagination, filters, sorter);
-              }
-              setPage(pagination.current || 1);
-              history.push({
-                pathname,
-                query: {
-                  ...query,
-                  page: pagination.current,
-                  size: pagination.pageSize,
-                },
-              });
-            },
-          }
+              onChange: (pagination, filters, sorter) => {
+                if (tableProps.onChange) {
+                  tableProps.onChange(pagination, filters, sorter);
+                }
+                setPage(pagination.current || 1);
+                history.push({
+                  pathname,
+                  query: {
+                    ...query,
+                    page: pagination.current,
+                    size: pagination.pageSize,
+                  },
+                });
+              },
+            }
           : {})}
       />
     </div>

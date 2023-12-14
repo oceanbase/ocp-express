@@ -1,3 +1,4 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
@@ -13,14 +14,14 @@ const useStyles = createStyles(() => {
     },
     group: {
       padding: '4px 16px',
-      color: 'rgba(0, 0, 0, 0.45)',
+      color: token.colorTextTertiary,
       fontSize: '12px',
       fontFamily: 'PingFangSC-Regular',
       '&:first-child': { paddingTop: '8px' },
     },
     item: {
       padding: '4px 16px 4px 0',
-      '&:hover': { backgroundColor: '#e6f7ff' },
+      '&:hover': { backgroundColor: token.colorInfoBgHover },
       '&:last-child': { paddingBottom: '8px' },
     },
     popover: {

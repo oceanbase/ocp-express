@@ -1,3 +1,4 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
@@ -26,16 +27,16 @@ const useStyles = createStyles(() => {
     },
     description: {
       marginLeft: '8px',
-      color: 'rgba(0, 0, 0, 0.45)',
+      color: token.colorTextTertiary,
       fontSize: '12px',
     },
     selectedRow: {
-      backgroundColor: '#fafafa',
+      backgroundColor: token.colorBgLayout,
     },
     middle: {
       height: '100%',
       padding: '24px 0 24px 24px',
-      backgroundColor: '#fafafa',
+      backgroundColor: token.colorBgLayout,
     },
     all: {
       marginBottom: '16px',
@@ -45,12 +46,12 @@ const useStyles = createStyles(() => {
       cursor: 'pointer',
     },
     selectedZone: {
-      backgroundColor: '#edeff2',
+      backgroundColor: token.colorBgLayout,
     },
     right: {
       height: '100%',
       padding: '72px 0 24px 24px',
-      backgroundColor: '#edeff2',
+      backgroundColor: token.colorBgLayout,
     },
   };
 });

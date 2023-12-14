@@ -79,7 +79,7 @@ const CheckboxPopover = ({
               {!isNullValue(maxSelectCount) && (
                 <span>
                   <InfoCircleFilled style={{ color: token.colorPrimary }} />
-                  <span style={{ marginLeft: 4, fontSize: 12, color: 'rgba(0, 0, 0, 0.45)' }}>
+                  <span style={{ marginLeft: 4, fontSize: 12, color: token.colorTextTertiary }}>
                     {maxSelectCountLabel ||
                       formatMessage(
                         {
@@ -143,8 +143,8 @@ const CheckboxPopover = ({
                                 tooltip={
                                   item.description
                                     ? {
-                                      title: item.description,
-                                    }
+                                        title: item.description,
+                                      }
                                     : false
                                 }
                               />

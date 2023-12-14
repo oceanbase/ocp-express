@@ -1,3 +1,4 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
@@ -8,9 +9,9 @@ const useStyles = createStyles(() => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        color: 'rgba(0, 0, 0, 0.45)',
+        color: token.colorTextTertiary,
         '.ant-typography-copy': {
-          color: 'rgba(0, 0, 0, 0.45)',
+          color: token.colorTextTertiary,
         },
       },
     },

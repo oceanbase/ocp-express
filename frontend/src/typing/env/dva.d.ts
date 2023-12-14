@@ -43,12 +43,12 @@ type EffectSaga = (action: DvaAction, effects: EffectsCommandMap) => Generator<E
 type WatcherSaga = (effects: EffectsCommandMap) => Generator<Effect, any, any>;
 interface EffectsMapObject {
   [key: string]:
-  | EffectSaga
-  | [WatcherSaga, { type: 'watcher' }]
-  | [EffectSaga, { type: 'takeEvery' }]
-  | [EffectSaga, { type: 'takeLatest' }]
-  | [EffectSaga, { type: 'throttle'; ms: number }]
-  | [EffectSaga, { type: 'poll'; delay: number }];
+    | EffectSaga
+    | [WatcherSaga, { type: 'watcher' }]
+    | [EffectSaga, { type: 'takeEvery' }]
+    | [EffectSaga, { type: 'takeLatest' }]
+    | [EffectSaga, { type: 'throttle'; ms: number }]
+    | [EffectSaga, { type: 'poll'; delay: number }];
 }
 interface SubscriptionAPI {
   history: History;

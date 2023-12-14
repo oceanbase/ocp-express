@@ -1,3 +1,4 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
@@ -7,11 +8,11 @@ const useStyles = createStyles(() => {
     },
     id: {
       margin: '0 12px',
-      color: 'rgba(0, 0, 0, 0.45)',
+      color: token.colorTextTertiary,
       fontSize: '12px',
     },
     title: {
-      '.ant-badge-status-text': { color: 'rgba(0, 0, 0, 0.45)', fontSize: '12px' },
+      '.ant-badge-status-text': { color: token.colorTextTertiary, fontSize: '12px' },
     },
   };
 });

@@ -27,7 +27,7 @@
     margin-top: 24px;
     margin-left: 24px;
     font-size: 20px;
-    background: #fff;
+    background: @colorBgContainer;
     border-radius: 48px;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
 
@@ -44,7 +44,7 @@
     margin-top: 17px;
     margin-left: 24px;
     padding: 16px 24px;
-    background: #fff;
+    background: @colorBgContainer;
     border-radius: 48px;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
 
@@ -53,7 +53,7 @@
       font-family: PingFangSC-Medium;
     }
     .description {
-      color: rgba(0, 0, 0, 0.65);
+      color: @colorTextSecondary;
     }
   }
 
@@ -68,10 +68,10 @@
   :global {
     .tech-fullscreen-box-fullscreen {
       // 全屏时的背景色与 PageContainer 保持一致
-      background-color: #f0f2f5;
+      background-color: @colorBgLayout;
 
       .tech-fullscreen-box-header-icon {
-        color: rgba(0, 0, 0, 0.85);
+        color: @colorText;
         font-size: 16px;
       }
     }

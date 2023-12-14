@@ -54,7 +54,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
               <path
                 d="M11.628125,5.256875 L7.679375,10.731875 C7.44125,11.06375 6.948125,11.06375 6.71,10.731875 L4.371875,7.491875 C4.300625,7.3925 4.371875,7.25375 4.49375,7.25375 L5.373125,7.25375 C5.564375,7.25375 5.74625,7.345625 5.85875,7.503125 L7.19375,9.355625 L10.14125,5.268125 C10.25375,5.1125 10.43375,5.01875 10.626875,5.01875 L11.50625,5.01875 C11.628125,5.01875 11.699375,5.1575 11.628125,5.256875 Z"
                 id="Path"
-                fill="#FFFFFF"
+                fill={token.colorBgContainer}
               />
             </g>
           </g>
@@ -78,7 +78,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
               <mask id="mask-2" fill="white">
                 <use xlinkHref="#task-running-path" />
               </mask>
-              <use id="Shape" fill="#FFFFFF" xlinkHref="#task-running-path" />
+              <use id="Shape" fill={token.colorBgContainer} xlinkHref="#task-running-path" />
             </g>
           </g>
         </g>
@@ -101,7 +101,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
               <path
                 d="M10.6785714,5.51969382 C10.6785714,5.45157055 10.6229609,5.39583333 10.5549926,5.39583333 L9.53546713,5.4004781 L8,7.23516151 L6.46607761,5.40202636 L5.44500741,5.39738159 C5.37703905,5.39738159 5.32142857,5.45157055 5.32142857,5.52124207 C5.32142857,5.55065894 5.33224172,5.57852755 5.35077855,5.60175139 L7.36047949,8.00154826 L5.35077855,10.3997969 C5.33224172,10.4230207 5.32142857,10.4508893 5.32142857,10.4803062 C5.32142857,10.5484294 5.37703905,10.6041667 5.44500741,10.6041667 L6.46607761,10.5995219 L8,8.76483849 L9.53392239,10.5979736 L10.5534478,10.6026184 C10.6214162,10.6026184 10.6770267,10.5484294 10.6770267,10.4787579 C10.6770267,10.4493411 10.6662135,10.4214725 10.6476767,10.3982486 L8.64106525,8 L10.6507662,5.60020313 C10.669303,5.57852755 10.6785714,5.54911068 10.6785714,5.51969382 Z"
                 id="Shape"
-                fill="#FFFFFF"
+                fill={token.colorBgContainer}
               />
             </g>
           </g>
@@ -115,7 +115,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
           <g transform="translate(-346.000000, -323.000000)">
             <rect x="0" y="0" width="1832" height="2338" />
             <g id="Oval" transform="translate(345.000000, 322.000000)">
-              <circle stroke="#7C8CA3" fill="#FFFFFF" cx="8" cy="8" r="6.5" />
+              <circle stroke="#7C8CA3" fill={token.colorBgContainer} cx="8" cy="8" r="6.5" />
               <circle fill="#7C8CA3" cx="8" cy="8" r="2" />
             </g>
           </g>
@@ -319,7 +319,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
 
         value: 'PENDING',
         color: '#7c8ca3',
-        backgroundColor: '#fafafa',
+        backgroundColor: token.colorBgLayout,
         icon: <Icon component={PendingSVG} />,
         operations: [],
       },
@@ -333,7 +333,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
         value: 'READY',
         // 与 PENDING 状态的颜色和图标保持一致
         color: '#7c8ca3',
-        backgroundColor: '#fafafa',
+        backgroundColor: token.colorBgLayout,
         icon: <Icon component={PendingSVG} />,
         operations: [],
       },
@@ -352,9 +352,13 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
             onSubtaskChange(node?.id);
           }}
           // 设置选中节点的样式
-          className={`${isSubNode ? styles.subNode : styles.node} ${node?.id === subtask?.id ? styles.active : null}`}
+          className={`${isSubNode ? styles.subNode : styles.node} ${
+            node?.id === subtask?.id ? styles.active : null
+          }`}
         >
-          <div className={`${styles.icon} ${isSubNode ? styles.subNodeIcon : styles.nodeIcon}`}>{statusItem.icon}</div>
+          <div className={`${styles.icon} ${isSubNode ? styles.subNodeIcon : styles.nodeIcon}`}>
+            {statusItem.icon}
+          </div>
           <div className={styles.left}>
             <Text
               ellipsis={{
@@ -407,7 +411,7 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
             <Dropdown
               overlay={
                 <Menu
-                  style={{ marginBottom: 0, color: 'rgba(0, 0, 0, 0.45)' }}
+                  style={{ marginBottom: 0, color: token.colorTextTertiary }}
                   onClick={({ key, domEvent }) => {
                     // 点击菜单时阻止事件冒泡，避免触发整个节点的 click 事件导致被选中
                     if (domEvent) {
@@ -440,7 +444,9 @@ const TaskGraph: React.FC<TaskGraphProps> = React.forwardRef<TaskGraphRef, TaskG
                   <div
                     className={styles.taskIdWrapper}
                     style={
-                      statusItem.operations?.length > 0 ? { borderBottom: '1px solid #e8e8e8' } : {}
+                      statusItem.operations?.length > 0
+                        ? { borderBottom: `1px solid ${token.colorBorder}` }
+                        : {}
                     }
                   >
                     <Text

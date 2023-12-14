@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect, useRef } from 'react';
-import { Empty, Space, Spin, Tooltip, Modal } from '@oceanbase/design';
+import { Empty, Modal, Space, Spin, theme, Tooltip } from '@oceanbase/design';
 import { every } from 'lodash';
 import moment from 'moment';
 import type { Moment } from 'moment';
@@ -114,6 +114,7 @@ const Item: React.FC<ItemProps> = ({
   titleStyle,
   ...restProps
 }) => {
+  const { token } = theme.useToken();
   const { styles } = useStyles();
   const ref = useRef();
   // 图表是否在可视范围内
@@ -173,7 +174,7 @@ const Item: React.FC<ItemProps> = ({
   });
 
   // 监控图对应的指标名数组
-  const metricKeys = metrics.map((item) => item.key);
+  const metricKeys = metrics.map(item => item.key);
   // 用于接口请求的指标字符串
   const metricsString = [...metricKeys, ...othersMetricKeys].join(',');
 
@@ -237,18 +238,18 @@ const Item: React.FC<ItemProps> = ({
   } = useRequestOfMonitor(MonitorController.queryMetricTop, {
     manual: true,
     isRealtime,
-    onSuccess: (res) => {
+    onSuccess: res => {
       if (res.successful && showFilter) {
         setOptionList(
           getTopTargetList({
             dataList: res.data?.contents || [],
             groupBy,
             metricKeys,
-          }).map((item) => ({
+          }).map(item => ({
             value: item,
             label: item,
             span: 24,
-          })),
+          }))
         );
         const newDefaultSelectedList = getTopTargetList({
           dataList: res.data?.contents || [],
@@ -264,7 +265,7 @@ const Item: React.FC<ItemProps> = ({
 
   useEffect(() => {
     // 需要手动实现条件请求，因为 useRequest ready 配置仅在首次请求生效
-    if (every(options.condition, (item) => !isNullValue(item))) {
+    if (every(options.condition, item => !isNullValue(item))) {
       queryMetricTop(options.params);
     }
   }, options.deps);
@@ -281,13 +282,13 @@ const Item: React.FC<ItemProps> = ({
 
   useEffect(() => {
     // 需要手动实现条件请求，因为 useRequest ready 配置仅在首次请求生效
-    if (every(options.condition, (item) => !isNullValue(item))) {
+    if (every(options.condition, item => !isNullValue(item))) {
       queryMetricTop(options.params);
     }
   }, options.deps);
 
   useEffect(() => {
-    if (every(modalOptions.condition, (item) => !isNullValue(item))) {
+    if (every(modalOptions.condition, item => !isNullValue(item))) {
       queryModalMetricTop(modalOptions.params);
     }
   }, modalOptions.deps);
@@ -302,7 +303,7 @@ const Item: React.FC<ItemProps> = ({
     targetWithMetric,
     clusterName,
     othersMetricKeys,
-  }).filter((item) => (showFilter ? selectedList.includes(item.target) : true));
+  }).filter(item => (showFilter ? selectedList.includes(item.target) : true));
 
   const modalChartData = getTopChartData({
     dataList: modalData?.data?.contents || [],
@@ -311,7 +312,7 @@ const Item: React.FC<ItemProps> = ({
     targetWithMetric,
     clusterName,
     othersMetricKeys,
-  }).filter((item) => (showFilter ? selectedList.includes(item.target) : true));
+  }).filter(item => (showFilter ? selectedList.includes(item.target) : true));
 
   // 先用 metricGroup 的 chartConfig, 在使用 common 的 chartConfig
   const { meta = {}, xAxis = {}, ...restRealChartConfig } = realChartConfig;
@@ -324,7 +325,7 @@ const Item: React.FC<ItemProps> = ({
     animation: false,
     meta: {
       timestamp: {
-        formatter: (value) => {
+        formatter: value => {
           return moment(value).format(DATE_TIME_FORMAT_DISPLAY);
         },
       },
@@ -339,7 +340,7 @@ const Item: React.FC<ItemProps> = ({
     xAxis: {
       type: 'time',
       label: {
-        formatter: (value) => {
+        formatter: value => {
           return moment(value, DATE_TIME_FORMAT_DISPLAY).format(TIME_FORMAT_WITHOUT_SECOND);
         },
       },
@@ -363,7 +364,7 @@ const Item: React.FC<ItemProps> = ({
             <div>
               <div>{description}</div>
               <ul>
-                {metrics.map((metric) => (
+                {metrics.map(metric => (
                   <li key={metric.key}>{`${metric.name}: ${metric.description}`}</li>
                 ))}
               </ul>
@@ -394,12 +395,12 @@ const Item: React.FC<ItemProps> = ({
                     id: 'ocp-express.MetricChart.DrilldownDrawer.DrilldownChart.SelectScopeitemlabel',
                     defaultMessage: '选择{scopeItemLabel}',
                   },
-                  { scopeItemLabel: scopeLabel },
+                  { scopeItemLabel: scopeLabel }
                 )}
                 options={optionList}
                 defaultValue={defaultSelectedList}
                 value={selectedList}
-                onChange={(value) => {
+                onChange={value => {
                   setSelectedList(value);
                 }}
                 maxSelectCount={10}
@@ -408,7 +409,7 @@ const Item: React.FC<ItemProps> = ({
                     id: 'ocp-express.MetricChart.DrilldownDrawer.DrilldownChart.YouCanSelectUpTo',
                     defaultMessage: '最多可选择 10 个{scopeItemLabel}',
                   },
-                  { scopeItemLabel: scopeLabel },
+                  { scopeItemLabel: scopeLabel }
                 )}
                 overlayStyle={{
                   minWidth: 320,
@@ -422,16 +423,16 @@ const Item: React.FC<ItemProps> = ({
                         id: 'ocp-express.MetricChart.DrilldownDrawer.DrilldownChart.SelectScopeitemlabel',
                         defaultMessage: '选择{scopeItemLabel}',
                       },
-                      { scopeItemLabel: scopeLabel },
+                      { scopeItemLabel: scopeLabel }
                     )}
                   >
                     <FilterOutlined
-                      style={{ color: 'rgba(0, 0, 0, 0.45)' }}
+                      style={{ color: token.colorTextTertiary }}
                       className="pointable"
                     />
                   </Tooltip>
                 ) : (
-                  <Space size={6} style={{ color: 'rgba(0, 0, 0, 0.45)' }} className="pointable">
+                  <Space size={6} style={{ color: token.colorTextTertiary }} className="pointable">
                     <FilterOutlined />
                     <span>
                       {formatMessage(
@@ -439,7 +440,7 @@ const Item: React.FC<ItemProps> = ({
                           id: 'ocp-express.MetricChart.DrilldownDrawer.DrilldownChart.SelectScopeitemlabel',
                           defaultMessage: '选择{scopeItemLabel}',
                         },
-                        { scopeItemLabel: scopeLabel },
+                        { scopeItemLabel: scopeLabel }
                       )}
                     </span>
                   </Space>
@@ -501,7 +502,7 @@ const Item: React.FC<ItemProps> = ({
                   defaultMenuKey={menuKey}
                   // 优先级: defaultMenuKey > defaultValue
                   defaultValue={[moment(startTime), moment(endTime)]}
-                  onChange={(value) => {
+                  onChange={value => {
                     setModalRange(value);
                   }}
                 />

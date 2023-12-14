@@ -62,13 +62,12 @@ const TableTreeFilterDropdown: React.FC<TableTreeFilterDropdownProps> = ({
         height={300}
         {...restProps}
       />
-
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           padding: '5px 12px',
-          borderTop: '1px solid #f0f0f0',
+          borderTop: `1px solid ${token.colorBorder}`,
         }}
       >
         <Button
@@ -104,8 +103,8 @@ const TableTreeFilterDropdown: React.FC<TableTreeFilterDropdownProps> = ({
             style={
               selectedKeys?.length > 0
                 ? {
-                  color: token.colorPrimary,
-                }
+                    color: token.colorPrimary,
+                  }
                 : {}
             }
           >

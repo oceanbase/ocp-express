@@ -90,7 +90,7 @@ export default class PrivilegesCheckbox extends React.PureComponent<
           <div>
             <Checkbox
               indeterminate={indeterminate}
-              onChange={(e) => this.onCheckAllChange(e, dbPrivilegeParam?.dbName)}
+              onChange={e => this.onCheckAllChange(e, dbPrivilegeParam?.dbName)}
               checked={checkAll}
             >
               {formatMessage({
@@ -116,11 +116,11 @@ export default class PrivilegesCheckbox extends React.PureComponent<
           style={{ display: 'inline-block' }}
           key={dbPrivilegeParam.dbName}
           value={checkedList}
-          onChange={(value) =>
+          onChange={value =>
             this.collectCheckedParam(value as API.DbPrivType[], dbPrivilegeParam.dbName)
           }
         >
-          {(insideDb ? ['SELECT'] : DATABASE_PRIVILEGE_LIST).map((node) => (
+          {(insideDb ? ['SELECT'] : DATABASE_PRIVILEGE_LIST).map(node => (
             <Checkbox className={styles.privilegeCheckbox} key={node} value={node}>
               {node}
             </Checkbox>

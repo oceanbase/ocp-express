@@ -16,17 +16,18 @@ import React, { useState, useEffect } from 'react';
 import * as ObUserController from '@/service/ocp-express/ObUserController';
 import * as ObTenantSessionController from '@/service/ocp-express/ObTenantSessionController';
 import {
-  Col,
-  Row,
-  Table,
-  Tooltip,
   Button,
+  Col,
+  Descriptions,
+  message,
+  Modal,
+  Popconfirm,
+  Row,
   Space,
   Switch,
-  Popconfirm,
-  Descriptions,
-  Modal,
-  message,
+  Table,
+  theme,
+  Tooltip,
 } from '@oceanbase/design';
 import type { Route } from '@oceanbase/design/es/breadcrumb/Breadcrumb';
 import { PageContainer } from '@oceanbase/ui';
@@ -65,6 +66,7 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
     params: { tenantId, username, roleName },
   },
 }) => {
+  const { token } = theme.useToken();
   const { tenantData } = useSelector((state: DefaultRootState) => state.tenant);
   // 是否展示删除弹窗
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
@@ -268,7 +270,7 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
       }),
 
       content: (
-        <div style={{ color: '#5C6B8A' }}>
+        <div style={{ color: token.colorTextTertiary }}>
           <div>
             {formatMessage(
               {
@@ -446,13 +448,13 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
       path: `/tenant/${tenantId}/user${roleName ? '/role' : ''}`,
       breadcrumbName: roleName
         ? formatMessage({
-          id: 'ocp-express.Oracle.UserOrRoleDetail.RoleList',
-          defaultMessage: '角色列表',
-        })
+            id: 'ocp-express.Oracle.UserOrRoleDetail.RoleList',
+            defaultMessage: '角色列表',
+          })
         : formatMessage({
-          id: 'ocp-express.Oracle.UserOrRoleDetail.UserList',
-          defaultMessage: '用户列表',
-        }),
+            id: 'ocp-express.Oracle.UserOrRoleDetail.UserList',
+            defaultMessage: '用户列表',
+          }),
     },
 
     {
@@ -770,7 +772,6 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
           history.goBack();
         }}
       />
-
       <ModifyDbUserPassword
         visible={modifyPasswordVisible}
         dbUser={userOrRoleDetail}
@@ -784,7 +785,6 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
           refreshGetDbRole();
         }}
       />
-
       <ModifyGlobalPrivilegeModal
         visible={globalPrivVisible}
         tenantId={tenantId}
@@ -804,7 +804,6 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
           }
         }}
       />
-
       <ModifyRoleModal
         visible={roleVisible}
         tenantId={tenantId}
@@ -824,7 +823,6 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
           }
         }}
       />
-
       <ModifyObjectPrivilegeModal
         visible={modifydObjectVisible}
         tenantId={tenantId}
@@ -848,7 +846,6 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
           }
         }}
       />
-
       <AddObjectPrivilegeDrawer
         visible={addObjectVisible}
         tenantId={tenantId}
@@ -872,7 +869,6 @@ const UserOrRoleDetail: React.FC<UserOrRoleDetailProps> = ({
           }
         }}
       />
-
       <ModifyObjectPrivilegeDrawer
         visible={modifyObjectVisible}
         tenantId={tenantId}

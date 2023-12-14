@@ -11,7 +11,7 @@
  */
 
 import React from 'react';
-import { Progress } from '@oceanbase/design';
+import { Progress, theme } from '@oceanbase/design';
 import type { ProgressProps } from '@oceanbase/design/es/progress';
 import useStyles from './index.style';
 import MouseTooltip from '@/component/MouseTooltip';
@@ -23,12 +23,13 @@ export interface WaterLevelProps extends ProgressProps {
 }
 
 const WaterLevel: React.FC<WaterLevelProps> = ({ title, description, tooltip, ...restProps }) => {
+  const { token } = theme.useToken();
   const { styles } = useStyles();
   return (
     <MouseTooltip
       overlay={tooltip}
       style={{
-        color: 'rgba(0, 0, 0, 0.65)',
+        color: token.colorTextSecondary,
         fontSize: 14,
       }}
     >

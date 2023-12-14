@@ -54,7 +54,7 @@ const GraphToolbar: React.FC<GraphToolbarProps> = ({
       // 设置延时时间为 16ms，为渲染一帧所需时间
       debounce(() => {
         setZoom(graph.getZoom());
-      }, 16),
+      }, 16)
     );
   }, []);
 

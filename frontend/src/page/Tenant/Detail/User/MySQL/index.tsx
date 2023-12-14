@@ -14,16 +14,17 @@ import { formatMessage } from '@/util/intl';
 import { useSelector } from 'umi';
 import React, { useState } from 'react';
 import {
-  Table,
-  Col,
-  Row,
-  Card,
-  Tooltip,
   Button,
+  Card,
+  Col,
+  message,
+  Modal,
+  Row,
   Space,
   Switch,
-  Modal,
-  message,
+  Table,
+  theme,
+  Tooltip,
 } from '@oceanbase/design';
 import { PageContainer } from '@oceanbase/ui';
 import { useRequest } from 'ahooks';
@@ -43,6 +44,7 @@ export interface IndexProps {
 }
 
 const Index: React.FC<IndexProps> = ({ tenantId }) => {
+  const { token } = theme.useToken();
   const { tenantData } = useSelector((state: DefaultRootState) => state.tenant);
 
   const [keyword, setKeyword] = useState('');
@@ -138,7 +140,7 @@ const Index: React.FC<IndexProps> = ({ tenantId }) => {
         }),
 
         content: (
-          <div style={{ color: '#5C6B8A' }}>
+          <div style={{ color: token.colorTextTertiary }}>
             <div>
               {formatMessage(
                 {
@@ -173,7 +175,7 @@ const Index: React.FC<IndexProps> = ({ tenantId }) => {
           defaultMessage: '被锁定的用户将不允许登录，请谨慎操作',
         }),
         content: (
-          <div style={{ color: '#5C6B8A' }}>
+          <div style={{ color: token.colorTextTertiary }}>
             <div>
               {formatMessage(
                 {

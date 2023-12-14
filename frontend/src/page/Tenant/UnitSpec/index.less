@@ -1,3 +1,5 @@
+@import '~@oceanbase/design/es/theme/index.less';
+
 /*
  * Copyright (c) 2023 OceanBase
  * OCP Express is licensed under Mulan PSL v2.
@@ -29,7 +31,7 @@
   .filterContent {
     .group {
       padding: 4px 16px;
-      color: rgba(0, 0, 0, 0.45);
+      color: @colorTextTertiary;
       font-size: 12px;
       font-family: PingFangSC-Regular;
 
@@ -42,7 +44,7 @@
       padding: 4px 16px 4px 0;
 
       &:hover {
-        background-color: #e6f7ff;
+        background-color: @colorInfoBgHover;
       }
 
       &:last-child {

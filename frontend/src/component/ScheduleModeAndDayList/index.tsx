@@ -48,7 +48,7 @@ const ScheduleModeAndDayList: ScheduleModeAndDayListInterface = ({
     <div className={styles.container}>
       <Radio.Group
         value={scheduleMode}
-        onChange={(e) => {
+        onChange={e => {
           onChange({
             ...value,
             scheduleMode: e.target.value,
@@ -56,7 +56,7 @@ const ScheduleModeAndDayList: ScheduleModeAndDayListInterface = ({
           });
         }}
       >
-        {(SCHEDULE_MODE_LIST ? SCHEDULE_MODE_LIST : BACKUP_SCHEDULE_MODE_LIST).map((item) => (
+        {(SCHEDULE_MODE_LIST ? SCHEDULE_MODE_LIST : BACKUP_SCHEDULE_MODE_LIST).map(item => (
           <Radio.Button key={item.value} value={item.value}>
             {item.label}
           </Radio.Button>
@@ -67,7 +67,7 @@ const ScheduleModeAndDayList: ScheduleModeAndDayListInterface = ({
         {
           //  调度周期为月、周时，展示选项
           scheduleMode !== 'DAY'
-            ? (scheduleMode === 'WEEK' ? WEEK_OPTIONS : MONTH_OPTIONS).map((item) => (
+            ? (scheduleMode === 'WEEK' ? WEEK_OPTIONS : MONTH_OPTIONS).map(item => (
                 <li
                   key={item.value}
                   // 调度周期为月，选中日期数为 10 天时，disable 掉未选中的日期
@@ -82,7 +82,7 @@ const ScheduleModeAndDayList: ScheduleModeAndDayListInterface = ({
                     onChange({
                       ...value,
                       dayList: dayList.includes(item.value)
-                        ? dayList.filter((day) => day !== item.value)
+                        ? dayList.filter(day => day !== item.value)
                         : [...dayList, item.value],
                     });
                   }}
@@ -98,10 +98,10 @@ const ScheduleModeAndDayList: ScheduleModeAndDayListInterface = ({
           <Checkbox
             checked={dayList.length === 7}
             indeterminate={dayList.length > 0 && dayList.length < 7}
-            onChange={(e) => {
+            onChange={e => {
               onChange({
                 ...value,
-                dayList: e.target.checked ? WEEK_OPTIONS.map((item) => item.value) : [],
+                dayList: e.target.checked ? WEEK_OPTIONS.map(item => item.value) : [],
               });
             }}
             style={{ marginLeft: 14, marginTop: 8 }}
@@ -123,7 +123,7 @@ ScheduleModeAndDayList.validate = (rule, value, callback) => {
       formatMessage({
         id: 'ocp-express.Component.ScheduleModeAndDayList.SelectASchedulingMode',
         defaultMessage: '请选择调度模式',
-      }),
+      })
     );
   }
   // 如果调度周期等于日时，跳出校验调度周期规则
@@ -132,7 +132,7 @@ ScheduleModeAndDayList.validate = (rule, value, callback) => {
       formatMessage({
         id: 'ocp-express.Component.ScheduleModeAndDayList.SelectASchedulingPeriod',
         defaultMessage: '请选择调度周期',
-      }),
+      })
     );
   }
 

@@ -10,6 +10,8 @@
  * See the Mulan PSL v2 for more details.
  */
 
+import { token } from '@oceanbase/design';
+
 import { formatMessage } from '@/util/intl';
 
 export const SELECT_MODE_LIST = [
@@ -938,7 +940,7 @@ export const UNIT_MIGRATE_TYPE_LIST = [
       defaultMessage: '点击可发起主动迁移，只能在同个 Zone 内迁移',
     }),
 
-    color: 'rgba(0,0,0,0.45)',
-    backgroundColor: '#FFFFFF',
+    color: token.colorTextTertiary,
+    backgroundColor: token.colorBgContainer,
   },
 ];

@@ -1,13 +1,13 @@
-import { createStyles } from "antd-style";
+import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(({ token }) => {
   return {
     container: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       padding: "`~'@{sizeSM}px' ~'@{sizeLG}px'`",
-      overflow: "hidden",
+      overflow: 'hidden',
       backgroundColor: token.colorPrimaryBg,
       borderRadius: "`~'@{borderRadius}px'`",
     },
@@ -24,20 +24,20 @@ const useStyles = createStyles(({ token }) => {
     cancel: {
       marginLeft: "`~'@{sizeXS}px'`",
       color: token.colorPrimary,
-      cursor: "pointer",
+      cursor: 'pointer',
     },
     actionItem: {
       marginLeft: "`~'@{sizeXS}px'`",
     },
     left: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-start",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
     },
     right: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-end",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
     },
   };
 });

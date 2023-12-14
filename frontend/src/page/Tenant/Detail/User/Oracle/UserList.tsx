@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { history, connect } from 'umi';
 import React, { useState } from 'react';
-import { Table, Tooltip, Space, Switch, Modal, message } from '@oceanbase/design';
+import { message, Modal, Space, Switch, Table, theme, Tooltip } from '@oceanbase/design';
 import { uniq } from 'lodash';
 import { sortByMoment } from '@oceanbase/util';
 import { useRequest } from 'ahooks';
@@ -43,6 +43,7 @@ const UserList: React.FC<UserProps> = ({
   refreshDbUser,
   tenantData,
 }) => {
+  const { token } = theme.useToken();
   const [current, setCurrent] = useState<API.DbUser | null>(null);
   const [userStats, setuserStats] = useState<any[]>([]);
   // 修改密码
@@ -132,7 +133,7 @@ const UserList: React.FC<UserProps> = ({
         defaultMessage: '取消',
       }),
       content: (
-        <div style={{ color: '#5C6B8A' }}>
+        <div style={{ color: token.colorTextTertiary }}>
           <div>
             {formatMessage(
               {

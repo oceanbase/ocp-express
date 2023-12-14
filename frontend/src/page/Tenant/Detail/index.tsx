@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { history, useSelector, useDispatch } from 'umi';
 import React, { useEffect } from 'react';
-import { Badge, Tooltip } from '@oceanbase/design';
+import { Badge, theme, Tooltip } from '@oceanbase/design';
 import { toNumber } from 'lodash';
 import { findByValue } from '@oceanbase/util';
 import { CaretDownFilled } from '@oceanbase/icons';
@@ -38,6 +38,7 @@ interface DetailProps {
 }
 
 const Detail: React.FC<DetailProps> = (props: DetailProps) => {
+  const { token } = theme.useToken();
   const { styles } = useStyles();
   const {
     children,
@@ -132,7 +133,7 @@ const Detail: React.FC<DetailProps> = (props: DetailProps) => {
                     className="ant-select-suffix"
                     style={{
                       fontSize: 12,
-                      color: '#8592AD',
+                      color: token.colorTextTertiary,
                     }}
                   />
                 }

@@ -55,7 +55,7 @@ const BatchOperationBar: React.FC<BatchOperationBarProps> = ({
               id: 'ocp-express.component.BatchOperationBar.SelectedcountSelected',
               defaultMessage: '已选 {selectedCount} 项',
             },
-            { selectedCount },
+            { selectedCount }
           )}
           {onCancel && (
             <span className={styles.cancel} onClick={onCancel}>

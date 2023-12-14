@@ -224,7 +224,7 @@ a[disabled] {
   > .ant-steps-item-container
   > .ant-steps-item-content
   > .ant-steps-item-title::after {
-  background-color: #e8e8e8;
+  background-color: @colorBorder;
 }
 
 // 自定义 Steps 的连线条样式，否则和背景色无法区分
@@ -232,7 +232,7 @@ a[disabled] {
   > .ant-steps-item-container
   > .ant-steps-item-content
   > .ant-steps-item-title::after {
-  background-color: #e8e8e8;
+  background-color: @colorBorder;
 }
 
 // 由于 RangePicker 无法根据格式自适应宽度，对于中文的日期时间会展示不全，因此需要手动设置宽度
@@ -260,17 +260,17 @@ a[disabled] {
 
     // 设置锚点字体颜色
     .ant-anchor-link-title {
-      color: rgba(0, 0, 0, 0.65);
+      color: @colorTextSecondary;
 
       &:hover {
-        color: #40a9ff;
+        color: @colorInfo;
       }
     }
   }
 
   .ant-anchor-ink {
     &::before {
-      background-color: #e8e8e8;
+      background-color: @colorBorder;
     }
 
     // 设置选中锚点的样式 (圆点 => inkbar)
@@ -315,7 +315,7 @@ a[disabled] {
 
 /* 自定义 icon 交互 灰色 -> 蓝 */
 .icon-custom-color {
-  color: rgba(0, 0, 0, 0.45) !important;
+  color: @colorTextTertiary !important;
 
   &:hover {
     color: @colorPrimary !important;
@@ -374,7 +374,7 @@ a[disabled] {
 
 .collapse-white-background-heade {
   .ant-collapse-header {
-    background-color: #fff;
+    background-color: @colorBgContainer;
   }
 }
 
@@ -383,14 +383,14 @@ a[disabled] {
   &:not(:last-child) {
     margin-bottom: 24px;
     padding-bottom: 24px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid @colorBorder;
   }
 
   .ant-descriptions-header {
     margin-bottom: 20px;
 
     .ant-descriptions-title {
-      color: rgba(0, 0, 0, 0.85);
+      color: @colorText;
       font-size: 16px;
       font-family: PingFangSC-Medium;
     }
@@ -453,7 +453,7 @@ a[disabled] {
 /* 使用 divider 分隔 row */
 .row-with-divider-in-card {
   .ant-col:not(:last-child) {
-    border-right: 1px solid #e8e8e8;
+    border-right: 1px solid @colorBorder;
   }
 
   .ant-col {
@@ -462,7 +462,7 @@ a[disabled] {
 
   .ant-descriptions-title {
     margin-bottom: 8px;
-    color: rgba(0, 0, 0, 0.85);
+    color: @colorText;
     font-size: 14px;
     font-family: PingFangSC-Medium;
   }
@@ -526,7 +526,7 @@ a[disabled] {
   margin-bottom: 2px;
   line-height: 22px;
   background: @colorBgLayout;
-  border: 1px solid #f0f0f0;
+  border: 1px solid @colorBorder;
   border-radius: 2px;
 }
 
@@ -580,7 +580,7 @@ a[disabled] {
     height: 24px;
     padding: 2px 8px;
     font-size: 14px;
-    background-color: #f0f2f5 !important;
+    background-color: @colorBgLayout !important;
     border-bottom: none;
 
     // 去掉列之间的竖形分隔线
@@ -612,19 +612,19 @@ a[disabled] {
   .ant-table-container {
     tr:nth-child(2n + 1) {
       td {
-        background-color: #fff !important;
+        background-color: @colorBgContainer !important;
       }
     }
 
     tr:nth-child(2n) {
       td {
-        background-color: #f0f2f5 !important;
+        background-color: @colorBgLayout !important;
       }
     }
 
     tr:hover {
       td {
-        background-color: #e6f7ff !important;
+        background-color: @colorInfoBgHover !important;
       }
     }
   }
@@ -677,7 +677,7 @@ a[disabled] {
 }
 
 .disabled {
-  color: rgba(0, 0, 0, 0.25) !important;
+  color: @colorTextQuaternary !important;
   cursor: not-allowed !important;
   pointer-events: none !important;
 }
@@ -685,7 +685,7 @@ a[disabled] {
 .prism-code {
   // font-family: PingFangSC-Medium;
   margin: 0 !important;
-  color: rgba(0, 0, 0, 0.85);
+  color: @colorText;
   font-size: 12px;
 
   .date,
@@ -914,13 +914,13 @@ a[disabled] {
 
   .ant-card-body {
     padding-bottom: 0;
-    background-color: #fafafa;
+    background-color: @colorBgLayout;
   }
 }
 
 .ocp-sub-detail-card {
   padding: 16px 24px;
-  background-color: #fafafa;
+  background-color: @colorBgLayout;
 }
 
 /* 自定义 react-split-pane 的组件样式 */
@@ -937,12 +937,12 @@ a[disabled] {
   width: 100%;
   height: 1px;
   padding-top: 1px;
-  background: #f7f8fc;
+  background: @colorBgLayout;
   cursor: row-resize;
 }
 
 .Resizer.horizontal:hover {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid @colorFillQuaternary;
   box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12);
 }
 
@@ -963,9 +963,9 @@ a[disabled] {
 
 .g6-tooltip {
   padding: 8px 16px;
-  color: rgba(0, 0, 0, 0.65);
+  color: @colorTextSecondary;
   font-size: 12px;
-  background-color: #fff;
+  background-color: @colorBgContainer;
   border-radius: 2px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
 
@@ -1024,13 +1024,13 @@ a[disabled] {
     .ant-table-content {
       tr:nth-child(2n + 1) {
         td {
-          background-color: #f5f7fa !important;
+          background-color: @colorBgLayout !important;
         }
       }
 
       tr:nth-child(2n) {
         td {
-          background-color: #fff !important;
+          background-color: @colorBgContainer !important;
         }
       }
     }
@@ -1040,7 +1040,7 @@ a[disabled] {
   .span-col-row-table-zebra-color {
     .ant-table-content {
       tr:nth-child(2n) {
-        background-color: #fff !important;
+        background-color: @colorBgContainer !important;
       }
     }
   }
@@ -1084,13 +1084,13 @@ a[disabled] {
   }
 
   .ant-btn:focus {
-    color: #d9d9d9;
-    border-color: #d9d9d9;
+    color: @colorBorder;
+    border-color: @colorBorder;
   }
 
   .ant-btn:hover {
-    color: #40a9ff !important;
-    border-color: #40a9ff !important;
+    color: @colorInfo !important;
+    border-color: @colorInfo !important;
   }
 
   // 锚点 active 态下为蓝色
@@ -1099,7 +1099,7 @@ a[disabled] {
   }
 
   .ant-anchor-link-title {
-    color: rgba(0, 0, 0, 0.85) !important;
+    color: @colorText !important;
     font-size: 14px;
     opacity: 0.95;
   }
@@ -1116,12 +1116,12 @@ a[disabled] {
   }
 
   .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
-    background-color: #fff;
+    background-color: @colorBgContainer;
   }
 
   // 锚点 hover 后的背景颜色
   .ant-tree.ant-tree-directory .ant-tree-treenode:hover::before {
-    background-color: #f3f9ff;
+    background-color: @colorInfoBgHover;
   }
 
   // 链接间距
@@ -1132,10 +1132,10 @@ a[disabled] {
 
   // 如果要定制表格 border，需要设置 4 处样式: .ant-table-container、table、th、td
   .ant-table-container {
-    border-color: #dadada !important;
+    border-color: @colorBorder !important;
 
     table {
-      border-color: #dadada !important;
+      border-color: @colorBorder !important;
     }
   }
 
@@ -1145,23 +1145,23 @@ a[disabled] {
     font-size: 12px;
     line-height: 16px;
     background-color: #ebeef2 !important;
-    border-color: #dadada !important;
+    border-color: @colorBorder !important;
   }
 
   .ant-table-tbody tr td {
     font-size: 12px;
     line-height: 16px;
-    border-color: #dadada !important;
+    border-color: @colorBorder !important;
   }
 
   // 表格隔行换色
   .ant-table-content {
     .ant-table-tbody > tr.ant-table-row:hover > td {
-      background: #e6f7ff !important;
+      background: @colorInfoBgHover !important;
     }
 
     tr:nth-child(2n) {
-      background-color: #f7f9fb;
+      background-color: @colorInfoBg;
     }
   }
 
@@ -1203,7 +1203,7 @@ a[disabled] {
 
   /* SQL 文本超三行之后，折叠展示的 Icon 样式交互 灰色 -> 蓝 */
   .down-square-active {
-    color: rgba(0, 0, 0, 0.45) !important;
+    color: @colorTextTertiary !important;
 
     &:hover {
       color: @colorPrimary !important;

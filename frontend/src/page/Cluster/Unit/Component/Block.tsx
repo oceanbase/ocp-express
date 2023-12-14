@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Badge, Divider, Progress, Space, Tooltip, Typography } from '@oceanbase/design';
+import { Badge, Divider, Progress, Space, theme, Tooltip, Typography } from '@oceanbase/design';
 import { QuestionCircleOutlined } from '@oceanbase/icons';
 import { isNullValue, byte2GB, directTo, findByValue } from '@oceanbase/util';
 import { TENANT_STATUS_LIST } from '@/constant/tenant';
@@ -55,6 +55,7 @@ const Block: React.FC<BlockProps> = ({
   className,
   ...restProps
 }) => {
+  const { token } = theme.useToken();
   const { styles } = useStyles();
   // zoneInfo
   const memorySizeAssigned = byte2GB(zoneInfo?.memorySizeAssignedByte || 0);
@@ -83,7 +84,7 @@ const Block: React.FC<BlockProps> = ({
                 id: 'ocp-express.Resource.Component.Block.NameZoneinfoobzonename',
               },
 
-              { zoneInfoObZoneName: zoneInfo.obZoneName },
+              { zoneInfoObZoneName: zoneInfo.obZoneName }
             )}
           </div>
           <div>
@@ -92,7 +93,7 @@ const Block: React.FC<BlockProps> = ({
                 id: 'ocp-express.Resource.Component.Block.RegionZoneinfoobregionname',
               },
 
-              { zoneInfoObRegionName: zoneInfo.obRegionName },
+              { zoneInfoObRegionName: zoneInfo.obRegionName }
             )}
           </div>
           <div>
@@ -101,7 +102,7 @@ const Block: React.FC<BlockProps> = ({
                 id: 'ocp-express.Resource.Component.Block.TotalMemoryAllocationGbMemorysizeassigned',
               },
 
-              { memorySizeAssigned },
+              { memorySizeAssigned }
             )}
           </div>
           <div>
@@ -111,7 +112,7 @@ const Block: React.FC<BlockProps> = ({
                 defaultMessage: 'CPU 总分配：{zoneInfoCpuCountAssigned}',
               },
 
-              { zoneInfoCpuCountAssigned: zoneInfo.cpuCountAssigned },
+              { zoneInfoCpuCountAssigned: zoneInfo.cpuCountAssigned }
             )}
           </div>
           <div>
@@ -120,7 +121,7 @@ const Block: React.FC<BlockProps> = ({
                 id: 'ocp-express.Resource.Component.Block.MaximumDiskUsageGbDisksizeused',
               },
 
-              { diskSizeUsed },
+              { diskSizeUsed }
             )}
           </div>
           <div>
@@ -131,7 +132,7 @@ const Block: React.FC<BlockProps> = ({
                   defaultMessage: 'Unit 总数：{zoneInfoUnitCount}',
                 },
 
-                { zoneInfoUnitCount: zoneInfo.unitCount },
+                { zoneInfoUnitCount: zoneInfo.unitCount }
               )}
           </div>
         </div>
@@ -168,14 +169,14 @@ const Block: React.FC<BlockProps> = ({
                 defaultMessage: '租户名：{tenantInfoTenantName}',
               },
 
-              { tenantInfoTenantName: tenantInfo.tenantName },
+              { tenantInfoTenantName: tenantInfo.tenantName }
             )}
           </div>
           <div>
             {formatMessage(
               { id: 'ocp-express.Resource.Component.Block.TenantIdTenantinfoobtenantid' },
 
-              { tenantInfoObTenantId: tenantInfo.obTenantId },
+              { tenantInfoObTenantId: tenantInfo.obTenantId }
             )}
           </div>
           <div>
@@ -184,7 +185,7 @@ const Block: React.FC<BlockProps> = ({
                 id: 'ocp-express.Resource.Component.Block.TenantStatusFindbyvaluetenantstatus',
                 defaultMessage: '租户状态：{findByValueTENANTSTATUS}',
               },
-              { findByValueTENANTSTATUS: findByValue(TENANT_STATUS_LIST, tenantInfo.status).label },
+              { findByValueTENANTSTATUS: findByValue(TENANT_STATUS_LIST, tenantInfo.status).label }
             )}
           </div>
           <div>
@@ -193,7 +194,7 @@ const Block: React.FC<BlockProps> = ({
                 id: 'ocp-express.Resource.Component.Block.ZonePriorityTenantinfoprimaryzone',
               },
 
-              { tenantInfoPrimaryZone: tenantInfo.primaryZone },
+              { tenantInfoPrimaryZone: tenantInfo.primaryZone }
             )}
           </div>
           <div>
@@ -202,7 +203,7 @@ const Block: React.FC<BlockProps> = ({
                 id: 'ocp-express.Resource.Component.Block.ReplicaDistributionTenantinfolocality',
               },
 
-              { tenantInfoLocality: tenantInfo.locality },
+              { tenantInfoLocality: tenantInfo.locality }
             )}
           </div>
         </div>
@@ -225,7 +226,7 @@ const Block: React.FC<BlockProps> = ({
                 id: 'ocp-express.Resource.Component.Block.UnitServerinfounitcount',
               },
 
-              { serverInfoUnitCount: serverInfo.unitCount },
+              { serverInfoUnitCount: serverInfo.unitCount }
             )}
           </div>
           <div>
@@ -234,7 +235,7 @@ const Block: React.FC<BlockProps> = ({
                 id: 'ocp-express.Resource.Component.Block.UnitNotAssociatedWithTenant',
               },
 
-              { serverInfoUnusedUnitCount: serverInfo.unusedUnitCount },
+              { serverInfoUnusedUnitCount: serverInfo.unusedUnitCount }
             )}
           </div>
         </div>
@@ -251,7 +252,7 @@ const Block: React.FC<BlockProps> = ({
       badgeColor: 'gold',
       overlay: serverInfo && (
         <div>
-          <div style={{ color: 'rgba(0,0,0,0.45)' }}>
+          <div style={{ color: token.colorTextTertiary }}>
             {formatMessage({
               id: 'ocp-express.Resource.Component.Block.ClickTheHostCardTo',
               defaultMessage: '鼠标点击主机卡片可停止或启动 OBServer',
@@ -266,7 +267,7 @@ const Block: React.FC<BlockProps> = ({
                 defaultMessage: '主副本数：{serverInfoLeaderReplicaCount}',
               },
 
-              { serverInfoLeaderReplicaCount: serverInfo.leaderReplicaCount },
+              { serverInfoLeaderReplicaCount: serverInfo.leaderReplicaCount }
             )}
           </div>
           <div>
@@ -282,7 +283,7 @@ const Block: React.FC<BlockProps> = ({
                 serverInfoFullReplicaCount: serverInfo.fullReplicaCount,
                 serverInfoReadonlyReplicaCount: serverInfo.readonlyReplicaCount,
                 serverInfoLogonlyReplicaCount: serverInfo.logonlyReplicaCount,
-              },
+              }
             )}
           </div>
           <div>
@@ -292,7 +293,7 @@ const Block: React.FC<BlockProps> = ({
                 defaultMessage: '单机副本数上限：{serverInfoMaxReplicaLimitCount}',
               },
 
-              { serverInfoMaxReplicaLimitCount: serverInfo.maxReplicaLimitCount },
+              { serverInfoMaxReplicaLimitCount: serverInfo.maxReplicaLimitCount }
             )}
           </div>
         </div>
@@ -308,7 +309,7 @@ const Block: React.FC<BlockProps> = ({
 
       getDetail: () =>
         `${byte2GB(serverInfo?.memorySizeAssignedByte || 0)}/${byte2GB(
-          serverInfo?.totalMemorySizeByte || 0,
+          serverInfo?.totalMemorySizeByte || 0
         )}G`,
       percentField: 'memoryAssignedPercent',
       badgeColor: '',
@@ -331,7 +332,7 @@ const Block: React.FC<BlockProps> = ({
           {
             serverInfoCpuCountAssigned: serverInfo.cpuCountAssigned,
             serverInfoTotalCpuCount: serverInfo.totalCpuCount,
-          },
+          }
         ),
 
       percentField: 'cpuAssignedPercent',
@@ -419,7 +420,7 @@ const Block: React.FC<BlockProps> = ({
               {typeItem.tooltip && (
                 <Tooltip title={typeItem.tooltip} placement="right">
                   <QuestionCircleOutlined
-                    style={{ color: 'rgba(0, 0, 0, 0.45)', marginLeft: '4px', fontSize: '14px' }}
+                    style={{ color: token.colorTextTertiary, marginLeft: '4px', fontSize: '14px' }}
                   />
                 </Tooltip>
               )}

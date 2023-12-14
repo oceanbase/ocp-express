@@ -247,8 +247,8 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
           onBack: fullscreen
             ? undefined
             : () => {
-              history.push('/overview');
-            },
+                history.push('/overview');
+              },
           extra: (
             <div
               style={{
@@ -431,13 +431,13 @@ const Unit: React.FC<UnitProps> = ({ clusterId }) => {
                   title={
                     fullscreen
                       ? formatMessage({
-                        id: 'ocp-express.Detail.Resource.Unit.ExitFullScreen',
-                        defaultMessage: '退出全屏',
-                      })
+                          id: 'ocp-express.Detail.Resource.Unit.ExitFullScreen',
+                          defaultMessage: '退出全屏',
+                        })
                       : formatMessage({
-                        id: 'ocp-express.Detail.Resource.Unit.FullScreen',
-                        defaultMessage: '全屏',
-                      })
+                          id: 'ocp-express.Detail.Resource.Unit.FullScreen',
+                          defaultMessage: '全屏',
+                        })
                   }
                 >
                   <FullscreenOutlined

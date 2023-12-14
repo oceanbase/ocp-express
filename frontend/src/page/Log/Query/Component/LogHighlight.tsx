@@ -9,6 +9,8 @@
  * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  * See the Mulan PSL v2 for more details.
  */
+import { theme } from '@oceanbase/design';
+
 import { useSelector } from 'umi';
 import { LOG_LEVEL } from '@/constant/log';
 import React, { useMemo } from 'react';
@@ -33,6 +35,7 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
   content = '',
   language = 'javaLog',
 }) => {
+  const { token } = theme.useToken();
   const { themeMode } = useSelector((state: DefaultRootState) => state.global);
   const renderLogLevelStytle = (logLevel?: API.LogLevel) => {
     let color;
@@ -41,10 +44,10 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
         color = '#00C200';
         break;
       case 'WARN':
-        color = '#FAAD14';
+        color = token.colorWarning;
         break;
       case 'ERROR':
-        color = '#F8636B';
+        color = token.colorError;
         break;
       case 'DEBUG':
         color = '#EA0081';
@@ -59,7 +62,7 @@ const LogHighlight: React.FC<LogHighlightProps> = ({
         color = '#FA541C';
         break;
       default:
-        color = 'rgba(0,0,0, 0.45)';
+        color = token.colorTextTertiary;
         break;
     }
     return { color, padding: logLevel?.includes(' ') ? 0 : '0 5px' };

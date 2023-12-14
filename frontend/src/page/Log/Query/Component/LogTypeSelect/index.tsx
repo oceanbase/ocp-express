@@ -49,7 +49,7 @@ const LogTypeSelect: React.FC<LogTypeSelectProps> = ({
         }
         onChangeLogType(typeText);
       }
-      const typeOptions = LOG_TYPE_LIST.find((item) => item.value === defaultLogType);
+      const typeOptions = LOG_TYPE_LIST.find(item => item.value === defaultLogType);
       if (typeOptions?.types) {
         setTypeList(typeOptions?.types);
         setTypeValue(typeOptions?.types);
@@ -92,7 +92,7 @@ const LogTypeSelect: React.FC<LogTypeSelectProps> = ({
         value={typeValue}
         allowClear={true}
         maxTagCount="responsive"
-        onChange={(val) => {
+        onChange={val => {
           setTypeValue(val);
           if (onChange) {
             onChange(val);

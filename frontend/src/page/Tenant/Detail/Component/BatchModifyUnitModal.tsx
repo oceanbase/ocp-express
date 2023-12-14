@@ -131,21 +131,13 @@ const BatchModifyUnitModal: React.FC<BatcModifyUnitModalProps> = ({
     );
     // 修改unit  当前已经分配资源最小zoen
     const minCpuCoreAssignedZone = minBy(
-      clusterZones?.map(
-        zone =>
-          zone?.servers?.length > 0 &&
-          zone?.servers[0]?.stats
-      ),
+      clusterZones?.map(zone => zone?.servers?.length > 0 && zone?.servers[0]?.stats),
 
       'cpuCoreAssigned'
     )?.zone;
 
     const minMemoryInBytesAssignedZone = minBy(
-      clusterZones?.map(
-        zone =>
-          zone?.servers?.length > 0 &&
-          zone?.servers[0]?.stats
-      ),
+      clusterZones?.map(zone => zone?.servers?.length > 0 && zone?.servers[0]?.stats),
 
       'memoryInBytesAssigned'
     )?.zone;
@@ -156,12 +148,15 @@ const BatchModifyUnitModal: React.FC<BatcModifyUnitModalProps> = ({
 
     // 修改 unit 时，CUP可配置范围上限，当前 unit 已分配CUP + 剩余空闲CUP
     if (minIdleCpuZone && minCpuZone) {
-      idleCpuCore = minIdleCpuZone?.idleCpuCoreTotal + minCpuZone?.resourcePool?.unitConfig?.maxCpuCoreCount;
+      idleCpuCore =
+        minIdleCpuZone?.idleCpuCoreTotal + minCpuZone?.resourcePool?.unitConfig?.maxCpuCoreCount;
     }
 
-    // 修改 unit 时，可配置范围上限，当前 unit 已分配内存 + 剩余空闲内存 
+    // 修改 unit 时，可配置范围上限，当前 unit 已分配内存 + 剩余空闲内存
     if (minIdleMemoryZone && minMemoryZone) {
-      idleMemoryInBytes = minIdleMemoryZone?.idleMemoryInBytesTotal + minMemoryZone?.resourcePool?.unitConfig?.maxMemorySize;
+      idleMemoryInBytes =
+        minIdleMemoryZone?.idleMemoryInBytesTotal +
+        minMemoryZone?.resourcePool?.unitConfig?.maxMemorySize;
     }
   }
   const { cpuLowerLimit, memoryLowerLimit } = unitSpecLimit;

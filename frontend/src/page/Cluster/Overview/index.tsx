@@ -41,7 +41,7 @@ export interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({
   match: {
-    params: { },
+    params: {},
   },
   loading,
   clusterData,
@@ -195,7 +195,7 @@ const Detail: React.FC<DetailProps> = ({
             style={
               unavailableCount === 0
                 ? { color: token.colorTextTertiary, cursor: 'default' }
-                : { color: '#ff4b4b' }
+                : { color: token.colorError }
             }
           >
             {unavailableCount}

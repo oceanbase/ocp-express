@@ -1,3 +1,4 @@
+import { token } from '@oceanbase/design';
 import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(() => {
@@ -18,7 +19,7 @@ const useStyles = createStyles(() => {
         right: '0',
         bottom: '0',
         left: '0',
-        background: '#fff',
+        background: token.colorBgContainer,
         borderRadius: '10px',
         opacity: '0',
         content: "''",

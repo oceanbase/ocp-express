@@ -1,4 +1,5 @@
-import { createStyles } from "antd-style";
+import { token } from '@oceanbase/design';
+import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(({ token }) => {
   return {
@@ -9,33 +10,33 @@ const useStyles = createStyles(({ token }) => {
       color: token.colorPrimary,
     },
     overlay: {
-      width: "225px",
+      width: '225px',
       ul: {
-        marginBottom: "0",
-        "& > li": {
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginRight: "0",
-          padding: "7px 12px",
-          cursor: "pointer",
-          "&:hover": { backgroundColor: "#e6f7ff" },
+        marginBottom: '0',
+        '& > li': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginRight: '0',
+          padding: '7px 12px',
+          cursor: 'pointer',
+          '&:hover': { backgroundColor: token.colorInfoBgHover },
         },
       },
     },
     searchWrapper: {
-      padding: "8px",
+      padding: '8px',
     },
     searchIcon: {
-      opacity: "0.45",
+      opacity: '0.45',
     },
     checkIcon: {
       color: token.colorPrimary,
-      visibility: "visible",
-      display: "none",
+      visibility: 'visible',
+      display: 'none',
     },
     selected: {
-      fontWeight: "600",
+      fontWeight: '600',
     },
   };
 });

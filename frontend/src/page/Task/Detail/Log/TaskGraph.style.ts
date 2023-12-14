@@ -1,19 +1,19 @@
-import { createStyles } from "antd-style";
+import { createStyles } from 'antd-style';
 
 const useStyles = createStyles(({ token }) => {
   return {
     containerWithBranch: {
-      paddingRight: "40px",
+      paddingRight: '40px',
     },
     container: {
-      position: "relative",
-      paddingRight: "20px",
-      overflowX: "hidden",
-      overflowY: "auto",
-      scrollBehavior: "smooth",
+      position: 'relative',
+      paddingRight: '20px',
+      overflowX: 'hidden',
+      overflowY: 'auto',
+      scrollBehavior: 'smooth',
     },
     node: {
-      marginLeft: "8px",
+      marginLeft: '8px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -26,7 +26,7 @@ const useStyles = createStyles(({ token }) => {
       cursor: 'pointer',
     },
     subNode: {
-      marginLeft: "32px",
+      marginLeft: '32px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -40,7 +40,7 @@ const useStyles = createStyles(({ token }) => {
     },
     icon: {
       position: 'absolute',
-      fontSize: '16px'
+      fontSize: '16px',
     },
     nodeIcon: {
       left: '0px',
@@ -56,41 +56,40 @@ const useStyles = createStyles(({ token }) => {
       paddingRight: '11px',
     },
     left: {
-      width: "calc(100% - 250px)",
+      width: 'calc(100% - 250px)',
     },
     name: {
-      marginBottom: "2px",
+      marginBottom: '2px',
       color: token.colorText,
-      fontFamily: "PingFangSC-Medium",
+      fontFamily: 'PingFangSC-Medium',
     },
     id: {
-      marginRight: "8px",
+      marginRight: '8px',
       color: token.colorTextSecondary,
     },
     description: {
-      display: "inline-block",
+      display: 'inline-block',
       width: 'calc(100% - 90px)',
       color: token.colorTextSecondary,
     },
 
     right: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      width: "220px",
-      marginLeft: "30px",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '220px',
+      marginLeft: '30px',
       color: token.colorTextTertiary,
     },
     taskIdWrapper: {
-      padding: "5px 12px",
-      ".ant-typography": {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+      padding: '5px 12px',
+      '.ant-typography': {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         color: token.colorTextSecondary,
-        ".ant-typography-copy": {
+        '.ant-typography-copy': {
           color: token.colorTextSecondary,
-
         },
       },
     },

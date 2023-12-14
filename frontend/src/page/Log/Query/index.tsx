@@ -26,7 +26,7 @@ import {
   message,
   theme,
 } from '@oceanbase/design';
-import { Ranger } from '@oceanbase/ui'
+import { Ranger } from '@oceanbase/ui';
 import { LoadingOutlined } from '@oceanbase/icons';
 import { flatten, find } from 'lodash';
 import type { Moment } from 'moment';
@@ -220,7 +220,6 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {}, cont
       run(null, _queryLogRequestParam);
     });
   };
-
 
   const [inViewport] = useInViewport(containerRef);
 
@@ -478,13 +477,13 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {}, cont
                       >
                         {loading && !loadingMore
                           ? formatMessage({
-                            id: 'ocp-express.page.QueryLog.Querying',
-                            defaultMessage: '查询中',
-                          })
+                              id: 'ocp-express.page.QueryLog.Querying',
+                              defaultMessage: '查询中',
+                            })
                           : formatMessage({
-                            id: 'ocp-express.page.QueryLog.Query',
-                            defaultMessage: '查询',
-                          })}
+                              id: 'ocp-express.page.QueryLog.Query',
+                              defaultMessage: '查询',
+                            })}
                       </Button>
                     </Tooltip>
                   </Space>
@@ -577,9 +576,7 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {}, cont
               key: item.value,
               tab: item.label,
             }))}
-            activeTabKey={
-              hostId?.toString() || (realHostIps && realHostIps[0]?.value?.toString())
-            }
+            activeTabKey={hostId?.toString() || (realHostIps && realHostIps[0]?.value?.toString())}
             onTabChange={key => {
               setHostId(key);
               getLog(key, logType);
@@ -601,7 +598,6 @@ const QueryLog: React.FC<QueryLogProps> = ({ location: { query = {} } = {}, cont
                 }}
               />
             ) : null}
-
             {loading && !loadingMore ? (
               <Spin
                 spinning={loading}

@@ -70,15 +70,15 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       ? '/assets/logo/ocp_express_logo_en_dark.svg'
       : '/assets/logo/ocp_express_logo_en.svg'
     : themeMode === 'dark'
-      ? '/assets/logo/ocp_express_logo_zh_dark.svg'
-      : '/assets/logo/ocp_express_logo_zh.svg';
+    ? '/assets/logo/ocp_express_logo_zh_dark.svg'
+    : '/assets/logo/ocp_express_logo_zh.svg';
   const simpleLogoUrl = isEnglish()
     ? themeMode === 'dark'
       ? '/assets/logo/ocp_express_simple_logo_en_dark.svg'
       : '/assets/logo/ocp_express_simple_logo_en.svg'
     : themeMode === 'dark'
-      ? '/assets/logo/ocp_express_simple_logo_zh_dark.svg'
-      : '/assets/logo/ocp_express_simple_logo_zh.svg';
+    ? '/assets/logo/ocp_express_simple_logo_zh_dark.svg'
+    : '/assets/logo/ocp_express_simple_logo_zh.svg';
 
   useEffect(() => {
     // 获取当前登录用户数据
@@ -157,22 +157,22 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const overThreshold = Math.abs(offsetSeconds) >= 60;
   const message = overThreshold
     ? formatMessage(
-      {
-        id: 'ocp-express.Layout.BasicLayout.TheTimeDifferenceBetweenThe',
-        defaultMessage:
-          '客户端与服务器时间差过大，时间差为 {offsetSeconds} 秒。请矫正客户端或服务器时间，时间差需小于 60 秒',
-      },
+        {
+          id: 'ocp-express.Layout.BasicLayout.TheTimeDifferenceBetweenThe',
+          defaultMessage:
+            '客户端与服务器时间差过大，时间差为 {offsetSeconds} 秒。请矫正客户端或服务器时间，时间差需小于 60 秒',
+        },
 
-      { offsetSeconds }
-    )
+        { offsetSeconds }
+      )
     : formatMessage(
-      {
-        id: 'ocp-express.Layout.BasicLayout.TheTimeBetweenTheClient',
-        defaultMessage: '客户端与服务器时间已同步，时间差为 {offsetSeconds} 秒，OCP 可正常使用',
-      },
+        {
+          id: 'ocp-express.Layout.BasicLayout.TheTimeBetweenTheClient',
+          defaultMessage: '客户端与服务器时间已同步，时间差为 {offsetSeconds} 秒，OCP 可正常使用',
+        },
 
-      { offsetSeconds }
-    );
+        { offsetSeconds }
+      );
 
   const handleUserMenuClick = (key: string) => {
     if (key === 'profile') {
@@ -343,15 +343,15 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
               title={
                 failedTaskList.length > 0
                   ? formatMessage(
-                    {
-                      id: 'ocp-express.Layout.BasicLayout.FailedTaskCount',
-                      defaultMessage: '有 {failedTaskCount} 条失败任务',
-                    },
+                      {
+                        id: 'ocp-express.Layout.BasicLayout.FailedTaskCount',
+                        defaultMessage: '有 {failedTaskCount} 条失败任务',
+                      },
 
-                    { failedTaskCount: failedTaskList.length }
-                  )
+                      { failedTaskCount: failedTaskList.length }
+                    )
                   : runningTaskList.length > 0
-                    ? formatMessage(
+                  ? formatMessage(
                       {
                         id: 'ocp-express.Layout.BasicLayout.RunningTaskCount',
                         defaultMessage: '有 {runningTaskCount} 条正在运行中的任务',
@@ -359,7 +359,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
                       { runningTaskCount: runningTaskList.length }
                     )
-                    : formatMessage({
+                  : formatMessage({
                       id: 'ocp-express.Layout.BasicLayout.TaskCenter',
                       defaultMessage: '任务中心',
                     })
@@ -390,8 +390,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                         ? token.colorError
                         : // 存在执行中的任务，展示蓝色圆点
                         runningTaskList.length > 0
-                          ? token.colorPrimary
-                          : undefined,
+                        ? token.colorPrimary
+                        : undefined,
                   }}
                 >
                   <Space>

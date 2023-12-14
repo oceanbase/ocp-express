@@ -26,13 +26,14 @@ import {
   Alert,
   Button,
   Col,
+  Descriptions,
   Form,
+  message,
   Row,
   Table,
+  theme,
   Tree,
   Typography,
-  Descriptions,
-  message,
 } from '@oceanbase/design';
 import React, { useEffect, useState } from 'react';
 import { flatten, isEqual, unionWith, uniq, uniqBy } from 'lodash';
@@ -66,6 +67,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
   onSuccess,
   ...restProps
 }) => {
+  const { token } = theme.useToken();
   const { styles } = useStyles();
   const rangeList = [
     {
@@ -548,7 +550,6 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
           style={{ marginBottom: 24 }}
         />
       )}
-
       <Descriptions column={3}>
         <Descriptions.Item
           span={2}
@@ -877,7 +878,7 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                             return currentParameter?.length > 1 ? (
                               <Form.Item label={index === 0 && ' '} style={{ marginBottom: 8 }}>
                                 <DeleteOutlined
-                                  style={{ color: 'rgba(0,0,0, .45)' }}
+                                  style={{ color: token.colorTextTertiary }}
                                   onClick={() => {
                                     removeItem(field.name);
                                   }}
@@ -890,7 +891,6 @@ const ModifyClusterParameterDrawer: React.FC<ModifyClusterParameterDrawerProps> 
                     </Row>
                   </div>
                 ))}
-
                 <Row gutter={8}>
                   <Col span={23}>
                     <Form.Item style={{ marginBottom: 8 }}>

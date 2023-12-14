@@ -28,14 +28,14 @@ import DeleteUnitSpecModal from '@/component/DeleteUnitSpecModal';
 
 import useStyles from './index.style';
 
-export interface UnitProps { }
+export interface UnitProps {}
 const Unit: React.FC<UnitProps> = () => {
   const { styles } = useStyles();
   useDocumentTitle(
     formatMessage({
       id: 'ocp-express.Tenant.UnitSpec.UnitSpecificationManagement',
       defaultMessage: 'Unit 规格管理',
-    }),
+    })
   );
   const [visible, setVisible] = useState(false);
   const [currentUnitSpec, setCurrentUnitSpec] = useState<API.UnitSpec | null>(null);
@@ -112,7 +112,7 @@ const Unit: React.FC<UnitProps> = () => {
         <span>{findByValue(UNIT_SPEC_TYPE_LIST, text).label}</span>
       ),
 
-      filters: UNIT_SPEC_TYPE_LIST.map((item) => ({
+      filters: UNIT_SPEC_TYPE_LIST.map(item => ({
         text: item.label,
         value: item.value,
       })),
@@ -200,7 +200,7 @@ const Unit: React.FC<UnitProps> = () => {
             extra={
               <span className={styles.extra}>
                 <Input.Search
-                  onChange={(e) => {
+                  onChange={e => {
                     setInputKeyword(e.target.value);
                   }}
                   onSearch={(value: string) => {

@@ -16,7 +16,7 @@ import { UNIT_MIGRATE_TYPE_LIST } from '@/constant/oceanbase';
 import * as ObUnitController from '@/service/custom/ObUnitController';
 import { isEnglish } from '@/util';
 import { formatMessage } from '@/util/intl';
-import { Button, Divider, Form, Popover, Space, Modal, message } from '@oceanbase/design';
+import { Button, Divider, Form, message, Modal, Popover, Space, theme } from '@oceanbase/design';
 import React, { useEffect } from 'react';
 import { find } from 'lodash';
 import { byte2GB, findBy, findByValue, formatNumber, isNullValue } from '@oceanbase/util';
@@ -41,6 +41,7 @@ const UnitMigrateModal: React.FC<UnitMigrateModalProps> = ({
   onSuccess,
   ...restProps
 }) => {
+  const { token } = theme.useToken();
   const [form] = Form.useForm();
   const { validateFields } = form;
   // 获取可迁移的目标端列表
@@ -342,7 +343,7 @@ const UnitMigrateModal: React.FC<UnitMigrateModalProps> = ({
                                 { currentCpu }
                               )}
                             </span>
-                            <span style={{ color: 'rgba(0,0,0,0.45)' }}>{maxCpu}</span>
+                            <span style={{ color: token.colorTextTertiary }}>{maxCpu}</span>
                           </div>
                           <div>
                             <span>
@@ -355,7 +356,7 @@ const UnitMigrateModal: React.FC<UnitMigrateModalProps> = ({
                                 { currentMemory }
                               )}
                             </span>
-                            <span style={{ color: 'rgba(0,0,0,0.45)' }}>{maxMemory}</span>
+                            <span style={{ color: token.colorTextTertiary }}>{maxMemory}</span>
                           </div>
                           <div>
                             <span>
@@ -368,7 +369,7 @@ const UnitMigrateModal: React.FC<UnitMigrateModalProps> = ({
                                 { currentDisk }
                               )}
                             </span>
-                            <span style={{ color: 'rgba(0,0,0,0.45)' }}>{`-> ${disk}`}</span>
+                            <span style={{ color: token.colorTextTertiary }}>{`-> ${disk}`}</span>
                           </div>
                         </div>
                       </div>

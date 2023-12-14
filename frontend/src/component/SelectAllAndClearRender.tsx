@@ -10,6 +10,8 @@
  * See the Mulan PSL v2 for more details.
  */
 
+import { theme } from '@oceanbase/design';
+
 import { formatMessage } from '@/util/intl';
 import React from 'react';
 
@@ -24,6 +26,7 @@ const SelectAllAndClearRender: React.FC<SelectAllAndClearRenderProps> = ({
   onSelectAll,
   onClearAll,
 }) => {
+  const { token } = theme.useToken();
   return (
     <div>
       {menu}
@@ -32,7 +35,7 @@ const SelectAllAndClearRender: React.FC<SelectAllAndClearRenderProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           padding: '5px 12px',
-          borderTop: '1px solid #f0f0f0',
+          borderTop: `1px solid ${token.colorBorder}`,
         }}
       >
         <a onClick={onSelectAll}>

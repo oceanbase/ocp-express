@@ -11,8 +11,8 @@ const useStyles = createStyles(() => {
     },
     descriptions: {
       zIndex: 1,
-      position: 'relative'
-    }
+      position: 'relative',
+    },
   };
 });
 export default useStyles;

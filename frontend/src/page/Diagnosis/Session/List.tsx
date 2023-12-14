@@ -22,7 +22,7 @@ import {
   Modal,
   message,
 } from '@oceanbase/design';
-import { Highlight } from '@oceanbase/ui'
+import { Highlight } from '@oceanbase/ui';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { CheckOutlined, CopyOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';

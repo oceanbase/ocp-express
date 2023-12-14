@@ -160,10 +160,14 @@ const Monitor: React.FC<MonitorProps> = ({
                 },
               });
             }}
-            tabList={metricGroupList.length > 0 ? metricGroupList.map(item => ({
-              key: item?.key,
-              tab: item?.name,
-            })) : [{}]}
+            tabList={
+              metricGroupList.length > 0
+                ? metricGroupList.map(item => ({
+                    key: item?.key,
+                    tab: item?.name,
+                  }))
+                : [{}]
+            }
           >
             <MetricChart
               metricGroupList={metricClass.metricGroups || []}
@@ -178,7 +182,7 @@ const Monitor: React.FC<MonitorProps> = ({
           </Card>
         </Col>
       </Row>
-    </PageContainer >
+    </PageContainer>
   );
 };
 

@@ -14,15 +14,16 @@ import { formatMessage } from '@/util/intl';
 import { useRequest } from 'ahooks';
 import React, { useState } from 'react';
 import {
-  Form,
-  Radio,
-  Checkbox,
-  Space,
   Button,
-  Tooltip,
-  Row,
+  Checkbox,
   Col,
+  Form,
   message,
+  Radio,
+  Row,
+  Space,
+  theme,
+  Tooltip,
 } from '@oceanbase/design';
 import * as ObUserController from '@/service/ocp-express/ObUserController';
 import { uniq, findIndex } from 'lodash';
@@ -60,6 +61,7 @@ const AddObjectPrivilegeDrawer: React.FC<AddObjectPrivilegeDrawerProps> = ({
   onCancel,
   ...restProps
 }) => {
+  const { token } = theme.useToken();
   const [objectType, setObjectType] = useState('TABLE');
 
   const [form] = Form.useForm();
@@ -102,10 +104,10 @@ const AddObjectPrivilegeDrawer: React.FC<AddObjectPrivilegeDrawerProps> = ({
               { checkedDbObjectsLength: checkedDbObjects.length }
             )}
           </span>
-          <div style={{ color: 'rgba(0,0,0,0.65)' }}>
+          <div style={{ color: token.colorTextSecondary }}>
             <span
               style={{
-                background: '#FFF1F0',
+                background: token.colorErrorBg,
                 border: '1px solid rgba(255,163,158,1)',
                 width: 12,
                 height: 12,

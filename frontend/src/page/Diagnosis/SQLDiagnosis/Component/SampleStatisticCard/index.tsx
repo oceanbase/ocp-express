@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Typography, Row, Col, Divider, Checkbox, Space, token } from '@oceanbase/design';
+import { Checkbox, Col, Divider, Row, Space, theme, token, Typography } from '@oceanbase/design';
 import { groupBy } from 'lodash';
 import { InfoCircleFilled } from '@oceanbase/icons';
 import { isEnglish } from '@/util';
@@ -27,6 +27,7 @@ interface IProps {
 }
 
 const SampleStatisticCard = ({ onChange, picked, attributes, onReset, ...restProps }: IProps) => {
+  const { token } = theme.useToken();
   const { styles } = useStyles();
 
   const handleChange = (keys: string[]) => {
@@ -63,7 +64,7 @@ const SampleStatisticCard = ({ onChange, picked, attributes, onReset, ...restPro
             })}
           </Typography.Title>
           <InfoCircleFilled style={{ color: token.colorPrimary }} />
-          <span style={{ color: 'rgba(0, 0, 0, .45)' }}>
+          <span style={{ color: token.colorTextTertiary }}>
             {formatMessage({
               id: 'ocp-express.SQLDiagnosis.Component.SampleStatisticCard.YouCanSelectAMaximum',
               defaultMessage: '同时可选择 2 种单位的指标，最多可选择 10 个指标',
@@ -88,7 +89,7 @@ const SampleStatisticCard = ({ onChange, picked, attributes, onReset, ...restPro
             return (
               <Col span={isEnglish() ? 8 : 6} style={{ marginBottom: 16 }}>
                 <Checkbox
-                  style={{ color: 'rgba(0, 0, 0, 0.65)' }}
+                  style={{ color: token.colorTextSecondary }}
                   value={attr.name}
                   key={attr.name}
                   disabled={shouldDisable(attr)}

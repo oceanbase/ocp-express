@@ -127,8 +127,8 @@ const Item: React.FC<ItemProps> = ({
     partition_name: partitionName,
   };
   const labels = Object.keys(labelsObj)
-    .filter((key) => !isNullValue(labelsObj[key]))
-    .map((key) => `${key}:${labelsObj[key]}`)
+    .filter(key => !isNullValue(labelsObj[key]))
+    .map(key => `${key}:${labelsObj[key]}`)
     .join(',');
   let groupBy: string | string[] = [];
   const labelKeyList = Object.keys(labelsObj);
@@ -142,7 +142,7 @@ const Item: React.FC<ItemProps> = ({
   const lastScope = groupBy && groupBy[groupBy.length - 1];
   groupBy = groupBy.join(',');
   // 监控图对应的指标名数组
-  const metricKeys = metrics.map((item) => item.key);
+  const metricKeys = metrics.map(item => item.key);
   // 用于接口请求的指标字符串
   const metricsString = [...metricKeys, ...othersMetricKeys].join(',');
 
@@ -206,9 +206,9 @@ const Item: React.FC<ItemProps> = ({
 
   function getChartData(res: API.IterableResponse_SeriesMetricValues_ | undefined) {
     const metricData = flatten(
-      ((res && res.data && res.data.contents) || []).map((item) => {
-        const unit = find(metrics, (metricItem) => metricItem.key === item.metric?.name)?.unit;
-        const newData = (item.data || []).map((dataItem) => {
+      ((res && res.data && res.data.contents) || []).map(item => {
+        const unit = find(metrics, metricItem => metricItem.key === item.metric?.name)?.unit;
+        const newData = (item.data || []).map(dataItem => {
           const { value, ...restDataItem } = dataItem;
           return {
             ...restDataItem,
@@ -232,20 +232,20 @@ const Item: React.FC<ItemProps> = ({
           };
         });
         return newData;
-      }),
+      })
     );
     // 不参与绘图的监控数据，但会用于展示额外信息
-    const otherData = metricData.filter((item) => othersMetricKeys.includes(item.metric));
+    const otherData = metricData.filter(item => othersMetricKeys.includes(item.metric));
     // 参与绘图的监控数据
     const chartData = metricData
-      .filter((item) => metricKeys.includes(item.metric))
-      .map((item) => {
+      .filter(item => metricKeys.includes(item.metric))
+      .map(item => {
         const filterOtherData = otherData.filter(
           // 根据 timestamp 筛选出对应时间点的数据
-          (otherDataItem) => otherDataItem.timestamp === item.timestamp,
+          otherDataItem => otherDataItem.timestamp === item.timestamp
         );
         const mergeObject = {};
-        filterOtherData.forEach((otherDataItem) => {
+        filterOtherData.forEach(otherDataItem => {
           // 根据 seriesField 获取对应指标的值
           if (otherDataItem.seriesField === item.seriesField) {
             mergeObject[otherDataItem.metric] = otherDataItem.value;
@@ -270,16 +270,16 @@ const Item: React.FC<ItemProps> = ({
 
   // 获取监控数据
   const { data, loading } = useRequest(() => resourceTrends(options.params), {
-    ready: every(options.condition, (item) => !isNullValue(item)),
+    ready: every(options.condition, item => !isNullValue(item)),
     refreshDeps: options.deps,
   });
   // 获取 Modal 中的监控数据
   const { data: modalData, loading: modalLoading } = useRequest(
     () => resourceTrends(modalOptions.params),
     {
-      ready: every(modalOptions.condition, (item) => !isNullValue(item)),
+      ready: every(modalOptions.condition, item => !isNullValue(item)),
       refreshDeps: modalOptions.deps,
-    },
+    }
   );
 
   const chartData = getChartData(data);
@@ -328,7 +328,7 @@ const Item: React.FC<ItemProps> = ({
             ? // 指标组只包含一个指标，使用指标组名代替指标名即可
               name
             : // 指标组包含多个指标，通过 metricGroup 查询指标对应的展示名称
-              find(metricGroup.metrics, (item) => item.key === metric)?.name,
+              find(metricGroup.metrics, item => item.key === metric)?.name,
       },
     },
     xAxis: {
@@ -369,7 +369,7 @@ const Item: React.FC<ItemProps> = ({
           <div>
             <div>{description}</div>
             <div>
-              {metrics.map((metric) => (
+              {metrics.map(metric => (
                 <div key={metric.key}>
                   {`${metric.name}: ${metric.description || ''}${
                     metric.unit ? ` (${metric.unit})` : ''
@@ -392,10 +392,10 @@ const Item: React.FC<ItemProps> = ({
           {showFilter && (
             <FilterDropdown
               value={filterKeys}
-              onChange={(value) => {
+              onChange={value => {
                 setFilterKeys(value);
               }}
-              filters={uniq(chartData.map((item) => item.seriesField)).map((item) => ({
+              filters={uniq(chartData.map(item => item.seriesField)).map(item => ({
                 value: item,
                 label: item,
               }))}
@@ -416,12 +416,12 @@ const Item: React.FC<ItemProps> = ({
               isNullValue(tenantId)
                 ? // 集群资源视图: 折线图数据
                   chartData.filter(
-                    (item) => filterKeys.length === 0 || filterKeys.includes(item.seriesField),
+                    item => filterKeys.length === 0 || filterKeys.includes(item.seriesField)
                   )
                 : // 租户资源视图: 双轴图数据
                   [
-                    chartData.filter((item) => !isNullValue(item.value)),
-                    chartData.filter((item) => !isNullValue(item.percentValue)),
+                    chartData.filter(item => !isNullValue(item.value)),
+                    chartData.filter(item => !isNullValue(item.percentValue)),
                   ]
             }
             {...getChartConfig(chartData)}
@@ -443,10 +443,10 @@ const Item: React.FC<ItemProps> = ({
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <FilterDropdown
                 value={modalFilterKeys}
-                onChange={(value) => {
+                onChange={value => {
                   setModalFilterKeys(value);
                 }}
-                filters={uniq(modalChartData.map((item) => item.seriesField)).map((item) => ({
+                filters={uniq(modalChartData.map(item => item.seriesField)).map(item => ({
                   value: item,
                   label: item,
                 }))}
@@ -461,13 +461,13 @@ const Item: React.FC<ItemProps> = ({
                 isNullValue(tenantId)
                   ? // 集群资源视图: 折线图数据
                     modalChartData.filter(
-                      (item) =>
-                        modalFilterKeys.length === 0 || modalFilterKeys.includes(item.seriesField),
+                      item =>
+                        modalFilterKeys.length === 0 || modalFilterKeys.includes(item.seriesField)
                     )
                   : // 租户资源视图: 双轴图数据
                     [
-                      modalChartData.filter((item) => !isNullValue(item.value)),
-                      modalChartData.filter((item) => !isNullValue(item.percentValue)),
+                      modalChartData.filter(item => !isNullValue(item.value)),
+                      modalChartData.filter(item => !isNullValue(item.percentValue)),
                     ]
               }
               {...getChartConfig(modalChartData)}

@@ -47,7 +47,7 @@ G6.registerNode(
           width,
           height,
           radius: 4,
-          fill: '#fff',
+          fill: token.colorBgContainer,
           lineWidth: 3,
           /* 同样的 shadow 参数在 Canvas 和 SVG 渲染下效果不同，因此需要分别设置 */
           // Canvas 渲染
@@ -71,7 +71,7 @@ G6.registerNode(
           width: 72,
           height: 72,
           img: `/assets/${cfg.nodeType}/${toLower(
-            (cfg.status === 'DISCONNECTING' ? 'running' : cfg.status) || 'stopped',
+            (cfg.status === 'DISCONNECTING' ? 'running' : cfg.status) || 'stopped'
           )}.svg`,
         },
       });
@@ -96,7 +96,7 @@ G6.registerNode(
           text: ellipsisName,
           x: 0,
           y: -8,
-          fill: 'rgba(0, 0, 0, 0.85)',
+          fill: token.colorText,
           fontSize: 14,
           fontFamily: 'SFProText-Medium',
           textAlign: 'left',
@@ -231,7 +231,7 @@ G6.registerNode(
             ],
 
             lineJoin: 'round',
-            stroke: '#ffffff',
+            stroke: token.colorBgContainer,
             cursor: 'pointer',
           },
         });
@@ -246,7 +246,7 @@ G6.registerNode(
             ],
 
             lineJoin: 'round',
-            stroke: collapsed ? '#ffffff' : null,
+            stroke: collapsed ? token.colorBgContainer : null,
             cursor: 'pointer',
           },
         });
@@ -255,7 +255,7 @@ G6.registerNode(
     },
   },
 
-  'single-node',
+  'single-node'
 );
 
 G6.registerEdge(
@@ -280,17 +280,17 @@ G6.registerEdge(
             path:
               childrenLength > 1
                 ? // 多集群 (主备集群) 只需要将 root 节点凸出的连线覆盖掉即可
-                [
-                  ['M', startPoint.x, startPoint.y],
-                  ['L', startPoint.x, (startPoint.y + endPoint.y) / 2],
-                ]
+                  [
+                    ['M', startPoint.x, startPoint.y],
+                    ['L', startPoint.x, (startPoint.y + endPoint.y) / 2],
+                  ]
                 : // 单集群需要将 root 节点的连线全部覆盖掉
-                [
-                  ['M', startPoint.x, startPoint.y],
-                  ['L', startPoint.x, (startPoint.y + endPoint.y) / 2],
-                  ['L', endPoint.x, (startPoint.y + endPoint.y) / 2],
-                  ['L', endPoint.x, endPoint.y],
-                ],
+                  [
+                    ['M', startPoint.x, startPoint.y],
+                    ['L', startPoint.x, (startPoint.y + endPoint.y) / 2],
+                    ['L', endPoint.x, (startPoint.y + endPoint.y) / 2],
+                    ['L', endPoint.x, endPoint.y],
+                  ],
           },
         });
       }
@@ -324,7 +324,7 @@ G6.registerEdge(
       let stroke = '#c5cbd4';
       if (sourceNodeModel.nodeType === 'root' && childrenLength === 1) {
         // 单集群拓扑图，虽然 root 节点多余的连线最终会被覆盖掉，但在布局动画的过程中，多余的连线仍然会展示，因此需要设置其连线颜色为背景色，以模拟去掉多余连线的效果
-        stroke = '#f0f2f5';
+        stroke = token.colorBgLayout;
       }
       const style = {
         ...G6.Global.defaultEdge.style,
@@ -340,7 +340,7 @@ G6.registerEdge(
     },
   },
 
-  'polyline',
+  'polyline'
 );
 
 export interface TopoGraphProps {
@@ -439,7 +439,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
               defaultMessage: '确定要启动 OB 集群 {currentNodeName} 吗？',
             },
 
-            { currentNodeName: currentNode.clusterName },
+            { currentNodeName: currentNode.clusterName }
           ),
 
           okText: formatMessage({ id: 'ocp-express.Topo.TopoGraph.Start', defaultMessage: '启动' }),
@@ -468,7 +468,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
               defaultMessage: '确定要停止 OB 集群 {currentNodeName} 吗？',
             },
 
-            { currentNodeName: currentNode.clusterName },
+            { currentNodeName: currentNode.clusterName }
           ),
 
           content: formatMessage({
@@ -517,7 +517,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
                   formatMessage({
                     id: 'ocp-express.Topo.TopoGraph.AutomaticDeadlockDetectionEnabled',
                     defaultMessage: '死锁自动检测已开启',
-                  }),
+                  })
                 );
               },
             });
@@ -548,19 +548,20 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
                   formatMessage({
                     id: 'ocp-express.Detail.Overview.AutomaticDeadlockDetectionDisabled',
                     defaultMessage: '死锁自动检测已关闭',
-                  }),
+                  })
                 );
               },
             });
           },
         });
       } else if (key === 'downloadLog') {
-        const hostIds = flatten((clusterData.zones || []).map((item) => item.servers || [])).map(
-          (item) => item.hostId,
+        const hostIds = flatten((clusterData.zones || []).map(item => item.servers || [])).map(
+          item => item.hostId
         );
         directTo(
-          `/log/query?hostIds=${hostIds.toString()}&defaultOCPType=CLUSTER&id=${currentNode?.obClusterId
-          }`,
+          `/log/query?hostIds=${hostIds.toString()}&defaultOCPType=CLUSTER&id=${
+            currentNode?.obClusterId
+          }`
         );
       }
     } else if (currentNode && currentNode.nodeType === 'zone') {
@@ -594,9 +595,9 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
       // 根节点
       nodeType: 'root',
       children: clusterList
-        .filter((cluster) => cluster)
-        .map((cluster) => {
-          const serverCount = flatten(cluster?.zones?.map((zone) => zone.servers || [])).length;
+        .filter(cluster => cluster)
+        .map(cluster => {
+          const serverCount = flatten(cluster?.zones?.map(zone => zone.servers || [])).length;
           return {
             ...cluster,
             id: cluster?.obClusterId,
@@ -614,7 +615,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
               // OBServer 节点数 > 9 时，仅默认展开第一个 zone 节点
               // OBServer 节点数 <= 9 时，默认展开所有的 zone 节点
               collapsed: serverCount > 9 ? zoneIndex !== 0 : false,
-              children: (zone.servers || []).map((server) => ({
+              children: (zone.servers || []).map(server => ({
                 ...server,
                 // G6 绘图要求: 节点 id 不能相同，为了避免与集群节点 id 重复，需要加上 server 前缀
                 id: `server_${server.id}`,
@@ -689,21 +690,23 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
                 const portInfo =
                   model.nodeType === 'server'
                     ? formatMessage(
-                      {
-                        id: 'ocp-express.Topo.TopoGraph.LtLiGtPortModelPort',
-                        defaultMessage: '端口：{modelPort}',
-                      },
+                        {
+                          id: 'ocp-express.Topo.TopoGraph.LtLiGtPortModelPort',
+                          defaultMessage: '端口：{modelPort}',
+                        },
 
-                      { modelPort: model.port },
-                    )
+                        { modelPort: model.port }
+                      )
                     : '';
                 return `
                 <ul>
                   <li>QPS: ${(model.performanceStats && model.performanceStats.qps) || 0}</li>
-                  <li>${sessionCountLabel}: ${(model.performanceStats && model.performanceStats.active_session) || 0
-                  }</li>
-                    <li>Unit: ${(model.performanceStats && model.performanceStats.unit_num) || 0
-                  }</li>
+                  <li>${sessionCountLabel}: ${
+                  (model.performanceStats && model.performanceStats.active_session) || 0
+                }</li>
+                    <li>Unit: ${
+                      (model.performanceStats && model.performanceStats.unit_num) || 0
+                    }</li>
                     ${portInfo ? `<li>${portInfo}</li>` : ''}
                 </ul>`;
               },
@@ -741,7 +744,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
         nodeStateStyles: {
           'collapseStatus:collapsed': {
             'collapse-circle-verticle-line': {
-              stroke: '#ffffff',
+              stroke: token.colorBgContainer,
             },
           },
 
@@ -782,7 +785,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
       graph.fitView();
 
       // 监听 moreGroup 的 click 事件
-      canvas.on('moreGroup:click', (e) => {
+      canvas.on('moreGroup:click', e => {
         // 阻止事件冒泡，否则会触发节点的 click 事件，下拉菜单就无法弹出了
         e.stopPropagation();
         const node = e.currentTarget && e.currentTarget.getParent();
@@ -796,7 +799,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
         this.setState(
           {
             currentNode: model,
-          },
+          }
 
           // () => {
           //   if (!this.menu) {
@@ -830,7 +833,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
       //   this.menu.style.left = '-1500px';
       // });
 
-      canvas.on('collapseGroup:click', (e) => {
+      canvas.on('collapseGroup:click', e => {
         const node = e.currentTarget && e.currentTarget.getParent();
         const item = node && node.get('item');
         const model = (item && item.getModel()) || {};
@@ -1076,7 +1079,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
         // 只读集群支持 停止，重启/启动
         const zoneStatusOperations =
           findByValue(ZONE_STATUS_LIST, currentNode.status).operations || [];
-        menus = zoneStatusOperations.map((item) => ({
+        menus = zoneStatusOperations.map(item => ({
           ...item,
           disabled: item.value !== 'restart' && item.value !== 'stop' && item.value !== 'start',
         }));
@@ -1084,7 +1087,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
         const serverStatusOperations =
           findByValue(OB_SERVER_STATUS_LIST, currentNode.status).operations || [];
         // 只读集群 支持 停止进程，停止服务，重启，下载日志
-        menus = serverStatusOperations.map((item) => ({
+        menus = serverStatusOperations.map(item => ({
           ...item,
           disabled:
             item.value !== 'restart' &&
@@ -1171,7 +1174,7 @@ class TopoGraph extends React.PureComponent<TopoGraphProps> {
         </Dropdown> */}
         <div
           id="container"
-          ref={(node) => {
+          ref={node => {
             this.main = node;
           }}
           // 撑满父容器的高度，使得拓扑图占据全部剩余空间

@@ -1,6 +1,6 @@
 import { createStyles } from 'antd-style';
 
-const useStyles = createStyles((token) => {
+const useStyles = createStyles(token => {
   return {
     container: {
       '.ant-card-extra': { width: '100%' },

@@ -13,7 +13,7 @@
 import React, { useState, useEffect } from 'react';
 import { formatMessage } from '@/util/intl';
 import { useDispatch, useSelector } from 'umi';
-import { Tooltip } from '@oceanbase/design';
+import { theme, Tooltip } from '@oceanbase/design';
 import type { SelectProps } from '@oceanbase/design/es/select';
 import { getUnitSpecLimitText } from '@/util/tenant';
 import MySelect from '@/component/MySelect';
@@ -31,6 +31,7 @@ export interface UnitSpecSelectProps extends SelectProps<any> {
 }
 
 const UnitSpecSelect: React.FC<UnitSpecSelectProps> = ({ name, type, obVersion, ...restProps }) => {
+  const { token } = theme.useToken();
   const { styles } = useStyles();
   const dispatch = useDispatch();
   const { unitSpecList } = useSelector((state: DefaultRootState) => state.tenant);
@@ -118,7 +119,7 @@ const UnitSpecSelect: React.FC<UnitSpecSelectProps> = ({ name, type, obVersion, 
                     <span
                       style={{
                         fontSize: 12,
-                        color: 'rgba(0, 0, 0, 0.45)',
+                        color: token.colorTextTertiary,
                         opacity: 1,
                         float: 'right',
                       }}

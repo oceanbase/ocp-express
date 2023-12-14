@@ -15,7 +15,7 @@ import ContentWithReload from '@/component/ContentWithReload';
 import * as ObPlanController from '@/service/ocp-express/ObPlanController';
 import { formatTime } from '@/util/datetime';
 import { formatMessage } from '@/util/intl';
-import { Col, Descriptions, Divider, Drawer, Row, Table, Space } from '@oceanbase/design';
+import { Col, Descriptions, Divider, Drawer, Row, Space, Table, theme } from '@oceanbase/design';
 import React, { useEffect, useState } from 'react';
 import { DownOutlined, EyeOutlined, UpOutlined } from '@oceanbase/icons';
 import { useRequest } from 'ahooks';
@@ -32,6 +32,7 @@ interface ServerDrawerProps {
 }
 
 export const ServerDrawer: React.FC<ServerDrawerProps> = props => {
+  const { token } = theme.useToken();
   const { styles } = useStyles();
   const { record, visible, tenantId, onClose, startTime, endTime } = props;
   const [propertyVis, setPropertyVis] = useState(false);
@@ -320,7 +321,7 @@ export const ServerDrawer: React.FC<ServerDrawerProps> = props => {
           <div
             style={{
               height: '100%',
-              backgroundColor: '#F8FAFE',
+              backgroundColor: token.colorFillQuaternary,
               padding: '0 8px',
               borderRadius: '8px',
               wordWrap: 'break-word',

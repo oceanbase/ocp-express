@@ -84,13 +84,13 @@ const TenantAdminPasswordModal: React.FC<TenantAdminPasswordModalProps> = ({
           message.success(
             type === 'ADD'
               ? formatMessage({
-                id: 'ocp-express.src.component.TenantAdminPasswordModal.PasswordAddedSuccessfully',
-                defaultMessage: '密码新增成功',
-              })
+                  id: 'ocp-express.src.component.TenantAdminPasswordModal.PasswordAddedSuccessfully',
+                  defaultMessage: '密码新增成功',
+                })
               : formatMessage({
-                id: 'ocp-express.src.component.TenantAdminPasswordModal.PasswordModifiedSuccessfully',
-                defaultMessage: '密码修改成功',
-              })
+                  id: 'ocp-express.src.component.TenantAdminPasswordModal.PasswordModifiedSuccessfully',
+                  defaultMessage: '密码修改成功',
+                })
           );
           if (onSuccess) {
             onSuccess();
@@ -118,13 +118,13 @@ const TenantAdminPasswordModal: React.FC<TenantAdminPasswordModalProps> = ({
       title={
         type === 'ADD'
           ? formatMessage({
-            id: 'ocp-express.src.component.TenantAdminPasswordModal.EnterTheTenantAdministratorPassword',
-            defaultMessage: '录入租户管理员密码',
-          })
+              id: 'ocp-express.src.component.TenantAdminPasswordModal.EnterTheTenantAdministratorPassword',
+              defaultMessage: '录入租户管理员密码',
+            })
           : formatMessage({
-            id: 'ocp-express.src.component.TenantAdminPasswordModal.UpdateTenantAdministratorPassword',
-            defaultMessage: '更新租户管理员密码',
-          })
+              id: 'ocp-express.src.component.TenantAdminPasswordModal.UpdateTenantAdministratorPassword',
+              defaultMessage: '更新租户管理员密码',
+            })
       }
       destroyOnClose={true}
       {...restProps}

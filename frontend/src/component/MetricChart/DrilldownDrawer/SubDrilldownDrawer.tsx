@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React, { useState, useEffect } from 'react';
-import { Alert, Card, Col, Empty, Menu, Row } from '@oceanbase/design';
+import { Alert, Card, Col, Empty, Menu, Row, theme } from '@oceanbase/design';
 import { flatten } from 'lodash';
 import moment from 'moment';
 import { useRequest } from 'ahooks';
@@ -72,6 +72,7 @@ const SubDrilldownDrawer: React.FC<SubDrilldownDrawerProps> = ({
   tenantList,
   ...restProps
 }) => {
+  const { token } = theme.useToken();
   // 默认的 MonitorSearch 查询参数
   const defaultSearchValues = {
     isRealtime: defaultIsRealtime,
@@ -109,17 +110,17 @@ const SubDrilldownDrawer: React.FC<SubDrilldownDrawerProps> = ({
   // 下钻维度的展示文本
   const dilldownScopeLabel = isTenant
     ? formatMessage({
-      id: 'ocp-express.MetricChart.DrilldownDrawer.SubDrilldownDrawer.Tenant',
-      defaultMessage: '租户',
-    })
+        id: 'ocp-express.MetricChart.DrilldownDrawer.SubDrilldownDrawer.Tenant',
+        defaultMessage: '租户',
+      })
     : 'OBServer';
   // 聚合维度的展示文本
   const scopeLabel = isTenant
     ? 'OBServer'
     : formatMessage({
-      id: 'ocp-express.MetricChart.DrilldownDrawer.SubDrilldownDrawer.Tenant',
-      defaultMessage: '租户',
-    });
+        id: 'ocp-express.MetricChart.DrilldownDrawer.SubDrilldownDrawer.Tenant',
+        defaultMessage: '租户',
+      });
   const selectedTarget = `${isTenant ? selectedTenantName : selectedServerIp}`;
 
   // 是否存在多个细分指标
@@ -238,7 +239,7 @@ const SubDrilldownDrawer: React.FC<SubDrilldownDrawerProps> = ({
       destroyOnClose={true}
       footer={false}
       bodyStyle={{
-        backgroundColor: '#f0f2f5',
+        backgroundColor: token.colorBgLayout,
         height: '100%',
       }}
       {...restProps}
@@ -266,7 +267,7 @@ const SubDrilldownDrawer: React.FC<SubDrilldownDrawerProps> = ({
                     fontSize: 16,
                     fontFamily: 'PingFangSC-Medium',
                     padding: '20px 24px',
-                    borderRight: '1px solid #f0f0f0',
+                    borderRight: `1px solid ${token.colorBorder}`,
                   }}
                 >
                   {dilldownScopeLabel}
@@ -277,32 +278,32 @@ const SubDrilldownDrawer: React.FC<SubDrilldownDrawerProps> = ({
                   style={{
                     // 菜单高度需要撑满整个卡片，以保证左侧菜单导航与右侧图表等高
                     height: 'calc(100% - 65px)',
-                    color: 'rgba(0, 0, 0, 0.65)',
+                    color: token.colorTextSecondary,
                   }}
                 >
                   {isTenant
                     ? realTenantList?.map(item => (
-                      <Menu.Item
-                        key={item.name}
-                        onClick={() => {
-                          setSelectedTenantName(item.name);
-                        }}
-                        style={{ padding: '0 24px' }}
-                      >
-                        {item.name}
-                      </Menu.Item>
-                    ))
+                        <Menu.Item
+                          key={item.name}
+                          onClick={() => {
+                            setSelectedTenantName(item.name);
+                          }}
+                          style={{ padding: '0 24px' }}
+                        >
+                          {item.name}
+                        </Menu.Item>
+                      ))
                     : realServerList?.map(item => (
-                      <Menu.Item
-                        key={item.ip}
-                        onClick={() => {
-                          setSelectedServerIp(item.ip);
-                        }}
-                        style={{ padding: '0 24px' }}
-                      >
-                        {item.ip}
-                      </Menu.Item>
-                    ))}
+                        <Menu.Item
+                          key={item.ip}
+                          onClick={() => {
+                            setSelectedServerIp(item.ip);
+                          }}
+                          style={{ padding: '0 24px' }}
+                        >
+                          {item.ip}
+                        </Menu.Item>
+                      ))}
                 </Menu>
               </Col>
               <Col span={18}>
@@ -323,7 +324,7 @@ const SubDrilldownDrawer: React.FC<SubDrilldownDrawerProps> = ({
                         scopeLabel: scopeLabel,
                       }
                     )}
-                    style={{ color: 'rgba(0, 0, 0, 0.65)', margin: '24px 24px 1px 24px' }}
+                    style={{ color: token.colorTextSecondary, margin: '24px 24px 1px 24px' }}
                   />
                   <Card bordered={false}>
                     <Card.Grid

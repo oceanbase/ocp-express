@@ -19,9 +19,10 @@ import {
   Drawer,
   Row,
   Space,
+  Table,
+  theme,
   Tooltip,
   Typography,
-  Table,
 } from '@oceanbase/design';
 import React, { useEffect, useMemo, useState } from 'react';
 import { max } from 'lodash';
@@ -47,6 +48,7 @@ interface TopSQLPlanProps {
 }
 
 const PlanDrawer: React.FC<TopSQLPlanProps> = props => {
+  const { token } = theme.useToken();
   const { styles } = useStyles();
   const { PlanStatGroup, visible, tenantId, onClose, startTime, endTime, rangeKey } = props;
   const [propertyVis, setPropertyVis] = useState(false);
@@ -463,7 +465,7 @@ const PlanDrawer: React.FC<TopSQLPlanProps> = props => {
           <div
             style={{
               height: '100%',
-              backgroundColor: '#F8FAFE',
+              backgroundColor: token.colorFillQuaternary,
               padding: '0 8px',
               borderRadius: '8px',
               wordWrap: 'break-word',

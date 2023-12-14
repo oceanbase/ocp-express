@@ -13,7 +13,7 @@
 import React, { useState, useRef } from 'react';
 import { formatMessage } from '@/util/intl';
 import { history, connect } from 'umi';
-import { Button, Card, Checkbox, Tooltip, Space } from '@oceanbase/design';
+import { Button, Card, Checkbox, Space, theme, Tooltip } from '@oceanbase/design';
 import { SyncOutlined } from '@oceanbase/icons';
 import { PageContainer } from '@oceanbase/ui';
 import { useRequest } from 'ahooks';
@@ -36,6 +36,7 @@ export interface IndexProps {
 }
 
 const Index: React.FC<IndexProps> = ({ location, tenantData }: IndexProps) => {
+  const { token } = theme.useToken();
   useDocumentTitle(
     formatMessage({
       id: 'ocp-express.Diagnosis.Session.SessionManagement',
@@ -45,7 +46,7 @@ const Index: React.FC<IndexProps> = ({ location, tenantData }: IndexProps) => {
   const [activeOnly, setActiveOnly] = useState(false);
   const [loading, setLoading] = useState(false);
   const listRef = useRef({
-    refreshListTenantSessions: () => { },
+    refreshListTenantSessions: () => {},
   });
 
   const { tab = 'list', tenantId: propTenantId } = location?.query || {};
@@ -67,7 +68,14 @@ const Index: React.FC<IndexProps> = ({ location, tenantData }: IndexProps) => {
           defaultMessage: '会话诊断',
         }),
         subTitle: (
-          <Space style={{ fontWeight: 500, fontSize: 16, marginLeft: 12, color: '#364563' }}>
+          <Space
+            style={{
+              fontWeight: 500,
+              fontSize: 16,
+              marginLeft: 12,
+              color: token.colorTextSecondary,
+            }}
+          >
             <span>
               {formatMessage({
                 id: 'ocp-express.Diagnosis.Session.Tenant',
@@ -76,13 +84,12 @@ const Index: React.FC<IndexProps> = ({ location, tenantData }: IndexProps) => {
             </span>
             {!listTenantsLoading && (
               <MyDropdown
-                menuList={tenants
-                  .map(item => {
-                    return {
-                      value: item.obTenantId,
-                      label: item.name,
-                    };
-                  })}
+                menuList={tenants.map(item => {
+                  return {
+                    value: item.obTenantId,
+                    label: item.name,
+                  };
+                })}
                 isSolidIcon={true}
                 defaultMenuKey={tenantId}
                 onChange={(v: string) => {

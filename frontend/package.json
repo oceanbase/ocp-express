@@ -38,6 +38,7 @@
     "@antv/g-svg": "^0.5.7",
     "@antv/g6": "3.4.10",
     "@oceanbase/charts": "^0.2.10",
+    "@oceanbase/codemod": "^0.2.12",
     "@oceanbase/design": "^0.2.17",
     "@oceanbase/icons": "^0.2.6",
     "@oceanbase/ui": "^0.2.18",

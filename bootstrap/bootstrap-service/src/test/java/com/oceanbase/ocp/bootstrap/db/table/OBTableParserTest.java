@@ -537,6 +537,45 @@ public class OBTableParserTest {
             "subpartition p20230514sp28,\n" +
             "subpartition p20230514sp29));";
 
+    String sql7 = "CREATE TABLE `metric_data_daily` (\n"
+            + "  `series_id` bigint(20) NOT NULL COMMENT '指标序列ID',\n"
+            + "  `timestamp` bigint(20) NOT NULL COMMENT '时间戳，单位(秒)',\n"
+            + "  `value` double NOT NULL COMMENT '值',\n"
+            + "  PRIMARY KEY (`series_id`, `timestamp`)\n"
+            + ") DEFAULT CHARSET = utf8mb4 ROW_FORMAT = DYNAMIC COMPRESSION = 'zstd_1.3.8' REPLICA_NUM = 1 BLOCK_SIZE = 16384 USE_BLOOM_FILTER = FALSE TABLET_SIZE = 134217728 PCTFREE = 0 COMMENT = '监控天级别指标数据'\n"
+            + " partition by range columns(`timestamp`) subpartition by hash(series_id)\n"
+            + "(partition `DUMMY` values less than (0) (\n"
+            + "subpartition `DUMMYsp0`,\n"
+            + "subpartition `DUMMYsp1`,\n"
+            + "subpartition `DUMMYsp2`,\n"
+            + "subpartition `DUMMYsp3`,\n"
+            + "subpartition `DUMMYsp4`,\n"
+            + "subpartition `DUMMYsp5`,\n"
+            + "subpartition `DUMMYsp6`,\n"
+            + "subpartition `DUMMYsp7`,\n"
+            + "subpartition `DUMMYsp8`,\n"
+            + "subpartition `DUMMYsp9`,\n"
+            + "subpartition `DUMMYsp10`,\n"
+            + "subpartition `DUMMYsp11`,\n"
+            + "subpartition `DUMMYsp12`,\n"
+            + "subpartition `DUMMYsp13`,\n"
+            + "subpartition `DUMMYsp14`,\n"
+            + "subpartition `DUMMYsp15`,\n"
+            + "subpartition `DUMMYsp16`,\n"
+            + "subpartition `DUMMYsp17`,\n"
+            + "subpartition `DUMMYsp18`,\n"
+            + "subpartition `DUMMYsp19`,\n"
+            + "subpartition `DUMMYsp20`,\n"
+            + "subpartition `DUMMYsp21`,\n"
+            + "subpartition `DUMMYsp22`,\n"
+            + "subpartition `DUMMYsp23`,\n"
+            + "subpartition `DUMMYsp24`,\n"
+            + "subpartition `DUMMYsp25`,\n"
+            + "subpartition `DUMMYsp26`,\n"
+            + "subpartition `DUMMYsp27`,\n"
+            + "subpartition `DUMMYsp28`,\n"
+            + "subpartition `DUMMYsp29`))";
+
     @Test
     public void parseCreateTable0() {
         OBTableParser obTableParser = new OBTableParser();
@@ -600,6 +639,16 @@ public class OBTableParserTest {
         OBTableParser obTableParser = new OBTableParser();
         TableDefinition tableDefinition = obTableParser.parseCreateTable(sql6);
         System.out.println(tableDefinition);
+    }
+
+    @Test
+    public void parseCreateTable7() {
+        OBTableParser obTableParser = new OBTableParser();
+        TableDefinition tableDefinition = obTableParser.parseCreateTable(sql7);
+        System.out.println(tableDefinition);
+        assertEquals("RANGE", tableDefinition.getPartition().getType());
+        assertEquals("HASH", tableDefinition.getPartition().getSubPartition().getType());
+        assertEquals(Integer.valueOf(30), tableDefinition.getPartition().getSubPartition().getHashPartitionCount());
     }
 
 }

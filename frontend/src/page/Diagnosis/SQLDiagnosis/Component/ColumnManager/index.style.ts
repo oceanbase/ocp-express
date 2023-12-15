@@ -4,7 +4,7 @@ const useStyles = createStyles(({ token }) => {
   return {
     tableExtra: {
       float: "right",
-      color: "#8592ad",
+      color: token.colorTextTertiary,
       lineHeight: "28px",
       cursor: "pointer",
       "&:hover": { color: token.colorPrimary, transition: "color 0.5s" },
@@ -35,6 +35,7 @@ const useStyles = createStyles(({ token }) => {
       flexFlow: "row wrap",
       width: "100%",
     },
+
     listFooter: {
       position: "absolute",
       right: "0",

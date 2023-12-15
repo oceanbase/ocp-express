@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Typography, Row, Col, Divider, Checkbox, Space, Popover, token } from '@oceanbase/design';
+import { Typography, Row, Col, Divider, Checkbox, Space, Popover, theme } from '@oceanbase/design';
 import type { PopoverProps } from '@oceanbase/design/es/popover';
 import type { CheckboxOptionType } from '@oceanbase/design/es/checkbox';
 import { groupBy, some, uniq } from 'lodash';
@@ -53,6 +53,7 @@ const CheckboxPopover = ({
   ...restProps
 }: CheckboxPopoverProps) => {
   const { styles } = useStyles();
+  const { token } = theme.useToken();
 
   // 分组列表
   const groupList = uniq(options?.map(item => item.group));
@@ -142,8 +143,8 @@ const CheckboxPopover = ({
                                 tooltip={
                                   item.description
                                     ? {
-                                        title: item.description,
-                                      }
+                                      title: item.description,
+                                    }
                                     : false
                                 }
                               />

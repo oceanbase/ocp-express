@@ -17,7 +17,7 @@
 
     <groupId>com.oceanbase</groupId>
     <artifactId>ocp-express</artifactId>
-    <version>4.2.1-20231116</version>
+    <version>4.2.1-20231212</version>
 
     <name>OCP Express</name>
     <organization>

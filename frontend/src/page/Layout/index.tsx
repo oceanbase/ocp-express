@@ -47,6 +47,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <ConfigProvider
       navigate={history.push}
       locale={localeMap[locale] || zh_CN}
+      form={{
+        requiredMark: true,
+      }}
       theme={{
         isDark: themeMode === 'dark',
         algorithm: themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,

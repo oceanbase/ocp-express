@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Dropdown, Menu, Tooltip, Typography, token } from '@oceanbase/design';
+import { Dropdown, Menu, Tooltip, Typography, theme } from '@oceanbase/design';
 import { find, isEqual, toLower, toNumber } from 'lodash';
 import { sortByNumber, findByValue, isNullValue } from '@oceanbase/util';
 import type { Graph } from '@antv/g6';
@@ -25,6 +25,7 @@ import GraphToolbar from '@/component/GraphToolbar';
 import styles from './TaskGraph.less';
 
 const { Text } = Typography;
+const { token } = theme.useToken();
 
 G6.registerNode(
   'subtaskNode',
@@ -181,9 +182,8 @@ G6.registerEdge(
         path,
         // 自定义结束箭头，箭头的边长为 10，夹角为 60 度
         endArrow: {
-          path: `M${10 * Math.cos(Math.PI / 6)},${10 * Math.sin(Math.PI / 6)} L0,0 L${
-            10 * Math.cos(Math.PI / 6)
-          },-${10 * Math.sin(Math.PI / 6)}`,
+          path: `M${10 * Math.cos(Math.PI / 6)},${10 * Math.sin(Math.PI / 6)} L0,0 L${10 * Math.cos(Math.PI / 6)
+            },-${10 * Math.sin(Math.PI / 6)}`,
           fill: statusItem.color,
         },
 

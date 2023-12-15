@@ -23,11 +23,11 @@ import {
   Typography,
   Modal,
   message,
+  theme
 } from '@oceanbase/design';
 import type { Route } from '@oceanbase/design/es/breadcrumb/Breadcrumb';
 import { find, isFunction, toNumber } from 'lodash';
 import { PageContainer } from '@oceanbase/ui';
-import { token } from '@oceanbase/design';
 import { isNullValue, findByValue } from '@oceanbase/util';
 import Icon from '@oceanbase/icons';
 import { useRequest, useInterval, useLockFn } from 'ahooks';
@@ -87,6 +87,8 @@ const Detail: React.FC<DetailProps> = ({
   },
 }) => {
   const { styles } = useStyles();
+  const { token } = theme.useToken();
+
   const [mode, setMode] = useState<'log' | 'flow'>('log');
   const [subtaskId, setSubtaskId] = useState<number | string | undefined>(undefined);
   const logRef = useRef<TaskGraphRef>(null);

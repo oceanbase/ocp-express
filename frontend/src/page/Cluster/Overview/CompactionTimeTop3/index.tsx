@@ -13,7 +13,7 @@
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
 import React from 'react';
-import { Empty, Col, Row, token } from '@oceanbase/design';
+import { Empty, Col, Row, theme as designTheme } from '@oceanbase/design';
 import { TinyArea, useTheme } from '@oceanbase/charts';
 import { orderBy, maxBy } from 'lodash';
 import { useRequest } from 'ahooks';
@@ -24,11 +24,13 @@ import ContentWithQuestion from '@/component/ContentWithQuestion';
 import useStyles from './index.style';
 import { formatDuration } from '@/util';
 
-export interface CompactionTimeTop3Props {}
+export interface CompactionTimeTop3Props { }
 
 const CompactionTimeTop3: React.FC<CompactionTimeTop3Props> = () => {
   const { styles } = useStyles();
   const theme = useTheme();
+  const { token } = designTheme.useToken();
+
 
   // 获取合并时间 Top3 的租户合并数据
   const { data: topCompactionListData, loading } = useRequest(
@@ -201,13 +203,11 @@ const CompactionTimeTop3: React.FC<CompactionTimeTop3Props> = () => {
                             const data = items?.[0]?.data || {};
                             const currentDurationData = formatDuration(data.y);
                             // return `<div style="padding: 4px">${currentDurationData.value} ${currentDurationData.unitLabel}</div>`;
-                            return `<div style="padding: 4px"><div></div>合并开始时间：${
-                              topCompactionList[0]?.compactionList?.[0]?.startTime
-                                ? formatTime(topCompactionList[0]?.compactionList[0]?.startTime)
-                                : '-'
-                            }<div>合并耗时：${currentDurationData.value} ${
-                              currentDurationData.unitLabel
-                            }</div></div>`;
+                            return `<div style="padding: 4px"><div></div>合并开始时间：${topCompactionList[0]?.compactionList?.[0]?.startTime
+                              ? formatTime(topCompactionList[0]?.compactionList[0]?.startTime)
+                              : '-'
+                              }<div>合并耗时：${currentDurationData.value} ${currentDurationData.unitLabel
+                              }</div></div>`;
                           },
                         }}
                         color={color}

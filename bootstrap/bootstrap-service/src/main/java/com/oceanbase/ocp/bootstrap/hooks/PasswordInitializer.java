@@ -14,7 +14,6 @@ package com.oceanbase.ocp.bootstrap.hooks;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
@@ -28,6 +27,7 @@ import com.oceanbase.ocp.bootstrap.core.def.Row;
 import com.oceanbase.ocp.bootstrap.db.DataSourceName;
 import com.oceanbase.ocp.bootstrap.spi.AfterDataInitializationHook;
 import com.oceanbase.ocp.bootstrap.util.SQLUtils;
+import com.oceanbase.ocp.common.util.PasswordChecker;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,27 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 public class PasswordInitializer implements AfterDataInitializationHook {
 
     private static final String OCP_INITIAL_PASSWORD_ENV = "OCP_EXPRESS_ADMIN_PASSWD";
-
-    /**
-     * Password length 8-32. At least contains 2 digits, 2 lower letters, 2 upper
-     * letters, two special characters.
-     *
-     * <ul>
-     * <li>(?=(.*\\d){2,}) : at least two digits</li>
-     * <li>(?=(.*[a-z]){2,}) : at least two lower case letters</li>
-     * <li>(?=(.*[A-Z]){2,}) : at least two upper case letters</li>
-     * <li>(?=(.*[~!@#%^&*_\\-+=|(){}\\[\\]:;,.?/]){2,}) : at least two special
-     * characters</li>
-     * </ul>
-     */
-    private static final String PASSWORD_PATTERN_EXPRESSION = "(" +
-            "(?=(.*\\d){2,})" +
-            "(?=(.*[a-z]){2,})" +
-            "(?=(.*[A-Z]){2,})" +
-            "(?=(.*[~!@#%^&*_\\-+=|(){}\\[\\]:;,.?/]){2,})" +
-            "[0-9a-zA-Z~!@#%^&*_\\-+=|(){}\\[\\]:;,.?/]{8,32})";
-
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_PATTERN_EXPRESSION);
 
     @Override
     public void initialized(Action action, String dataSourceName) {
@@ -88,15 +67,15 @@ public class PasswordInitializer implements AfterDataInitializationHook {
     }
 
     private void validateAndSetPassword(String rawPasswd) {
-        Validate.isTrue(PASSWORD_PATTERN.matcher(rawPasswd).matches(),
+        Validate.isTrue(PasswordChecker.checkOcpPassword(rawPasswd),
                 "Password from environment variables or VM properties is not valid.");
         String encryptedPassword = Functions.bcryptHash(rawPasswd);
 
         log.info("Set initial password based on environment variables");
         DataSource dataSource = getDataSource();
         try {
-            String sql = "UPDATE `user` SET `password` = ?, `need_change_password` = false WHERE `id` = ? " +
-                    "AND `need_change_password` = true;";
+            String sql = "UPDATE `user` SET `password` = ?, `need_change_password` = false, " +
+                    "update_time=now() WHERE `id` = ? AND `need_change_password` = true;";
             int execute = SQLUtils.execute(dataSource, sql, encryptedPassword, 100L);
             log.info("Update admin passwd, result={}", execute);
         } catch (SQLException e) {

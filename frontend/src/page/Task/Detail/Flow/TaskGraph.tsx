@@ -12,7 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import React from 'react';
-import { Dropdown, Menu, Tooltip, Typography, theme } from '@oceanbase/design';
+import { Dropdown, Menu, Tooltip, Typography, token } from '@oceanbase/design';
 import { find, isEqual, toLower, toNumber } from 'lodash';
 import { sortByNumber, findByValue, isNullValue } from '@oceanbase/util';
 import type { Graph } from '@antv/g6';
@@ -25,7 +25,6 @@ import GraphToolbar from '@/component/GraphToolbar';
 import styles from './TaskGraph.less';
 
 const { Text } = Typography;
-const { token } = theme.useToken();
 
 G6.registerNode(
   'subtaskNode',

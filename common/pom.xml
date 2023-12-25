@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.oceanbase</groupId>
         <artifactId>ocp-express</artifactId>
-        <version>4.2.1-20231212</version>
+        <version>4.2.1-20231225</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

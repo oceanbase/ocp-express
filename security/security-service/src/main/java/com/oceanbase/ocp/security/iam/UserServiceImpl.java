@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.oceanbase.ocp.common.util.PasswordChecker;
 import com.oceanbase.ocp.core.exception.NotFoundException;
 import com.oceanbase.ocp.core.i18n.ErrorCodes;
 import com.oceanbase.ocp.core.security.model.AuthenticatedUser;
@@ -26,7 +27,6 @@ import com.oceanbase.ocp.core.security.util.CustomBCryptPasswordEncoder;
 import com.oceanbase.ocp.core.util.ExceptionUtils;
 import com.oceanbase.ocp.security.iam.dao.UserRepository;
 import com.oceanbase.ocp.security.iam.entity.UserEntity;
-import com.oceanbase.ocp.security.util.RegExChecker;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validatePassword(String password) {
-        ExceptionUtils.illegalArgs(RegExChecker.checkPassword(password), ErrorCodes.IAM_PASSWORD_NOT_VALID);
+        ExceptionUtils.illegalArgs(PasswordChecker.checkOcpPassword(password), ErrorCodes.IAM_PASSWORD_NOT_VALID);
     }
 
     private UserEntity nullSafeGet(long id) throws NotFoundException {

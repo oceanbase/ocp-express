@@ -31,6 +31,7 @@ import com.oceanbase.ocp.core.ob.tenant.ObTenantEntity;
 import com.oceanbase.ocp.core.ob.tenant.TenantDaoManager;
 import com.oceanbase.ocp.core.ob.tenant.TenantMode;
 import com.oceanbase.ocp.core.obsdk.ObAccessorFactory;
+import com.oceanbase.ocp.core.property.SystemInfo;
 import com.oceanbase.ocp.core.util.ExceptionUtils;
 import com.oceanbase.ocp.obops.cluster.ClusterCharsetService;
 import com.oceanbase.ocp.obops.database.DatabaseService;
@@ -69,6 +70,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     @Resource
     private ClusterCharsetService clusterCharsetService;
+
+    @Resource
+    private SystemInfo systemInfo;
 
     @Override
     public List<Database> listDatabases(Long obTenantId) {
@@ -114,7 +118,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     public Database modifyDatabase(Long obTenantId, String dbName, ModifyDatabaseParam param) {
         ObTenantEntity tenantEntity = tenantDaoManager.nullSafeGetObTenant(obTenantId);
         checkDatabaseManagementSupported(tenantEntity);
-        checkDatabaseOperationAllowed(dbName);
+        checkDatabaseOperationAllowed(tenantEntity.getName(), dbName);
 
         param.validate();
 
@@ -138,7 +142,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     public void deleteDatabase(Long obTenantId, String dbName) {
         ObTenantEntity tenantEntity = tenantDaoManager.nullSafeGetObTenant(obTenantId);
         checkDatabaseManagementSupported(tenantEntity);
-        checkDatabaseOperationAllowed(dbName);
+        checkDatabaseOperationAllowed(tenantEntity.getName(), dbName);
 
         ObAccessor obAccessor = obAccessorFactory.createObAccessor(obTenantId);
         ExceptionUtils.illegalArgs(isDbExist(obAccessor, dbName), ErrorCodes.OB_DATABASE_NAME_NOT_FOUND, dbName);
@@ -150,8 +154,12 @@ public class DatabaseServiceImpl implements DatabaseService {
                 ErrorCodes.OB_DATABASE_ORACLE_MODE_NOT_SUPPORTED);
     }
 
-    private void checkDatabaseOperationAllowed(String dbName) {
+    private void checkDatabaseOperationAllowed(String tenantName, String dbName) {
         ExceptionUtils.illegalArgs(!RESTRICTED_DATABASE_LIST.contains(dbName),
+                ErrorCodes.OB_DATABASE_OPERATION_NOT_ALLOW, dbName);
+        // meta tenant's meta database can be modified.
+        ExceptionUtils.illegalArgs(
+                !(tenantName.equals(systemInfo.getMetaTenantName()) && dbName.equals(systemInfo.getMetaDatabaseName())),
                 ErrorCodes.OB_DATABASE_OPERATION_NOT_ALLOW, dbName);
     }
 

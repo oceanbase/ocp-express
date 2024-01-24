@@ -44,21 +44,35 @@ public class SystemInfo {
     @Getter
     private String metaTenantName;
 
+    @Getter
+    private String metaUsername;
+
+    @Getter
+    private String metaDatabaseName;
+
     @PostConstruct
     public void init() {
+        String tenantName = StringUtils.EMPTY;
+        String metaUsername = StringUtils.EMPTY;
+        String dataBaseName = StringUtils.EMPTY;
         try {
             String username = dataSource.getConnection().getMetaData().getUserName();
-            log.info("DataSource username is {}.", username);
+            log.info("DataSource username={}, dataBaseName={}", username, dataBaseName);
             // FORMATTER: username@tenantName[#obClusterName][:obClusterId]
             String[] split = username.split("@");
             if (split.length == 2) {
-                this.metaTenantName = split[1].split("#")[0];
-                return;
+                tenantName = split[1].split("#")[0];
+                metaUsername = split[0];
             }
+            dataBaseName = dataSource.getConnection().getCatalog();
         } catch (SQLException ignore) {
             log.info("Get datasource username failed.");
         }
-        this.metaTenantName = StringUtils.EMPTY;
+        this.metaTenantName = tenantName;
+        this.metaUsername = metaUsername;
+        this.metaDatabaseName = dataBaseName;
+        log.info("SystemInfo: tenantName={}, metaUsername={}, metaDatabaseName={}",
+                this.metaTenantName, this.metaUsername, this.metaDatabaseName);
     }
 
     @JsonProperty("monitorInfo")

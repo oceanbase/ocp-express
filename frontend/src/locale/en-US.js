@@ -1514,7 +1514,7 @@ export default {
   "ocp-express.Detail.TakeOver.JumpToViewHelp": "Jump to check for help?",
   "ocp-express.Compaction.Detail.InitiateAMerge": "Initiate Major Compaction",
   "ocp-express.Detail.SQLDiagnosis.SuspiciousSQL.TheTimeWhenTheSql": "Time When SQL Was Last Executed in Specified Period",
-  "ocp-express.src.component.Password.ItMustContainAtLeast": "It must contain at least two characters of each of the following types: uppercase letters, lower letters, digits, and special characters.",
+  "ocp-express.src.component.Password.ItMustContainAtLeast": "Contains at least three or more of the following four types of characters: numbers (0~9), uppercase letters (A~Z), lowercase letters (a~z), special symbols~!@#%^&*_-+=| (){}[]:;,.?/",
   "ocp-express.src.constant.backup.InitiateRecovery": "Initiate Recovery",
   "ocp-express.src.constant.oceanbase.Destination": "Destination",
   "ocp-express.SQLDiagnosis.Component.SQLDetailTabs.Operation": "Actions",

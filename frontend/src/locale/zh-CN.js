@@ -3143,7 +3143,7 @@ export default {
   "ocp-express.Inspection.Rule.CreateInspectionRule": "新建巡检规则",
   "ocp-express.src.constant.multiCluster.Failed": "失败",
   "ocp-express.Alarm.Rule.AddAlarmMetricModal.MetricAdded": "指标添加成功",
-  "ocp-express.src.component.Password.ItMustContainAtLeast": "大小写字母、数字和特殊字符都至少包含 2 个",
+  "ocp-express.src.component.Password.ItMustContainAtLeast": "包含以下四种类型字符至少三种及以上：数字（0~9）、大写字母（A~Z）、小写字母(a~z)、特殊符号  ~!@#%^&*_-+=|(){}[]:;,.?/",
   "ocp-express.Monitor.TopSQL.TopSQLModal.StartAndEndTimeCannot": "起止时间不能为空",
   "ocp-express.Detail.Overview.Restart": "重启",
   "ocp-express.Alarm.Event.Detail.RecoveryTime": "恢复时间",

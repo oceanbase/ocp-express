@@ -12,8 +12,7 @@
 
 import { formatMessage } from '@/util/intl';
 import { history } from 'umi';
-// import { EllipsisOutlined } from '@oceanbase/icons';
-import React from 'react';
+import React, { useRef } from 'react';
 import { PageContainer } from '@oceanbase/ui';
 import { Button, Col, Row } from '@oceanbase/design';
 import { useRequest } from 'ahooks';
@@ -39,6 +38,7 @@ const Tenant: React.FC<TenantProps> = ({
 }: TenantProps) => {
   const { styles } = useStyles();
   const statusList = status?.split(',') || [];
+  const pathCheckRef = useRef(null);
 
   useDocumentTitle(
     formatMessage({
@@ -51,20 +51,11 @@ const Tenant: React.FC<TenantProps> = ({
   const {
     data: tenantListData,
     loading: tenantListLoading,
-    refresh: listTenantsRefresh,
+    // refresh: listTenantsRefresh,
   } = useRequest(ObTenantController.listTenants, {
     defaultParams: [{}],
   });
   const tenantList = tenantListData?.data?.contents || [];
-
-  // const handleMenuClick = (key: string) => {
-  //   if (key === 'parameterTemplate') {
-  //     history.push('/tenant/parameterTemplate');
-  //   }
-  //   if (key === 'unitSpec') {
-  //     history.push('/tenant/unitSpec');
-  //   }
-  // };
 
   return !tenantListLoading && tenantList.length === 0 ? (
     <Empty
@@ -74,28 +65,6 @@ const Tenant: React.FC<TenantProps> = ({
         defaultMessage: '暂无任何数据记录，立即新建一个租户吧！',
       })}
     >
-      {/* <Button
-        style={{ marginRight: 12 }}
-        onClick={() => {
-          history.push('/tenant/unitSpec');
-        }}
-      >
-        {formatMessage({
-          id: 'ocp-express.page.Tenant.UnitSpecificationManagement',
-          defaultMessage: 'Unit 规格管理',
-        })}
-      </Button> */}
-      {/* <Button
-        style={{ marginRight: 12 }}
-        onClick={() => {
-          history.push('/tenant/parameterTemplate');
-        }}
-      >
-        {formatMessage({
-          id: 'ocp-express.page.Tenant.TenantParameterTemplateManagement',
-          defaultMessage: '租户参数模板管理',
-        })}
-      </Button> */}
       <Button
         data-aspm-click="c318544.d343271"
         data-aspm-desc="暂无租户-新建租户"
@@ -123,8 +92,7 @@ const Tenant: React.FC<TenantProps> = ({
             })}
             onClick={() => {
               // 刷新租户列表 (集群数据)
-              listTenantsRefresh();
-              // 无需刷新租户监控 Top5，TenantMonitorTop5 重新卸载、挂载后会自动发送请求
+              pathCheckRef?.current?.refresh()
             }}
           />
         ),
@@ -146,39 +114,13 @@ const Tenant: React.FC<TenantProps> = ({
                 defaultMessage: '新建租户',
               })}
             </Button>
-            {/* 二期 */}
-            {/* <Dropdown
-              overlay={
-                <Menu
-                  onClick={({ key }) => {
-                    handleMenuClick(key);
-                  }}
-                >
-                  <Menu.Item key="parameterTemplate">
-                    <a>
-                      {formatMessage({
-                        id: 'ocp-express.page.Tenant.TenantParameterTemplateManagement',
-                        defaultMessage: '租户参数模板管理',
-                      })}
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item key="unitSpec">
-                    <a>Unit 规格管理</a>
-                  </Menu.Item>
-                </Menu>
-              }
-            >
-              <Button>
-                <EllipsisOutlined />
-              </Button>
-            </Dropdown> */}
           </>
         ),
       }}
     >
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <TenantList statusList={statusList as API.TenantStatus[]} />
+          <TenantList ref={pathCheckRef} statusList={statusList as API.TenantStatus[]} />
         </Col>
       </Row>
     </PageContainer>

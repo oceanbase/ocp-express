@@ -23,7 +23,7 @@ import {
   Button,
   Modal,
 } from '@oceanbase/design';
-import React, { useState } from 'react';
+import React, { useState, useImperativeHandle } from 'react';
 import { directTo, findByValue } from '@oceanbase/util';
 import { DATE_FORMAT_DISPLAY } from '@/constant/datetime';
 import { TENANT_MODE_LIST, TENANT_STATUS_LIST } from '@/constant/tenant';
@@ -36,11 +36,19 @@ import RenderConnectionString from '@/component/RenderConnectionString';
 
 import useStyles from './index.style';
 
+export interface TenantListRef {
+  refresh: () => Promise<any>;
+}
+
 export interface TenantListProps {
   statusList: API.TenantStatus[];
 }
+const TenantList: React.FC<TenantListProps> = React.forwardRef<
+  TenantListRef,
+  TenantListProps
+>(({ statusList: initialStatusList }, ref) => {
 
-const TenantList: React.FC<TenantListProps> = ({ statusList: initialStatusList }) => {
+  // const TenantList: React.FC<TenantListProps> = ({ statusList: initialStatusList }) => {
   const { styles } = useStyles();
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState('');
@@ -62,6 +70,13 @@ const TenantList: React.FC<TenantListProps> = ({ statusList: initialStatusList }
   const onSuccess = () => {
     refresh();
   };
+
+  // 向组件外部暴露 checkPathAndPort 属性函数，可通过 ref 引用
+  useImperativeHandle(ref, () => ({
+    refresh: () => {
+      return refresh();
+    },
+  }));
 
   // 删除租户
   const { runAsync: deleteTenant } = useRequest(ObTenantController.deleteTenant, {
@@ -456,6 +471,6 @@ const TenantList: React.FC<TenantListProps> = ({ statusList: initialStatusList }
       </div>
     </Card>
   );
-};
+});
 
 export default TenantList;

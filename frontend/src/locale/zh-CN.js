@@ -3105,6 +3105,7 @@ export default {
   "ocp-express.Component.SQLDetail.SQLTunning.DiagnosisTitle": "诊断问题：{title}",
   "ocp-express.src.constant.compute.OcpAgentLog": "OCP Agent 日志",
   "ocp-express.Detail.Overview.TheSysTenantCannotBe": "sys 租户无法删除",
+  "ocp-express.Detail.Overview.TheSysTenantCannotBeMeta": "该租户无法删除",
   "ocp-express.src.constant.oceanbase.MovingIn": "迁入中",
   "ocp-express.OBProxy.New.DeploymentObproxy": "部署 OBProxy",
   "ocp-express.Inspection.Rule.InspectionRuleType": "巡检规则类型",

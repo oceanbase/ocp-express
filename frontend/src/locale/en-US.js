@@ -3545,6 +3545,7 @@ export default {
   "ocp-express.Cluster.Import.SelectCredentials.1": "Select a credential",
   "ocp-express.Compaction.DetailV4.IfThePeakMemoryUsageExceedsTheThreshold": 'If the peak memory usage exceeds the threshold, a dump will be triggered. You need to determine whether the parameter setting of "Dump water level percentage" is reasonable or expand the tenant memory.',
   "ocp-express.Detail.Overview.TheSysTenantCannotBe": "The system tenant cannot be deleted.",
+  "ocp-express.Detail.Overview.TheSysTenantCannotBeMeta": "This tenant cannot be deleted.",
   "ocp-express.Detail.Transaction.RefreshFrequency": "Refresh Frequency",
   "ocp-express.src.hook.useMenu.DiagnosticAnalysis": "Diagnosis",
   "ocp-express.Alarm.LogFilter.Keyword": "Keyword",

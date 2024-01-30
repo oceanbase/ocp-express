@@ -484,7 +484,7 @@ const Detail: React.FC<NewProps> = ({
                 data-aspm-desc="租户详情-删除租户"
                 data-aspm-param={``}
                 data-aspm-expo
-                disabled={tenantData.name === 'sys' || tenantData.name === 'meta'}
+                disabled={tenantData.name === 'sys' || tenantData.name === systemInfo?.metaTenantName}
                 onClick={() => {
                   setShowDeleteTenantModal(true);
                 }}

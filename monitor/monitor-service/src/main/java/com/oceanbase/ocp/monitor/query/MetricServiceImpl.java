@@ -125,9 +125,12 @@ public class MetricServiceImpl implements MetricService {
                 TopMetricValue topMetricValue = new TopMetricValue();
                 OcpPrometheusMeasurement measurement = queryResult.getMeasurement();
                 topMetricValue.putAll(measurement.getLabels());
-                OcpPrometheusData data = queryResult.getData().stream().sorted(
-                        Comparator.comparing(OcpPrometheusData::getTimestamp).reversed()).collect(Collectors.toList())
-                        .get(0);
+                List<OcpPrometheusData> dataList = queryResult.getData().stream().sorted(
+                        Comparator.comparing(OcpPrometheusData::getTimestamp).reversed()).collect(Collectors.toList());
+                if (CollectionUtils.isEmpty(dataList)) {
+                    continue;
+                }
+                OcpPrometheusData data = dataList.get(0);
                 topMetricValue.setMetric(metric);
                 topMetricValue.setData(data.getValue() > 0 ? data.getValue() : 0);
                 groupMetricResult.add(topMetricValue);

@@ -57,14 +57,37 @@ public class InitProperties {
 
         private List<ServerAddressInfo> serverAddresses;
 
+        private List<ObCredential> obCredentials;
+
         @Override
         public String toString() {
             return "ClusterProperties{" +
                     "name='" + name + '\'' +
                     ", obClusterId=" + obClusterId +
-                    ", rootSysPassword='******'" +
-                    ", rootServerAddresses=" + serverAddresses +
+                    ", rootSysPassword=******" +
+                    ", rootOCPPassword=******" +
+                    ", serverAddresses=" + serverAddresses +
                     '}';
+        }
+
+        @Getter
+        @Setter
+        public static class ObCredential {
+
+            private String tenantName;
+
+            private String username;
+
+            private String password;
+
+            @Override
+            public String toString() {
+                return "ObCredential{" +
+                        "tenantName='" + tenantName + '\'' +
+                        ", username='" + username + '\'' +
+                        ", password=******" +
+                        '}';
+            }
         }
 
         @Getter

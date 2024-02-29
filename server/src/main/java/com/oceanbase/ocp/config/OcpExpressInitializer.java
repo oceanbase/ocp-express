@@ -23,11 +23,14 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.oceanbase.ocp.common.util.json.JsonUtils;
 import com.oceanbase.ocp.core.credential.operator.AgentCredentialOperator;
+import com.oceanbase.ocp.core.credential.operator.ObCredentialOperator;
 import com.oceanbase.ocp.core.executor.AgentExecutorFactory;
 import com.oceanbase.ocp.core.property.InitProperties;
+import com.oceanbase.ocp.core.property.InitProperties.ClusterProperties.ObCredential;
 import com.oceanbase.ocp.core.util.ExceptionUtils;
 import com.oceanbase.ocp.monitor.helper.ExporterRequestHelper;
 import com.oceanbase.ocp.obops.cluster.ClusterInitService;
@@ -51,6 +54,9 @@ public class OcpExpressInitializer {
 
     @Autowired
     private AgentCredentialOperator agentCredentialOperator;
+
+    @Autowired
+    private ObCredentialOperator obCredentialOperator;
 
     @Autowired
     private ExporterRequestHelper exporterRequestHelper;
@@ -89,7 +95,7 @@ public class OcpExpressInitializer {
             propertiesStr = System.getProperty(OCP_INITIAL_PROPERTIES_ENV);
         }
         if (StringUtils.isEmpty(propertiesStr)) {
-            return;
+            throw new RuntimeException("Env or properties not specified, please check env or properties.");
         }
         try {
             InitProperties p = JsonUtils.fromJson(propertiesStr, InitProperties.class);
@@ -100,7 +106,7 @@ public class OcpExpressInitializer {
         } catch (Exception e) {
             log.error("Load init properties from env or VM failed. Please check env or VM properties values.", e);
         }
-        throw new RuntimeException("Init by spring config files failed, please check config file format");
+        throw new RuntimeException("Init by env or properties failed, please check env or properties format");
     }
 
     private boolean isPropertyLegal(InitProperties initProperties) {
@@ -129,7 +135,7 @@ public class OcpExpressInitializer {
         ExceptionUtils.initIllegalArgs(c.getObClusterId() != null && c.getObClusterId() > 0, "obClusterId");
 
         Predicate<List<InitProperties.ClusterProperties.ServerAddressInfo>> aPredicate = lst -> lst != null
-                && lst.size() > 0
+                && !lst.isEmpty()
                 && lst.stream()
                         .noneMatch(s -> s.getAddress() == null || s.getSvrPort() == null || s.getSqlPort() == null);
 
@@ -150,6 +156,21 @@ public class OcpExpressInitializer {
                         .collect(Collectors.toList()))
                 .build();
         clusterInitService.initCluster(param);
+        saveObCredentials(c.getName(), c.getObCredentials());
+    }
+
+    private void saveObCredentials(String clusterName, List<ObCredential> credentials) {
+        if (CollectionUtils.isEmpty(credentials)) {
+            return;
+        }
+        for (ObCredential c : credentials) {
+            if (StringUtils.isNotEmpty(c.getTenantName())
+                    && StringUtils.isNotEmpty(c.getUsername())) {
+                log.info("Save ob credential, clusterName={}, tenantName={}, username={}",
+                        clusterName, c.getTenantName(), c.getUsername());
+                obCredentialOperator.saveObCredential(clusterName, c.getTenantName(), c.getUsername(), c.getPassword());
+            }
+        }
     }
 
     private void initAgents(InitProperties initProperties) {

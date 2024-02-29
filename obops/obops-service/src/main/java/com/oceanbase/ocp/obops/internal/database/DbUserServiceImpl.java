@@ -35,6 +35,7 @@ import com.oceanbase.ocp.core.ob.tenant.ObTenantEntity;
 import com.oceanbase.ocp.core.ob.tenant.TenantDaoManager;
 import com.oceanbase.ocp.core.ob.tenant.TenantMode;
 import com.oceanbase.ocp.core.obsdk.ObAccessorFactory;
+import com.oceanbase.ocp.core.property.SystemInfo;
 import com.oceanbase.ocp.core.util.ExceptionUtils;
 import com.oceanbase.ocp.obops.database.DbUserService;
 import com.oceanbase.ocp.obops.database.model.DbUser;
@@ -82,6 +83,9 @@ public class DbUserServiceImpl implements DbUserService {
 
     @Resource
     private TenantService tenantService;
+
+    @Resource
+    private SystemInfo systemInfo;
 
     @Override
     public List<DbUser> listUsers(Long obTenantId) {
@@ -451,6 +455,7 @@ public class DbUserServiceImpl implements DbUserService {
         if (OcpConstants.TENANT_SYS.equals(tenantEntity.getName())) {
             return !EXCLUDE_LIST.contains(username);
         }
-        return true;
+        return !(tenantEntity.getName().equals(systemInfo.getMetaTenantName())
+                && username.equals(systemInfo.getMetaUsername()));
     }
 }

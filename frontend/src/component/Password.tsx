@@ -16,7 +16,7 @@ import { Password } from '@oceanbase/ui';
 import type { PasswordProps } from '@oceanbase/ui/es/Password';
 
 const OCPPassword: React.FC<PasswordProps> = props => {
-  // 特殊字符支持 ~!@#%^&*_\-+=`|(){}[]:;',.?/
+  // 特殊字符支持 ~!@#%^&*_-+=|(){}[]:;,.?/
   const ocpPasswordRules = [
     {
       validate: (val?: string) => val?.length >= 8 && val?.length <= 32,
@@ -27,22 +27,35 @@ const OCPPassword: React.FC<PasswordProps> = props => {
     },
 
     {
-      validate: (val?: string) => /^[0-9a-zA-Z~!@#%^&*_\-+=|(){}\[\]:;,.?/]+$/.test(val),
-      message: formatMessage({
-        id: 'ocp-express.src.component.Password.ItCanOnlyContainLetters',
-        defaultMessage: '只能包含字母、数字和特殊字符（~!@#%^&*_-+=|(){}[]:;,.?/）',
-      }),
-    },
-
-    {
-      validate: (val?: string) =>
-        /^(?=(.*[a-z]){2,})(?=(.*[A-Z]){2,})(?=(.*\d){2,})(?=(.*[~!@#%^&*_\-+=|(){}\[\]:;,.?/]){2,})[A-Za-z\d~!@#%^&*_\-+=|(){}\[\]:;,.?/]{2,}$/.test(
-          val
-        ),
-
+      validate: (val?: string) => {
+        // 只能包含数字，大小写字母，特殊字符
+        if (/^[0-9A-Za-z~!@#%^&*\-_+=|(){}[\]:;,.?/]+$/.test(val)) {
+          let count = 0;
+          // 至少包含一个数字
+          if (/.*[0-9]{1,}.*/.test(val)) {
+            count = count + 1;
+          }
+          // 至少包含一个大写字母
+          if (/.*[A-Z]{1,}.*/.test(val)) {
+            count = count + 1;
+          }
+          // 至少包含一个小写字母
+          if (/.*[a-z]{1,}.*/.test(val)) {
+            count = count + 1;
+          }
+          // 至少包含一个 ~!@#%^&*\-_+=|(){}[\]:;,.?/
+          if (/[~!@#%^&*\-_+=|(){}[\]:;,.?/]/.test(val)) {
+            count = count + 1;
+          }
+          return count >= 3 ? true : false;
+        } else {
+          return true;
+        }
+      },
       message: formatMessage({
         id: 'ocp-express.src.component.Password.ItMustContainAtLeast',
-        defaultMessage: '大小写字母、数字和特殊字符都至少包含 2 个',
+        defaultMessage:
+          '包含以下四种类型字符至少三种及以上：数字（0~9）、大写字母（A~Z）、小写字母(a~z)、特殊符号  ~!@#%^&*_-+=|(){}[]:;,.?/',
       }),
     },
   ];

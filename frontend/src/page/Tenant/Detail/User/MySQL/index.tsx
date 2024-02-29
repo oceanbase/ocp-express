@@ -44,6 +44,7 @@ export interface IndexProps {
 
 const Index: React.FC<IndexProps> = ({ tenantId }) => {
   const { tenantData } = useSelector((state: DefaultRootState) => state.tenant);
+  const { systemInfo } = useSelector((state: DefaultRootState) => state.global);
 
   const [keyword, setKeyword] = useState('');
   const [connectionStringModalVisible, setConnectionStringModalVisible] = useState(false);
@@ -256,7 +257,7 @@ const Index: React.FC<IndexProps> = ({ tenantId }) => {
       title: formatMessage({ id: 'ocp-express.User.MySQL.Locking', defaultMessage: '锁定' }),
       dataIndex: 'isLocked',
       render: (text: boolean, record: API.DbUser) =>
-        record.username === 'root' || record.username === 'proxyro' ? (
+        record.username === 'root' || record.username === 'proxyro' || record?.username === systemInfo?.metaUsername ? (
           <Switch size="small" checked={text} disabled={true} />
         ) : (
           <Switch
@@ -277,6 +278,9 @@ const Index: React.FC<IndexProps> = ({ tenantId }) => {
       }),
       dataIndex: 'operation',
       render: (text: string, record: API.DbUser) => {
+        if (record?.username === systemInfo?.metaUsername) {
+          return
+        }
         return (
           <Space size="middle">
             <a

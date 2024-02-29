@@ -11,7 +11,7 @@
  */
 
 import { formatMessage } from '@/util/intl';
-import { history } from 'umi';
+import { history, useSelector } from 'umi';
 import {
   Button,
   Col,
@@ -78,6 +78,8 @@ const Detail: React.FC<NewProps> = ({
     params: { tenantId },
   },
 }) => {
+  const { systemInfo } = useSelector((state: DefaultRootState) => state.global);
+
   const [form] = Form.useForm();
   const { setFieldsValue, validateFields } = form;
 
@@ -404,7 +406,7 @@ const Detail: React.FC<NewProps> = ({
       (resourcePool.unitConfig?.maxCpuCoreCount ===
         currentModifyTenantZone?.resourcePool?.unitConfig?.maxCpuCoreCount &&
         resourcePool.unitConfig?.maxMemorySize ===
-          currentModifyTenantZone?.resourcePool?.unitConfig?.maxMemorySize)
+        currentModifyTenantZone?.resourcePool?.unitConfig?.maxMemorySize)
     ) {
       return message.info(
         formatMessage({
@@ -467,11 +469,14 @@ const Detail: React.FC<NewProps> = ({
             <Tooltip
               placement="topRight"
               title={
-                tenantData.name === 'sys' &&
-                formatMessage({
-                  id: 'ocp-express.Detail.Overview.TheSysTenantCannotBe',
-                  defaultMessage: 'sys 租户无法删除',
-                })
+                (tenantData.name === 'sys' &&
+                  formatMessage({
+                    id: 'ocp-express.Detail.Overview.TheSysTenantCannotBe',
+                    defaultMessage: 'sys 租户无法删除',
+                  }) || tenantData?.name === systemInfo?.metaTenantName && formatMessage({
+                    id: 'ocp-express.Detail.Overview.TheSysTenantCannotBeMeta',
+                    defaultMessage: '该租户无法删除',
+                  }))
               }
             >
               <Button
@@ -479,7 +484,7 @@ const Detail: React.FC<NewProps> = ({
                 data-aspm-desc="租户详情-删除租户"
                 data-aspm-param={``}
                 data-aspm-expo
-                disabled={tenantData.name === 'sys'}
+                disabled={tenantData.name === 'sys' || tenantData.name === systemInfo?.metaTenantName}
                 onClick={() => {
                   setShowDeleteTenantModal(true);
                 }}
@@ -619,13 +624,13 @@ const Detail: React.FC<NewProps> = ({
                   >
                     {tenantData?.locked
                       ? formatMessage({
-                          id: 'ocp-express.Detail.Overview.Locked',
-                          defaultMessage: '已锁定',
-                        })
+                        id: 'ocp-express.Detail.Overview.Locked',
+                        defaultMessage: '已锁定',
+                      })
                       : formatMessage({
-                          id: 'ocp-express.Detail.Overview.Unlocked',
-                          defaultMessage: '未锁定',
-                        })}
+                        id: 'ocp-express.Detail.Overview.Unlocked',
+                        defaultMessage: '未锁定',
+                      })}
                   </Text>
                 </Descriptions.Item>
                 <Descriptions.Item

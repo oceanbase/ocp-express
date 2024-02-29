@@ -11,7 +11,7 @@
  */
 
 import { formatMessage } from '@/util/intl';
-import { history, connect } from 'umi';
+import { history, connect, useSelector } from 'umi';
 import React, { useState } from 'react';
 import {
   Table,
@@ -60,6 +60,8 @@ const Database: React.FC<DatabaseProps> = ({
   },
   tenantData,
 }) => {
+  const { systemInfo } = useSelector((state: DefaultRootState) => state.global);
+
   const [connectionStringModalVisible, setConnectionStringModalVisible] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [currentDatabase, setCurrentDatabase] = useState<API.Database | null>(null);
@@ -191,7 +193,7 @@ const Database: React.FC<DatabaseProps> = ({
       }),
       dataIndex: 'operation',
       render: (text: string, record: API.Database) => {
-        if ([...FORBID_OPERATION_DBLIST, 'information_schema'].includes(record.dbName)) {
+        if ([...FORBID_OPERATION_DBLIST, 'information_schema'].includes(record.dbName) || record?.dbName === systemInfo?.metaDatabaseName) {
           return '';
         }
         return (
